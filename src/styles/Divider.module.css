@@ -1,0 +1,5 @@
+.divider {
+  border-bottom: 1px solid var(--color-grey);
+  font-weight: 700;
+  margin: 24px 12px;
+}

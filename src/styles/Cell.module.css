@@ -1,0 +1,29 @@
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid var(--color-grey);
+  border-top: 1px solid var(--color-grey);
+}
+
+.label,
+.value {
+  padding: 4px 0;
+  text-align: center;
+}
+
+.label {
+  color: var(--font-grey);
+}
+
+.value {
+  font-weight: 700;
+}
+
+.left {
+  border-right: 1px solid var(--color-grey);
+}
+
+.right {
+  border-left: 1px solid var(--color-grey);
+}

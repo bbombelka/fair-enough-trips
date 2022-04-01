@@ -1,0 +1,9 @@
+.container {
+  margin-left: 24px;
+  width: 32%;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

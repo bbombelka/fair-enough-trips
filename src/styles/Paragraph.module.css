@@ -1,0 +1,27 @@
+.paragraph {
+  text-indent: 20px each-line;
+  text-align: justify;
+}
+
+.title {
+  color: var(--font-grey);
+}
+
+.links {
+  font-size: 12px;
+  margin: 0;
+  font-weight: 400;
+  color: var(--font-grey);
+  display: inline-block;
+  padding-right: 36px;
+}
+
+.link {
+  color: darkred;
+  padding-right: 24px;
+  font-size: 12px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,15 @@
+.container {
+  padding: 24px;
+}
+
+.title {
+  text-transform: capitalize;
+  font-size: 36px;
+  text-align: center;
+}
+
+.post-card-list {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: 1fr 1fr 1fr;
+}

@@ -1,0 +1,58 @@
+.image {
+  background-size: cover;
+  background-position: bottom;
+  filter: blur(1px) saturate(0.5);
+  display: flex;
+}
+
+.textBox {
+  background-color: rgb(0, 0, 0, 0.2);
+  width: 100%;
+  position: absolute;
+  font-family: "Lato", sans-serif;
+  padding: 24px 0;
+}
+
+.container {
+  position: relative;
+}
+
+.text {
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  padding: 8px 0;
+}
+
+.button {
+  padding: 16px 24px;
+  border: none;
+  color: black;
+  background-color: white;
+  text-transform: uppercase;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 16px auto;
+  display: block;
+}
+
+.top {
+  top: 0;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.grid-card {
+  height: 30vw;
+}
+
+.main-post-card {
+  height: calc(100vh - 60px);
+}

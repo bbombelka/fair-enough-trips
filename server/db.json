@@ -1,0 +1,107 @@
+{
+    "postsList": [
+        {
+            "title": "Some title to showcase",
+            "category": "category",
+            "imageUrl": "main.jpg",
+            "id": "prostredny-hrot"
+        },
+        {
+            "title": "Skrlatica",
+            "category": "Scrambling",
+            "imageUrl": "second.jpg",
+            "id": "1-Skrlatica"
+        },
+        {
+            "title": "Pilsko",
+            "category": "Skitour",
+            "imageUrl": "third.jpg",
+            "id": "2-Pilsko"
+        },
+        {
+            "title": "Vysoka",
+            "category": "Trekking",
+            "imageUrl": "second.jpg",
+            "id": "3-Vysoka"
+        },
+        {
+            "title": "Vysoka",
+            "category": "Trekking",
+            "imageUrl": "second.jpg",
+            "id": "4-Vysoka"
+        },
+        {
+            "title": "Vysoka",
+            "category": "Trekking",
+            "imageUrl": "second.jpg",
+            "id": "5-Vysoka"
+        },
+        {
+            "title": "Vysoka",
+            "category": "Trekking",
+            "imageUrl": "second.jpg",
+            "id": "6-Vysoka"
+        }
+    ],
+    "posts": [
+        {
+            "id": "prostredny-hrot",
+            "title": "Prostredný hrot, Žltá veža, Žltá stena",
+            "subTitle": "Scrambling trip to the most demanding peak of Great Crown of the High Tatra Peak and its neighbours",
+            "category": "scrambling",
+            "attractiveness": 4,
+            "condition": 4,
+            "difficulty": "I (with one more demanding section)",
+            "terrain": "rocky (granite)",
+            "date": {
+                "season": 3,
+                "period": 1,
+                "month": 10,
+                "year": 2021
+            },
+            "stats": {
+                "duration": 12.5,
+                "up": 1760,
+                "down": 1760,
+                "distance": 20.5,
+                "highestPoint": 2439
+            },
+            "trailCondition": "Starts with marked green trail, from Hrebieniok takes red trail to return to green above Rainerova Chata. Stay on green by Teryho shelter. Then continue and short after crossing the stream take the distinct unmarked path rapidly turning left. From now the path is complex and requires good orientation. Lots of loose rocks in Still's gully, northern sections covered ocassionaly covered in ice.",
+            "weather": "Sunny but considerably chilly eastern wind, sections hidden from direct sun covered in frost.",
+            "dangers": "Falling rocks, exposition, challenging orientation on the path - difficult to impossible in bad weather conditions with low level of the clouds, even in autumn can have frozen sections",
+            "accomodation": "Teryho Chata - (did not stay, always fully booked and pricey), Zamkovskeho Chata (did not stay, but the food is delicious)",
+            "transportation": "car driven to Stary Smokovec, parking lot is 7 EUR",
+            "gear": "helmet, personal set, 2x30m rope, few slings",
+            "other": "descent using Still's gully has two abseilling points around 20m. 40 meter single rope would be enough. The abseil is not necessary, for my case the rock was covered in frozen water so abseilling seemed a better options. Abseil points are firm.  The peak is not available within tourist path and climbing it without a licensed guide is against the law. Here you can find information about that",
+            "shortDescription": "Don't get fooled by the altitude of the mountain and the fact it is the lowest among Great Crown of the High Tatra Peaks. There is a general tendency for people who are conquering Great Crown of the High Tatra Peak to have this mountain climbed as one of the last ones. For experienced alpine tourists familiar with exposition and operating the climbing gear the only problem could be the orientation as it gets tricky. ",
+            "wikilocUrl": "https://www.wikiloc.com/wikiloc/spatialArtifacts.do?event=view&id=94042106&measures=off&title=off&near=off&images=off&maptype=H",
+            "startingPoint": "Stary Smokovec",
+            "endingPoint": "Stary Smokovec",
+            "imageUrl": "main.jpg",
+            "links": {
+                "accomodation": [
+                    {
+                        "title": "Teryho shelter website",
+                        "href": "http://www.teryhochata.sk/ "
+                    },
+                    {
+                        "title": "Zamkovskego Chata shelter website",
+                        "href": "http://www.zamka.sk/"
+                    }
+                ],
+                "transportation": [
+                    {
+                        "title": "Parking lot location",
+                        "href": "https://en.mapy.cz/s/bapamecugu"
+                    }
+                ]
+            },
+            "images": [
+                {
+                    "desc": "View at Teryho shelter. Marked place where the unmarked path starts just after crossing the stream",
+                    "filename": "start"
+                }
+            ]
+        }
+    ]
+}
