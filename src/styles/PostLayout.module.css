@@ -3,3 +3,18 @@
   margin: auto;
   padding: 12px;
 }
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 32px;
+  margin: 48px;
+  color: var(--font-grey);
+}
+
+@media (max-width: 720px) {
+  .title {
+    font-size: 24px;
+    margin: 32px;
+  }
+}

@@ -25,3 +25,9 @@
 .link:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 720px) {
+  .link span {
+    font-size: 12px !important;
+  }
+}

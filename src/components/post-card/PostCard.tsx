@@ -11,9 +11,9 @@ export const PostCard: FC<PostCardProps> = ({
   const textBoxClass = isTop ? styles.top : styles.bottom;
   const imageClass = clsx(
     styles.image,
-    styles[isMainPostCard ? "main-post-card" : "grid-card"]
+    styles[isMainPostCard ? "main-post-card" : "grid-card"],
   );
-  // console.log(styles.container);
+
   return (
     <div className={styles.container}>
       <div

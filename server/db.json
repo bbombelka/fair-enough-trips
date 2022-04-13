@@ -1,8 +1,8 @@
 {
     "postsList": [
         {
-            "title": "Some title to showcase",
-            "category": "category",
+            "title": "Prostredný hrot, Žltá veža, Žltá stena",
+            "category": "Scrambling",
             "imageUrl": "main.jpg",
             "id": "prostredny-hrot"
         },
@@ -46,9 +46,10 @@
     "posts": [
         {
             "id": "prostredny-hrot",
+            "category": "Scrambling",
+            "imageUrl": "main.jpg",
             "title": "Prostredný hrot, Žltá veža, Žltá stena",
             "subTitle": "Scrambling trip to the most demanding peak of Great Crown of the High Tatra Peak and its neighbours",
-            "category": "scrambling",
             "attractiveness": 4,
             "condition": 4,
             "difficulty": "I (with one more demanding section)",
@@ -74,10 +75,9 @@
             "gear": "helmet, personal set, 2x30m rope, few slings",
             "other": "descent using Still's gully has two abseilling points around 20m. 40 meter single rope would be enough. The abseil is not necessary, for my case the rock was covered in frozen water so abseilling seemed a better options. Abseil points are firm.  The peak is not available within tourist path and climbing it without a licensed guide is against the law. Here you can find information about that",
             "shortDescription": "Don't get fooled by the altitude of the mountain and the fact it is the lowest among Great Crown of the High Tatra Peaks. There is a general tendency for people who are conquering Great Crown of the High Tatra Peak to have this mountain climbed as one of the last ones. For experienced alpine tourists familiar with exposition and operating the climbing gear the only problem could be the orientation as it gets tricky. ",
-            "wikilocUrl": "https://www.wikiloc.com/wikiloc/spatialArtifacts.do?event=view&id=94042106&measures=off&title=off&near=off&images=off&maptype=H",
+            "iframeUrl": "https://www.wikiloc.com/wikiloc/spatialArtifacts.do?event=view&id=94042106&measures=off&title=off&near=off&images=off&maptype=H",
             "startingPoint": "Stary Smokovec",
             "endingPoint": "Stary Smokovec",
-            "imageUrl": "main.jpg",
             "links": {
                 "accomodation": [
                     {
@@ -98,8 +98,42 @@
             },
             "images": [
                 {
-                    "desc": "View at Teryho shelter. Marked place where the unmarked path starts just after crossing the stream",
+                    "desc": "Beginning of unmarked path gives a good overview. 1.Žltá stena, 2. Prostredný hrot, 3. Maly Prosrtredny hrot, 4. Žltá veža. 5. Lavka Dubkego. 6. Hunsdorfer's gully",
+                    "filename": "overview",
+                    "isVertical": true
+                },
+                {
+                    "desc": "View at Teryho shelter (1) from Žltá veža. Marked place where the unmarked path starts just after crossing the stream (2)",
                     "filename": "start"
+                },
+                {
+                    "desc": "Hunsdorfer's gully. Best steps and holds are on the left side",
+                    "filename": "hunsdorfer",
+                    "isVertical": true
+                },
+                {
+                    "desc": "Lavka Dubkego - a wide flatting in the face allowin easy ascent. 1 - Žltá stena.",
+                    "filename": "dubkego_lavka"
+                },
+                {
+                    "desc": "View from Žltá veža. The path goes up the gully running until little pass between Prostredny Hrot (1) and Maly Prostredny Hrot (2)",
+                    "filename": "prostredne",
+                    "isVertical": true
+                },
+                {
+                    "desc": "Once the small pass between Prostredny Hrot and Maly Protredny Hrot is reached Maly Prostredny Hrot is easily accessible. For the main peak to get to the easiest path visible in the picture about 50m descent is necessary on the side of Velka Studena valley",
+                    "filename": "prostredny_bypass",
+                    "isVertical": true
+                },
+                {
+                    "desc": "Key moment to enter Still's gully (2) just before Chmúrna veža (1)",
+                    "filename": "descent_chmurna_veza",
+                    "isVertical": true
+                },
+                {
+                    "desc": "Descending in Still's gully. Keep to the left side of the gully. Start of the gully is full of loose rock, mind your steps",
+                    "filename": "descent_still",
+                    "isVertical": true
                 }
             ]
         }

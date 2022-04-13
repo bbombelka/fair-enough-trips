@@ -27,8 +27,8 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
       <main>
         <PostCard isMainPostCard post={mainPost} />
         <PostCardList listTitle="Latest trips" posts={latestPosts} />
-        <Footer />
       </main>
+      <Header />
     </div>
   );
 };

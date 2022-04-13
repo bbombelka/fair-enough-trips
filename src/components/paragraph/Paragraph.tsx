@@ -1,7 +1,6 @@
-import { linkSync } from "fs";
-import { PostLink } from "pages/posts/[id]";
 import React, { FC } from "react";
 import styles from "styles/Paragraph.module.css";
+import { PostLink } from "types/PostPage.types";
 
 export const Paragraph: FC<{
   body: string;

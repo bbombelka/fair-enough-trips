@@ -4,80 +4,15 @@ import { Paragraph } from "components/paragraph/Paragraph";
 import { Post } from "components/post-card-list/PostCardList.types";
 import { PostImages } from "components/post-images/PostImages";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-
-type PostPageProps = {
-  post: FullPost;
-};
-
-export type PostLink = {
-  title: string;
-  href: string;
-};
-
-export type PostImage = {
-  desc: string;
-  filename: string;
-  isVertical: boolean;
-};
-
-export type FullPost = {
-  id: string;
-  title: string;
-  subTitle: string;
-  category: string;
-  attractiveness: number;
-  condition: number;
-  difficulty: string;
-  terrain: string;
-  date: DateClass;
-  weather: string;
-  trailCondition: string;
-  stats: Stats;
-  dangers: string;
-  accomodation: string;
-  transportation: string;
-  gear: string;
-  other: string;
-  shortDescription: string;
-  wikilocUrl: string;
-  imageUrl: string;
-  startingPoint: string;
-  endingPoint: string;
-  links: Record<
-    | "accomodation"
-    | "transportation"
-    | "other"
-    | "dangers"
-    | "weather"
-    | "gear",
-    PostLink[]
-  >;
-  images: PostImage[];
-};
-
-export type DateClass = {
-  season: number;
-  period: number;
-  month: number;
-  year: number;
-};
-
-export type Stats = {
-  duration: number;
-  up: number;
-  down: number;
-  distance: number;
-  highestPoint: number;
-};
+import { PostPageProps, FullPost } from "types/PostPage.types";
 
 const PostPage: NextPage<PostPageProps> = ({ post }) => {
   return (
     <div>
       <Header />
-      <PostLayout>
-        <h1>{post.title}</h1>
+      <PostLayout title={post.title}>
         <Map post={post} />
-        <Divider />
+
         <Paragraph body={post.shortDescription} />
         <Divider title="Trip conditions" />
         <Paragraph body={post.weather} title="Weather" />
