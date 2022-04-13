@@ -1,8 +1,9 @@
 import { Header, PostLayout, Map } from "components";
 import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
-import { Post } from "components/post-card-list/PostCardList.types";
 import { PostImages } from "components/post-images/PostImages";
+import Config from "Config";
+import { mongoClient } from "MongoClient";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { PostPageProps, FullPost } from "types/PostPage.types";
 
@@ -51,8 +52,15 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
 export default PostPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const httpResponse = await fetch(`${process.env.HOST_URL}/postsList`);
-  const posts: Post[] = await httpResponse.json();
+  await mongoClient.connect();
+
+  const collection = mongoClient
+    .db(Config.DB_NAME)
+    .collection(Config.COLLECTION_NAME);
+
+  const posts = await collection.find().toArray();
+
+  mongoClient.close();
 
   return {
     paths: posts.map(({ id }) => ({ params: { id } })),
@@ -63,14 +71,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<PostPageProps> = async ({
   params,
 }) => {
-  const httpResponse = await fetch(
-    `${process.env.HOST_URL}/posts/${params?.id}`,
+  await mongoClient.connect();
+
+  const postsCollection = mongoClient
+    .db(Config.DB_NAME)
+    .collection(Config.COLLECTION_NAME);
+  const dbPost = await postsCollection.findOne({ id: params?.id });
+
+  const post = Object.fromEntries(
+    Object.entries(dbPost).filter((entry) => !entry.includes("_id")),
   );
-  const post: FullPost = await httpResponse.json();
+
+  mongoClient.close();
 
   return {
     props: {
-      post,
+      post: post as FullPost,
     },
   };
 };

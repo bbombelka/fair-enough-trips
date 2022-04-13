@@ -3,6 +3,8 @@ import Head from "next/head";
 import { Footer, Header, PostCard } from "components";
 import { PostCardList } from "components/post-card-list/PostCardList";
 import { Post } from "components/post-card-list/PostCardList.types";
+import { mongoClient } from "MongoClient";
+import Config from "Config";
 
 type HomePageProps = {
   mainPost: Post;
@@ -36,16 +38,26 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const httpResponse = await fetch(`${process.env.HOST_URL}/postsList`);
-  const posts = await httpResponse.json();
+  await mongoClient.connect();
 
-  const mainPost = { ...posts[0] };
-  const latestPosts = posts.slice(1, 7);
+  const latestPostsCursor = mongoClient
+    .db(Config.DB_NAME)
+    .collection(Config.COLLECTION_NAME)
+    .find()
+    .limit(Config.POST_COUNT_HOME_PAGE + 1);
+
+  const latestPosts = await latestPostsCursor.toArray();
+
+  const sanitizedPosts = latestPosts.map((post) =>
+    Object.fromEntries(
+      Object.entries(post).filter((entry) => !entry.includes("_id")),
+    ),
+  );
 
   return {
     props: {
-      mainPost,
-      latestPosts,
+      mainPost: { ...sanitizedPosts[0] } as Post,
+      latestPosts: sanitizedPosts.slice(1, 7) as Post[],
     },
   };
 };

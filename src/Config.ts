@@ -2,4 +2,7 @@ export default {
   DEFAULT_EXTENSION: "webp",
   LONG_STRETCH: 1066,
   SHORT_STRETCH: 800,
+  DB_NAME: "fet",
+  COLLECTION_NAME: "posts",
+  POST_COUNT_HOME_PAGE: 6,
 };
