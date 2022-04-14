@@ -1,4 +1,4 @@
-import { Header, PostLayout, Map } from "components";
+import { Navbar, PostLayout, Map, Footer } from "components";
 import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
@@ -6,11 +6,12 @@ import Config from "Config";
 import { mongoClient } from "MongoClient";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { PostPageProps, FullPost } from "types/PostPage.types";
+import { removeSelectedProps } from "utils";
 
 const PostPage: NextPage<PostPageProps> = ({ post }) => {
   return (
     <div>
-      <Header />
+      <Navbar />
       <PostLayout title={post.title}>
         <Map post={post} />
 
@@ -45,6 +46,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
           <PostImages images={post.images} id={post.id} />
         )}
       </PostLayout>
+      <Footer />
     </div>
   );
 };
@@ -78,10 +80,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({
     .collection(Config.COLLECTION_NAME);
   const dbPost = await postsCollection.findOne({ id: params?.id });
 
-  const post = Object.fromEntries(
-    Object.entries(dbPost).filter((entry) => !entry.includes("_id")),
-  );
-
+  const post = dbPost ? removeSelectedProps(dbPost, ["_id"]) : {};
   mongoClient.close();
 
   return {

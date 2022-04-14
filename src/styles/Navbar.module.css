@@ -1,0 +1,33 @@
+.navbar {
+  height: 60px;
+  width: 100%;
+  border-bottom: 3px solid var(--color-grey);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.container-desktop {
+  height: 100%;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+}
+
+.container-mobile {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .container-desktop {
+    display: none;
+  }
+
+  .container-mobile {
+    display: block;
+    height: 100%;
+  }
+}

@@ -1,0 +1,36 @@
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  padding: 24px 16px;
+  border-bottom: 2px solid var(--color-grey);
+}
+
+.menu-bar {
+  height: 80px;
+  border-bottom: 2px solid var(--color-grey);
+  position: relative;
+}
+
+.close-icon {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  padding: 12px;
+  cursor: pointer;
+}
+
+.menu {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  top: 0;
+}

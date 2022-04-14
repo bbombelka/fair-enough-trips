@@ -1,4 +1,5 @@
-import { DateClass } from "pages/posts/[id]";
+import { Document, WithId } from "mongodb";
+import { DateClass } from "types/PostPage.types";
 
 export const parseDate = (date: DateClass) => {
   const seasons = {
@@ -31,4 +32,13 @@ export const parseDate = (date: DateClass) => {
   return `${seasons[date.season as keyof typeof seasons]} (${
     period[date.period as keyof typeof period]
   } ${month[date.month as keyof typeof month]} ${date.year})`;
+};
+
+export const removeSelectedProps = <T>(
+  doc: WithId<Document>,
+  unserializableProps: string[],
+) => {
+  return Object.fromEntries(
+    Object.entries(doc).filter(([key]) => !unserializableProps.includes(key)),
+  ) as T;
 };

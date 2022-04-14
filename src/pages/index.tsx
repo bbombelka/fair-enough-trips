@@ -1,10 +1,11 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { Footer, Header, PostCard } from "components";
+import { Navbar, PostCard } from "components";
 import { PostCardList } from "components/post-card-list/PostCardList";
 import { Post } from "components/post-card-list/PostCardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
+import { removeSelectedProps } from "utils";
 
 type HomePageProps = {
   mainPost: Post;
@@ -25,12 +26,12 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
           rel="stylesheet"
         />
       </Head>
-      <Header />
+      <Navbar />
       <main>
         <PostCard isMainPostCard post={mainPost} />
         <PostCardList listTitle="Latest trips" posts={latestPosts} />
       </main>
-      <Header />
+      <Navbar />
     </div>
   );
 };
@@ -40,24 +41,24 @@ export default Home;
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   await mongoClient.connect();
 
-  const latestPostsCursor = mongoClient
+  const latestPosts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.COLLECTION_NAME)
     .find()
-    .limit(Config.POST_COUNT_HOME_PAGE + 1);
-
-  const latestPosts = await latestPostsCursor.toArray();
+    .limit(Config.POST_COUNT_HOME_PAGE + 1)
+    .toArray();
 
   const sanitizedPosts = latestPosts.map((post) =>
-    Object.fromEntries(
-      Object.entries(post).filter((entry) => !entry.includes("_id")),
-    ),
+    removeSelectedProps<Post>(post, ["_id"]),
   );
 
   return {
     props: {
       mainPost: { ...sanitizedPosts[0] } as Post,
-      latestPosts: sanitizedPosts.slice(1, 7) as Post[],
+      latestPosts: sanitizedPosts.slice(
+        1,
+        Config.POST_COUNT_HOME_PAGE + 1,
+      ) as Post[],
     },
   };
 };
