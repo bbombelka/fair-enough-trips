@@ -21,9 +21,15 @@ export const PostImages: FC<PostImagesProps> = ({ id, images }) => {
         return (
           <div key={imageId} className={styles.images}>
             <a href={src} target="_blank" rel="noopener noreferrer">
-              <Image src={src} alt={desc} width={width} height={height} />
+              <Image
+                className={styles.image}
+                src={src}
+                alt={desc}
+                width={width}
+                height={height}
+              />
             </a>
-            <span style={{ width }} className={styles.caption}>
+            <span style={{ maxWidth: width }} className={styles.caption}>
               {desc}
             </span>
           </div>

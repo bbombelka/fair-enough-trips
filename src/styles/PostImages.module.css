@@ -11,3 +11,7 @@
   text-align: center;
   color: var(--color-dark-grey);
 }
+
+.image {
+  border-radius: 4px;
+}
