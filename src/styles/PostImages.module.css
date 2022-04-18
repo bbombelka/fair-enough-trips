@@ -9,4 +9,5 @@
 .caption {
   margin: 8px 0;
   text-align: center;
+  color: var(--color-dark-grey);
 }

@@ -32,8 +32,8 @@ export const MobileMenu = () => {
           </div>
           <ul className={styles["menu-list"]}>
             {menuLinks.map(({ name, href }, i) => (
-              <li className={styles["menu-item"]}>
-                <Link key={i} href={href} name={name} />
+              <li key={i} className={styles["menu-item"]}>
+                <Link href={href} name={name} />
               </li>
             ))}
           </ul>

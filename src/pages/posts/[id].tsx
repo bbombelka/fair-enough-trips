@@ -14,7 +14,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
       <Navbar />
       <PostLayout title={post.title}>
         <Map post={post} />
-
+        <Divider title="Overview" />
         <Paragraph body={post.shortDescription} />
         <Divider title="Trip conditions" />
         <Paragraph body={post.weather} title="Weather" />
@@ -46,7 +46,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
           <PostImages images={post.images} id={post.id} />
         )}
       </PostLayout>
-      <Footer />
+      <Footer isSticky />
     </div>
   );
 };

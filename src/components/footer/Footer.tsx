@@ -1,13 +1,20 @@
 import { footerLinks } from "app-links";
+import clsx from "clsx";
 import { Link } from "components/link/Link";
-import React from "react";
+import React, { FC } from "react";
 import styles from "styles/Footer.module.css";
 
-export const Footer = () => {
+type FooterProps = {
+  isSticky?: boolean;
+};
+
+export const Footer: FC<FooterProps> = ({ isSticky }) => {
+  const footerClassName = clsx(styles.footer, isSticky && styles.sticky);
+
   return (
-    <footer className={styles.footer}>
+    <footer className={footerClassName}>
       {footerLinks.map(({ name, href }, i) => (
-        <Link key={i} href={href} name={name} leftMargin={24} />
+        <Link key={i} href={href} name={name} leftMargin={48} />
       ))}
     </footer>
   );

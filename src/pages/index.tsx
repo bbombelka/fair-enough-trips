@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { Navbar, PostCard } from "components";
+import { Footer, Navbar, PostCard } from "components";
 import { PostCardList } from "components/post-card-list/PostCardList";
 import { Post } from "components/post-card-list/PostCardList.types";
 import { mongoClient } from "MongoClient";
@@ -31,7 +31,7 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
         <PostCard isMainPostCard post={mainPost} />
         <PostCardList listTitle="Latest trips" posts={latestPosts} />
       </main>
-      <Navbar />
+      <Footer />
     </div>
   );
 };
@@ -54,11 +54,8 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 
   return {
     props: {
-      mainPost: { ...sanitizedPosts[0] } as Post,
-      latestPosts: sanitizedPosts.slice(
-        1,
-        Config.POST_COUNT_HOME_PAGE + 1,
-      ) as Post[],
+      mainPost: { ...sanitizedPosts[0] },
+      latestPosts: sanitizedPosts.slice(1, Config.POST_COUNT_HOME_PAGE + 1),
     },
   };
 };

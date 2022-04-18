@@ -1,7 +1,7 @@
 .image {
   background-size: cover;
   background-position: bottom;
-  filter: blur(1px) saturate(0.5);
+  filter: blur(5px) saturate(0);
   display: flex;
 }
 
@@ -20,6 +20,7 @@
 
 .container {
   position: relative;
+  overflow-y: hidden;
 }
 
 .text {
@@ -51,7 +52,17 @@
 
 .title {
   font-weight: 700;
+  font-size: 20px;
+}
+
+.title-main {
   font-size: 32px;
+  letter-spacing: 4px;
+  padding: 0 24px;
+}
+
+.subtitle {
+  font-size: 16px;
 }
 
 .grid-card {
@@ -60,6 +71,13 @@
 
 .main-post-card {
   height: calc(100vh - 60px);
+}
+
+.liven-up {
+  animation-name: liven;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 @media (max-width: 720px) {
@@ -73,5 +91,22 @@
 
   .grid-card {
     height: 75vw;
+  }
+
+  .subtitle.text {
+    font-size: 12px;
+  }
+
+  .title-main {
+    letter-spacing: 2px;
+  }
+}
+
+@keyframes liven {
+  from {
+    filter: blur(5px) saturate(0);
+  }
+  to {
+    filter: blur(0) saturate(1);
   }
 }

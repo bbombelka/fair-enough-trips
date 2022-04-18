@@ -11,10 +11,10 @@ export const Paragraph: FC<{
     <div className={styles.container}>
       {title && <span className={styles.title}>{title}:</span>}
       <p className={styles.paragraph}>{body}</p>
-      {links?.length && (
+      {Boolean(links?.length) && (
         <p>
           <span className={styles.links}>Links:</span>
-          {links.map(({ title, href }, id) => (
+          {links?.map(({ title, href }, id) => (
             <a key={id} className={styles.link} href={href} target="_blank">
               <span>{title}</span>
             </a>

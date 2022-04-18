@@ -1,6 +1,7 @@
 .paragraph {
-  text-indent: 20px each-line;
+  text-indent: 16px;
   text-align: justify;
+  line-height: 24px;
 }
 
 .title {
@@ -17,9 +18,10 @@
 }
 
 .link {
-  color: darkred;
+  color: var(--color-dark-grey);
   padding-right: 24px;
   font-size: 12px;
+  font-weight: 700;
 }
 
 .link:hover {
@@ -29,5 +31,9 @@
 @media (max-width: 720px) {
   .link span {
     font-size: 12px !important;
+  }
+
+  .paragraph {
+    line-height: 20px;
   }
 }
