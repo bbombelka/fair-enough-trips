@@ -66,7 +66,7 @@
 }
 
 .grid-card {
-  height: 30vw;
+  height: 360px;
 }
 
 .main-post-card {
@@ -78,6 +78,12 @@
   animation-duration: 5s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+}
+
+@media (max-width: 1200px) {
+  .grid-card {
+    height: 55vw;
+  }
 }
 
 @media (max-width: 720px) {

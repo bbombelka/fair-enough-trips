@@ -29,7 +29,7 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
       <Navbar />
       <main>
         <PostCard isMainPostCard post={mainPost} />
-        <PostCardList listTitle="Latest trips" posts={latestPosts} />
+        <PostCardList listTitle="Latest trip posts" posts={latestPosts} />
       </main>
       <Footer />
     </div>
