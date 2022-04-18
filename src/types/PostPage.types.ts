@@ -13,6 +13,8 @@ export type PostImage = {
   isVertical: boolean;
 };
 
+type Paragraph = string[];
+
 export type FullPost = {
   id: string;
   title: string;
@@ -23,15 +25,15 @@ export type FullPost = {
   difficulty: string;
   terrain: string;
   date: DateClass;
-  weather: string;
-  trailCondition: string;
+  weather: Paragraph;
+  trailCondition: Paragraph;
   stats: Stats;
-  dangers: string;
-  accomodation: string;
-  transportation: string;
-  gear: string;
-  other: string;
-  shortDescription: string;
+  dangers: Paragraph;
+  accomodation: Paragraph;
+  transportation: Paragraph;
+  gear: Paragraph;
+  other: Paragraph;
+  shortDescription: Paragraph;
   iframeUrl: string;
   imageUrl: string;
   startingPoint: string;

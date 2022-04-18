@@ -4,7 +4,6 @@ import React, { FC } from "react";
 import Image from "next/image";
 import styles from "styles/PostImages.module.css";
 import { PostImage } from "types/PostPage.types";
-import Link from "next/link";
 
 type PostImagesProps = {
   id: string;
@@ -24,7 +23,9 @@ export const PostImages: FC<PostImagesProps> = ({ id, images }) => {
             <a href={src} target="_blank" rel="noopener noreferrer">
               <Image src={src} alt={desc} width={width} height={height} />
             </a>
-            <span className={styles.caption}>{desc}</span>
+            <span style={{ width }} className={styles.caption}>
+              {desc}
+            </span>
           </div>
         );
       })}
