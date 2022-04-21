@@ -8,6 +8,20 @@
   border-radius: 4px;
 }
 
+.link {
+  color: var(--color-dark-grey);
+  padding-right: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 16px 0 0;
+  display: inline-block;
+}
+
+.icon {
+  margin-right: 16px;
+}
+
 @media (max-width: 720px) {
   .container {
     flex-direction: column;
@@ -16,5 +30,9 @@
 
   .map {
     width: 100%;
+  }
+
+  .link span {
+    font-size: 12px !important;
   }
 }

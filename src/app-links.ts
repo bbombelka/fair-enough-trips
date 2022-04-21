@@ -16,6 +16,7 @@ export const footerLinks = [
 ];
 
 export const menuLinks = [
+  { name: "home", href: "/" },
   ...navbarLinks,
   { name: " ", href: "" },
   ...footerLinks,

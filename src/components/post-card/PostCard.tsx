@@ -60,7 +60,7 @@ export const PostCard: FC<PostCardProps> = ({
     <div className={styles.container} ref={postCardRef}>
       <div
         style={{
-          backgroundImage: `url(${id}/main.${Config.DEFAULT_EXTENSION})`,
+          backgroundImage: `url(${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`,
         }}
         className={imageClass}
       ></div>

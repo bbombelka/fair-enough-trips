@@ -21,6 +21,19 @@
   display: none;
 }
 
+.logo-container {
+  position: relative;
+  height: 60px;
+  padding-left: 12px;
+  width: 200px;
+}
+
+.logo {
+  position: absolute;
+  top: 7.5px;
+  left: 0;
+}
+
 @media (max-width: 720px) {
   .container-desktop {
     display: none;

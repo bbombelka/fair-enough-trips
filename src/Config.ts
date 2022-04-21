@@ -1,5 +1,6 @@
 export default {
-  DEFAULT_EXTENSION: "webp",
+  DEFAULT_IMAGE_EXTENSION: "webp",
+  COMPRESSED_FILE_EXTENSION: "zip",
   LONG_STRETCH: 1066,
   SHORT_STRETCH: 800,
   DB_NAME: "fet",

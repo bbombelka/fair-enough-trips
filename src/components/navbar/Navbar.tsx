@@ -1,5 +1,6 @@
 import { navbarLinks } from "app-links";
 import { Link } from "components/link/Link";
+import { Logo } from "components/logo/Logo";
 import { MobileMenu } from "components/mobile-menu/MobileMenu";
 import NextLink from "next/link";
 import React from "react";
@@ -11,14 +12,8 @@ export const Navbar = () => {
       <div className={styles["container-desktop"]}>
         <NextLink href="/">
           <a>
-            <div
-              style={{
-                width: "48px",
-                height: "48px",
-                backgroundColor: "black",
-              }}
-            >
-              Logo
+            <div className={styles["logo-container"]}>
+              <Logo width={130} height={45} className={styles.logo} />
             </div>
           </a>
         </NextLink>

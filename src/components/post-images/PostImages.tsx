@@ -17,7 +17,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images }) => {
       {images.map(({ filename, desc, isVertical }, imageId) => {
         const width = isVertical ? Config.SHORT_STRETCH : Config.LONG_STRETCH;
         const height = isVertical ? Config.LONG_STRETCH : Config.SHORT_STRETCH;
-        const src = `/${id}/${filename}.${Config.DEFAULT_EXTENSION}`;
+        const src = `/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
         return (
           <div key={imageId} className={styles.images}>
             <a href={src} target="_blank" rel="noopener noreferrer">

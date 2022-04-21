@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "styles/MobileMenu.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export const MobileMenu = () => {
   const [isOpen, setOpen] = useState(false);
