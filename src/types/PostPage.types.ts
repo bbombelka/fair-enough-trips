@@ -1,3 +1,5 @@
+import { Activities, Regions, Countries } from "enums/categories";
+
 export type PostPageProps = {
   post: FullPost;
 };
@@ -15,11 +17,23 @@ export type PostImage = {
 
 type Paragraph = string[];
 
+export type CodedCategory = {
+  country: string[];
+  region: string[];
+  activity: string[];
+};
+
+export type Category = {
+  activities: Activities[];
+  regions: Regions[];
+  countries: Countries[];
+};
+
 export type FullPost = {
   id: string;
   title: string;
   subTitle: string;
-  category: string;
+  category: CodedCategory;
   attractiveness: number;
   condition: number;
   difficulty: string;
@@ -35,7 +49,6 @@ export type FullPost = {
   other: Paragraph;
   shortDescription: Paragraph;
   iframeUrl: string;
-  imageUrl: string;
   startingPoint: string;
   endingPoint: string;
   links: Record<
@@ -48,6 +61,7 @@ export type FullPost = {
     PostLink[]
   >;
   images: PostImage[];
+  postDate: Date;
 };
 
 export type DateClass = {

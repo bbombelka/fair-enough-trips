@@ -5,7 +5,8 @@ import { PostCardList } from "components/post-card-list/PostCardList";
 import { Post } from "components/post-card-list/PostCardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
-import { removeSelectedProps } from "utils";
+import { mapCategories } from "utils";
+import { CodedCategory, FullPost } from "types/PostPage.types";
 
 type HomePageProps = {
   mainPost: Post;
@@ -48,14 +49,20 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     .limit(Config.POST_COUNT_HOME_PAGE + 1)
     .toArray();
 
-  const sanitizedPosts = latestPosts.map((post) =>
-    removeSelectedProps<Post>(post, ["_id"]),
-  );
+  const jsonParsed = JSON.parse(JSON.stringify(latestPosts));
+
+  const withCategoriesParsed = jsonParsed.map((post: FullPost) => ({
+    ...post,
+    category: mapCategories(post.category as CodedCategory),
+  }));
 
   return {
     props: {
-      mainPost: { ...sanitizedPosts[0] },
-      latestPosts: sanitizedPosts.slice(1, Config.POST_COUNT_HOME_PAGE + 1),
+      mainPost: { ...withCategoriesParsed[0] },
+      latestPosts: withCategoriesParsed.slice(
+        1,
+        Config.POST_COUNT_HOME_PAGE + 1,
+      ),
     },
   };
 };

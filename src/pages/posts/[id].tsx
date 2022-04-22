@@ -80,12 +80,16 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({
     .collection(Config.COLLECTION_NAME);
   const dbPost = await postsCollection.findOne({ id: params?.id });
 
-  const post = dbPost ? removeSelectedProps(dbPost, ["_id"]) : {};
+  const post: FullPost | {} = dbPost
+    ? removeSelectedProps(dbPost, ["_id"])
+    : {};
   mongoClient.close();
+
+  const parsedPost = JSON.parse(JSON.stringify(post));
 
   return {
     props: {
-      post: post as FullPost,
+      post: parsedPost as FullPost,
     },
   };
 };

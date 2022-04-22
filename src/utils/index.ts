@@ -1,5 +1,6 @@
+import { Activities, Countries, Regions } from "enums/categories";
 import { Document, WithId } from "mongodb";
-import { DateClass } from "types/PostPage.types";
+import { CodedCategory, DateClass } from "types/PostPage.types";
 
 export const parseDate = (date: DateClass) => {
   const seasons = {
@@ -41,4 +42,18 @@ export const removeSelectedProps = <T>(
   return Object.fromEntries(
     Object.entries(doc).filter(([key]) => !unserializableProps.includes(key)),
   ) as T;
+};
+
+export const mapCategories = ({ activity, region, country }: CodedCategory) => {
+  const activities = activity.map(
+    (actCode) => Activities[actCode as keyof typeof Activities],
+  );
+  const regions = region.map(
+    (regionCode) => Regions[regionCode as keyof typeof Regions],
+  );
+  const countries = country.map(
+    (countryCode) => Countries[countryCode as keyof typeof Countries],
+  );
+
+  return { activities, regions, countries };
 };

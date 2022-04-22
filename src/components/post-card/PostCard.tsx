@@ -34,6 +34,11 @@ export const PostCard: FC<PostCardProps> = ({
     isMainPostCard && "main-post-card-subtitle",
   );
 
+  const firstSubtitle = `${category.activities.join(
+    "/",
+  )} in ${category.regions.join(", ")}`;
+  const secondSubtitle = category.countries.join(", ");
+
   useEffect(() => {
     if (isMainPostCard) {
       postCardRef.current?.setAttribute("id", "main-post-card");
@@ -66,7 +71,8 @@ export const PostCard: FC<PostCardProps> = ({
       ></div>
       <div className={`${styles.textBox} ${textBoxClass}`}>
         <h1 className={titleClass}>{title}</h1>
-        <h2 className={subtitleClass}>{category}</h2>
+        <h2 className={subtitleClass}>{firstSubtitle}</h2>
+        <h2 className={subtitleClass}>{secondSubtitle}</h2>
         <Link href={`/posts/${id}`}>
           <a>
             <button className={styles.button}>Read more</button>
