@@ -106,6 +106,7 @@
   background-color: white;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  color: var(--font-grey);
 }
 
 .scroll-down-icon.is-top {
