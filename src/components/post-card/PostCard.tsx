@@ -1,14 +1,16 @@
+import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
+import { DateBox } from "components/date-box/DateBox";
 import { PostCardProps } from "components/post-card/PostCard.types";
 import Config from "Config";
 import { useVisibleVerticalThreshold } from "hooks/useVisibleVerticalThreshold";
-
 import Link from "next/link";
 import React, { FC, useEffect, useRef, useState } from "react";
 import styles from "styles/Postcard.module.css";
 
 export const PostCard: FC<PostCardProps> = ({
-  post: { isTop = false, title, category, id },
+  post: { isTop = false, title, category, id, postDate },
   isMainPostCard = false,
 }) => {
   const [isAnimationTriggered, triggerAnimation] = useState(false);
@@ -16,7 +18,12 @@ export const PostCard: FC<PostCardProps> = ({
   const postCardRef = useRef<HTMLDivElement>(null);
   const visibleVerticalThreshold = useVisibleVerticalThreshold();
 
-  const textBoxClass = isTop ? styles.top : styles.bottom;
+  const textBoxClass = clsx(
+    styles.textBox,
+    isTop ? styles.top : styles.bottom,
+    isMainPostCard && styles.main,
+  );
+
   const imageClass = clsx(
     styles.image,
     styles[isMainPostCard ? "main-post-card" : "grid-card"],
@@ -30,9 +37,15 @@ export const PostCard: FC<PostCardProps> = ({
 
   const subtitleClass = clsx(
     styles.text,
-    styles.subtitle,
-    isMainPostCard && "main-post-card-subtitle",
+    styles[isMainPostCard ? "main-post-card-subtitle" : "subtitle"],
   );
+
+  const scrollDownIcon = clsx(
+    styles["scroll-down-icon"],
+    isTop && styles["is-top"],
+  );
+
+  const buttonClass = clsx(styles.button, isMainPostCard && styles.main);
 
   const firstSubtitle = `${category.activities.join(
     "/",
@@ -63,22 +76,37 @@ export const PostCard: FC<PostCardProps> = ({
 
   return (
     <div className={styles.container} ref={postCardRef}>
+      <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />
+      {isMainPostCard && (
+        <FontAwesomeIcon
+          className={scrollDownIcon}
+          icon={faAnglesDown}
+          onClick={scrollDown}
+        />
+      )}
       <div
         style={{
           backgroundImage: `url(${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`,
         }}
         className={imageClass}
       ></div>
-      <div className={`${styles.textBox} ${textBoxClass}`}>
+      <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>
         <h2 className={subtitleClass}>{firstSubtitle}</h2>
         <h2 className={subtitleClass}>{secondSubtitle}</h2>
         <Link href={`/posts/${id}`}>
-          <a>
-            <button className={styles.button}>Read more</button>
+          <a style={{ display: "inline-block" }}>
+            <button className={buttonClass}>Read more</button>
           </a>
         </Link>
       </div>
     </div>
   );
 };
+
+function scrollDown() {
+  const navbarMargin = 60;
+  const listTitleTopMargin = 20;
+  const offsetTop = document.getElementById("post-card-list")?.offsetTop!;
+  window.scrollTo(0, offsetTop - navbarMargin - listTitleTopMargin);
+}

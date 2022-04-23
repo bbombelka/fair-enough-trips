@@ -10,8 +10,10 @@ export const Paragraph: FC<{
   return (
     <div className={styles.container}>
       {title && <span className={styles.title}>{title}:</span>}
-      {body.map((paragraph) => (
-        <p className={styles.paragraph}>{paragraph}</p>
+      {body.map((paragraph, i) => (
+        <p key={i} className={styles.paragraph}>
+          {paragraph}
+        </p>
       ))}
       {Boolean(links?.length) && (
         <p>

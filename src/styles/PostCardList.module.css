@@ -8,6 +8,8 @@
   text-align: center;
   color: var(--font-grey);
   letter-spacing: 16px;
+  margin: 20px 0;
+  /* changing vertical margin will affect scroll */
 }
 
 .post-card-list {

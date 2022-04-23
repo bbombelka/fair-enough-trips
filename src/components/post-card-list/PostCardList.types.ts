@@ -10,4 +10,5 @@ export type Post = {
   title: string;
   category: Category;
   isTop?: boolean;
+  postDate: string;
 };
