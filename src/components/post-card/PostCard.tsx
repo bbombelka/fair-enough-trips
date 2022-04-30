@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { DateBox } from "components/date-box/DateBox";
 import { PostCardProps } from "components/post-card/PostCard.types";
 import Config from "Config";
+import { useMappedCategories } from "hooks/useMappedCategories";
 import { useVisibleVerticalThreshold } from "hooks/useVisibleVerticalThreshold";
 import Link from "next/link";
 import React, { FC, useEffect, useRef, useState } from "react";
@@ -12,12 +13,13 @@ import styles from "styles/Postcard.module.css";
 export const PostCard: FC<PostCardProps> = ({
   post: { isTop = false, title, category, id, postDate },
   isMainPostCard = false,
+  displayScrollDownButton = true,
 }) => {
   const [isAnimationTriggered, triggerAnimation] = useState(false);
   const [verticalOffset, setVerticalOffset] = useState(0);
   const postCardRef = useRef<HTMLDivElement>(null);
   const visibleVerticalThreshold = useVisibleVerticalThreshold();
-
+  const [activities, regions, countries] = useMappedCategories(category);
   const textBoxClass = clsx(
     styles.textBox,
     isTop ? styles.top : styles.bottom,
@@ -47,10 +49,8 @@ export const PostCard: FC<PostCardProps> = ({
 
   const buttonClass = clsx(styles.button, isMainPostCard && styles.main);
 
-  const firstSubtitle = `${category.activities.join(
-    "/",
-  )} in ${category.regions.join(", ")}`;
-  const secondSubtitle = category.countries.join(", ");
+  const firstSubtitle = `${activities.join("/")} in ${regions.join(", ")}`;
+  const secondSubtitle = countries.join(", ");
 
   useEffect(() => {
     if (isMainPostCard) {
@@ -77,7 +77,7 @@ export const PostCard: FC<PostCardProps> = ({
   return (
     <div className={styles.container} ref={postCardRef}>
       <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />
-      {isMainPostCard && (
+      {isMainPostCard && displayScrollDownButton && (
         <FontAwesomeIcon
           className={scrollDownIcon}
           icon={faAnglesDown}
@@ -86,7 +86,7 @@ export const PostCard: FC<PostCardProps> = ({
       )}
       <div
         style={{
-          backgroundImage: `url(${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`,
+          backgroundImage: `url(/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`,
         }}
         className={imageClass}
       ></div>

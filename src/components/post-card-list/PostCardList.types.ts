@@ -1,4 +1,4 @@
-import { Category } from "types/PostPage.types";
+import { Categories } from "types/PostPage.types";
 
 export type PostCardListProps = {
   listTitle: string;
@@ -8,7 +8,7 @@ export type PostCardListProps = {
 export type Post = {
   id: string;
   title: string;
-  category: Category;
+  category: Categories;
   isTop?: boolean;
   postDate: string;
 };

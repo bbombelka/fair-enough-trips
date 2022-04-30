@@ -24,16 +24,22 @@ export type CodedCategory = {
 };
 
 export type Category = {
-  activities: Activities[];
-  regions: Regions[];
-  countries: Countries[];
+  code: string;
+  url: string;
+  name: string;
+};
+
+export type Categories = {
+  activity: string[];
+  region: string[];
+  country: string[];
 };
 
 export type FullPost = {
   id: string;
   title: string;
   subTitle: string;
-  category: CodedCategory;
+  category: Categories;
   attractiveness: number;
   condition: number;
   difficulty: string;

@@ -61,7 +61,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     .collection(Config.COLLECTION_NAME);
 
   const posts = await collection.find().toArray();
-
   mongoClient.close();
 
   return {

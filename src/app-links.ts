@@ -1,7 +1,8 @@
 export const navbarLinks = [
-  { name: "scrambling", href: "/scrambling" },
-  { name: "trekking", href: "/trekking" },
-  { name: "via-ferrata", href: "/ferrata" },
+  { name: "scrambling", href: "/activity/scrambling" },
+  { name: "trekking", href: "/activity/trekking" },
+  { name: "via-ferrata", href: "/activity/via-ferrata" },
+  { name: "alpine climbing", href: "/activity/alpine-climbing" },
 ];
 
 export const footerLinks = [
