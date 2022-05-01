@@ -6,4 +6,5 @@ export default {
   DB_NAME: "fet",
   COLLECTION_NAME: "posts-test",
   POST_COUNT_HOME_PAGE: 6,
+  MAX_STARS_COUNT: 5,
 };

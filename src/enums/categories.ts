@@ -47,6 +47,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "cretan-countryside",
     originalName: "",
   },
+  {
+    code: "004",
+    name: "Julian Alps",
+    url: "julian-alps",
+    originalName: "Julijske Alpe",
+  },
 ];
 
 export const Countries: Category[] = [
@@ -59,5 +65,10 @@ export const Countries: Category[] = [
     code: "002",
     name: "Greece",
     url: "greece",
+  },
+  {
+    code: "003",
+    name: "Slovenia",
+    url: "slovenia",
   },
 ];

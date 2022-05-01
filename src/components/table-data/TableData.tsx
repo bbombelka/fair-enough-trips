@@ -1,3 +1,4 @@
+import { StarRate } from "components/star-rate/StarRate";
 import { FC } from "react";
 import styles from "styles/TableData.module.css";
 import { FullPost } from "types/PostPage.types";
@@ -23,8 +24,12 @@ export const TableData: FC<TableDataProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.table}>
-        <Cell label="Attractiveness" value={`${attractiveness}/5`}></Cell>
-        <Cell label="Condition" value={`${condition}/5`}></Cell>
+        <Cell label="Attractiveness">
+          <StarRate rate={attractiveness} />
+        </Cell>
+        <Cell label="Condition">
+          <StarRate rate={condition} />
+        </Cell>
         <Cell label="Distance" value={`${distance} km`}></Cell>
         <Cell label="Duration" value={`${duration} h`}></Cell>
         <Cell label="Ascent" value={`${up} meters`}></Cell>

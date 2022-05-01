@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "components/link/Link";
 import { TableData } from "components/table-data/TableData";
 import Config from "Config";
 import { FC } from "react";
@@ -20,6 +19,7 @@ export const Map: FC<MapProps> = ({ post }) => {
           frameBorder="0"
           scrolling="no"
           src={post.iframeUrl}
+          onLoad={(e) => console.log(e)}
         />
         <TableData post={post} />
       </div>

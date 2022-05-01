@@ -21,7 +21,7 @@
   margin: auto;
 }
 
-@media (max-width: 1260px) {
+@media (max-width: 1200px) {
   .post-card-list {
     grid-template-columns: 1fr;
   }

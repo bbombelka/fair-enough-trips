@@ -5,8 +5,6 @@ import { PostCardList } from "components/post-card-list/PostCardList";
 import { Post } from "components/post-card-list/PostCardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
-import { mapCategories } from "utils";
-import { CodedCategory, FullPost } from "types/PostPage.types";
 
 type HomePageProps = {
   mainPost: Post;
