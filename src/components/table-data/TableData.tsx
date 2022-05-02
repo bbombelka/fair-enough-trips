@@ -25,10 +25,14 @@ export const TableData: FC<TableDataProps> = ({
     <div className={styles.container}>
       <div className={styles.table}>
         <Cell label="Attractiveness">
-          <StarRate rate={attractiveness} />
+          <a href="/about#rating">
+            <StarRate rate={attractiveness} />
+          </a>
         </Cell>
         <Cell label="Condition">
-          <StarRate rate={condition} />
+          <a href="/about#rating">
+            <StarRate rate={condition} />
+          </a>
         </Cell>
         <Cell label="Distance" value={`${distance} km`}></Cell>
         <Cell label="Duration" value={`${duration} h`}></Cell>

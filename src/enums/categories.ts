@@ -39,7 +39,7 @@ export const Regions: Array<Category & { originalName: string }> = [
     code: "002",
     name: "White Mountains",
     originalName: "Lefka Ori",
-    url: "lefka-ori",
+    url: "white-mountains",
   },
   {
     code: "003",
@@ -52,6 +52,18 @@ export const Regions: Array<Category & { originalName: string }> = [
     name: "Julian Alps",
     url: "julian-alps",
     originalName: "Julijske Alpe",
+  },
+  {
+    code: "005",
+    name: "Accursed Mountains",
+    url: "accursed-mountains",
+    originalName: "Prokletije",
+  },
+  {
+    code: "006",
+    name: "Hostýn-Vsetín Mountains",
+    url: "hostyn-vsetin-mountains",
+    originalName: "Hostýnsko-vsetínská hornatina",
   },
 ];
 
@@ -71,4 +83,8 @@ export const Countries: Category[] = [
     name: "Slovenia",
     url: "slovenia",
   },
+  { code: "004", name: "Czechia", url: "czechia" },
+  { code: "005", name: "Montenegro", url: "montenegro" },
+  { code: "006", name: "Albania", url: "albania" },
+  { code: "007", name: "Kosovo", url: "kosovo" },
 ];

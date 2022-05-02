@@ -7,7 +7,7 @@ type PostLayoutProps = {
 
 export const PostLayout: FC<PostLayoutProps> = ({ children, title }) => {
   return (
-    <div className={styles.layout}>
+    <div className="layout">
       <h1 className={styles.title}>{title}</h1>
       {children}
     </div>

@@ -6,9 +6,10 @@ import { faStar as HollowStarIcon } from "@fortawesome/free-regular-svg-icons";
 
 type StarRateProps = {
   rate: number;
+  comment?: string;
 };
 
-export const StarRate: FC<StarRateProps> = ({ rate }) => {
+export const StarRate: FC<StarRateProps> = ({ rate, comment }) => {
   const solidStarsCount = rate;
   const hollowStarsCount = Config.MAX_STARS_COUNT - rate;
 
@@ -22,11 +23,12 @@ export const StarRate: FC<StarRateProps> = ({ rate }) => {
   return (
     <div>
       {solidStars.map((_, i) => (
-        <FontAwesomeIcon key={i} icon={SolidStarIcon} />
+        <FontAwesomeIcon className="font-grey" key={i} icon={SolidStarIcon} />
       ))}
       {hollowStars.map((_, i) => (
-        <FontAwesomeIcon key={i} icon={HollowStarIcon} />
+        <FontAwesomeIcon className="font-grey" key={i} icon={HollowStarIcon} />
       ))}
+      {comment && <span>{comment}</span>}
     </div>
   );
 };

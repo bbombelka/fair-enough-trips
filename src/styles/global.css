@@ -21,6 +21,16 @@ a {
   --font-grey: #616161;
 }
 
+.layout {
+  max-width: 1200px;
+  margin: auto;
+  padding: 12px;
+}
+
+.font-grey {
+  color: var(--font-grey);
+}
+
 @media (max-width: 720px) {
   p,
   span {
