@@ -63,7 +63,8 @@ export type FullPost = {
     | "other"
     | "dangers"
     | "weather"
-    | "gear",
+    | "gear"
+    | "shortDescription",
     PostLink[]
   >;
   images: PostImage[];

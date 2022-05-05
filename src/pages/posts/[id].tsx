@@ -28,7 +28,10 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
         <PostLayout title={post.title}>
           <Map post={post} />
           <Divider title="Overview" />
-          <Paragraph body={post.shortDescription} />
+          <Paragraph
+            body={post.shortDescription}
+            links={post.links["shortDescription"]}
+          />
           <Divider title="Trip conditions" />
           <Paragraph body={post.weather} title="Weather" />
           <Paragraph body={post.trailCondition} title="Trail" />
