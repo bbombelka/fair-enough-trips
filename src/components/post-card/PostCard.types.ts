@@ -1,4 +1,4 @@
-import { Post } from "components/post-card-list/PostCardList.types";
+import { Post } from "components/card-list/CardList.types";
 
 export type PostCardProps = {
   post: Post;

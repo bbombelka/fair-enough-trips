@@ -1,8 +1,8 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
-import { PostCardList } from "components/post-card-list/PostCardList";
-import { Post } from "components/post-card-list/PostCardList.types";
+import { CardList } from "components/card-list/CardList";
+import { Post } from "components/card-list/CardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
 import { Activities } from "enums/categories";
@@ -37,7 +37,11 @@ const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code }) => {
           displayScrollDownButton={Boolean(latestPosts.length)}
         />
         {Boolean(latestPosts.length) && (
-          <PostCardList listTitle="Latest trip posts" posts={latestPosts} />
+          <CardList listTitle="Latest trip posts">
+            {latestPosts.map((post) => (
+              <PostCard post={post} key={post.id} />
+            ))}
+          </CardList>
         )}
       </main>
       <Footer />

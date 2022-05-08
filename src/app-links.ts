@@ -3,6 +3,7 @@ export const navbarLinks = [
   { name: "trekking", href: "/activity/trekking" },
   { name: "via-ferrata", href: "/activity/via-ferrata" },
   { name: "alpine climbing", href: "/activity/alpine-climbing" },
+  { name: "regions", href: "/regions" },
 ];
 
 export const footerLinks = [

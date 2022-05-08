@@ -1,4 +1,4 @@
-import { Navbar, PostLayout, Map, Footer } from "components";
+import { Navbar, Layout, Map, Footer } from "components";
 import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
@@ -25,7 +25,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
       </Head>
       <div>
         <Navbar />
-        <PostLayout title={post.title}>
+        <Layout title={post.title}>
           <Map post={post} />
           <Divider title="Overview" />
           <Paragraph
@@ -61,7 +61,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
           {Boolean(post.images.length) && (
             <PostImages images={post.images} id={post.id} />
           )}
-        </PostLayout>
+        </Layout>
         <Footer isSticky />
       </div>
     </>
