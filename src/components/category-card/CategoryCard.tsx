@@ -46,7 +46,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   });
 
   const title = name.concat(originalName ? ` (${originalName})` : "");
-  const backgroundImageUrl = `url(/${categoryType}/${url}.${Config.DEFAULT_IMAGE_EXTENSION})`;
+  const backgroundImageUrl = `url(/${categoryType}/${url}.${Config.DEFAULT_IMAGE_EXTENSION}), url(/${categoryType}/fallback.jpg)`;
 
   return (
     <div className={styles.container} ref={postCardRef}>
@@ -67,7 +67,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
         <h1 className={titleClass}>{title}</h1>
         <Link href={`/${categoryType}/${url}`}>
           <a style={{ display: "inline-block" }}>
-            <button className={buttonClass}>{`Discover ${tripCount} trip${
+            <button className={buttonClass}>{`See ${tripCount} trip${
               tripCount > 1 ? "s" : ""
             }`}</button>
           </a>
