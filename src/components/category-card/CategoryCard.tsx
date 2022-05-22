@@ -6,13 +6,13 @@ import { useCardClasses } from "hooks/useCardClasses";
 import { useFadeInColorAnimation } from "hooks/useFadeInColorAnimation";
 import { useScrollDown } from "hooks/useScrollDown";
 import Link from "next/link";
-import React, { FC, useRef } from "react";
+import React, { FC, useMemo, useRef } from "react";
 import styles from "styles/Postcard.module.css";
 import { Category } from "types/PostPage.types";
 
 type CategoryCardProps = {
   category: Category & { originalName: string };
-  tripCount: number;
+  postIds: string[];
   isMainCard: boolean;
   displayScrollDownButton?: boolean;
   categoryType: CategoriesEnum;
@@ -20,7 +20,7 @@ type CategoryCardProps = {
 
 export const CategoryCard: FC<CategoryCardProps> = ({
   category: { url, name, originalName },
-  tripCount,
+  postIds,
   isMainCard,
   displayScrollDownButton = true,
   categoryType,
@@ -45,8 +45,9 @@ export const CategoryCard: FC<CategoryCardProps> = ({
     styles,
   });
 
+  const randomBackgroundId = useMemo(() => shuffleBackgroundImage(postIds), []);
   const title = name.concat(originalName ? ` (${originalName})` : "");
-  const backgroundImageUrl = `url(/${categoryType}/${url}.${Config.DEFAULT_IMAGE_EXTENSION}), url(/${categoryType}/fallback.jpg)`;
+  const backgroundImageUrl = `url(/${randomBackgroundId}/main.${Config.DEFAULT_IMAGE_EXTENSION}), url(/${categoryType}/fallback.jpg)`;
 
   return (
     <div className={styles.container} ref={postCardRef}>
@@ -67,8 +68,8 @@ export const CategoryCard: FC<CategoryCardProps> = ({
         <h1 className={titleClass}>{title}</h1>
         <Link href={`/${categoryType}/${url}`}>
           <a style={{ display: "inline-block" }}>
-            <button className={buttonClass}>{`See ${tripCount} trip${
-              tripCount > 1 ? "s" : ""
+            <button className={buttonClass}>{`See ${postIds.length} trip${
+              postIds.length > 1 ? "s" : ""
             }`}</button>
           </a>
         </Link>
@@ -76,3 +77,12 @@ export const CategoryCard: FC<CategoryCardProps> = ({
     </div>
   );
 };
+
+function shuffleBackgroundImage(postIds: string[]): string {
+  const min = 0;
+  const max = postIds.length;
+
+  const idIndex = Math.floor(Math.random() * (max - min) + min);
+
+  return postIds[idIndex];
+}

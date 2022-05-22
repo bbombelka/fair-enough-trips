@@ -1,6 +1,5 @@
 import { Footer, Layout, Navbar } from "components";
 import { CategoryCard } from "components/category-card/CategoryCard";
-import { Post } from "components/card-list/CardList.types";
 import Config from "Config";
 import { CategoriesEnum, Regions } from "enums/categories";
 import { mongoClient } from "MongoClient";
@@ -12,7 +11,7 @@ import { CardList } from "components/card-list/CardList";
 type RegionsPageProps = {
   regions: Array<{
     region: Category & { originalName: string };
-    tripCount: number;
+    postIds: string[];
   }>;
 };
 
@@ -37,12 +36,12 @@ const RegionsPage: NextPage<RegionsPageProps> = ({ regions }) => {
         <Navbar />
         <Layout>
           <CardList listTitle="Find the trip by region">
-            {regions.map(({ region, tripCount }) => (
+            {regions.map(({ region, postIds }) => (
               <CategoryCard
                 key={region.code}
                 categoryType={CategoriesEnum.Regions}
                 category={region}
-                tripCount={tripCount}
+                postIds={postIds}
                 isMainCard={false}
               />
             ))}
@@ -56,9 +55,7 @@ const RegionsPage: NextPage<RegionsPageProps> = ({ regions }) => {
 
 export default RegionsPage;
 
-export const getStaticProps: GetStaticProps<RegionsPageProps> = async ({
-  params,
-}) => {
+export const getStaticProps: GetStaticProps<RegionsPageProps> = async () => {
   await mongoClient.connect();
 
   const postsCollection = mongoClient
@@ -69,10 +66,10 @@ export const getStaticProps: GetStaticProps<RegionsPageProps> = async ({
 
   const regions = Regions.map((region) => ({
     region,
-    tripCount: parsedPosts.filter(({ category }) =>
-      category.region.includes(region.code),
-    ).length,
-  })).filter(({ tripCount }) => tripCount);
+    postIds: parsedPosts
+      .filter(({ category }) => category.region.includes(region.code))
+      .map((post) => post.id),
+  })).filter(({ postIds }) => postIds.length);
 
   return {
     props: {

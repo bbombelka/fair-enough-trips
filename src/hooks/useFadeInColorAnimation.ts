@@ -31,7 +31,7 @@ export const useFadeInColorAnimation = ({
       return;
     }
 
-    if (visibleVerticalThreshold > verticalOffset) {
+    if (visibleVerticalThreshold > verticalOffset && !isAnimationTriggered) {
       triggerAnimation(true);
     }
   }, [visibleVerticalThreshold]);

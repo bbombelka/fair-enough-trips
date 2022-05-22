@@ -5,6 +5,7 @@ export const useVisibleVerticalThreshold = () => {
 
   useEffect(() => {
     document.addEventListener("scroll", () => {
+      console.log(window.scrollY + window.innerHeight);
       setVisibleVerticalThreshold(window.scrollY + window.innerHeight);
     });
   }, []);
