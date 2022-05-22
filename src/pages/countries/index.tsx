@@ -1,28 +1,28 @@
 import { Footer, Layout, Navbar } from "components";
 import { CategoryCard } from "components/category-card/CategoryCard";
 import Config from "Config";
-import { CategoriesEnum, Regions } from "enums/categories";
+import { CategoriesEnum, Countries } from "enums/categories";
 import { mongoClient } from "MongoClient";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Category, FullPost } from "types/PostPage.types";
 import { CardList } from "components/card-list/CardList";
 
-type RegionsPageProps = {
-  regions: Array<{
-    region: Category & { originalName: string };
+type CountriesPageProps = {
+  countries: Array<{
+    country: Category & { originalName: string };
     postIds: string[];
   }>;
 };
 
-const RegionsPage: NextPage<RegionsPageProps> = ({ regions }) => {
+const CountriesPage: NextPage<CountriesPageProps> = ({ countries }) => {
   return (
     <>
       <Head>
-        <title>Regions @ Fair Enough Trips</title>
+        <title>Countries @ Fair Enough Trips</title>
         <meta
           name="description"
-          content="Find your trip by selecting a region"
+          content="Find your trip by selecting a country"
         />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -35,12 +35,12 @@ const RegionsPage: NextPage<RegionsPageProps> = ({ regions }) => {
       <div>
         <Navbar />
         <Layout>
-          <CardList listTitle="Find trip in region">
-            {regions.map(({ region, postIds }) => (
+          <CardList listTitle="Find trip in country">
+            {countries.map(({ country, postIds }) => (
               <CategoryCard
-                key={region.code}
-                categoryType={CategoriesEnum.Regions}
-                category={region}
+                key={country.code}
+                categoryType={CategoriesEnum.Countries}
+                category={country}
                 postIds={postIds}
                 isMainCard={false}
               />
@@ -53,9 +53,9 @@ const RegionsPage: NextPage<RegionsPageProps> = ({ regions }) => {
   );
 };
 
-export default RegionsPage;
+export default CountriesPage;
 
-export const getStaticProps: GetStaticProps<RegionsPageProps> = async () => {
+export const getStaticProps: GetStaticProps<CountriesPageProps> = async () => {
   await mongoClient.connect();
 
   const postsCollection = mongoClient
@@ -64,18 +64,18 @@ export const getStaticProps: GetStaticProps<RegionsPageProps> = async () => {
   const posts = await postsCollection.find().toArray();
   const parsedPosts: FullPost[] = JSON.parse(JSON.stringify(posts));
 
-  const regions = Regions.sort((a, b) => a.name.localeCompare(b.name))
-    .map((region) => ({
-      region,
+  const countries = Countries.sort((a, b) => a.name.localeCompare(b.name))
+    .map((country) => ({
+      country: { ...country, originalName: "" },
       postIds: parsedPosts
-        .filter(({ category }) => category.region.includes(region.code))
+        .filter(({ category }) => category.country.includes(country.code))
         .map((post) => post.id),
     }))
     .filter(({ postIds }) => postIds.length);
 
   return {
     props: {
-      regions,
+      countries,
     },
   };
 };

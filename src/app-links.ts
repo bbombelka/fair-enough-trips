@@ -4,6 +4,7 @@ export const navbarLinks = [
   { name: "via-ferrata", href: "/activity/via-ferrata" },
   { name: "alpine climbing", href: "/activity/alpine-climbing" },
   { name: "regions", href: "/regions" },
+  { name: "countries", href: "/countries" },
 ];
 
 export const footerLinks = [

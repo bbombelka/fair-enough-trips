@@ -5,7 +5,7 @@ import { CardList } from "components/card-list/CardList";
 import { Post } from "components/card-list/CardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
-import { Activities } from "enums/categories";
+import { Countries } from "enums/categories";
 
 type HomePageProps = {
   mainPost: Post;
@@ -14,7 +14,7 @@ type HomePageProps = {
 };
 
 const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code }) => {
-  const pageTitle = Activities.find((act) => act.code === code)?.name;
+  const pageTitle = Countries.find((act) => act.code === code)?.name;
 
   return (
     <div>
@@ -62,11 +62,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   mongoClient.close();
 
   const types = Array.from(
-    new Set(posts.map(({ category }) => category.activity).flat()),
+    new Set(posts.map(({ category }) => category.country).flat()),
   )
-    .map((code) => Activities.find((act) => act.code === code)?.url)
-    .map((path) => ({ params: { type: path } }));
-
+    .map((code) => Countries.find((act) => act.code === code)?.url)
+    .map((path) => ({ params: { country: path } }));
   return {
     paths: types,
     fallback: false,
@@ -76,12 +75,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   await mongoClient.connect();
 
-  const code = Activities.find((act) => act.url === params?.type)?.code;
+  const code = Countries.find((act) => act.url === params?.country)?.code;
 
   const latestPosts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.COLLECTION_NAME)
-    .find({ ["category.activity"]: code })
+    .find({ ["category.country"]: code })
     .sort({ postDate: -1 })
     .toArray();
 
@@ -90,7 +89,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       mainPost: { ...jsonParsed[0] },
-      latestPosts: jsonParsed.slice(1),
+      latestPosts: jsonParsed.slice(1, Config.POST_COUNT_HOME_PAGE + 1),
       code,
     },
   };
