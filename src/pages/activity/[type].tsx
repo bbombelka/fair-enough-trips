@@ -37,7 +37,7 @@ const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code }) => {
           displayScrollDownButton={Boolean(latestPosts.length)}
         />
         {Boolean(latestPosts.length) && (
-          <CardList listTitle="Latest trip posts">
+          <CardList listTitle={`Latest ${pageTitle} posts`}>
             {latestPosts.map((post) => (
               <PostCard post={post} key={post.id} />
             ))}

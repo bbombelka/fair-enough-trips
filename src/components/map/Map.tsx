@@ -19,7 +19,6 @@ export const Map: FC<MapProps> = ({ post }) => {
           frameBorder="0"
           scrolling="no"
           src={post.iframeUrl}
-          onLoad={(e) => console.log(e)}
         />
         <TableData post={post} />
       </div>
