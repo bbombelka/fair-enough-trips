@@ -75,10 +75,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const collection = mongoClient
     .db(Config.DB_NAME)
-    .collection(Config.COLLECTION_NAME);
+    .collection(Config.POSTS_COLLECTION);
 
   const posts = await collection.find().toArray();
-  mongoClient.close();
+  await mongoClient.close();
 
   return {
     paths: posts.map(({ id }) => ({ params: { id } })),
@@ -93,13 +93,13 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({
 
   const postsCollection = mongoClient
     .db(Config.DB_NAME)
-    .collection(Config.COLLECTION_NAME);
+    .collection(Config.POSTS_COLLECTION);
   const dbPost = await postsCollection.findOne({ id: params?.id });
 
   const post: FullPost | {} = dbPost
     ? removeSelectedProps(dbPost, ["_id"])
     : {};
-  mongoClient.close();
+  await mongoClient.close();
 
   const parsedPost = JSON.parse(JSON.stringify(post));
 

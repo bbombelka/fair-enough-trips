@@ -56,10 +56,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const collection = mongoClient
     .db(Config.DB_NAME)
-    .collection(Config.COLLECTION_NAME);
+    .collection(Config.POSTS_COLLECTION);
 
   const posts = await collection.find().toArray();
-  mongoClient.close();
+  await mongoClient.close();
 
   const types = Array.from(
     new Set(posts.map(({ category }) => category.activity).flat()),
@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const latestPosts = await mongoClient
     .db(Config.DB_NAME)
-    .collection(Config.COLLECTION_NAME)
+    .collection(Config.POSTS_COLLECTION)
     .find({ ["category.activity"]: code })
     .sort({ postDate: -1 })
     .toArray();

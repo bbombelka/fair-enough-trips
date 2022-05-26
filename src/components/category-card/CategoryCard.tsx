@@ -1,5 +1,4 @@
-import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box } from "components/box/Box";
 import Config from "Config";
 import { CategoriesEnum } from "enums/categories";
 import { useCardClasses } from "hooks/useCardClasses";
@@ -14,32 +13,27 @@ type CategoryCardProps = {
   category: Category & { originalName: string };
   postIds: string[];
   isMainCard: boolean;
-  displayScrollDownButton?: boolean;
   categoryType: CategoriesEnum;
+  areNotesPresent?: boolean;
 };
 
 export const CategoryCard: FC<CategoryCardProps> = ({
   category: { url, name, originalName },
   postIds,
   isMainCard,
-  displayScrollDownButton = true,
   categoryType,
+  areNotesPresent,
 }) => {
   const postCardRef = useRef<HTMLDivElement>(null);
   const { isAnimationTriggered } = useFadeInColorAnimation({
     isMainCard: true,
     cardRef: postCardRef,
   });
-  const scrollDown = useScrollDown("card-list");
+  const scrollDownTrips = useScrollDown("card-list");
+  const scrollDownNotes = useScrollDown("trip-notes");
 
-  const {
-    imageClass,
-    buttonClass,
-    scrollDownIconClass,
-    titleClass,
-    textBoxClass,
-  } = useCardClasses({
-    isMainCard: false,
+  const { imageClass, buttonClass, titleClass, textBoxClass } = useCardClasses({
+    isMainCard,
     isTop: false,
     isAnimationTriggered,
     styles,
@@ -51,13 +45,6 @@ export const CategoryCard: FC<CategoryCardProps> = ({
 
   return (
     <div className={styles.container} ref={postCardRef}>
-      {isMainCard && displayScrollDownButton && (
-        <FontAwesomeIcon
-          className={scrollDownIconClass}
-          icon={faAnglesDown}
-          onClick={scrollDown}
-        />
-      )}
       <div
         style={{
           backgroundImage: backgroundImageUrl,
@@ -66,13 +53,36 @@ export const CategoryCard: FC<CategoryCardProps> = ({
       ></div>
       <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>
-        <Link href={`/${categoryType}/${url}`}>
-          <a style={{ display: "inline-block" }}>
+        <Link href={isMainCard ? "" : `/${categoryType}/${url}`}>
+          <a
+            style={{ display: "block" }}
+            onClick={(e) => {
+              if (isMainCard) {
+                e.preventDefault();
+                scrollDownTrips();
+              }
+            }}
+          >
             <button className={buttonClass}>{`See ${postIds.length} trip${
               postIds.length > 1 ? "s" : ""
             }`}</button>
           </a>
         </Link>
+        {isMainCard && areNotesPresent && (
+          <Box margin="12px 0">
+            <Link href={`/${categoryType}/${url}`}>
+              <a
+                style={{ display: "block" }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollDownNotes();
+                }}
+              >
+                <button className={buttonClass}>{`Read trip notes`}</button>
+              </a>
+            </Link>
+          </Box>
+        )}
       </div>
     </div>
   );

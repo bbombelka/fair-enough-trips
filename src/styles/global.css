@@ -27,6 +27,15 @@ a {
   padding: 12px;
 }
 
+.title {
+  text-transform: uppercase;
+  font-size: 32px;
+  text-align: center;
+  color: var(--font-grey);
+  letter-spacing: 16px;
+  margin: 20px 0;
+}
+
 .font-grey {
   color: var(--font-grey);
 }

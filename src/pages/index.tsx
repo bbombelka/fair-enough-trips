@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 
   const latestPosts = await mongoClient
     .db(Config.DB_NAME)
-    .collection(Config.COLLECTION_NAME)
+    .collection(Config.POSTS_COLLECTION)
     .find()
     .sort({ postDate: -1 })
     .limit(Config.POST_COUNT_HOME_PAGE + 1)

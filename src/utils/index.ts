@@ -57,3 +57,5 @@ export const mapCategories = ({ activity, region, country }: CodedCategory) => {
 
   return { activities, regions, countries };
 };
+
+export const parse = <T>(dbData: T) => JSON.parse(JSON.stringify(dbData)) as T;

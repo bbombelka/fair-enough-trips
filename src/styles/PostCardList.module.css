@@ -1,6 +1,6 @@
 .container {
   padding: 0 24px 24px;
-  min-height: 771px;
+  min-height: calc(100vh - 140px);
 }
 
 .title {

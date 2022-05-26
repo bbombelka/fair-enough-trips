@@ -60,7 +60,7 @@ export const getStaticProps: GetStaticProps<CountriesPageProps> = async () => {
 
   const postsCollection = mongoClient
     .db(Config.DB_NAME)
-    .collection(Config.COLLECTION_NAME);
+    .collection(Config.POSTS_COLLECTION);
   const posts = await postsCollection.find().toArray();
   const parsedPosts: FullPost[] = JSON.parse(JSON.stringify(posts));
 
