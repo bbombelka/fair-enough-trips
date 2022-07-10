@@ -71,6 +71,18 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "durmitor",
     originalName: "",
   },
+  {
+    code: "008",
+    name: "Great Fatra",
+    url: "great-fatra",
+    originalName: "Velka Fatra",
+  },
+  {
+    code: "009",
+    name: "Berchtesgaden Alps",
+    url: "berchtesgaden-alps",
+    originalName: "Berchtesgadener Alpen",
+  },
 ];
 
 export const Countries: Category[] = [
@@ -93,6 +105,8 @@ export const Countries: Category[] = [
   { code: "005", name: "Montenegro", url: "montenegro" },
   { code: "006", name: "Albania", url: "albania" },
   { code: "007", name: "Kosovo", url: "kosovo" },
+  { code: "008", name: "Italy", url: "italy" },
+  { code: "009", name: "Germany", url: "germany" },
 ];
 
 export enum CategoriesEnum {
