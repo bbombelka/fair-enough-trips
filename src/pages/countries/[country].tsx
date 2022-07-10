@@ -39,7 +39,7 @@ const Category: NextPage<HomePageProps> = ({ posts, notes, code }) => {
           isMainCard
           postIds={posts.map(({ id }) => id)}
           categoryType={CategoriesEnum.Countries}
-          category={country}
+          category={{ ...country, originalName: "" }}
           areNotesPresent={Boolean(notes.length)}
         />
         {Boolean(notes.length) && (
