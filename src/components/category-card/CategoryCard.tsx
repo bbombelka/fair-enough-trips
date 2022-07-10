@@ -6,7 +6,7 @@ import { useFadeInColorAnimation } from "hooks/useFadeInColorAnimation";
 import { useScrollDown } from "hooks/useScrollDown";
 import Link from "next/link";
 import React, { FC, useMemo, useRef } from "react";
-import styles from "styles/Postcard.module.css";
+import styles from "styles/PostCard.module.css";
 import { Category } from "types/PostPage.types";
 
 type CategoryCardProps = {

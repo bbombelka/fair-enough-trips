@@ -8,8 +8,8 @@ import { useFadeInColorAnimation } from "hooks/useFadeInColorAnimation";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import Link from "next/link";
-import React, { FC, useEffect, useRef, useState } from "react";
-import styles from "styles/Postcard.module.css";
+import React, { FC, useRef } from "react";
+import styles from "styles/PostCard.module.css";
 
 export const PostCard: FC<PostCardProps> = ({
   post: { isTop = false, title, category, id, postDate },
