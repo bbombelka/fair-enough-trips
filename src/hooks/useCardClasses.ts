@@ -21,7 +21,7 @@ export const useCardClasses = ({
 
   const imageClass = clsx(
     styles.image,
-    styles[isMainCard ? "main-post-card" : "grid-card"],
+    !isMainCard && styles["grid-card"],
     isAnimationTriggered && styles["liven-up"],
   );
 

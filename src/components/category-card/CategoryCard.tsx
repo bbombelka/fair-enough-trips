@@ -4,6 +4,7 @@ import { CategoriesEnum } from "enums/categories";
 import { useCardClasses } from "hooks/useCardClasses";
 import { useFadeInColorAnimation } from "hooks/useFadeInColorAnimation";
 import { useScrollDown } from "hooks/useScrollDown";
+import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
 import React, { FC, useMemo, useRef } from "react";
 import styles from "styles/PostCard.module.css";
@@ -31,6 +32,9 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   });
   const scrollDownTrips = useScrollDown("card-list");
   const scrollDownNotes = useScrollDown("trip-notes");
+  const imageRef = useSetHeightProgramatically<HTMLDivElement>({
+    enabled: isMainCard,
+  });
 
   const { imageClass, buttonClass, titleClass, textBoxClass } = useCardClasses({
     isMainCard,
@@ -50,7 +54,8 @@ export const CategoryCard: FC<CategoryCardProps> = ({
           backgroundImage: backgroundImageUrl,
         }}
         className={imageClass}
-      ></div>
+        ref={imageRef}
+      />
       <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>
         <Link href={isMainCard ? "" : `/${categoryType}/${url}`}>

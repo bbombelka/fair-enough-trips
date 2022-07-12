@@ -83,10 +83,6 @@
   height: 360px;
 }
 
-.main-post-card {
-  height: calc(100vh - 60px);
-}
-
 .liven-up {
   animation-name: liven;
   animation-duration: 5s;

@@ -7,8 +7,9 @@ import { useCardClasses } from "hooks/useCardClasses";
 import { useFadeInColorAnimation } from "hooks/useFadeInColorAnimation";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
+import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
-import React, { FC, useRef } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import styles from "styles/PostCard.module.css";
 
 export const PostCard: FC<PostCardProps> = ({
@@ -17,6 +18,10 @@ export const PostCard: FC<PostCardProps> = ({
   displayScrollDownButton = true,
 }) => {
   const postCardRef = useRef<HTMLDivElement>(null);
+  const imageRef = useSetHeightProgramatically<HTMLDivElement>({
+    enabled: isMainPostCard,
+  });
+
   const [activities, regions, countries] = useMappedCategories(category);
   const { isAnimationTriggered } = useFadeInColorAnimation({
     isMainCard: isMainPostCard,
@@ -64,6 +69,7 @@ export const PostCard: FC<PostCardProps> = ({
         />
       )}
       <div
+        ref={imageRef}
         style={{
           backgroundImage: `url(/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`,
         }}
