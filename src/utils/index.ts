@@ -5,7 +5,7 @@ import { CodedCategory, DateClass } from "types/PostPage.types";
 export const parseDate = (date: DateClass) => {
   const seasons = {
     1: "Spring",
-    2: "Summber",
+    2: "Summer",
     3: "Autumn",
     4: "Winter",
   };

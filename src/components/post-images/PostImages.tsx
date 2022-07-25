@@ -12,14 +12,18 @@ type PostImagesProps = {
 
 export const PostImages: FC<PostImagesProps> = ({ id, images }) => {
   return (
-    <>
+    <div>
       <Divider title="Visual" />
       {images.map(({ filename, desc, isVertical }, imageId) => {
         const width = isVertical ? Config.SHORT_STRETCH : Config.LONG_STRETCH;
         const height = isVertical ? Config.LONG_STRETCH : Config.SHORT_STRETCH;
         const src = `/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
         return (
-          <div key={imageId} className={styles.images}>
+          <div
+            key={imageId}
+            className={styles.images}
+            style={{ maxWidth: width }}
+          >
             <a href={src} target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.image}
@@ -27,14 +31,14 @@ export const PostImages: FC<PostImagesProps> = ({ id, images }) => {
                 alt={desc}
                 width={width}
                 height={height}
+                sizes="50vw"
+                layout="responsive"
               />
             </a>
-            <span style={{ maxWidth: width }} className={styles.caption}>
-              {desc}
-            </span>
+            <span className={styles.caption}>{desc}</span>
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
