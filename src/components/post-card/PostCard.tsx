@@ -1,5 +1,6 @@
 import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Loader } from "components";
 import { DateBox } from "components/date-box/DateBox";
 import { PostCardProps } from "components/post-card/PostCard.types";
 import Config from "Config";
@@ -9,7 +10,7 @@ import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import styles from "styles/PostCard.module.css";
 
 export const PostCard: FC<PostCardProps> = ({
@@ -17,6 +18,7 @@ export const PostCard: FC<PostCardProps> = ({
   isMainPostCard = false,
   displayScrollDownButton = true,
 }) => {
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
   const postCardRef = useRef<HTMLDivElement>(null);
   const imageRef = useSetHeightProgramatically<HTMLDivElement>({
     enabled: isMainPostCard,
@@ -55,35 +57,54 @@ export const PostCard: FC<PostCardProps> = ({
     );
   };
 
-  return (
-    <div className={styles.container} ref={postCardRef}>
-      {postDate && (
-        <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />
-      )}
+  const stopLoading = useCallback(() => {
+    setIsLoadingImage(false);
+  }, []);
 
-      {isMainPostCard && displayScrollDownButton && (
-        <FontAwesomeIcon
-          className={scrollDownIconClass}
-          icon={faAnglesDown}
-          onClick={scrollDown}
-        />
+  useEffect(() => {
+    if (isMainPostCard) {
+      const preloaderImg = document.createElement("img");
+      preloaderImg.src = `/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`;
+      preloaderImg.addEventListener("load", stopLoading);
+
+      return () => preloaderImg.removeEventListener("load", stopLoading);
+    }
+  }, []);
+
+  return (
+    <>
+      {isMainPostCard && isLoadingImage && (
+        <Loader fullscreen loadingHeading="Loading trips" />
       )}
-      <div
-        ref={imageRef}
-        style={{
-          backgroundImage: `url(/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`,
-        }}
-        className={imageClass}
-      ></div>
-      <div className={textBoxClass}>
-        <h1 className={titleClass}>{title}</h1>
-        {getPostCardSubtitles()}
-        <Link href={`/posts/${id}`}>
-          <a style={{ display: "inline-block" }}>
-            <button className={buttonClass}>Read more</button>
-          </a>
-        </Link>
+      <div className={styles.container} ref={postCardRef}>
+        {postDate && (
+          <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />
+        )}
+
+        {isMainPostCard && displayScrollDownButton && (
+          <FontAwesomeIcon
+            className={scrollDownIconClass}
+            icon={faAnglesDown}
+            onClick={scrollDown}
+          />
+        )}
+        <div
+          ref={imageRef}
+          style={{
+            backgroundImage: `url(/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`,
+          }}
+          className={imageClass}
+        />
+        <div className={textBoxClass}>
+          <h1 className={titleClass}>{title}</h1>
+          {getPostCardSubtitles()}
+          <Link href={`/posts/${id}`}>
+            <a style={{ display: "inline-block" }}>
+              <button className={buttonClass}>Read more</button>
+            </a>
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
