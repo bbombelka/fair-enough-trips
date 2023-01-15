@@ -93,16 +93,15 @@
 .scroll-down-icon {
   z-index: 1;
   font-size: 44px;
-  bottom: 0;
-  right: 24px;
+  bottom: 20px;
+  right: 20px;
   border: 1px solid white;
-  padding: 12px;
+  padding: 16px 12px;
   cursor: pointer;
   position: absolute;
-  background-color: white;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  color: var(--font-grey);
+  border-radius: 12px;
+  color: white;
+  animation: animateScrollButton 5s ease 4s 1 normal forwards;
 }
 
 .scroll-down-icon.is-top {
@@ -165,4 +164,32 @@
   to {
     filter: blur(0) saturate(1);
   }
+}
+
+@keyframes animateScrollButton  {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	10%,
+	30%,
+	50%,
+	70% {
+		transform: translateY(-16px);
+	}
+
+	20%,
+	40%,
+	60% {
+		transform: translateY(16px);
+	}
+
+	80% {
+		transform: translateY(12px);
+	}
+
+	90% {
+		transform: translateY(-12px);
+	}
 }
