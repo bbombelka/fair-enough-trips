@@ -83,6 +83,13 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "berchtesgaden-alps",
     originalName: "Berchtesgadener Alpen",
   },
+  {
+    code: "010",
+    name: "Rhodes",
+    url: "rhodes",
+    originalName: "Rodos",
+  },
+
 ];
 
 export const Countries: Category[] = [
