@@ -9,4 +9,5 @@ export default {
   MAX_STARS_COUNT: 5,
   REGION_NOTES_COLLECTION: "region-trip-notes",
   COUNTRY_NOTES_COLLECTION: "country-trip-notes",
+  EXTERNAL_MAP_TIMEOUT: 20000,
 };

@@ -4,6 +4,7 @@
   align-items: center;
   border: 2px solid var(--color-grey);
   margin: 0 -2px -2px 0;
+  padding: 0 2px;
 }
 
 .label,

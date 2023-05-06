@@ -1,0 +1,21 @@
+.container {
+  z-index: 100;
+  background-color: white;
+  display: flex;
+  height: 100%;
+  transition-property: opacity;
+  transition-duration: 2s;
+  opacity: 1;
+}
+
+
+.center-box {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 3px solid var(--color-grey);
+    padding: 24px;
+    border-radius: 12px;
+    align-items: center;
+    gap: 24px;
+  }

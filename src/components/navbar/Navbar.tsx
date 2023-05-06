@@ -1,6 +1,6 @@
 import { navbarLinks } from "app-links";
 import { Link } from "components/link/Link";
-import { Logo } from "components/logo/Logo";
+import { Logo } from "components/icons/Icons";
 import { MobileMenu } from "components/mobile-menu/MobileMenu";
 import NextLink from "next/link";
 import React from "react";

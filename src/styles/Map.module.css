@@ -1,11 +1,16 @@
 .container {
   display: flex;
+  position: relative;
 }
 
 .map {
   width: 66%;
   height: 400px;
   border-radius: 4px;
+}
+
+.map-overlay {
+  position: absolute;
 }
 
 .link {

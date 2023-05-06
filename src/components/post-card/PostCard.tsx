@@ -73,8 +73,8 @@ export const PostCard: FC<PostCardProps> = ({
 
   return (
     <>
-      {isMainPostCard && isLoadingImage && (
-        <Loader fullscreen loadingHeading="Loading trips" />
+      {isMainPostCard && (
+        <Loader fullscreen loadingHeading="Loading trips" isLoading={isLoadingImage } />
       )}
       <div className={styles.container} ref={postCardRef}>
         {postDate && (
