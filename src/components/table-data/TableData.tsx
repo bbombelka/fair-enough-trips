@@ -1,4 +1,5 @@
 import { StarRate } from "components/star-rate/StarRate";
+import { useCountUpAnimation } from "hooks/useCountUpAnimation";
 import { FC } from "react";
 import styles from "styles/TableData.module.css";
 import { FullPost } from "types/PostPage.types";
@@ -34,16 +35,16 @@ export const TableData: FC<TableDataProps> = ({
             <StarRate rate={condition} />
           </a>
         </Cell>
-        <Cell label="Distance" value={`${distance} km`}></Cell>
+        <Cell label="Distance" value={`${useCountUpAnimation({animatedValue: distance })} km`}></Cell>
         <Cell label="Duration" value={`${duration} h`}></Cell>
-        <Cell label="Ascent" value={`${up} meters`}></Cell>
-        <Cell label="Descent" value={`${down} meters`}></Cell>
+        <Cell label="Ascent" value={`${useCountUpAnimation({animatedValue: up, delay: 500})} meters`}></Cell>
+        <Cell label="Descent" value={`${useCountUpAnimation({animatedValue: down, delay: 1000})} meters`}></Cell>
+        <Cell label="Highest point" value={`${useCountUpAnimation({animatedValue: highestPoint, delay: 1500})} meters`} />
         <Cell label="Terrain" value={terrain}></Cell>
         <Cell label="Season" value={parseDate(date)} />
         <Cell label="Starting point" value={startingPoint} />
         <Cell label="Ending point" value={endingPoint} />
         <Cell label="Difficulty" value={difficulty} />
-        <Cell label="Highest point" value={`${highestPoint} meters`} />
       </div>
     </div>
   );
