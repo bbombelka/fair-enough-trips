@@ -89,7 +89,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "rhodes",
     originalName: "Rodos",
   },
-
+  {
+    code: "011",
+    name: "Cyprus",
+    url: "cyprus",
+    originalName: "Kýpros",
+  }
 ];
 
 export const Countries: Category[] = [
@@ -114,6 +119,7 @@ export const Countries: Category[] = [
   { code: "007", name: "Kosovo", url: "kosovo" },
   { code: "008", name: "Italy", url: "italy" },
   { code: "009", name: "Germany", url: "germany" },
+  { code: "010", name: "Cyprus", url: "cyprus" }
 ];
 
 export enum CategoriesEnum {
