@@ -1,22 +1,14 @@
 import { Box } from "components/box/Box";
 import Config from "Config";
-import { CategoriesEnum } from "enums/categories";
 import { useCardClasses } from "hooks/useCardClasses";
-import { useFadeInColorAnimation } from "hooks/useFadeInColorAnimation";
+import { useBackgroundImageLazyLoad } from "hooks/useBackgroundImageLazyLoad";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
 import React, { FC, useMemo, useRef } from "react";
 import styles from "styles/PostCard.module.css";
-import { Category } from "types/PostPage.types";
 
-type CategoryCardProps = {
-  category: Category & { originalName: string };
-  postIds: string[];
-  isMainCard: boolean;
-  categoryType: CategoriesEnum;
-  areNotesPresent?: boolean;
-};
+import type { CategoryCardProps } from "./CategoryCard.types";
 
 export const CategoryCard: FC<CategoryCardProps> = ({
   category: { url, name, originalName },
@@ -26,8 +18,8 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   areNotesPresent,
 }) => {
   const postCardRef = useRef<HTMLDivElement>(null);
-  const { isAnimationTriggered } = useFadeInColorAnimation({
-    isMainCard: true,
+  const { isAnimationTriggered, isImageLoaded } = useBackgroundImageLazyLoad({
+    isMainCard: false,
     cardRef: postCardRef,
   });
   const scrollDownTrips = useScrollDown("card-list");
@@ -45,7 +37,9 @@ export const CategoryCard: FC<CategoryCardProps> = ({
 
   const randomBackgroundId = useMemo(() => shuffleBackgroundImage(postIds), []);
   const title = name.concat(originalName ? ` (${originalName})` : "");
-  const backgroundImageUrl = `url(/${randomBackgroundId}/main.${Config.DEFAULT_IMAGE_EXTENSION}), url(/${categoryType}/fallback.jpg)`;
+  const backgroundImageUrl = isImageLoaded
+    ? `url(/${randomBackgroundId}/main.${Config.DEFAULT_IMAGE_EXTENSION}), url(/regions/fallback.webp)`
+    : "none";
 
   return (
     <div className={styles.container} ref={postCardRef}>

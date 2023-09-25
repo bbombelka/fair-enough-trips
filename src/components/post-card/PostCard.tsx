@@ -5,7 +5,7 @@ import { DateBox } from "components/date-box/DateBox";
 import { PostCardProps } from "components/post-card/PostCard.types";
 import Config from "Config";
 import { useCardClasses } from "hooks/useCardClasses";
-import { useFadeInColorAnimation } from "hooks/useFadeInColorAnimation";
+import { useBackgroundImageLazyLoad } from "hooks/useBackgroundImageLazyLoad";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
@@ -25,7 +25,7 @@ export const PostCard: FC<PostCardProps> = ({
   });
 
   const [activities, regions, countries] = useMappedCategories(category);
-  const { isAnimationTriggered } = useFadeInColorAnimation({
+  const { isAnimationTriggered, isImageLoaded } = useBackgroundImageLazyLoad({
     isMainCard: isMainPostCard,
     cardRef: postCardRef,
   });
@@ -74,7 +74,11 @@ export const PostCard: FC<PostCardProps> = ({
   return (
     <>
       {isMainPostCard && (
-        <Loader fullscreen loadingHeading="Loading trips" isLoading={isLoadingImage } />
+        <Loader
+          fullscreen
+          loadingHeading="Loading trips"
+          isLoading={isLoadingImage}
+        />
       )}
       <div className={styles.container} ref={postCardRef}>
         {postDate && (
@@ -91,7 +95,9 @@ export const PostCard: FC<PostCardProps> = ({
         <div
           ref={imageRef}
           style={{
-            backgroundImage: `url(/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`,
+            backgroundImage: isImageLoaded
+              ? `url(/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`
+              : "none",
           }}
           className={imageClass}
         />
