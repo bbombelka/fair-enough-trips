@@ -94,7 +94,19 @@ export const Regions: Array<Category & { originalName: string }> = [
     name: "Cyprus",
     url: "cyprus",
     originalName: "Kýpros",
-  }
+  },
+  {
+    code: "012",
+    name: "Karavanks",
+    url: "karavanks",
+    originalName: "Karavanke",
+  },
+  {
+    code: "013",
+    name: "Dolomites",
+    url: "dolomites",
+    originalName: "Dolomiti",
+  },
 ];
 
 export const Countries: Category[] = [
@@ -119,7 +131,7 @@ export const Countries: Category[] = [
   { code: "007", name: "Kosovo", url: "kosovo" },
   { code: "008", name: "Italy", url: "italy" },
   { code: "009", name: "Germany", url: "germany" },
-  { code: "010", name: "Cyprus", url: "cyprus" }
+  { code: "010", name: "Cyprus", url: "cyprus" },
 ];
 
 export enum CategoriesEnum {
