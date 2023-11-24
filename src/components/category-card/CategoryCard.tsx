@@ -1,12 +1,13 @@
 import { Box } from "components/box/Box";
 import Config from "Config";
 import { useCardClasses } from "hooks/useCardClasses";
-import { useBackgroundImageLazyLoad } from "hooks/useBackgroundImageLazyLoad";
+import { useTriggerAnimation } from "hooks/useTriggerAnimation";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
 import React, { FC, useMemo, useRef } from "react";
 import styles from "styles/PostCard.module.css";
+import Image from "next/image";
 
 import type { CategoryCardProps } from "./CategoryCard.types";
 
@@ -18,17 +19,23 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   areNotesPresent,
 }) => {
   const postCardRef = useRef<HTMLDivElement>(null);
-  const { isAnimationTriggered, isImageLoaded } = useBackgroundImageLazyLoad({
+  const { isAnimationTriggered } = useTriggerAnimation({
     isMainCard: false,
     cardRef: postCardRef,
   });
   const scrollDownTrips = useScrollDown("card-list");
   const scrollDownNotes = useScrollDown("trip-notes");
-  const imageRef = useSetHeightProgramatically<HTMLDivElement>({
+  const imageRef = useSetHeightProgramatically<HTMLImageElement>({
     enabled: isMainCard,
   });
 
-  const { imageClass, buttonClass, titleClass, textBoxClass } = useCardClasses({
+  const {
+    imageClass,
+    buttonClass,
+    titleClass,
+    textBoxClass,
+    imageContainerClass,
+  } = useCardClasses({
     isMainCard,
     isTop: false,
     isAnimationTriggered,
@@ -37,19 +44,17 @@ export const CategoryCard: FC<CategoryCardProps> = ({
 
   const randomBackgroundId = useMemo(() => shuffleBackgroundImage(postIds), []);
   const title = name.concat(originalName ? ` (${originalName})` : "");
-  const backgroundImageUrl = isImageLoaded
-    ? `url(/${randomBackgroundId}/main.${Config.DEFAULT_IMAGE_EXTENSION}), url(/regions/fallback.webp)`
-    : "none";
 
   return (
     <div className={styles.container} ref={postCardRef}>
-      <div
-        style={{
-          backgroundImage: backgroundImageUrl,
-        }}
-        className={imageClass}
-        ref={imageRef}
-      />
+      <div ref={imageRef} className={imageContainerClass}>
+        <Image
+          src={`/${randomBackgroundId}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
+          className={imageClass}
+          alt="Main category picture"
+          layout="fill"
+        />
+      </div>
       <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>
         <Link href={isMainCard ? "" : `/${categoryType}/${url}`}>

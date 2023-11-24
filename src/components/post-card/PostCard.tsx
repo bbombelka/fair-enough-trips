@@ -5,13 +5,14 @@ import { DateBox } from "components/date-box/DateBox";
 import { PostCardProps } from "components/post-card/PostCard.types";
 import Config from "Config";
 import { useCardClasses } from "hooks/useCardClasses";
-import { useBackgroundImageLazyLoad } from "hooks/useBackgroundImageLazyLoad";
+import { useTriggerAnimation } from "hooks/useTriggerAnimation";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import styles from "styles/PostCard.module.css";
+import Image from "next/image";
 
 export const PostCard: FC<PostCardProps> = ({
   post: { isTop = false, title, category, id, postDate },
@@ -25,7 +26,7 @@ export const PostCard: FC<PostCardProps> = ({
   });
 
   const [activities, regions, countries] = useMappedCategories(category);
-  const { isAnimationTriggered, isImageLoaded } = useBackgroundImageLazyLoad({
+  const { isAnimationTriggered } = useTriggerAnimation({
     isMainCard: isMainPostCard,
     cardRef: postCardRef,
   });
@@ -38,6 +39,7 @@ export const PostCard: FC<PostCardProps> = ({
     scrollDownIconClass,
     titleClass,
     textBoxClass,
+    imageContainerClass,
   } = useCardClasses({
     isMainCard: isMainPostCard,
     isTop,
@@ -92,15 +94,14 @@ export const PostCard: FC<PostCardProps> = ({
             onClick={scrollDown}
           />
         )}
-        <div
-          ref={imageRef}
-          style={{
-            backgroundImage: isImageLoaded
-              ? `url(/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION})`
-              : "none",
-          }}
-          className={imageClass}
-        />
+        <div ref={imageRef} className={imageContainerClass}>
+          <Image
+            className={imageClass}
+            src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
+            alt={"Main trip picture"}
+            layout="fill"
+          />
+        </div>
         <div className={textBoxClass}>
           <h1 className={titleClass}>{title}</h1>
           {getPostCardSubtitles()}

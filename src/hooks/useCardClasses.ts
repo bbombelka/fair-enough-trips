@@ -16,31 +16,36 @@ export const useCardClasses = ({
   const textBoxClass = clsx(
     styles.textBox,
     isTop ? styles.top : styles.bottom,
-    isMainCard && styles.main,
+    isMainCard && styles.main
   );
 
   const imageClass = clsx(
-    styles.image,
-    !isMainCard && styles["grid-card"],
-    isAnimationTriggered && styles["liven-up"],
+    styles["next-image"],
+    isMainCard && styles["next-image-main"],
+    isAnimationTriggered && styles["liven-up"]
   );
 
   const titleClass = clsx(
     styles.text,
-    styles[isMainCard ? "title-main" : "title"],
+    styles[isMainCard ? "title-main" : "title"]
   );
 
   const subtitleClass = clsx(
     styles.text,
-    styles[isMainCard ? "main-post-card-subtitle" : "subtitle"],
+    styles[isMainCard ? "main-post-card-subtitle" : "subtitle"]
   );
 
   const scrollDownIconClass = clsx(
     styles["scroll-down-icon"],
-    isTop && styles["is-top"],
+    isTop && styles["is-top"]
   );
 
   const buttonClass = clsx(styles.button, isMainCard && styles.main);
+
+  const imageContainerClass = clsx(
+    styles["next-image-container"],
+    !isMainCard && styles["grid-card"]
+  );
 
   return {
     textBoxClass,
@@ -49,5 +54,6 @@ export const useCardClasses = ({
     subtitleClass,
     scrollDownIconClass,
     buttonClass,
+    imageContainerClass,
   };
 };
