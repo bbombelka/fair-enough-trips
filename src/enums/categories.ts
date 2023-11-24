@@ -132,6 +132,7 @@ export const Countries: Category[] = [
   { code: "008", name: "Italy", url: "italy" },
   { code: "009", name: "Germany", url: "germany" },
   { code: "010", name: "Cyprus", url: "cyprus" },
+  { code: "011", name: "Austria", url: "austria" },
 ];
 
 export enum CategoriesEnum {
