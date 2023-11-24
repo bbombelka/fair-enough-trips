@@ -1,16 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
-export const useVisibleVerticalThreshold = () => {
+const ADJUST_THRESHOLD_PX = 0;
+
+export const useVisibleVerticalThreshold = ({
+  adjustThresholdPx = ADJUST_THRESHOLD_PX,
+}: {
+  adjustThresholdPx: number;
+}) => {
   const [visibleVerticalThreshold, setVisibleVerticalThreshold] = useState<
     number | null
   >(null);
 
-  useEffect(() => {
-    setVisibleVerticalThreshold(window.innerHeight);
-    document.addEventListener("scroll", () => {
-      setVisibleVerticalThreshold(window.scrollY + window.innerHeight);
-    });
+  const onScroll = useCallback(() => {
+    setVisibleVerticalThreshold(
+      window.scrollY + window.innerHeight + adjustThresholdPx
+    );
   }, []);
 
-  return visibleVerticalThreshold;
+  const removeScrollListener = () =>
+    document.removeEventListener("scroll", onScroll);
+
+  useEffect(() => {
+    setVisibleVerticalThreshold(window.innerHeight);
+
+    document.addEventListener("scroll", onScroll);
+
+    return () => {
+      removeScrollListener();
+    };
+  }, []);
+
+  return { visibleVerticalThreshold, removeScrollListener };
 };
