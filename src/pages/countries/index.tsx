@@ -6,7 +6,7 @@ import { mongoClient } from "MongoClient";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Category, FullPost } from "types/PostPage.types";
-import { CardList } from "components/card-list/CardList";
+import CardList from "components/card-list/CardList";
 
 type CountriesPageProps = {
   countries: Array<{

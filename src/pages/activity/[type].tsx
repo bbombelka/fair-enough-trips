@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
-import { CardList } from "components/card-list/CardList";
+import CardList from "components/card-list/CardList";
 import { Post } from "components/card-list/CardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
@@ -62,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   await mongoClient.close();
 
   const types = Array.from(
-    new Set(posts.map(({ category }) => category.activity).flat()),
+    new Set(posts.map(({ category }) => category.activity).flat())
   )
     .map((code) => Activities.find((act) => act.code === code)?.url)
     .map((path) => ({ params: { type: path } }));
