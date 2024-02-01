@@ -107,6 +107,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "dolomites",
     originalName: "Dolomiti",
   },
+  {
+    code: "014",
+    name: "Nock Mountains",
+    url: "nock-mountains",
+    originalName: "Nockberge",
+  },
 ];
 
 export const Countries: Category[] = [
