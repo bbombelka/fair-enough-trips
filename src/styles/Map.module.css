@@ -1,16 +1,7 @@
 .container {
   display: flex;
   position: relative;
-}
-
-.map {
-  width: 66%;
-  height: 400px;
-  border-radius: 4px;
-}
-
-.map-overlay {
-  position: absolute;
+  width: 100%;
 }
 
 .link {
@@ -23,6 +14,10 @@
   display: inline-block;
 }
 
+.hide-map-link {
+  display: none;
+}
+
 .icon {
   margin-right: 16px;
 }
@@ -33,11 +28,13 @@
     align-items: center;
   }
 
-  .map {
-    width: 100%;
-  }
-
   .link span {
     font-size: 12px !important;
   }
+
+  .hide-map-link {
+    display: inline-block;
+ 
+}
+
 }

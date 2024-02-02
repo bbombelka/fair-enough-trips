@@ -1,50 +1,35 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TableData } from "components/table-data/TableData";
 import Config from "Config";
-import { FC, useEffect, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import styles from "styles/Map.module.css";
 import { FullPost } from "types/PostPage.types";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { Loader } from "components/loader/Loader";
-import clsx from "clsx";
-import { Status } from "enums/statuses";
-import { Error } from "components/error/Error"
+import { MapIframe } from "./MapIframe";
+import { faMap } from "@fortawesome/free-regular-svg-icons";
 
 type MapProps = {
   post: FullPost;
 };
 
 export const Map: FC<MapProps> = ({ post }) => {
-  const [status, setStatus] = useState<Status>(Status.LOADING);
-  const [hideLoaderOverlay, setHideLoaderOverlay] = useState(false)
-  
-  useEffect(()=> {
-    setTimeout(() => {
-      setStatus(status => status === Status.LOADED ?  Status.LOADED : Status.ERROR)
-    }, Config.EXTERNAL_MAP_TIMEOUT)
-  }, [])
+  const [isMounted, setIsMounted] = useState(false);
+  const [showMapIframe, setShowMapIframe] = useState(true);
 
-  useEffect(()=> {
-    if(status===Status.LOADED) {
-      setTimeout(()=> {
-        setHideLoaderOverlay(true)
-      }, 2000)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      setShowMapIframe(window.innerWidth > 720);
     }
-  }, [status])
+  }, [isMounted]);
 
   return (
     <>
       <div className={styles.container}>
-      {!hideLoaderOverlay && <div className={clsx(styles["map-overlay"], styles.map)}><Loader isLoading={status === Status.LOADING} loadingHeading={"Map is loading"} /></div>}
-      {status === Status.ERROR ? <div className={clsx(styles["map-overlay"], styles.map)}><Error width={96} height={96} message="Something went wrong with loading the map. Try to refresh the page." /></div> : <></>}
-        <iframe
-          onLoad={() => setStatus(Status.LOADED)}
-          onError={()=> setStatus(Status.ERROR)}
-          className={styles.map}
-          frameBorder="0"
-          scrolling="no"
-          src={post.iframeUrl}
-        />
+        {showMapIframe ? <MapIframe iframeUrl={post.iframeUrl} /> : null}
         <TableData post={post} />
       </div>
       <a
@@ -53,6 +38,17 @@ export const Map: FC<MapProps> = ({ post }) => {
       >
         <FontAwesomeIcon icon={faDownload} className={styles.icon} />
         <span>Download gps track</span>
+      </a>
+      <a
+        className={`${styles.link} ${styles["hide-map-link"]}`}
+        href={`#`}
+        onClick={(e) => {
+          e.preventDefault();
+          setShowMapIframe((v) => !v);
+        }}
+      >
+        <FontAwesomeIcon icon={faMap} className={styles.icon} />
+        <span>{showMapIframe ? "Hide the map" : "Show the map"} </span>
       </a>
     </>
   );
