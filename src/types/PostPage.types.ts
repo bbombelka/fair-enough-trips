@@ -9,6 +9,18 @@ export type PostLink = {
   href: string;
 };
 
+type Links = Record<
+  | "accomodation"
+  | "transportation"
+  | "other"
+  | "dangers"
+  | "weather"
+  | "gear"
+  | "shortDescription"
+  | "trailCondition",
+  PostLink[]
+>;
+
 export type PostImage = {
   desc: string;
   filename: string;
@@ -57,16 +69,7 @@ export type FullPost = {
   iframeUrl: string;
   startingPoint: string;
   endingPoint: string;
-  links: Record<
-    | "accomodation"
-    | "transportation"
-    | "other"
-    | "dangers"
-    | "weather"
-    | "gear"
-    | "shortDescription",
-    PostLink[]
-  >;
+  links: Links;
   images: PostImage[];
   postDate: Date;
 };
