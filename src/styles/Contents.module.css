@@ -1,0 +1,21 @@
+.contents { 
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 36px 0;
+}
+
+.contents-list {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 0;
+}
+
+@media (max-width: 720px) {
+    .contents-list {
+       display: block;
+    }
+    .contents { 
+        margin: 0;
+    }
+  }

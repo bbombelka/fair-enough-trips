@@ -4,3 +4,4 @@ export { PostCard } from "./post-card/PostCard";
 export { Map } from "./map/Map";
 export { Layout } from "./layout/Layout";
 export { Loader } from "./loader/Loader";
+export { Contents } from "./contents/Contents";

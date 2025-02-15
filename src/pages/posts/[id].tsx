@@ -34,11 +34,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
           />
           <Divider title="Trip conditions" />
           <Paragraph body={post.weather} title="Weather" />
-          <Paragraph
-            body={post.trailCondition}
-            title="Trail"
-            links={post.links["trailCondition"]}
-          />
+          <Paragraph body={post.trailCondition} title="Trail" />
           <Divider title="General" />
           <Paragraph
             links={post.links["accomodation"]}
