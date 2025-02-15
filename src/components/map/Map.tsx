@@ -41,7 +41,7 @@ export const Map: FC<MapProps> = ({ post }) => {
       </a>
       <a
         className={`${styles.link} ${styles["hide-map-link"]}`}
-        href={`#`}
+        href="#"
         onClick={(e) => {
           e.preventDefault();
           setShowMapIframe((v) => !v);

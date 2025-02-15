@@ -37,6 +37,7 @@ export const MapIframe: FC<MapIframeProps> = ({ iframeUrl }) => {
           <Loader
             isLoading={status === Status.LOADING}
             loadingHeading={"Map is loading"}
+            hasInternalBorder
           />
         </div>
       )}

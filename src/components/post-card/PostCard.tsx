@@ -9,9 +9,9 @@ import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import styles from "styles/PostCard.module.css";
-import Image from "next/image";
+import { FETImage } from "components/fet-image/FETImage";
 
 export const PostCard: FC<PostCardProps> = ({
   post: { isTop = false, title, category, id, postDate },
@@ -72,12 +72,15 @@ export const PostCard: FC<PostCardProps> = ({
         />
       )}
       <div ref={imageRef} className={imageContainerClass}>
-        <Image
+        <FETImage
+          isMainImage={isMainPostCard}
           className={imageClass}
           src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
           alt={"Main trip picture"}
           layout="fill"
-          onLoad={() => setImageLoaded?.(true)}
+          onLoad={() => {
+            setImageLoaded?.(true);
+          }}
         />
       </div>
       <div className={textBoxClass}>

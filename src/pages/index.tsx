@@ -41,6 +41,7 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
           fullscreen
           loadingHeading="Loading trips"
           isLoading={!isMainImageLoaded}
+          hasInternalBorder
         />
         <PostCard
           isMainPostCard

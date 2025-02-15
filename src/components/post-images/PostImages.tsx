@@ -1,7 +1,7 @@
 import { Divider } from "components/divider/Divider";
 import Config from "Config";
 import React, { FC } from "react";
-import Image from "next/image";
+import { FETImage } from "components/fet-image/FETImage";
 import styles from "styles/PostImages.module.css";
 import { PostImage } from "types/PostPage.types";
 
@@ -25,7 +25,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images }) => {
             style={{ maxWidth: width }}
           >
             <a href={src} target="_blank" rel="noopener noreferrer">
-              <Image
+              <FETImage
                 className={styles.image}
                 src={src}
                 alt={desc}

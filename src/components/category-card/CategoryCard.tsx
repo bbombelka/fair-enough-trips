@@ -7,7 +7,7 @@ import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
 import React, { FC, useMemo, useRef } from "react";
 import styles from "styles/PostCard.module.css";
-import Image from "next/image";
+import { FETImage } from "components/fet-image/FETImage";
 
 import type { CategoryCardProps } from "./CategoryCard.types";
 
@@ -48,7 +48,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   return (
     <div className={styles.container} ref={postCardRef}>
       <div ref={imageRef} className={imageContainerClass}>
-        <Image
+        <FETImage
           src={`/${randomBackgroundId}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
           className={imageClass}
           alt="Main category picture"
