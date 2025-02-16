@@ -6,9 +6,10 @@ export const Paragraph: FC<{
   body: string[];
   title?: string;
   links?: PostLink[];
-}> = ({ body, title, links }) => {
+  id?: string;
+}> = ({ body, title, links, id }) => {
   return (
-    <div className={styles.container}>
+    <div id={id} className={styles.container}>
       {title && <span className={styles.title}>{title}:</span>}
       {body.map((paragraph, i) => (
         <p key={i} className={styles.paragraph}>

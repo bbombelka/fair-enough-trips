@@ -1,5 +1,5 @@
 .navbar {
-  height: 60px;
+  height: var(--navbar-height);
   width: 100%;
   border-bottom: 3px solid var(--color-grey);
   text-transform: uppercase;

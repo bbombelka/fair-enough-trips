@@ -7,9 +7,9 @@ type LayoutProps = {
 
 export const Layout: FC<LayoutProps> = ({ children, title }) => {
   return (
-    <div className="layout">
+    <main className="layout">
       {title && <h1 className={styles.title}>{title}</h1>}
       {children}
-    </div>
+    </main>
   );
 };

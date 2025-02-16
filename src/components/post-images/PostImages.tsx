@@ -8,18 +8,24 @@ import { PostImage } from "types/PostPage.types";
 type PostImagesProps = {
   id: string;
   images: PostImage[];
+  order?: number;
 };
 
-export const PostImages: FC<PostImagesProps> = ({ id, images }) => {
+export const PostImages: FC<PostImagesProps> = ({ id, images, order }) => {
   return (
     <div>
-      <Divider title="Visual" />
+      <Divider
+        title="Visual"
+        order={order}
+        stickyScrollToElementId="post-images"
+      />
       {images.map(({ filename, desc, isVertical }, imageId) => {
         const width = isVertical ? Config.SHORT_STRETCH : Config.LONG_STRETCH;
         const height = isVertical ? Config.LONG_STRETCH : Config.SHORT_STRETCH;
         const src = `/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
         return (
           <div
+            id="post-images"
             key={imageId}
             className={styles.images}
             style={{ maxWidth: width }}

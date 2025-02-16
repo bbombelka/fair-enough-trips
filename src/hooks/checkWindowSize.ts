@@ -1,6 +1,18 @@
 import { Breakpoints } from "styles/variables/breakpoints";
 
-export const checkWindowSize = () => {
+export const checkWindowSize = ({
+  isEnabled = false,
+}: {
+  isEnabled: boolean;
+}) => {
+  if (!isEnabled) {
+    return {
+      isMobile: false,
+      isTablet: false,
+      isDesktop: true,
+    };
+  }
+
   switch (true) {
     case window.innerWidth <= Breakpoints.S:
       return {

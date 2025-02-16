@@ -27,27 +27,55 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
         <Navbar />
         <Layout title={post.title}>
           <Map post={post} />
-          <Divider title="Overview" />
+
+          <Divider
+            title="Overview"
+            order={1}
+            stickyScrollToElementId="paragraph-overview"
+          />
           <Paragraph
+            id="paragraph-overview"
             body={post.shortDescription}
             links={post.links["shortDescription"]}
           />
-          <Divider title="Trip conditions" />
-          <Paragraph body={post.weather} title="Weather" />
+
+          <Divider
+            title="Trip conditions"
+            order={2}
+            stickyScrollToElementId="paragraph-conditions"
+          />
+          <Paragraph
+            body={post.weather}
+            title="Weather"
+            id="paragraph-conditions"
+          />
           <Paragraph body={post.trailCondition} title="Trail" />
-          <Divider title="General" />
+          <Divider
+            title="General"
+            order={3}
+            stickyScrollToElementId="paragraph-general"
+          />
           <Paragraph
             links={post.links["accomodation"]}
             body={post.accomodation}
             title="Accommodation"
+            id="paragraph-general"
           />
           <Paragraph
             links={post.links["transportation"]}
             body={post.transportation}
             title="Transportation"
           />
-          <Divider title="Other" />
-          <Paragraph links={post.links["other"]} body={post.other} />
+          <Divider
+            title="Other"
+            order={4}
+            stickyScrollToElementId="paragraph-other"
+          />
+          <Paragraph
+            links={post.links["other"]}
+            body={post.other}
+            id="paragraph-other"
+          />
           <Paragraph
             links={post.links["dangers"]}
             body={post.dangers}
@@ -59,7 +87,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
             title="Gear used"
           />
           {Boolean(post.images.length) && (
-            <PostImages images={post.images} id={post.id} />
+            <PostImages images={post.images} id={post.id} order={5} />
           )}
         </Layout>
         <Footer isSticky />
