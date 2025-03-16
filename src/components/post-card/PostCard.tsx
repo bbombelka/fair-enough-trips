@@ -9,9 +9,11 @@ import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useRef } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
+import { checkWindowSize } from "hooks/checkWindowSize";
+import { useIsMounted } from "hooks/useIsMounted";
 
 export const PostCard: FC<PostCardProps> = ({
   post: { isTop = false, title, category, id, postDate },
@@ -25,21 +27,15 @@ export const PostCard: FC<PostCardProps> = ({
   });
 
   const [activities, regions, countries] = useMappedCategories(category);
+  const isMounted = useIsMounted();
   const { isAnimationTriggered } = useTriggerAnimation({
     isMainCard: isMainPostCard,
     cardRef: postCardRef,
   });
   const scrollDown = useScrollDown("card-list");
+  const { isMobile } = checkWindowSize({ isEnabled: isMounted });
 
-  const {
-    imageClass,
-    subtitleClass,
-    buttonClass,
-    scrollDownIconClass,
-    titleClass,
-    textBoxClass,
-    imageContainerClass,
-  } = useCardClasses({
+  const { imageClass, subtitleClass, buttonClass, scrollDownIconClass, titleClass, textBoxClass, imageContainerClass } = useCardClasses({
     isMainCard: isMainPostCard,
     isTop,
     isAnimationTriggered,
@@ -58,30 +54,25 @@ export const PostCard: FC<PostCardProps> = ({
     );
   };
 
+  const getSourceImagePath = () => `/${id}/${isMobile && !isMainPostCard ? "thumb_" : ""}main.${Config.DEFAULT_IMAGE_EXTENSION}`;
+
   return (
     <div className={styles.container} ref={postCardRef}>
-      {postDate && (
-        <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />
-      )}
-
-      {isMainPostCard && displayScrollDownButton && (
-        <FontAwesomeIcon
-          className={scrollDownIconClass}
-          icon={faAnglesDown}
-          onClick={scrollDown}
-        />
-      )}
+      {postDate && <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />}
+      {isMainPostCard && displayScrollDownButton && <FontAwesomeIcon className={scrollDownIconClass} icon={faAnglesDown} onClick={scrollDown} />}
       <div ref={imageRef} className={imageContainerClass}>
-        <FETImage
-          isMainImage={isMainPostCard}
-          className={imageClass}
-          src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
-          alt={"Main trip picture"}
-          layout="fill"
-          onLoad={() => {
-            setImageLoaded?.(true);
-          }}
-        />
+        {isMounted && (
+          <FETImage
+            isMainImage={isMainPostCard}
+            className={imageClass}
+            src={getSourceImagePath()}
+            alt={"Main trip picture"}
+            layout="fill"
+            onLoad={() => {
+              setImageLoaded?.(true);
+            }}
+          />
+        )}
       </div>
       <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>
