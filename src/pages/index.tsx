@@ -6,6 +6,7 @@ import { mongoClient } from "MongoClient";
 import Config from "Config";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { useServiceWorker } from "hooks/useServiceWorker";
 
 type HomePageProps = {
   mainPost: Post;
@@ -18,6 +19,7 @@ const CardList = dynamic(() => import("components/card-list/CardList"), {
 
 const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
   const [isMainImageLoaded, setMainImageLoaded] = useState(false);
+  useServiceWorker();
 
   return (
     <div>

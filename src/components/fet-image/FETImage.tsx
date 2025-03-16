@@ -7,14 +7,8 @@ interface FETImageProps extends ImageProps {
   isMainImage?: boolean;
 }
 
-export const FETImage: FC<FETImageProps> = ({
-  isMainImage,
-  onLoad,
-  ...props
-}) => {
-  const [isLoading, setIsLoading] = useState(() =>
-    isMainImage ? false : true
-  );
+export const FETImage: FC<FETImageProps> = ({ isMainImage, onLoad, ...props }) => {
+  const [isLoading, setIsLoading] = useState(() => (isMainImage ? false : true));
 
   const onImageLoad: React.ReactEventHandler<HTMLImageElement> = (event) => {
     onLoad?.(event);
@@ -23,12 +17,8 @@ export const FETImage: FC<FETImageProps> = ({
 
   return (
     <>
-      <Loader
-        isLoading={isLoading}
-        loadingHeading="Loading image"
-        hasExternalBorder
-      />
-      <Image onLoad={onImageLoad} {...props} />
+      <Loader isLoading={isLoading} loadingHeading="Loading image" hasExternalBorder />
+      <Image layout="responsive" onLoad={onImageLoad} {...props} />
     </>
   );
 };

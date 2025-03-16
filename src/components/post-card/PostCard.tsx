@@ -9,11 +9,12 @@ import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
 import { checkWindowSize } from "hooks/checkWindowSize";
 import { useIsMounted } from "hooks/useIsMounted";
+import { useSourceImagePath } from "hooks/useSourceImagePath";
 
 export const PostCard: FC<PostCardProps> = ({
   post: { isTop = false, title, category, id, postDate },
@@ -33,7 +34,7 @@ export const PostCard: FC<PostCardProps> = ({
     cardRef: postCardRef,
   });
   const scrollDown = useScrollDown("card-list");
-  const { isMobile } = checkWindowSize({ isEnabled: isMounted });
+  const { src, setError } = useSourceImagePath({ isMainPostCard, id });
 
   const { imageClass, subtitleClass, buttonClass, scrollDownIconClass, titleClass, textBoxClass, imageContainerClass } = useCardClasses({
     isMainCard: isMainPostCard,
@@ -54,8 +55,6 @@ export const PostCard: FC<PostCardProps> = ({
     );
   };
 
-  const getSourceImagePath = () => `/${id}/${isMobile && !isMainPostCard ? "thumb_" : ""}main.${Config.DEFAULT_IMAGE_EXTENSION}`;
-
   return (
     <div className={styles.container} ref={postCardRef}>
       {postDate && <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />}
@@ -65,12 +64,13 @@ export const PostCard: FC<PostCardProps> = ({
           <FETImage
             isMainImage={isMainPostCard}
             className={imageClass}
-            src={getSourceImagePath()}
+            src={src}
             alt={"Main trip picture"}
             layout="fill"
             onLoad={() => {
               setImageLoaded?.(true);
             }}
+            onError={() => setError(true)}
           />
         )}
       </div>
