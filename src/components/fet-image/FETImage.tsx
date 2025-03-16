@@ -18,7 +18,7 @@ export const FETImage: FC<FETImageProps> = ({ isMainImage, onLoad, ...props }) =
   return (
     <>
       <Loader isLoading={isLoading} loadingHeading="Loading image" hasExternalBorder />
-      <Image layout="responsive" onLoad={onImageLoad} {...props} />
+      <Image objectFit="cover" objectPosition="center" layout="responsive" onLoad={onImageLoad} {...props} />
     </>
   );
 };

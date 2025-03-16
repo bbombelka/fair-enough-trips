@@ -17,10 +17,10 @@ export const TripNotes: FC<TripNotesProps> = ({ notes }) => {
   return (
     <div id="trip-notes">
       <h1 className="title">Trip Notes</h1>
-      {notes.map(({ title, paragraph, links }) => (
+      {notes.map(({ title, paragraph, links }, index) => (
         <>
-          <Divider title={title} />
-          <Paragraph body={paragraph} links={links} />
+          <Divider title={title} key={`divider-${index}`} />
+          <Paragraph body={paragraph} links={links} key={`paragraph-${index}`} />
         </>
       ))}
     </div>
