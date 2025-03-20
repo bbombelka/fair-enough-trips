@@ -34,6 +34,20 @@
   left: 0;
 }
 
+.search-container {
+  margin-left: auto;
+}
+
+.navbar-link-active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-position: under;
+}
+
+.navbar-link-last {
+  margin-left: auto;
+}
+
 @media (max-width: 720px) {
   .container-desktop {
     display: none;

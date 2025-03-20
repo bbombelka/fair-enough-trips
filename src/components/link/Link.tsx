@@ -1,18 +1,19 @@
-import React, { FC } from "react";
+import React, { FC, LinkHTMLAttributes } from "react";
 import NextLink from "next/link";
 
-type LinkProps = {
+interface LinkProps extends LinkHTMLAttributes<HTMLAnchorElement> {
   name: string;
   href: string;
-  leftMargin?: number;
-};
+  leftMargin?: number | string;
+}
 
-export const Link: FC<LinkProps> = ({ name, href, leftMargin }) => {
+export const Link: FC<LinkProps> = ({ name, href, leftMargin, className, ...rest }) => {
+  // remove it !!!
   const marginLeft = leftMargin ? `${leftMargin}px` : "";
 
   return (
-    <span style={{ marginLeft, display: "block" }}>
-      <NextLink href={href}>
+    <span className={className} style={{ marginLeft, display: "block" }}>
+      <NextLink href={href} {...rest}>
         <a>{name}</a>
       </NextLink>
     </span>

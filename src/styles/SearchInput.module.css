@@ -1,0 +1,38 @@
+
+.container {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input {
+    padding: 4px 8px;
+    border: none;
+    margin-right: 8px;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    height: calc(var(--navbar-height) - 4px);
+    width: 100%;
+}
+
+.input:focus {
+  border: none;
+}
+
+.input::placeholder {
+    color: black;
+    font-style: italic;
+    opacity: 0.7;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: none;
+    text-align: start;
+  }
+
+  .button {
+    all: unset;
+    cursor: pointer;
+    padding: 0 8px;
+  }

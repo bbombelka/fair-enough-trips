@@ -5,6 +5,7 @@ export const navbarLinks = [
   { name: "alpine climbing", href: "/activity/alpine-climbing" },
   { name: "regions", href: "/regions" },
   { name: "countries", href: "/countries" },
+  { name: "search", href: "/search" },
 ];
 
 export const footerLinks = [
@@ -18,9 +19,4 @@ export const footerLinks = [
   },
 ];
 
-export const menuLinks = [
-  { name: "home", href: "/" },
-  ...navbarLinks,
-  { name: " ", href: "" },
-  ...footerLinks,
-];
+export const menuLinks = [{ name: "home", href: "/" }, ...navbarLinks, { name: " ", href: "" }, ...footerLinks];
