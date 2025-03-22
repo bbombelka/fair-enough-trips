@@ -2,6 +2,7 @@ import { Categories } from "types/PostPage.types";
 
 export type CardListProps = {
   listTitle: string;
+  dropGrid?: boolean;
 };
 
 export type Post = {

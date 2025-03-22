@@ -1,0 +1,5 @@
+.search-result-item {
+    border: 3px solid var(--color-grey);
+    margin-bottom: 4px;
+    padding: 4px;
+}

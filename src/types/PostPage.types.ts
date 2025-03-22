@@ -9,17 +9,7 @@ export type PostLink = {
   href: string;
 };
 
-type Links = Record<
-  | "accomodation"
-  | "transportation"
-  | "other"
-  | "dangers"
-  | "weather"
-  | "gear"
-  | "shortDescription"
-  | "trailCondition",
-  PostLink[]
->;
+type Links = Record<"accomodation" | "transportation" | "other" | "dangers" | "weather" | "gear" | "shortDescription" | "trailCondition", PostLink[]>;
 
 export type PostImage = {
   desc: string;
@@ -88,3 +78,5 @@ export type Stats = {
   distance: number;
   highestPoint: number;
 };
+
+export type SearchPostType = Pick<FullPost, "id" | "category" | "title" | "postDate"> & { isTop: boolean };

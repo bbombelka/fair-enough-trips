@@ -1,17 +1,23 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSearch } from "pages/api/hooks/useSearch";
-import React, { useEffect, useRef } from "react";
+import clsx from "clsx";
+import React, { Dispatch, FC, SetStateAction, useRef } from "react";
 import styles from "styles/SearchInput.module.css";
 
-export const SearchInput = () => {
+type SearchInputProps = {
+  setSearchTerm: Dispatch<SetStateAction<string>>;
+  isLoading: boolean;
+};
+
+export const SearchInput: FC<SearchInputProps> = ({ setSearchTerm, isLoading }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { setSearchTerm } = useSearch({ isEnabled: true });
 
   const setValue = () => {
     const inputValue = inputRef.current?.value ?? "";
     setSearchTerm(inputValue);
   };
+
+  const buttonClassnames = clsx(styles["button"], isLoading && styles["button-disabled"]);
 
   return (
     <div className={styles["container"]}>
@@ -26,7 +32,7 @@ export const SearchInput = () => {
           }
         }}
       />
-      <button onClick={setValue} className={styles["button"]}>
+      <button disabled={isLoading} onClick={setValue} className={buttonClassnames}>
         <FontAwesomeIcon icon={faSearch} fontSize={24} />
       </button>
     </div>

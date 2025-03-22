@@ -2,17 +2,15 @@ import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateBox } from "components/date-box/DateBox";
 import { PostCardProps } from "components/post-card/PostCard.types";
-import Config from "Config";
 import { useCardClasses } from "hooks/useCardClasses";
 import { useTriggerAnimation } from "hooks/useTriggerAnimation";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useRef } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
-import { checkWindowSize } from "hooks/checkWindowSize";
 import { useIsMounted } from "hooks/useIsMounted";
 import { useSourceImagePath } from "hooks/useSourceImagePath";
 

@@ -17,13 +17,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const ID_QUERY = searchQueryBuilder("id", searchTermRegex);
     const DESCRIPTION_QUERY = searchQueryBuilder("shortDescription", searchTermRegex);
     const LOGICAL_OPERATOR_OR = { $or: [TITLE_QUERY, ID_QUERY, DESCRIPTION_QUERY] };
+    const QUERY_PROJECTION = { category: true, title: true, id: true, postDate: true };
 
     const latestPosts = await mongoClient
       .db(Config.DB_NAME)
       .collection(Config.POSTS_COLLECTION)
-      .find(LOGICAL_OPERATOR_OR)
+      .find(LOGICAL_OPERATOR_OR, {
+        projection: QUERY_PROJECTION,
+      })
       .sort({ postDate: -1 })
-      .limit(Config.POST_COUNT_HOME_PAGE + 1)
+      .limit(25)
       .toArray();
 
     return res.status(200).json(JSON.parse(JSON.stringify(latestPosts)));

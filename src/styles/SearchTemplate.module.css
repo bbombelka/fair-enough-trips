@@ -1,0 +1,9 @@
+.alert {
+    margin-top: 20%;;
+}
+
+@media (max-width: 720px) {
+    .alert {
+        margin-top: 50%;;
+    }
+}

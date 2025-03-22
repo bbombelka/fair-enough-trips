@@ -3,6 +3,7 @@
     display: inline-flex;
     align-items: center;
     width: 100%;
+    padding-top: 2px;
 }
 
 .input {
@@ -13,7 +14,7 @@
     text-align: center;
     letter-spacing: 2px;
     text-transform: uppercase;
-    height: calc(var(--navbar-height) - 4px);
+    height: calc(var(--navbar-height) - 6px);
     width: 100%;
 }
 
@@ -35,4 +36,8 @@
     all: unset;
     cursor: pointer;
     padding: 0 8px;
+  }
+
+  .button-disabled {
+    color: var(--color-grey)
   }
