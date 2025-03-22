@@ -1,13 +1,9 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
-import React, { Dispatch, FC, SetStateAction, useRef } from "react";
+import React, { FC, useRef } from "react";
 import styles from "styles/SearchInput.module.css";
-
-type SearchInputProps = {
-  setSearchTerm: Dispatch<SetStateAction<string>>;
-  isLoading: boolean;
-};
+import { type SearchInputProps } from "./SearchInput.types";
 
 export const SearchInput: FC<SearchInputProps> = ({ setSearchTerm, isLoading }) => {
   const inputRef = useRef<HTMLInputElement>(null);
