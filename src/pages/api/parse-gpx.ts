@@ -1,13 +1,15 @@
 import { Parser } from "xml2js";
 import { NextApiRequest, NextApiResponse } from "next";
-
+import haversineDistance from "haversine-distance";
 import unzipper from "unzipper";
+import { assert } from "node:console";
 
-interface TrackPoint {
+export interface TrackPoint {
   lat: number;
   lon: number;
   altitude: number;
   time: string;
+  distance: number;
 }
 
 export type ParseGpxResponse = {
@@ -34,12 +36,30 @@ export default async function handler({ query }: NextApiRequest, res: NextApiRes
         throw new Error("Error during parsing of " + zipFilePath + " file");
       }
 
-      const trackPoints: TrackPoint[] = result.gpx.trk[0].trkseg[0].trkpt.map((pt: any) => ({
-        lat: parseFloat(pt.$.lat),
-        lon: parseFloat(pt.$.lon),
-        altitude: parseFloat(pt.ele[0]),
-        time: pt.time ? new Date(pt.time[0]).toISOString() : null,
-      }));
+      let totalDistance = 0;
+      const trackPoints: TrackPoint[] = result.gpx.trk[0].trkseg[0].trkpt.map((pt: any, i: number, arr: any) => {
+        const lon = parseFloat(pt.$.lon);
+        const lat = parseFloat(pt.$.lat);
+
+        // this aggregates a total distance coming from Haversine equation which compares two sets of cooridinates
+        const getDistance = () => {
+          if (i === 0) {
+            return 0;
+          }
+
+          const currentDistance = haversineDistance({ latitude: arr[i - 1].$.lat, longitude: arr[i - 1].$.lon }, { latitude: lat, longitude: lon });
+          totalDistance += currentDistance;
+          return totalDistance;
+        };
+
+        return {
+          altitude: parseFloat(pt.ele[0]),
+          distance: getDistance(),
+          lat,
+          lon,
+          time: pt.time ? new Date(pt.time[0]).toISOString() : null,
+        };
+      });
 
       const altitudePoints = trackPoints.map(({ altitude }) => altitude);
       const highestAltitude = Math.max(...altitudePoints);
@@ -48,6 +68,7 @@ export default async function handler({ query }: NextApiRequest, res: NextApiRes
       res.json({ trackPoints, misc: { lowestAltitude, highestAltitude } });
     });
   } catch (error) {
+    console.log(error);
     return res.json({ status: "Failed to parse GPX" });
   }
 }
