@@ -2,7 +2,7 @@ import { Parser } from "xml2js";
 import { NextApiRequest, NextApiResponse } from "next";
 import haversineDistance from "haversine-distance";
 import unzipper from "unzipper";
-import { assert } from "node:console";
+import { readFile } from "fs/promises";
 
 export interface TrackPoint {
   lat: number;
@@ -10,6 +10,10 @@ export interface TrackPoint {
   altitude: number;
   time: string;
   distance: number;
+  poi?: {
+    name: string;
+    type: string;
+  };
 }
 
 export type ParseGpxResponse = {
@@ -24,7 +28,11 @@ type ErrorResponse = { status: string };
 
 export default async function handler({ query }: NextApiRequest, res: NextApiResponse<ParseGpxResponse | ErrorResponse>) {
   const zipFilePath = `./public/${query.id}/track.zip`;
+  const jsonFilePath = `./public/${query.id}/poi.json`;
+
   try {
+    const jsonFile = await readFile(jsonFilePath, "utf-8");
+    const poiData = JSON.parse(jsonFile);
     const directory = await unzipper.Open.file(zipFilePath);
     const gpxFile = await directory.files[0].buffer();
 
@@ -64,6 +72,10 @@ export default async function handler({ query }: NextApiRequest, res: NextApiRes
       const altitudePoints = trackPoints.map(({ altitude }) => altitude);
       const highestAltitude = Math.max(...altitudePoints);
       const lowestAltitude = Math.min(...altitudePoints);
+
+      poiData.forEach((point) => {
+        trackPoints[point.index].poi = point;
+      });
 
       res.json({ trackPoints, misc: { lowestAltitude, highestAltitude } });
     });

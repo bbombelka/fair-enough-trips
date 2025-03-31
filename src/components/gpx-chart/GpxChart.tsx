@@ -11,12 +11,11 @@ export function GPXChart({ id }: GPXChartProps) {
   const { data } = useGPXData({ isEnabled: true, id });
   const trackData = data?.trackPoints;
   const svgRef = useRef(null);
-  const tooltipRef = useRef(null);
   const [hoverData, setHoverData] = useState<TrackPoint | null>(null);
 
   const width = 1200;
-  const height = 400;
-  const margin = { top: 20, right: 30, bottom: 50, left: 50 };
+  const height = 450;
+  const margin = { top: 40, right: 30, bottom: 50, left: 50 };
 
   useEffect(() => {
     if (!trackData || trackData.length === 0) return;
@@ -69,7 +68,7 @@ export function GPXChart({ id }: GPXChartProps) {
 
     const focus = svg.append("g").style("display", "none");
 
-    focus.append("circle").attr("r", 5).attr("fill", "red");
+    const hoverPoint = focus.append("circle").attr("r", 5).attr("fill", "red");
 
     const xLine = focus
       .append("line")
@@ -96,17 +95,60 @@ export function GPXChart({ id }: GPXChartProps) {
         const closest = d3.least(trackData, (d) => Math.abs(xScale(d.distance) - mouseX));
 
         if (closest) {
-          setHoverData(closest);
+          const xPos = xScale(closest.distance);
+          const yPos = yScale(closest.altitude);
+
+          setHoverData({ ...closest, xPos, yPos });
+
           focus.style("display", null);
-          focus.attr("transform", `translate(${xScale(closest.distance)}, ${yScale(closest.altitude)})`);
-          xLine.attr("x1", xScale(closest.distance)).attr("x2", xScale(closest.distance));
-          yLine.attr("y1", yScale(closest.altitude)).attr("y2", yScale(closest.altitude));
+          hoverPoint.attr("cx", xPos).attr("cy", yPos);
+          xLine
+            .attr("x1", xPos)
+            .attr("x2", xPos)
+            .attr("y1", yPos)
+            .attr("y2", height - margin.bottom);
+          yLine.attr("x1", xPos).attr("x2", margin.left).attr("y1", yPos).attr("y2", yPos);
         }
       })
       .on("mouseleave", () => {
         setHoverData(null);
         focus.style("display", "none");
       });
+
+    trackData.forEach((d) => {
+      if (d.poi) {
+        const xPos = xScale(d.distance);
+        const yPos = yScale(d.altitude) - 4;
+
+        svg
+          .append("line")
+          .attr("x1", xPos)
+          .attr("x2", xPos)
+          .attr("y1", yPos - 25)
+          .attr("y2", yPos - 5)
+          .attr("stroke", "black")
+          .attr("stroke-line", "4");
+
+        if (d.poi.type) {
+          svg
+            .append("image")
+            .attr("x", xPos - 10)
+            .attr("y", yPos - 60)
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("xllink:href", `/${d.poi.type}.svg`);
+        }
+
+        svg
+          .append("text")
+          .attr("x", xPos)
+          .attr("y", yPos - 30)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "10px")
+          .attr("fill", "black")
+          .text(d.poi.name);
+      }
+    });
   }, [trackData]); // Runs when trackData changes
 
   return (
@@ -114,19 +156,10 @@ export function GPXChart({ id }: GPXChartProps) {
       <svg ref={svgRef} width={width} height={height}></svg>
       {hoverData && (
         <div
-          ref={tooltipRef}
           style={{
             position: "absolute",
-            left: `${
-              d3.select(svgRef?.current).node().getBoundingClientRect().left +
-              d3.select(svgRef?.current).node().getBoundingClientRect().width * (hoverData.distance / d3.max(trackData, (d) => d.distance))
-            }px`,
-            top: `${
-              d3.select(svgRef.current).node().getBoundingClientRect().top +
-              d3.select(svgRef.current).node().getBoundingClientRect().height *
-                (1 -
-                  (hoverData.altitude - d3.min(trackData, (d) => d.altitude)) / (d3.max(trackData, (d) => d.altitude) - d3.min(trackData, (d) => d.altitude)))
-            }px`,
+            left: `${hoverData.xPos + 10}px`,
+            top: `${hoverData.yPos - 30}px`,
             transform: "translate(-50%, -100%)",
             backgroundColor: "white",
             padding: "5px",
@@ -134,6 +167,7 @@ export function GPXChart({ id }: GPXChartProps) {
             borderRadius: "4px",
             fontSize: "12px",
             pointerEvents: "none",
+            boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
           }}
         >
           <strong>{(hoverData.distance / 1000).toFixed(2)} km</strong>
