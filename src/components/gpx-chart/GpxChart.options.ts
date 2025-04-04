@@ -91,3 +91,22 @@ export const splitPoiNames = (poiName?: string) => {
     .split("\n")
     .map((el) => el.trim());
 };
+
+export const getChartDimensions = () => {
+  const mobileDimensions = {
+    width: 800,
+    height: 320,
+    margin: { top: 30, right: 12, bottom: 20, left: 20 },
+  };
+
+  const desktopDimensions = {
+    width: 1200,
+    height: 480,
+    margin: { top: 75, right: 30, bottom: 50, left: 50 },
+  };
+
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isMobileUA = /android|iphone|ipod|ipad|windows phone/i.test(userAgent);
+
+  return isMobileUA ? mobileDimensions : desktopDimensions;
+};

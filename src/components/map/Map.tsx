@@ -9,6 +9,7 @@ import { MapIframe } from "./MapIframe";
 import { faMap } from "@fortawesome/free-regular-svg-icons";
 import { Modal } from "components/modal/Modal";
 import dynamic from "next/dynamic";
+import { LandscapeOnly } from "components/support/landscape-only/LandscapeOnly";
 
 type MapProps = {
   post: FullPost;
@@ -36,7 +37,9 @@ export const Map: FC<MapProps> = ({ post, controlDisplayLinks: { displayGpxChart
     <>
       {showModal && (
         <Modal title={post.title} closeModalCallback={() => setShowModal(false)}>
-          <GpxChart id={post.id} />;
+          <LandscapeOnly>
+            <GpxChart id={post.id} />;
+          </LandscapeOnly>
         </Modal>
       )}
       <div className={styles.container}>
