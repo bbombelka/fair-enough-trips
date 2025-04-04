@@ -1,18 +1,15 @@
 import { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { useGPXData } from "pages/api/hooks/useGpxData";
-import { TrackPoint } from "pages/api/parse-gpx";
-import { getOrientation, Orientation, isBelowMinimalPoiDistance, determineOrientation, splitPoiNames } from "./GpxChart.options";
 
-type GPXChartProps = {
-  id: string;
-};
+import { getOrientation, Orientation, isBelowMinimalPoiDistance, determineOrientation, splitPoiNames } from "./GpxChart.options";
+import { GPXChartProps, HoverData } from "./GpxChart.types";
 
 export function GPXChart({ id }: GPXChartProps) {
   const { data } = useGPXData({ isEnabled: true, id });
   const trackData = data?.trackPoints;
   const svgRef = useRef(null);
-  const [hoverData, setHoverData] = useState<TrackPoint | null>(null);
+  const [hoverData, setHoverData] = useState<HoverData | null>(null);
 
   const width = 1200;
   const height = 480;
@@ -27,7 +24,7 @@ export function GPXChart({ id }: GPXChartProps) {
 
     const xScale = d3
       .scaleLinear()
-      .domain([0, d3.max(trackData, (d) => d.distance)])
+      .domain([0, d3.max(trackData, (d) => d.distance) as number])
       .range([margin.left, width - margin.right]);
 
     const yScale = d3
@@ -38,11 +35,14 @@ export function GPXChart({ id }: GPXChartProps) {
     // Create line generator
     const line = d3
       .line()
+      //@ts-ignore
       .x((d) => xScale(d.distance))
+      //@ts-ignore
       .y((d) => yScale(d.altitude))
       .curve(d3.curveMonotoneX);
 
     // Append path (line)
+    // @ts-ignore
     svg.append("path").datum(trackData).attr("fill", "var(--color-grey)").attr("stroke", "var(--color-dark-grey)").attr("stroke-width", 1).attr("d", line);
 
     svg
@@ -118,6 +118,7 @@ export function GPXChart({ id }: GPXChartProps) {
       });
 
     const appliedOrientation: Orientation[] = [];
+
     trackData
       .filter((d) => d.poi)
       .forEach((d, index, arr) => {
@@ -127,7 +128,7 @@ export function GPXChart({ id }: GPXChartProps) {
 
           const drawPoi = (orientationType: Orientation = "up") => {
             const orientation = getOrientation(xPos, yPos);
-            // const orientationType: Orientation = "down";
+
             appliedOrientation.push(orientationType);
             // Draw the label text
             if (xPos > 75) {
@@ -146,7 +147,6 @@ export function GPXChart({ id }: GPXChartProps) {
               const rect = textGroup
                 .append("rect")
                 .attr("fill", orientationType === "up" ? "white" : "var(--color-grey)")
-                // .attr("stroke", "yellow")
                 .attr("rx", 5) // rounded corners
                 .attr("ry", 5);
 
@@ -164,19 +164,21 @@ export function GPXChart({ id }: GPXChartProps) {
                 text
                   .append("tspan")
                   .attr("x", orientation[orientationType].text.x)
-                  // .attr("y", orientation[orientationType].text.y)
                   .attr("dy", String(idx * 15))
                   .text(part);
+
                 updateRectSize();
 
                 function updateRectSize() {
-                  const bbox = text.node().getBBox();
+                  const bbox = text.node()?.getBBox();
 
-                  rect
-                    .attr("x", bbox.x - 2) // add some padding
-                    .attr("y", bbox.y - 2)
-                    .attr("width", bbox.width + 4)
-                    .attr("height", bbox.height + 4);
+                  if (bbox) {
+                    rect
+                      .attr("x", bbox.x - 2) // add some padding
+                      .attr("y", bbox.y - 2)
+                      .attr("width", bbox.width + 4)
+                      .attr("height", bbox.height + 4);
+                  }
                 }
               });
             }
@@ -196,17 +198,12 @@ export function GPXChart({ id }: GPXChartProps) {
 
             if (isBelowMinimalPoiDistance(x1 - x2)) {
               const orientation = determineOrientation(appliedOrientation, index);
-              drawPoi(orientation);
-            } else {
-              drawPoi();
+              return drawPoi(orientation);
             }
-          } else {
-            drawPoi();
           }
+          drawPoi();
         }
       });
-
-    console.log(appliedOrientation);
   }, [trackData]); // Runs when trackData changes
 
   return (

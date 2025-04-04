@@ -84,7 +84,7 @@ export const determineOrientation = (appliedOrientation: Orientation[], index: n
 
 export const isBelowMinimalPoiDistance = (distance: number) => distance < POI_MUTUAL_MIN_DISTANCE;
 
-export const splitPoiNames = (poiName: string) => {
+export const splitPoiNames = (poiName?: string) => {
   if (!poiName) return [];
 
   return wrap(poiName, { width: 15, trim: true })

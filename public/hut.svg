@@ -1,4 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg fill="#000000" width="800px" height="800px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 2.063L8 0l8 5.5V7h-2v9H2V7H0V5.5l3-2.063V1h2v1.063zM9 14h3V6L8 3 4 6v8h3v-3h2v3zM5 8h2v2H5V8zm4 0h2v2H9V8z" fill-rule="evenodd"/>
+<?xml version="1.0"?>
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xml:space="preserve">
+ <g class="layer">
+  <title>Layer 1</title>
+  <path d="m20.37,23.06l-16.55,0l0,-12.9l-1.84,0.92l-0.92,-0.92l11.04,-9.22l11.04,9.22l-0.92,0.92l-1.84,-0.92l0,12.9zm-4.6,-1.84l2.76,0l0,-12.9l-6.44,-4.61l-6.44,4.61l0,12.9l2.76,0l0,-7.37l7.36,0l0,7.37zm-5.52,0l3.68,0l0,-5.53l-3.68,0l0,5.53z" id="svg_1" transform="rotate(0.00000435228 12.0875 11.9938)"/>
+ </g>
 </svg>

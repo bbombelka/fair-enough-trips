@@ -24,7 +24,6 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
       <div>
         <Navbar />
         <Layout title={post.title}>
-          <GPXChart id={post.id} />
           <Map post={post} />
           <Divider title="Overview" order={1} stickyScrollToElementId="paragraph-overview" />
           <Paragraph id="paragraph-overview" body={post.shortDescription} links={post.links["shortDescription"]} />

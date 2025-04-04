@@ -15,29 +15,15 @@ export const MobileMenu = () => {
 
   return (
     <>
-      <FontAwesomeIcon
-        className={styles["hamburger-icon"]}
-        icon={faBars}
-        size="2x"
-        onClick={() => setOpen(true)}
-      />
+      <FontAwesomeIcon className={styles["hamburger-icon"]} icon={faBars} size="2x" onClick={() => setOpen(true)} />
       {isOpen && (
         <div className={styles.menu}>
           <div className={styles["menu-bar"]}>
-            <FontAwesomeIcon
-              className={styles["close-icon"]}
-              icon={faXmark}
-              size="2x"
-              onClick={() => setOpen(false)}
-            />
+            <FontAwesomeIcon className={styles["close-icon"]} icon={faXmark} size="2x" onClick={() => setOpen(false)} />
           </div>
           <ul className={styles["menu-list"]}>
             {menuLinks.map(({ name, href }, i) => (
-              <li
-                key={i}
-                className={styles["menu-item"]}
-                onClick={() => setOpen(false)}
-              >
+              <li key={i} className={styles["menu-item"]} onClick={() => setOpen(false)}>
                 <Link href={href} name={name} />
               </li>
             ))}
