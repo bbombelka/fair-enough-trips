@@ -1,16 +1,16 @@
 import { Navbar, Layout, Map, Footer } from "components";
 import { Divider } from "components/divider/Divider";
-import { GPXChart } from "components/gpx-chart/GpxChart";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
 import Config from "Config";
+import { access } from "fs/promises";
 import { mongoClient } from "MongoClient";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { PostPageProps, FullPost } from "types/PostPage.types";
 import { removeSelectedProps } from "utils";
 
-const PostPage: NextPage<PostPageProps> = ({ post }) => {
+const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks }) => {
   return (
     <>
       <Head>
@@ -24,7 +24,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
       <div>
         <Navbar />
         <Layout title={post.title}>
-          <Map post={post} />
+          <Map post={post} controlDisplayLinks={controlDisplayLinks} />
           <Divider title="Overview" order={1} stickyScrollToElementId="paragraph-overview" />
           <Paragraph id="paragraph-overview" body={post.shortDescription} links={post.links["shortDescription"]} />
           <Divider title="Trip conditions" order={2} stickyScrollToElementId="paragraph-conditions" />
@@ -64,6 +64,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) => {
   await mongoClient.connect();
 
+  const displayGpxChartPromise = access(`./public/${params?.id}/poi.json`).then(
+    () => true,
+    () => false
+  );
+
+  const displayGpxDownloadPromise = access(`./public/${params?.id}/track.zip`).then(
+    () => true,
+    () => false
+  );
+
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
   const dbPost = await postsCollection.findOne({ id: params?.id });
 
@@ -75,6 +85,10 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
   return {
     props: {
       post: parsedPost as FullPost,
+      controlDisplayLinks: {
+        displayGpxChart: await displayGpxChartPromise,
+        displayGpxDownload: await displayGpxDownloadPromise,
+      },
     },
   };
 };

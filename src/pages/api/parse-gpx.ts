@@ -24,6 +24,16 @@ export type ParseGpxResponse = {
   };
 };
 
+type PoiData = {
+  name: string;
+  lat: number;
+  lon: number;
+  index: number;
+  type: PoiType;
+};
+
+type PoiType = "parking" | "water" | "peak" | "signpost" | "pass" | "hut" | "ferrata";
+
 type ErrorResponse = { status: string };
 
 export default async function handler({ query }: NextApiRequest, res: NextApiResponse<ParseGpxResponse | ErrorResponse>) {
@@ -32,7 +42,7 @@ export default async function handler({ query }: NextApiRequest, res: NextApiRes
 
   try {
     const jsonFile = await readFile(jsonFilePath, "utf-8");
-    const poiData = JSON.parse(jsonFile);
+    const poiData: PoiData[] = JSON.parse(jsonFile);
     const directory = await unzipper.Open.file(zipFilePath);
     const gpxFile = await directory.files[0].buffer();
 

@@ -5,7 +5,7 @@ import { useGPXData } from "pages/api/hooks/useGpxData";
 import { getOrientation, Orientation, isBelowMinimalPoiDistance, determineOrientation, splitPoiNames } from "./GpxChart.options";
 import { GPXChartProps, HoverData } from "./GpxChart.types";
 
-export function GPXChart({ id }: GPXChartProps) {
+export default function GPXChart({ id }: GPXChartProps) {
   const { data } = useGPXData({ isEnabled: true, id });
   const trackData = data?.trackPoints;
   const svgRef = useRef(null);
@@ -42,13 +42,19 @@ export function GPXChart({ id }: GPXChartProps) {
       .curve(d3.curveMonotoneX);
 
     // Append path (line)
-    // @ts-ignore
-    svg.append("path").datum(trackData).attr("fill", "var(--color-grey)").attr("stroke", "var(--color-dark-grey)").attr("stroke-width", 1).attr("d", line);
+    svg
+      .append("path")
+      .datum(trackData)
+      .attr("fill", "var(--color-grey)")
+      .attr("stroke", "var(--color-dark-grey)")
+      .attr("stroke-width", 1)
+      // @ts-ignore
+      .attr("d", line);
 
     svg
       .append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
-      .call(d3.axisBottom(xScale).tickFormat((d) => `${(d / 1000).toFixed(1)} km`)); // Convert to km
+      .call(d3.axisBottom(xScale).tickFormat((d) => `${((d as number) / 1000).toFixed(1)} km`)); // Convert to km
 
     svg.append("g").attr("transform", `translate(${margin.left},0)`).call(d3.axisLeft(yScale));
 

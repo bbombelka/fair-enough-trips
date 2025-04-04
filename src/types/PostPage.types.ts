@@ -2,6 +2,12 @@ import { Activities, Regions, Countries } from "enums/categories";
 
 export type PostPageProps = {
   post: FullPost;
+  controlDisplayLinks: ControlDisplayLinks;
+};
+
+export type ControlDisplayLinks = {
+  displayGpxChart: boolean;
+  displayGpxDownload: boolean;
 };
 
 export type PostLink = {
