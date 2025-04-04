@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { useGPXData } from "pages/api/hooks/useGpxData";
 import { TrackPoint } from "pages/api/parse-gpx";
+import { getOrientation, Orientation, isBelowMinimalPoiDistance, determineOrientation, splitPoiNames } from "./GpxChart.options";
 
 type GPXChartProps = {
   id: string;
@@ -14,8 +15,8 @@ export function GPXChart({ id }: GPXChartProps) {
   const [hoverData, setHoverData] = useState<TrackPoint | null>(null);
 
   const width = 1200;
-  const height = 450;
-  const margin = { top: 40, right: 30, bottom: 50, left: 50 };
+  const height = 480;
+  const margin = { top: 75, right: 30, bottom: 50, left: 50 };
 
   useEffect(() => {
     if (!trackData || trackData.length === 0) return;
@@ -31,7 +32,7 @@ export function GPXChart({ id }: GPXChartProps) {
 
     const yScale = d3
       .scaleLinear()
-      .domain([data.misc.lowestAltitude - 100, data.misc.highestAltitude + 100])
+      .domain([data.misc.lowestAltitude, data.misc.highestAltitude + 100])
       .range([height - margin.bottom, margin.top]);
 
     // Create line generator
@@ -61,7 +62,8 @@ export function GPXChart({ id }: GPXChartProps) {
     svg
       .append("text")
       .attr("x", -height / 2)
-      .attr("y", 15)
+      .attr("y", 10)
+      .attr("font-size", 12)
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
       .text("Altitude (m above sea level)");
@@ -115,40 +117,96 @@ export function GPXChart({ id }: GPXChartProps) {
         focus.style("display", "none");
       });
 
-    trackData.forEach((d) => {
-      if (d.poi) {
-        const xPos = xScale(d.distance);
-        const yPos = yScale(d.altitude) - 4;
+    const appliedOrientation: Orientation[] = [];
+    trackData
+      .filter((d) => d.poi)
+      .forEach((d, index, arr) => {
+        if (d.poi) {
+          const xPos = xScale(d.distance);
+          const yPos = yScale(d.altitude) - 4;
 
-        svg
-          .append("line")
-          .attr("x1", xPos)
-          .attr("x2", xPos)
-          .attr("y1", yPos - 25)
-          .attr("y2", yPos - 5)
-          .attr("stroke", "black")
-          .attr("stroke-line", "4");
+          const drawPoi = (orientationType: Orientation = "up") => {
+            const orientation = getOrientation(xPos, yPos);
+            // const orientationType: Orientation = "down";
+            appliedOrientation.push(orientationType);
+            // Draw the label text
+            if (xPos > 75) {
+              // draws a line
+              svg
+                .append("line")
+                .attr("x1", orientation[orientationType].line.x1)
+                .attr("x2", orientation[orientationType].line.x2)
+                .attr("y1", orientation[orientationType].line.y1)
+                .attr("y2", orientation[orientationType].line.y2)
+                .attr("stroke", "black")
+                .attr("stroke-width", 1);
 
-        if (d.poi.type) {
-          svg
-            .append("image")
-            .attr("x", xPos - 10)
-            .attr("y", yPos - 60)
-            .attr("width", 20)
-            .attr("height", 20)
-            .attr("xllink:href", `/${d.poi.type}.svg`);
+              const textGroup = svg.append("g");
+
+              const rect = textGroup
+                .append("rect")
+                .attr("fill", orientationType === "up" ? "white" : "var(--color-grey)")
+                // .attr("stroke", "yellow")
+                .attr("rx", 5) // rounded corners
+                .attr("ry", 5);
+
+              const text = textGroup
+                .append("text")
+                .attr("x", orientation[orientationType].text.x)
+                .attr("y", orientation[orientationType].text.y)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "10px")
+                .attr("fill", "black");
+
+              const poiTextParts = splitPoiNames(d.poi?.name);
+
+              poiTextParts.forEach((part, idx) => {
+                text
+                  .append("tspan")
+                  .attr("x", orientation[orientationType].text.x)
+                  // .attr("y", orientation[orientationType].text.y)
+                  .attr("dy", String(idx * 15))
+                  .text(part);
+                updateRectSize();
+
+                function updateRectSize() {
+                  const bbox = text.node().getBBox();
+
+                  rect
+                    .attr("x", bbox.x - 2) // add some padding
+                    .attr("y", bbox.y - 2)
+                    .attr("width", bbox.width + 4)
+                    .attr("height", bbox.height + 4);
+                }
+              });
+            }
+            // Draw the POI icon directly above the text
+            svg
+              .append("image")
+              .attr("x", orientation[orientationType].image.x)
+              .attr("y", orientation[orientationType].image.y) // Above text
+              .attr("width", 20)
+              .attr("height", 20)
+              .attr("xlink:href", `/${d.poi?.type}.svg`);
+          };
+
+          if (index > 0) {
+            const x1 = xScale(arr[index].distance);
+            const x2 = xScale(arr[index - 1].distance);
+
+            if (isBelowMinimalPoiDistance(x1 - x2)) {
+              const orientation = determineOrientation(appliedOrientation, index);
+              drawPoi(orientation);
+            } else {
+              drawPoi();
+            }
+          } else {
+            drawPoi();
+          }
         }
+      });
 
-        svg
-          .append("text")
-          .attr("x", xPos)
-          .attr("y", yPos - 30)
-          .attr("text-anchor", "middle")
-          .attr("font-size", "10px")
-          .attr("fill", "black")
-          .text(d.poi.name);
-      }
-    });
+    console.log(appliedOrientation);
   }, [trackData]); // Runs when trackData changes
 
   return (

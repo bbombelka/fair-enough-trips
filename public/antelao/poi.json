@@ -1,0 +1,8 @@
+[
+  { "name": "Praciadelan", "type": "parking", "lat": 46.4720994, "lon": 12.3383364, "index": 14066 },
+  { "name": "Water", "type": "water", "lat": 46.4805336, "lon": 12.2896883, "index": 12856 },
+  { "name": "Rifugio Galassi", "type": "hut", "lat": 46.4706822, "lon": 12.2620808, "index": 3067 },
+  { "name": "Forcella Piccola (2120m)", "type": "pass", "lat": 46.4693233, "lon": 12.2562692, "index": 10838 },
+  { "name": "Laste", "type": "signpost", "lat": 46.4590614, "lon": 12.2580411, "index": 9339 },
+  { "name": "Antelao (3264m)", "type": "peak", "lat": 46.4518867, "lon": 12.2618006, "index": 7348 }
+]
