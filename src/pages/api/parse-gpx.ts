@@ -37,8 +37,8 @@ type PoiType = "parking" | "water" | "peak" | "signpost" | "pass" | "hut" | "fer
 type ErrorResponse = { status: string; error: string };
 
 export default async function handler({ query }: NextApiRequest, res: NextApiResponse<ParseGpxResponse | ErrorResponse>) {
-  const zipFilePath = `./public/${query.id}/track.zip`;
-  const jsonFilePath = `./public/${query.id}/poi.json`;
+  const zipFilePath = `${process.cwd()}/public/${query.id}/track.zip`;
+  const jsonFilePath = `${process.cwd()}/public/${query.id}/poi.json`;
 
   try {
     const jsonFile = await readFile(jsonFilePath, "utf-8");
@@ -90,7 +90,6 @@ export default async function handler({ query }: NextApiRequest, res: NextApiRes
       res.json({ trackPoints, misc: { lowestAltitude, highestAltitude } });
     });
   } catch (error) {
-    console.log(error);
-    return res.json({ status: "Failed to parse GPX", error: JSON.stringify(error) });
+    return res.status(500).json({ status: "Failed to parse GPX", error: JSON.stringify(error) });
   }
 }

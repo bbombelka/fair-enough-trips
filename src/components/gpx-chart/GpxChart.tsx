@@ -15,7 +15,6 @@ import { isMobileDevice } from "utils";
 
 export default function GPXChart({ id }: GPXChartProps) {
   const { data } = useGPXData({ isEnabled: true, id });
-  console.log(window.innerWidth, innerHeight);
   const trackData = data?.trackPoints;
   const svgRef = useRef(null);
   const [hoverData, setHoverData] = useState<HoverData | null>(null);
@@ -214,7 +213,6 @@ export default function GPXChart({ id }: GPXChartProps) {
             const x2 = xScale(arr[index - 1].distance);
 
             if (isBelowMinimalPoiDistance(x1 - x2)) {
-              console.log("runs for ", arr[index].poi?.name);
               const orientation = determineOrientation(appliedOrientation, index);
               return drawPoi(orientation);
             }
