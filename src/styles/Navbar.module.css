@@ -58,3 +58,9 @@
     height: 100%;
   }
 }
+
+@media (width <=1200px) {
+  .logo-container {
+    width: 120px;
+  }
+}

@@ -21,7 +21,7 @@
     right:48px;
 }
 
-@media screen and (max-width: 720px)  {
+@media screen and (max-width: 1200px)  {
     .close-icon {
         top: 6px;
         right:12px;

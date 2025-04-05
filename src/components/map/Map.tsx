@@ -38,7 +38,7 @@ export const Map: FC<MapProps> = ({ post, controlDisplayLinks: { displayGpxChart
       {showModal && (
         <Modal title={post.title} closeModalCallback={() => setShowModal(false)}>
           <LandscapeOnly>
-            <GpxChart id={post.id} />;
+            <GpxChart id={post.id} />
           </LandscapeOnly>
         </Modal>
       )}

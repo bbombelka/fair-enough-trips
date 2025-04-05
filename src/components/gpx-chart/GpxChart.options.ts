@@ -1,8 +1,10 @@
+import { isMobileDevice } from "utils";
 import wrap from "word-wrap";
 
 export type Orientation = "up" | "down" | "up-elongated" | "down-elongated";
 
 const POI_MUTUAL_MIN_DISTANCE = 100;
+const POI_MUTUAL_MIN_DISTANCE_MOBILE = 50;
 
 export const getOrientation = (xPos: number, yPos: number) => {
   const baseYOffset = 25;
@@ -76,13 +78,22 @@ export const getOrientation = (xPos: number, yPos: number) => {
   return orientation;
 };
 
-export const determineOrientation = (appliedOrientation: Orientation[], index: number) => {
+export const determineOrientation = (appliedOrientation: Orientation[], index: number): Orientation => {
   const previousPoiOrientation = appliedOrientation[index - 1];
 
-  return previousPoiOrientation === "up" ? "down-elongated" : "up";
+  switch (previousPoiOrientation) {
+    case "up":
+      return "down-elongated";
+    case "down-elongated":
+      return "up-elongated";
+    case "up-elongated":
+      return "down";
+    case "down":
+      return "up";
+  }
 };
 
-export const isBelowMinimalPoiDistance = (distance: number) => distance < POI_MUTUAL_MIN_DISTANCE;
+export const isBelowMinimalPoiDistance = (distance: number) => distance < (isMobileDevice() ? POI_MUTUAL_MIN_DISTANCE_MOBILE : POI_MUTUAL_MIN_DISTANCE);
 
 export const splitPoiNames = (poiName?: string) => {
   if (!poiName) return [];
@@ -94,9 +105,9 @@ export const splitPoiNames = (poiName?: string) => {
 
 export const getChartDimensions = () => {
   const mobileDimensions = {
-    width: 800,
-    height: 320,
-    margin: { top: 30, right: 12, bottom: 20, left: 20 },
+    width: 850,
+    height: 400,
+    margin: { top: 60, right: 12, bottom: 40, left: 35 },
   };
 
   const desktopDimensions = {
@@ -105,8 +116,16 @@ export const getChartDimensions = () => {
     margin: { top: 75, right: 30, bottom: 50, left: 50 },
   };
 
-  const userAgent = navigator.userAgent.toLowerCase();
-  const isMobileUA = /android|iphone|ipod|ipad|windows phone/i.test(userAgent);
+  return isMobileDevice() ? mobileDimensions : desktopDimensions;
+};
 
-  return isMobileUA ? mobileDimensions : desktopDimensions;
+export const getTextGroupColor = (orientationType: Orientation): string => {
+  switch (orientationType) {
+    case "up":
+    case "up-elongated":
+      return "white";
+    case "down":
+    case "down-elongated":
+      return "var(--color-grey)";
+  }
 };

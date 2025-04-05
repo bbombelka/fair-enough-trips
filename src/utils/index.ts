@@ -30,32 +30,26 @@ export const parseDate = (date: DateClass) => {
     12: "December",
   };
 
-  return `${seasons[date.season as keyof typeof seasons]} (${
-    period[date.period as keyof typeof period]
-  } ${month[date.month as keyof typeof month]} ${date.year})`;
+  return `${seasons[date.season as keyof typeof seasons]} (${period[date.period as keyof typeof period]} ${month[date.month as keyof typeof month]} ${
+    date.year
+  })`;
 };
 
-export const removeSelectedProps = <T>(
-  doc: WithId<Document>,
-  unserializableProps: string[],
-) => {
-  return Object.fromEntries(
-    Object.entries(doc).filter(([key]) => !unserializableProps.includes(key)),
-  ) as T;
+export const removeSelectedProps = <T>(doc: WithId<Document>, unserializableProps: string[]) => {
+  return Object.fromEntries(Object.entries(doc).filter(([key]) => !unserializableProps.includes(key))) as T;
 };
 
 export const mapCategories = ({ activity, region, country }: CodedCategory) => {
-  const activities = activity.map(
-    (actCode) => Activities[actCode as keyof typeof Activities],
-  );
-  const regions = region.map(
-    (regionCode) => Regions[regionCode as keyof typeof Regions],
-  );
-  const countries = country.map(
-    (countryCode) => Countries[countryCode as keyof typeof Countries],
-  );
+  const activities = activity.map((actCode) => Activities[actCode as keyof typeof Activities]);
+  const regions = region.map((regionCode) => Regions[regionCode as keyof typeof Regions]);
+  const countries = country.map((countryCode) => Countries[countryCode as keyof typeof Countries]);
 
   return { activities, regions, countries };
 };
 
 export const parse = <T>(dbData: T) => JSON.parse(JSON.stringify(dbData)) as T;
+
+export const isMobileDevice = () => {
+  const userAgent = navigator.userAgent.toLowerCase();
+  return /android|iphone|ipod|ipad|windows phone/i.test(userAgent);
+};

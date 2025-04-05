@@ -1,15 +1,26 @@
 import { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { useGPXData } from "pages/api/hooks/useGpxData";
-
-import { getOrientation, Orientation, isBelowMinimalPoiDistance, determineOrientation, splitPoiNames, getChartDimensions } from "./GpxChart.options";
+import {
+  getOrientation,
+  Orientation,
+  isBelowMinimalPoiDistance,
+  determineOrientation,
+  splitPoiNames,
+  getChartDimensions,
+  getTextGroupColor,
+} from "./GpxChart.options";
 import { GPXChartProps, HoverData } from "./GpxChart.types";
+import { isMobileDevice } from "utils";
 
 export default function GPXChart({ id }: GPXChartProps) {
   const { data } = useGPXData({ isEnabled: true, id });
+  console.log(window.innerWidth, innerHeight);
   const trackData = data?.trackPoints;
   const svgRef = useRef(null);
   const [hoverData, setHoverData] = useState<HoverData | null>(null);
+
+  const isMobileUA = isMobileDevice();
 
   const { margin, width, height } = getChartDimensions();
 
@@ -56,21 +67,23 @@ export default function GPXChart({ id }: GPXChartProps) {
 
     svg.append("g").attr("transform", `translate(${margin.left},0)`).call(d3.axisLeft(yScale));
 
-    svg
-      .append("text")
-      .attr("x", width / 2)
-      .attr("y", height - 10)
-      .attr("text-anchor", "middle")
-      .text("Distance (km)");
+    if (!isMobileUA) {
+      svg
+        .append("text")
+        .attr("x", width / 2)
+        .attr("y", height - 10)
+        .attr("text-anchor", "middle")
+        .text("Distance (km)");
 
-    svg
-      .append("text")
-      .attr("x", -height / 2)
-      .attr("y", 10)
-      .attr("font-size", 12)
-      .attr("text-anchor", "middle")
-      .attr("transform", "rotate(-90)")
-      .text("Altitude (m above sea level)");
+      svg
+        .append("text")
+        .attr("x", -height / 2)
+        .attr("y", 10)
+        .attr("font-size", 12)
+        .attr("text-anchor", "middle")
+        .attr("transform", "rotate(-90)")
+        .text("Altitude (m above sea level)");
+    }
 
     const focus = svg.append("g").style("display", "none");
 
@@ -150,7 +163,7 @@ export default function GPXChart({ id }: GPXChartProps) {
 
               const rect = textGroup
                 .append("rect")
-                .attr("fill", orientationType === "up" ? "white" : "var(--color-grey)")
+                .attr("fill", getTextGroupColor(orientationType))
                 .attr("rx", 5) // rounded corners
                 .attr("ry", 5);
 
@@ -201,6 +214,7 @@ export default function GPXChart({ id }: GPXChartProps) {
             const x2 = xScale(arr[index - 1].distance);
 
             if (isBelowMinimalPoiDistance(x1 - x2)) {
+              console.log("runs for ", arr[index].poi?.name);
               const orientation = determineOrientation(appliedOrientation, index);
               return drawPoi(orientation);
             }
