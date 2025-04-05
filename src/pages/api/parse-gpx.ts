@@ -34,7 +34,7 @@ type PoiData = {
 
 type PoiType = "parking" | "water" | "peak" | "signpost" | "pass" | "hut" | "ferrata";
 
-type ErrorResponse = { status: string };
+type ErrorResponse = { status: string; error: string };
 
 export default async function handler({ query }: NextApiRequest, res: NextApiResponse<ParseGpxResponse | ErrorResponse>) {
   const zipFilePath = `./public/${query.id}/track.zip`;
@@ -91,6 +91,6 @@ export default async function handler({ query }: NextApiRequest, res: NextApiRes
     });
   } catch (error) {
     console.log(error);
-    return res.json({ status: "Failed to parse GPX" });
+    return res.json({ status: "Failed to parse GPX", error: JSON.stringify(error) });
   }
 }
