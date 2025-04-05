@@ -46,6 +46,9 @@ export default async function handler({ query }: NextApiRequest, res: NextApiRes
     const directory = await unzipper.Open.file(zipFilePath);
     const gpxFile = await directory.files[0].buffer();
 
+    // await new Promise((resolve) => setTimeout(() => resolve(""), 5000));
+    // throw new Error();
+
     const parser = new Parser();
 
     // parses XML file buffer into JS object

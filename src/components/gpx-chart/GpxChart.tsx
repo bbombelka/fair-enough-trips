@@ -12,15 +12,17 @@ import {
 } from "./GpxChart.options";
 import { GPXChartProps, HoverData } from "./GpxChart.types";
 import { isMobileDevice } from "utils";
+import { Loader } from "components/loader/Loader";
+import { Alert } from "components/alert/Alert";
+import { Error as ErrorIcon } from "components/icons/Icons";
+import styles from "styles/GpxChart.module.css";
 
 export default function GPXChart({ id }: GPXChartProps) {
-  const { data } = useGPXData({ isEnabled: true, id });
+  const { data, isLoading, hasError } = useGPXData({ isEnabled: true, id });
   const trackData = data?.trackPoints;
   const svgRef = useRef(null);
   const [hoverData, setHoverData] = useState<HoverData | null>(null);
-
   const isMobileUA = isMobileDevice();
-
   const { margin, width, height } = getChartDimensions();
 
   useEffect(() => {
@@ -85,7 +87,6 @@ export default function GPXChart({ id }: GPXChartProps) {
     }
 
     const focus = svg.append("g").style("display", "none");
-
     const hoverPoint = focus.append("circle").attr("r", 5).attr("fill", "red");
 
     const xLine = focus
@@ -223,8 +224,16 @@ export default function GPXChart({ id }: GPXChartProps) {
   }, [trackData]); // Runs when trackData changes
 
   return (
-    <div style={{ position: "relative", width }}>
-      <svg ref={svgRef} width={width} height={height}></svg>
+    <div style={{ width }} className={`${styles["container"]} ${isMobileUA ? styles["container-mobile"] : ""}`}>
+      <Loader loadingHeading="Chart is being loaded" isLoading={isLoading} />
+      {hasError ? (
+        <Alert className={styles["error"]} message="Something went wrong. Try to reopen this modal.">
+          <ErrorIcon width={96} height={96} />
+        </Alert>
+      ) : (
+        <svg ref={svgRef} width={width} height={height}></svg>
+      )}
+
       {hoverData && (
         <div
           style={{

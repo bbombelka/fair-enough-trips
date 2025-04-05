@@ -1,0 +1,11 @@
+.error {
+  margin-top: 15%;
+}
+
+.container {
+  position: relative;
+}
+
+.container-mobile {
+  padding-top: 32px;
+}

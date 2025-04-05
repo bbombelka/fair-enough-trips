@@ -15,18 +15,24 @@ export const useGPXData = ({ isEnabled, id }: Props) => {
 
   useEffect(() => {
     if (isEnabled && id && !data) {
-      try {
-        setHasError(false);
-        setIsLoading(true);
-        fetch(`/api/parse-gpx?id=${id}`)
-          .then((res) => res.json())
-          .then((res) => {
-            setData(res);
-            setIsLoading(false);
-          });
-      } catch {
-        setHasError(true);
-      }
+      setHasError(false);
+      setIsLoading(true);
+      fetch(`/api/parse-gpx?id=${id}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
+          }
+          return res.json();
+        })
+        .then((res) => {
+          setData(res);
+        })
+        .catch(() => {
+          setHasError(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }, [isEnabled, id]);
 

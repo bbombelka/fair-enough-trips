@@ -107,7 +107,7 @@ export const getChartDimensions = () => {
   const mobileDimensions = {
     width: 850,
     height: 400,
-    margin: { top: 60, right: 12, bottom: 40, left: 35 },
+    margin: { top: 60, right: 35, bottom: 40, left: 35 },
   };
 
   const desktopDimensions = {
