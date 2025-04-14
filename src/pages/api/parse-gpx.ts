@@ -32,7 +32,7 @@ type PoiData = {
   type: PoiType;
 };
 
-type PoiType = "parking" | "water" | "peak" | "signpost" | "pass" | "hut" | "ferrata";
+export type PoiType = "parking" | "water" | "peak" | "signpost" | "pass" | "hut" | "ferrata";
 
 type ErrorResponse = { status: string; error: string };
 

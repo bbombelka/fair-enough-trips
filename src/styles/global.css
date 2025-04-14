@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: "Lato", sans-serif;
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 a {
@@ -39,9 +40,19 @@ a {
   color: var(--font-grey);
 }
 
+:target {
+  animation: highlight 5s ease-in-out;
+}
+
+@keyframes highlight {
+  0% { background-color: #FFFFC5; }
+  100% { background-color: transparent; }
+}
+
 @media (max-width: 720px) {
   p,
   span {
     font-size: 14px;
   }
 }
+

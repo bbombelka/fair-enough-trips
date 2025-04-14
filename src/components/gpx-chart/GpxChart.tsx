@@ -16,6 +16,7 @@ import { Loader } from "components/loader/Loader";
 import { Alert } from "components/alert/Alert";
 import { Error as ErrorIcon } from "components/icons/Icons";
 import styles from "styles/GpxChart.module.css";
+import { GraphTooltip } from "components/graph-tooltip/GraphTooltip";
 
 export default function GPXChart({ id }: GPXChartProps) {
   const { data, isLoading, hasError } = useGPXData({ isEnabled: true, id });
@@ -235,25 +236,11 @@ export default function GPXChart({ id }: GPXChartProps) {
       )}
 
       {hoverData && (
-        <div
-          style={{
-            position: "absolute",
-            left: `${hoverData.xPos + 10}px`,
-            top: `${hoverData.yPos - 30}px`,
-            transform: "translate(-50%, -100%)",
-            backgroundColor: "white",
-            padding: "5px",
-            border: "1px solid gray",
-            borderRadius: "4px",
-            fontSize: "12px",
-            pointerEvents: "none",
-            boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
-          }}
-        >
+        <GraphTooltip left={hoverData.xPos + 10} top={hoverData.yPos - 30}>
           <strong>{(hoverData.distance / 1000).toFixed(2)} km</strong>
           <br />
           Altitude: {hoverData.altitude.toFixed(1)} m
-        </div>
+        </GraphTooltip>
       )}
     </div>
   );
