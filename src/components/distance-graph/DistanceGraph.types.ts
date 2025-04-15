@@ -5,16 +5,17 @@ export type DistanceGraphPoint = {
   altitude: number;
   name: string;
   type: PoiType;
-  time: string;
-  description: string;
-  images: string[];
-  paragraphs: number[];
+  timeElapsed: string;
+  elevationGain: number;
+  index: number;
+  paragraphs?: number[];
+  images?: string[];
   path?: PathData;
 };
 
 export type PathData = {
   difficulty: string;
-  name?: string;
   images: string[];
   paragraphs: number[];
+  name?: string;
 };

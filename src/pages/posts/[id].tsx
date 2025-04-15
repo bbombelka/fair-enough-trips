@@ -2,7 +2,7 @@ import { Navbar, Layout, Map, Footer } from "components";
 import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
-import Stepper from "components/stepper/Stepper";
+import { DistanceGraphContainer } from "components/distance-graph/distance-graph/DistanceGraphContainer";
 import Config from "Config";
 import { access } from "fs/promises";
 import { mongoClient } from "MongoClient";
@@ -26,7 +26,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks }) => {
         <Navbar />
         <Layout title={post.title}>
           <Map post={post} controlDisplayLinks={controlDisplayLinks} />
-          <Stepper />
+          <DistanceGraphContainer />
           <Divider title="Overview" order={1} stickyScrollToElementId="paragraph-overview" />
           <Paragraph id="paragraph-overview" body={post.shortDescription} links={post.links["shortDescription"]} />
           <Divider title="Trip conditions" order={2} stickyScrollToElementId="paragraph-conditions" />

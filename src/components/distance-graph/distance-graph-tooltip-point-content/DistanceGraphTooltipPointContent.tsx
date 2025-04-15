@@ -1,12 +1,10 @@
 import React, { FC } from "react";
-import { DistanceGraphPoint } from "../Stepper.types";
+import { DistanceGraphPoint } from "../DistanceGraph.types";
 import styles from "styles/StepperTooltipContent.module.css";
 
-type StepperTooltipContentProps = {
-  point: DistanceGraphPoint;
-};
-
-export const StepperTooltipContent: FC<StepperTooltipContentProps> = ({ point: { distance, altitude, images, type, paragraphs, name } }) => {
+export const DistanceGraphTooltipPointContent: FC<{ point: DistanceGraphPoint }> = ({ point }) => {
+  const { distance, altitude, images, type, paragraphs, name, timeElapsed, elevationGain } = point;
+  console.log(point);
   return (
     <div className={styles["container"]}>
       <h1 className={styles["title"]}>{name}</h1>
@@ -18,7 +16,7 @@ export const StepperTooltipContent: FC<StepperTooltipContentProps> = ({ point: {
         <hr />
         <li className={styles["content-list-item"]}>
           <span>Distance from start:</span>
-          <span className={styles["value"]}>{(distance / 1000).toFixed(2)} km</span>
+          <span className={styles["value"]}>{distance} km</span>
         </li>
         <li className={styles["content-list-item"]}>
           <span>Altitude: </span>
@@ -26,18 +24,18 @@ export const StepperTooltipContent: FC<StepperTooltipContentProps> = ({ point: {
         </li>
         <li className={styles["content-list-item"]}>
           <span>Time elapsed:</span>
-          <span className={styles["value"]}>here will be data</span>
+          <span className={styles["value"]}>{timeElapsed}</span>
         </li>
         <li className={styles["content-list-item"]}>
           <span>Elevation gain</span>
-          <span className={styles["value"]}>data here</span>
+          <span className={styles["value"]}>{elevationGain}</span>
         </li>
-        <hr />
-        {Boolean(images.length) && (
+        {Boolean(images?.length || paragraphs?.length) && <hr />}
+        {Boolean(images?.length) && (
           <li className={styles["content-list-item"]}>
             <span>Images of place</span>
             <span>
-              {images.map((image) => {
+              {images?.map((image) => {
                 return (
                   <a href={`#${image}`} key={image}>
                     <img className={styles["content-list-image"]} src="/image.svg" width={16} height={16} />
@@ -47,11 +45,11 @@ export const StepperTooltipContent: FC<StepperTooltipContentProps> = ({ point: {
             </span>
           </li>
         )}
-        {Boolean(paragraphs.length) && (
+        {Boolean(paragraphs?.length) && (
           <li className={styles["content-list-item"]}>
             <span>Mentioned in</span>
             <span>
-              {paragraphs.map((paragraphNum) => {
+              {paragraphs?.map((paragraphNum) => {
                 return (
                   <a href={`#paragraph-overview-paragraph-${paragraphNum}`} key={paragraphNum}>
                     <img className={styles["content-list-image"]} src="/paragraph.svg" width={16} height={16} />

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState, MouseEvent } from "react";
 import * as d3 from "d3";
-import { useGPXData } from "pages/api/hooks/useGpxData";
-import { splitPoiNames } from "../gpx-chart/GpxChart.options";
+import { splitPoiNames } from "../../gpx-chart/GpxChart.options";
 import { GraphTooltip } from "components/graph-tooltip/GraphTooltip";
-import { DistanceGraphPoint, PathData } from "./Stepper.types";
-import { StepperTooltipContent } from "./stepper-tooltip-content/StepperTooltipContent";
+import { DistanceGraphPoint, PathData } from "../DistanceGraph.types";
+import { DistanceGraphTooltipPointContent } from "../distance-graph-tooltip-point-content/DistanceGraphTooltipPointContent";
+import { DistanceGraphTooltipRouteContent } from "../distance-graph-tooltip-route-content/DistanceGraphTooltipRouteContent";
 
 type CurrentPointData = {
   index: number;
@@ -12,13 +12,15 @@ type CurrentPointData = {
   y: number;
 };
 
-const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
+export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
   const svgRef = useRef(null);
   const width = 1200;
   const height = 150;
   const [selectedPointData, setSelectedPointData] = useState<CurrentPointData | undefined>();
+  const [isRouteSelected, setIsRouteSelected] = useState<boolean>(false);
 
-  const onPointClick = (index: number) => (e: MouseEvent<SVGElement>) => {
+  const onPointClick = (index: number, routeSection: boolean) => (e: MouseEvent<SVGElement>) => {
+    setIsRouteSelected(routeSection);
     setSelectedPointData((v) => {
       if (v?.index !== index) {
         return {
@@ -113,12 +115,12 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
         .attr("height", iconSize)
         .attr("xlink:href", `/${type}.svg`)
         .style("cursor", "pointer")
-        .on("click", onPointClick(index));
+        .on("click", onPointClick(index, false));
     };
 
     const appendIcon = () => {};
 
-    const appendSectionDescription = (distance: number, path: PathData, index: number) => {
+    const appendRouteDescription = (distance: number, path: PathData, index: number) => {
       const midX = (scale(distance) + scale(points[index - 1].distance)) / 2;
       const text = svg
         .append("text")
@@ -126,7 +128,9 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
         .attr("y", height - 60)
         .style("font-size", "10px")
         .attr("text-anchor", "middle")
-        .style("user-select", "none");
+        .style("user-select", "none")
+        .style("cursor", "pointer")
+        .on("click", onPointClick(index, true));
 
       text.append("tspan").text(path.difficulty);
 
@@ -139,7 +143,7 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
       appendDistancePoint(distance, i);
       appendText(distance, name, i, type);
       if (path) {
-        appendSectionDescription(distance, path, i);
+        appendRouteDescription(distance, path, i);
       }
     });
 
@@ -154,45 +158,13 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
       <svg ref={svgRef} width={width} height={height}></svg>
       {selectedPointData !== undefined ? (
         <GraphTooltip left={selectedPointData.x + 10} top={selectedPointData.y - 30}>
-          <StepperTooltipContent point={points[selectedPointData.index]} />
+          {isRouteSelected ? (
+            <DistanceGraphTooltipRouteContent point={points[selectedPointData.index]} />
+          ) : (
+            <DistanceGraphTooltipPointContent point={points[selectedPointData.index]} />
+          )}
         </GraphTooltip>
       ) : null}
     </div>
   );
 };
-
-const DistanceGraphContainer = () => {
-  const { data } = useGPXData({ isEnabled: true, id: "triglav-plemenice" });
-
-  const distanceGraphPoints: DistanceGraphPoint[] =
-    data?.trackPoints
-      .filter((p) => p.poi)
-      .map((p, i) => ({
-        distance: i === 0 ? 0 : p.distance,
-        altitude: p.altitude,
-        name: p.poi?.name,
-        type: p.poi?.type,
-        time: "04:20",
-        images: ["luknja_pass_ascent", "triglav_plemenice_ferrata"],
-        paragraphs: [1, 2],
-        path:
-          i === 2
-            ? {
-                difficulty: "II / C",
-                name: "Čez Plemenice",
-                images: [3, 4, 5],
-              }
-            : undefined,
-      })) ?? [];
-  console.log(distanceGraphPoints);
-  if (distanceGraphPoints?.length) {
-    return (
-      <div>
-        <DistanceGraph points={distanceGraphPoints} />
-      </div>
-    );
-  }
-  return <div></div>;
-};
-
-export default DistanceGraphContainer;
