@@ -26,6 +26,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks }) => {
         <Navbar />
         <Layout title={post.title}>
           <Map post={post} controlDisplayLinks={controlDisplayLinks} />
+          <Divider title="Route scheme" />
           <DistanceGraphContainer />
           <Divider title="Overview" order={1} stickyScrollToElementId="paragraph-overview" />
           <Paragraph id="paragraph-overview" body={post.shortDescription} links={post.links["shortDescription"]} />

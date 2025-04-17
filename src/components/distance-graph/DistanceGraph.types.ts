@@ -23,8 +23,8 @@ export type PathData = {
 export type MappedDistanceGraphPoint = DistanceGraphPoint & { xAxisData: number };
 
 export enum DistanceChartModes {
-  SIMPLE,
-  DISTANCE,
-  TIME,
-  ELEVATION,
+  BASIC = "BASIC",
+  DISTANCE = "DISTANCE",
+  TIME = "TIME",
+  ELEVATION = "ELEVATION",
 }

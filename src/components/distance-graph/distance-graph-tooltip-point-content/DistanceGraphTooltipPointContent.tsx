@@ -5,7 +5,7 @@ import { formatTimeElapsed } from "../distance-graph/DistanceGraph.utils";
 
 export const DistanceGraphTooltipPointContent: FC<{ point: DistanceGraphPoint }> = ({ point }) => {
   const { distance, altitude, images, type, paragraphs, name, timeElapsed, elevationGain } = point;
-  console.log(point);
+
   return (
     <div className={styles["container"]}>
       <h1 className={styles["title"]}>{name}</h1>
@@ -29,7 +29,7 @@ export const DistanceGraphTooltipPointContent: FC<{ point: DistanceGraphPoint }>
         </li>
         <li className={styles["content-list-item"]}>
           <span>Elevation gain</span>
-          <span className={styles["value"]}>{elevationGain}</span>
+          <span className={styles["value"]}>{`${elevationGain} m`}</span>
         </li>
         {Boolean(images?.length || paragraphs?.length) && <hr />}
         {Boolean(images?.length) && (

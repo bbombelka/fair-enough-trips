@@ -3,23 +3,6 @@ import { DistanceGraphPoint } from "../DistanceGraph.types";
 import { DistanceGraph } from "./DistanceGraph";
 
 export const DistanceGraphContainer = () => {
-  //   const { data } = useGPXData({ isEnabled: true, id: "triglav-plemenice" });
-
-  //   const distanceGraphPoints: DistanceGraphPoint[] =
-  //     data?.trackPoints
-  //       .filter((p) => p.poi)
-  //       .map((p, i) => ({
-  //         distance: i === 0 ? 0 : p.distance,
-  //         altitude: p.altitude,
-  //         name: p.poi?.name,
-  //         type: p.poi?.type,
-  //         time: "04:20",
-  //         images: ["luknja_pass_ascent", "triglav_plemenice_ferrata"],
-  //         paragraphs: [1, 2],
-  //         path: i > 0 ? p.poi.path : undefined,
-  //       })) ?? [];
-  //   console.log(distanceGraphPoints);
-
   const data: DistanceGraphPoint[] = [
     { name: "Aljažev dom v Vratih", type: "parking", elevationGain: 0, index: 0, timeElapsed: 0, distance: 0.0, altitude: 1015 },
     { name: "Luknja", type: "pass", elevationGain: 750, index: 1, timeElapsed: 4500000, distance: 3.245, altitude: 1465 },

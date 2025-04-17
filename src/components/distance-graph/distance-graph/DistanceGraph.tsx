@@ -6,6 +6,9 @@ import { DistanceGraphPoint, MappedDistanceGraphPoint, PathData, DistanceChartMo
 import { DistanceGraphTooltipPointContent } from "../distance-graph-tooltip-point-content/DistanceGraphTooltipPointContent";
 import { DistanceGraphTooltipRouteContent } from "../distance-graph-tooltip-route-content/DistanceGraphTooltipRouteContent";
 import { getMaxDomainValue, mapXAxisData } from "./DistanceGraph.utils";
+import styles from "styles/DistanceGraph.module.css";
+import { useWindowSize } from "hooks/useWindowSize";
+import ButtonGroup from "components/button-group/ButtonGroup";
 
 type CurrentPointData = {
   index: number;
@@ -19,7 +22,8 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
   const height = 150;
   const [selectedPointData, setSelectedPointData] = useState<CurrentPointData | undefined>();
   const [isRouteSelected, setIsRouteSelected] = useState<boolean>(false);
-  const [chartMode, setChartMode] = useState<DistanceChartModes>(DistanceChartModes.SIMPLE);
+  const [chartMode, setChartMode] = useState<DistanceChartModes>(DistanceChartModes.BASIC);
+  const { isDesktop } = useWindowSize();
 
   const onPointClick = (index: number, routeSection: boolean) => (e: MouseEvent<SVGElement>) => {
     setIsRouteSelected(routeSection);
@@ -39,6 +43,7 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
     svg.selectAll("*").remove(); // Clear previous SVG content
 
     const maxDomainValue = getMaxDomainValue(chartMode, points);
+
     const scale = d3
       .scaleLinear()
       .domain([0, maxDomainValue])
@@ -56,21 +61,9 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
     };
 
     const appendDistanceMeasureScale = () => {
-      if (chartMode === DistanceChartModes.SIMPLE) {
-        return;
-      }
-
       const scaleY = height;
-      svg
-        .append("line")
-        .attr("x1", scale(0))
-        .attr("y1", scaleY)
-        .attr("x2", scale(maxDomainValue))
-        .attr("y2", scaleY)
-        .attr("stroke", "black")
-        .attr("stroke-width", 1);
+      drawMeasureScaleLine(scaleY);
 
-      const tickGroup = svg.append("g");
       const tickInterval = 0.25; // meters
       for (let d = 0; d <= maxDomainValue; d += tickInterval) {
         const x = scale(d);
@@ -84,25 +77,90 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
           strokeWidth = 2;
         }
 
-        tickGroup
-          .append("line")
-          .attr("x1", x)
-          .attr("y1", scaleY)
-          .attr("x2", x)
-          .attr("y2", scaleY - tickLength)
-          .attr("stroke", "black")
-          .attr("stroke-width", strokeWidth);
+        const tickGroup = drawTickGroup({ x, scaleY, strokeWidth, tickLength });
 
         if (d % 1 === 0) {
-          tickGroup
-            .append("text")
-            .attr("x", x)
-            .attr("y", scaleY - tickLength - 2)
-            .attr("text-anchor", "middle")
-            .style("font-size", "10px")
-            .text(`${d} km`);
+          appendTickText({ x, scaleY, tickLength, tickGroup, text: `${d} km` });
         }
       }
+    };
+
+    const appendTimeMeasureScale = () => {
+      const scaleY = height;
+      const msPerHour = 60 * 60 * 1000;
+      const msPerHalfHour = 30 * 60 * 1000;
+      const msPerQuarterHour = 15 * 60 * 1000;
+
+      drawMeasureScaleLine(scaleY);
+
+      const maxTime = maxDomainValue; // Assume maxDistance is now time in ms
+      for (let t = 0; t <= maxTime; t += msPerQuarterHour) {
+        const x = scale(t);
+        let tickLength = 4;
+        let strokeWidth = 1;
+
+        if (t % msPerHour === 0) {
+          tickLength = 12;
+          strokeWidth = 2;
+        } else if (t % msPerHalfHour === 0) {
+          tickLength = 8;
+        }
+
+        const tickGroup = drawTickGroup({ x, scaleY, strokeWidth, tickLength });
+
+        if (t % msPerHour === 0) {
+          const hours = t / msPerHour;
+          appendTickText({ x, scaleY, tickLength, tickGroup, text: `${hours} h` });
+        }
+      }
+    };
+
+    const drawTickGroup = ({ x, scaleY, tickLength, strokeWidth }: { x: number; scaleY: number; tickLength: number; strokeWidth: number }) => {
+      const tickGroup = svg.append("g");
+      tickGroup
+        .append("line")
+        .attr("x1", x)
+        .attr("y1", scaleY)
+        .attr("x2", x)
+        .attr("y2", scaleY - tickLength)
+        .attr("stroke", "black")
+        .attr("stroke-width", strokeWidth);
+
+      return tickGroup;
+    };
+
+    const drawMeasureScaleLine = (scaleY: number) => {
+      svg
+        .append("line")
+        .attr("x1", scale(0))
+        .attr("y1", scaleY)
+        .attr("x2", scale(maxDomainValue))
+        .attr("y2", scaleY)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
+    };
+
+    const appendTickText = ({
+      x,
+      scaleY,
+      tickLength,
+      tickGroup,
+      text,
+    }: {
+      tickGroup: d3.Selection<SVGGElement, unknown, null, undefined>;
+      x: number;
+      scaleY: number;
+      tickLength: number;
+      text: string;
+    }) => {
+      tickGroup
+        .append("text")
+        .attr("x", x)
+        .attr("y", scaleY - tickLength - 2)
+        .attr("text-anchor", "middle")
+        .style("font-size", "10px")
+        .style("font-weight", "bold")
+        .text(text);
     };
 
     const appendDistancePoint = (xAxisData: number, index: number) => {
@@ -111,8 +169,7 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
         .attr("cx", scale(xAxisData))
         .attr("cy", height / 2)
         .attr("r", 5)
-        .attr("stroke-width", 1)
-        .attr("fill", selectedPointData?.index === index ? "red" : "unset");
+        .attr("stroke-width", 1);
     };
 
     const appendText = (xAxisData: number, name: string, index: number, type: string) => {
@@ -194,11 +251,17 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
     points.map(mapXAxisData(chartMode)).forEach(({ xAxisData, name, path, type }, i, arr) => {
       appendDistancePoint(xAxisData, i);
       appendText(xAxisData, name, i, type);
-      if (path) {
+      if (path && chartMode !== DistanceChartModes.TIME) {
         appendRouteDescription(xAxisData, path, i, arr);
       }
     });
-    appendDistanceMeasureScale();
+
+    if (chartMode === DistanceChartModes.DISTANCE) {
+      appendDistanceMeasureScale();
+    }
+    if (chartMode === DistanceChartModes.TIME) {
+      appendTimeMeasureScale();
+    }
   };
 
   useEffect(() => {
@@ -207,14 +270,24 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
 
   return (
     <div style={{ position: "relative" }}>
-      <div>
-        <span onClick={() => setChartMode(DistanceChartModes.DISTANCE)}>Measure mode</span>
-        <span onClick={() => setChartMode(DistanceChartModes.SIMPLE)}>Simple mode</span>
+      <div className={styles["mode-group-buttons"]}>
+        <span>Mode: </span>
+        <ButtonGroup
+          options={[DistanceChartModes.BASIC, DistanceChartModes.DISTANCE, DistanceChartModes.TIME]}
+          onSelect={(option) => setChartMode(option)}
+          selectedOption={chartMode}
+        />
+      </div>
+      <div className={styles["graph-container"]}>
+        <svg className={styles["graph-svg"]} ref={svgRef} width={width} height={height} />
       </div>
 
-      <svg ref={svgRef} width={width} height={height}></svg>
       {selectedPointData !== undefined ? (
-        <GraphTooltip left={selectedPointData.x + 10} top={selectedPointData.y - 30}>
+        <GraphTooltip
+          left={isDesktop ? selectedPointData.x + 10 : window.innerWidth / 2}
+          top={selectedPointData.y - 50}
+          onClickAway={() => setSelectedPointData(undefined)}
+        >
           {isRouteSelected ? (
             <DistanceGraphTooltipRouteContent point={points[selectedPointData.index]} />
           ) : (

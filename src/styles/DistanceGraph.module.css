@@ -1,0 +1,15 @@
+.mode-group-buttons {
+    margin: 0 4px;
+}
+
+@media (max-width: 720px) {
+    .graph-container {
+        overflow-x: scroll;
+    }
+
+    .graph-svg {
+        margin-bottom: 4px;
+    }
+  }
+
+
