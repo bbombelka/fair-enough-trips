@@ -5,7 +5,7 @@ export type DistanceGraphPoint = {
   altitude: number;
   name: string;
   type: PoiType;
-  timeElapsed: string;
+  timeElapsed: number;
   elevationGain: number;
   index: number;
   paragraphs?: number[];
@@ -19,3 +19,12 @@ export type PathData = {
   paragraphs: number[];
   name?: string;
 };
+
+export type MappedDistanceGraphPoint = DistanceGraphPoint & { xAxisData: number };
+
+export enum DistanceChartModes {
+  SIMPLE,
+  DISTANCE,
+  TIME,
+  ELEVATION,
+}

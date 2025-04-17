@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { DistanceGraphPoint } from "../DistanceGraph.types";
 import styles from "styles/StepperTooltipContent.module.css";
+import { formatTimeElapsed } from "../distance-graph/DistanceGraph.utils";
 
 export const DistanceGraphTooltipPointContent: FC<{ point: DistanceGraphPoint }> = ({ point }) => {
   const { distance, altitude, images, type, paragraphs, name, timeElapsed, elevationGain } = point;
@@ -24,7 +25,7 @@ export const DistanceGraphTooltipPointContent: FC<{ point: DistanceGraphPoint }>
         </li>
         <li className={styles["content-list-item"]}>
           <span>Time elapsed:</span>
-          <span className={styles["value"]}>{timeElapsed}</span>
+          <span className={styles["value"]}>{formatTimeElapsed(timeElapsed)}</span>
         </li>
         <li className={styles["content-list-item"]}>
           <span>Elevation gain</span>

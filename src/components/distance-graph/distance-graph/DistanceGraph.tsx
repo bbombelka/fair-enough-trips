@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState, MouseEvent } from "react";
 import * as d3 from "d3";
 import { splitPoiNames } from "../../gpx-chart/GpxChart.options";
 import { GraphTooltip } from "components/graph-tooltip/GraphTooltip";
-import { DistanceGraphPoint, PathData } from "../DistanceGraph.types";
+import { DistanceGraphPoint, MappedDistanceGraphPoint, PathData, DistanceChartModes } from "../DistanceGraph.types";
 import { DistanceGraphTooltipPointContent } from "../distance-graph-tooltip-point-content/DistanceGraphTooltipPointContent";
 import { DistanceGraphTooltipRouteContent } from "../distance-graph-tooltip-route-content/DistanceGraphTooltipRouteContent";
+import { getMaxDomainValue, mapXAxisData } from "./DistanceGraph.utils";
 
 type CurrentPointData = {
   index: number;
@@ -18,6 +19,7 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
   const height = 150;
   const [selectedPointData, setSelectedPointData] = useState<CurrentPointData | undefined>();
   const [isRouteSelected, setIsRouteSelected] = useState<boolean>(false);
+  const [chartMode, setChartMode] = useState<DistanceChartModes>(DistanceChartModes.SIMPLE);
 
   const onPointClick = (index: number, routeSection: boolean) => (e: MouseEvent<SVGElement>) => {
     setIsRouteSelected(routeSection);
@@ -32,37 +34,88 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
     });
   };
 
-  useEffect(() => {
+  const drawChart = () => {
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove(); // Clear previous SVG content
 
-    const maxDistance = Math.max(...points.map((p) => p.distance));
+    const maxDomainValue = getMaxDomainValue(chartMode, points);
     const scale = d3
       .scaleLinear()
-      .domain([0, maxDistance])
+      .domain([0, maxDomainValue])
       .range([40, width - 40]);
 
-    // Draw base line
-    svg
-      .append("line")
-      .attr("x1", scale(0))
-      .attr("y1", height / 2)
-      .attr("x2", scale(maxDistance))
-      .attr("y2", height / 2)
-      .attr("stroke", "black")
-      .attr("stroke-width", 2);
+    const appendBaseLine = () => {
+      svg
+        .append("line")
+        .attr("x1", scale(0))
+        .attr("y1", height / 2)
+        .attr("x2", scale(maxDomainValue))
+        .attr("y2", height / 2)
+        .attr("stroke", "black")
+        .attr("stroke-width", 2);
+    };
 
-    const appendDistancePoint = (distance: number, index: number) => {
+    const appendDistanceMeasureScale = () => {
+      if (chartMode === DistanceChartModes.SIMPLE) {
+        return;
+      }
+
+      const scaleY = height;
+      svg
+        .append("line")
+        .attr("x1", scale(0))
+        .attr("y1", scaleY)
+        .attr("x2", scale(maxDomainValue))
+        .attr("y2", scaleY)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
+
+      const tickGroup = svg.append("g");
+      const tickInterval = 0.25; // meters
+      for (let d = 0; d <= maxDomainValue; d += tickInterval) {
+        const x = scale(d);
+        let tickLength = 4;
+        let strokeWidth = 1;
+        if (d % 1 === 0) {
+          tickLength = 12;
+          strokeWidth = 2;
+        } else if (d % 0.5 === 0) {
+          tickLength = 8;
+          strokeWidth = 2;
+        }
+
+        tickGroup
+          .append("line")
+          .attr("x1", x)
+          .attr("y1", scaleY)
+          .attr("x2", x)
+          .attr("y2", scaleY - tickLength)
+          .attr("stroke", "black")
+          .attr("stroke-width", strokeWidth);
+
+        if (d % 1 === 0) {
+          tickGroup
+            .append("text")
+            .attr("x", x)
+            .attr("y", scaleY - tickLength - 2)
+            .attr("text-anchor", "middle")
+            .style("font-size", "10px")
+            .text(`${d} km`);
+        }
+      }
+    };
+
+    const appendDistancePoint = (xAxisData: number, index: number) => {
       svg
         .append("circle")
-        .attr("cx", scale(distance))
+        .attr("cx", scale(xAxisData))
         .attr("cy", height / 2)
         .attr("r", 5)
         .attr("stroke-width", 1)
         .attr("fill", selectedPointData?.index === index ? "red" : "unset");
     };
 
-    const appendText = (distance: number, name: string, index: number, type: string) => {
+    const appendText = (xAxisData: number, name: string, index: number, type: string) => {
       const upperSetting = (lines: number) => height / 2 - 45 - lines * 12.5;
       const lowerSetting = () => height / 2 + 37.5;
       const textGroup = svg.append("g");
@@ -77,7 +130,7 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
 
       const text = textGroup
         .append("text")
-        .attr("x", scale(distance))
+        .attr("x", scale(xAxisData))
         .attr("y", index % 2 === 0 ? upperSetting(poiTextParts.length) + 25 : lowerSetting())
         .attr("text-anchor", "middle")
         .style("font-weight", 700)
@@ -87,7 +140,7 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
         text
           .append("tspan")
           .style("user-select", "none")
-          .attr("x", scale(distance))
+          .attr("x", scale(xAxisData))
           .attr("dy", String(idx * 15))
           .text(part);
 
@@ -109,7 +162,7 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
       const iconSize = 20;
       svg
         .append("image")
-        .attr("x", scale(distance) - iconSize / 2)
+        .attr("x", scale(xAxisData) - iconSize / 2)
         .attr("y", index % 2 === 0 ? height / 2 - iconSize - 5 : height / 2 + 5)
         .attr("width", iconSize)
         .attr("height", iconSize)
@@ -118,10 +171,8 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
         .on("click", onPointClick(index, false));
     };
 
-    const appendIcon = () => {};
-
-    const appendRouteDescription = (distance: number, path: PathData, index: number) => {
-      const midX = (scale(distance) + scale(points[index - 1].distance)) / 2;
+    const appendRouteDescription = (distance: number, path: PathData, index: number, arr: MappedDistanceGraphPoint[]) => {
+      const midX = (scale(distance) + scale(arr[index - 1].xAxisData)) / 2;
       const text = svg
         .append("text")
         .attr("x", midX)
@@ -139,22 +190,28 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
       }
     };
 
-    points.forEach(({ distance, name, type, path }, i) => {
-      appendDistancePoint(distance, i);
-      appendText(distance, name, i, type);
+    appendBaseLine();
+    points.map(mapXAxisData(chartMode)).forEach(({ xAxisData, name, path, type }, i, arr) => {
+      appendDistancePoint(xAxisData, i);
+      appendText(xAxisData, name, i, type);
       if (path) {
-        appendRouteDescription(distance, path, i);
+        appendRouteDescription(xAxisData, path, i, arr);
       }
     });
+    appendDistanceMeasureScale();
+  };
 
-    points.forEach((point, index) => {
-      if (index < points.length - 1) {
-      }
-    });
-  }, [points]);
+  useEffect(() => {
+    drawChart();
+  }, [points, chartMode]);
 
   return (
     <div style={{ position: "relative" }}>
+      <div>
+        <span onClick={() => setChartMode(DistanceChartModes.DISTANCE)}>Measure mode</span>
+        <span onClick={() => setChartMode(DistanceChartModes.SIMPLE)}>Simple mode</span>
+      </div>
+
       <svg ref={svgRef} width={width} height={height}></svg>
       {selectedPointData !== undefined ? (
         <GraphTooltip left={selectedPointData.x + 10} top={selectedPointData.y - 30}>
