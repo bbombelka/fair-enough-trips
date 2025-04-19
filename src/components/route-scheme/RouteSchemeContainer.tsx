@@ -1,16 +1,16 @@
 import React, { FC } from "react";
-import DistanceGraph from "./DistanceGraph";
+import RouteScheme from "./RouteScheme";
 import { useRouteSchemePoints } from "pages/api/hooks/useRouteSchemePoints";
 import { Loader } from "components/loader/Loader";
 import { Alert } from "components/alert/Alert";
 import { Error as ErrorIcon } from "components/icons/Icons";
-import styles from "styles/DistanceGraph.module.css";
+import styles from "styles/RouteScheme.module.css";
 
 type Props = {
   id: string;
 };
 
-const DistanceGraphContainer: FC<Props> = ({ id }) => {
+const RouteSchemeContainer: FC<Props> = ({ id }) => {
   const { data, isLoading, hasError } = useRouteSchemePoints({ id, isEnabled: true });
 
   return (
@@ -21,10 +21,10 @@ const DistanceGraphContainer: FC<Props> = ({ id }) => {
           <ErrorIcon fill="red" width={48} height={48} />
         </Alert>
       ) : (
-        <DistanceGraph points={data?.points ?? []} />
+        <RouteScheme points={data?.points ?? []} />
       )}
     </div>
   );
 };
 
-export default DistanceGraphContainer;
+export default RouteSchemeContainer;

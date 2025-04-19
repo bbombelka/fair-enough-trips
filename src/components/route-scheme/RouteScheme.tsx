@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState, MouseEvent } from "react";
 import * as d3 from "d3";
-import { splitPoiNames } from "../../gpx-chart/GpxChart.options";
+import { splitPoiNames } from "../gpx-chart/GpxChart.options";
 import { GraphTooltip } from "components/graph-tooltip/GraphTooltip";
-import { DistanceGraphPoint, MappedDistanceGraphPoint, PathData, DistanceChartModes } from "../DistanceGraph.types";
-import { DistanceGraphTooltipPointContent } from "../distance-graph-tooltip-point-content/DistanceGraphTooltipPointContent";
-import { DistanceGraphTooltipRouteContent } from "../distance-graph-tooltip-route-content/DistanceGraphTooltipRouteContent";
-import { getMaxDomainValue, mapXAxisData } from "./DistanceGraph.utils";
-import styles from "styles/DistanceGraph.module.css";
+import { RouteSchemePoint, MappedRouteSchemePoint, PathData, RouteSchemeChartModes } from "./RouteScheme.types";
+import { RouteSchemeGraphTooltipPointContent } from "./tooltip/RouteSchemeGraphTooltipPointContent";
+import { RouteSchemeGraphTooltipRouteContent } from "./tooltip/RouteSchemeGraphTooltipRouteContent";
+import { getMaxDomainValue, mapXAxisData } from "./RouteScheme.utils";
+import styles from "styles/RouteScheme.module.css";
 import { useWindowSize } from "hooks/useWindowSize";
 import ButtonGroup from "components/button-group/ButtonGroup";
 
@@ -16,13 +16,13 @@ type CurrentPointData = {
   y: number;
 };
 
-const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
+const RouteScheme = ({ points }: { points: RouteSchemePoint[] }) => {
   const svgRef = useRef(null);
   const width = 1200;
   const height = 150;
   const [selectedPointData, setSelectedPointData] = useState<CurrentPointData | undefined>();
   const [isRouteSelected, setIsRouteSelected] = useState<boolean>(false);
-  const [chartMode, setChartMode] = useState<DistanceChartModes>(DistanceChartModes.BASIC);
+  const [chartMode, setChartMode] = useState<RouteSchemeChartModes>(RouteSchemeChartModes.BASIC);
   const { isDesktop } = useWindowSize();
 
   const onPointClick = (index: number, routeSection: boolean) => (e: MouseEvent<SVGElement>) => {
@@ -228,7 +228,7 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
         .on("click", onPointClick(index, false));
     };
 
-    const appendRouteDescription = (distance: number, path: PathData, index: number, arr: MappedDistanceGraphPoint[]) => {
+    const appendRouteDescription = (distance: number, path: PathData, index: number, arr: MappedRouteSchemePoint[]) => {
       const midX = (scale(distance) + scale(arr[index - 1].xAxisData)) / 2;
       const text = svg
         .append("text")
@@ -251,15 +251,15 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
     points.map(mapXAxisData(chartMode)).forEach(({ xAxisData, name, path, type }, i, arr) => {
       appendDistancePoint(xAxisData, i);
       appendText(xAxisData, name, i, type);
-      if (path && chartMode !== DistanceChartModes.TIME) {
+      if (path && chartMode !== RouteSchemeChartModes.TIME) {
         appendRouteDescription(xAxisData, path, i, arr);
       }
     });
 
-    if (chartMode === DistanceChartModes.DISTANCE) {
+    if (chartMode === RouteSchemeChartModes.DISTANCE) {
       appendDistanceMeasureScale();
     }
-    if (chartMode === DistanceChartModes.TIME) {
+    if (chartMode === RouteSchemeChartModes.TIME) {
       appendTimeMeasureScale();
     }
   };
@@ -273,7 +273,7 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
       <div className={styles["mode-group-buttons"]}>
         <span>Mode: </span>
         <ButtonGroup
-          options={[DistanceChartModes.BASIC, DistanceChartModes.DISTANCE, DistanceChartModes.TIME]}
+          options={[RouteSchemeChartModes.BASIC, RouteSchemeChartModes.DISTANCE, RouteSchemeChartModes.TIME]}
           onSelect={(option) => setChartMode(option)}
           selectedOption={chartMode}
         />
@@ -289,9 +289,9 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
           onClickAway={() => setSelectedPointData(undefined)}
         >
           {isRouteSelected ? (
-            <DistanceGraphTooltipRouteContent point={points[selectedPointData.index]} />
+            <RouteSchemeGraphTooltipRouteContent point={points[selectedPointData.index]} />
           ) : (
-            <DistanceGraphTooltipPointContent point={points[selectedPointData.index]} />
+            <RouteSchemeGraphTooltipPointContent point={points[selectedPointData.index]} />
           )}
         </GraphTooltip>
       ) : null}
@@ -299,4 +299,4 @@ const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
   );
 };
 
-export default DistanceGraph;
+export default RouteScheme;

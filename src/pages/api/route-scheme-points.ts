@@ -1,4 +1,4 @@
-import { DistanceGraphPoint } from "components/distance-graph/DistanceGraph.types";
+import { RouteSchemePoint } from "components/route-scheme/RouteScheme.types";
 import { NextApiRequest, NextApiResponse } from "next";
 import getRouteSchemePoints from "server/shared/route-scheme-get";
 import { ErrorResponse } from "./parse-gpx";
@@ -6,7 +6,7 @@ import { ErrorResponse } from "./parse-gpx";
 export type RouteSchemePointsResponse = {
   id: string;
   published: boolean;
-  points: DistanceGraphPoint[];
+  points: RouteSchemePoint[];
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<RouteSchemePointsResponse | ErrorResponse>) {

@@ -1,6 +1,6 @@
 import { PoiType } from "pages/api/parse-gpx";
 
-export type DistanceGraphPoint = {
+export type RouteSchemePoint = {
   distance: number;
   altitude: number;
   name: string;
@@ -20,9 +20,9 @@ export type PathData = {
   name?: string;
 };
 
-export type MappedDistanceGraphPoint = DistanceGraphPoint & { xAxisData: number };
+export type MappedRouteSchemePoint = RouteSchemePoint & { xAxisData: number };
 
-export enum DistanceChartModes {
+export enum RouteSchemeChartModes {
   BASIC = "BASIC",
   DISTANCE = "DISTANCE",
   TIME = "TIME",

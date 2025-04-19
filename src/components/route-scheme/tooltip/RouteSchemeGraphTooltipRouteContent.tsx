@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styles from "styles/StepperTooltipContent.module.css";
-import { DistanceGraphPoint } from "../DistanceGraph.types";
+import { RouteSchemePoint } from "../RouteScheme.types";
 
-export const DistanceGraphTooltipRouteContent: FC<{ point: DistanceGraphPoint }> = ({ point: { path } }) => {
+export const RouteSchemeGraphTooltipRouteContent: FC<{ point: RouteSchemePoint }> = ({ point: { path } }) => {
   return (
     <div className={styles["container"]}>
       <h1 className={styles["title"]}>{path?.name}</h1>

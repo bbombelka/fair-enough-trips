@@ -1,16 +1,16 @@
-import { DistanceGraphPoint, MappedDistanceGraphPoint, DistanceChartModes } from "../DistanceGraph.types";
+import { RouteSchemePoint, MappedRouteSchemePoint, RouteSchemeChartModes } from "./RouteScheme.types";
 
 export const mapXAxisData =
-  (chartMode: DistanceChartModes) =>
-  (graphPoint: DistanceGraphPoint, index: number): MappedDistanceGraphPoint => {
+  (chartMode: RouteSchemeChartModes) =>
+  (graphPoint: RouteSchemePoint, index: number): MappedRouteSchemePoint => {
     switch (chartMode) {
-      case DistanceChartModes.BASIC:
+      case RouteSchemeChartModes.BASIC:
         return { ...graphPoint, xAxisData: index };
-      case DistanceChartModes.DISTANCE:
+      case RouteSchemeChartModes.DISTANCE:
         return { ...graphPoint, xAxisData: graphPoint.distance };
-      case DistanceChartModes.ELEVATION:
+      case RouteSchemeChartModes.ELEVATION:
         return { ...graphPoint, xAxisData: graphPoint.elevationGain };
-      case DistanceChartModes.TIME:
+      case RouteSchemeChartModes.TIME:
         return { ...graphPoint, xAxisData: graphPoint.timeElapsed };
       default: {
         return { ...graphPoint, xAxisData: index };
@@ -18,15 +18,15 @@ export const mapXAxisData =
     }
   };
 
-export const getMaxDomainValue = (chartMode: DistanceChartModes, points: DistanceGraphPoint[]): number => {
+export const getMaxDomainValue = (chartMode: RouteSchemeChartModes, points: RouteSchemePoint[]): number => {
   switch (chartMode) {
-    case DistanceChartModes.BASIC:
+    case RouteSchemeChartModes.BASIC:
       return points.length - 1;
-    case DistanceChartModes.DISTANCE:
+    case RouteSchemeChartModes.DISTANCE:
       return Math.max(...points.map((p) => p.distance));
-    case DistanceChartModes.ELEVATION:
+    case RouteSchemeChartModes.ELEVATION:
       return Math.max(...points.map((p) => p.elevationGain));
-    case DistanceChartModes.TIME:
+    case RouteSchemeChartModes.TIME:
       return Math.max(...points.map((p) => p.timeElapsed));
     default: {
       return points.length - 1;

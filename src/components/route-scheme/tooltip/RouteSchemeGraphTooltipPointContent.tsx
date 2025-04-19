@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import { DistanceGraphPoint } from "../DistanceGraph.types";
+import { RouteSchemePoint } from "../RouteScheme.types";
 import styles from "styles/StepperTooltipContent.module.css";
-import { formatTimeElapsed } from "../distance-graph/DistanceGraph.utils";
+import { formatTimeElapsed } from "../RouteScheme.utils";
 
-export const DistanceGraphTooltipPointContent: FC<{ point: DistanceGraphPoint }> = ({ point }) => {
+export const RouteSchemeGraphTooltipPointContent: FC<{ point: RouteSchemePoint }> = ({ point }) => {
   const { distance, altitude, images, type, paragraphs, name, timeElapsed, elevationGain } = point;
 
   return (

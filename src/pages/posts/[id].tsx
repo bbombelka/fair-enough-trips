@@ -10,7 +10,7 @@ import Head from "next/head";
 import { PostPageProps, FullPost } from "types/PostPage.types";
 import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
-import DistanceGraphContainer from "components/distance-graph/distance-graph/DistanceGraphContainer";
+import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
 
 // change back to dynamic after enabling suspense !!
 // const DistanceGraphContainer = dynamic(() => import("components/distance-graph/distance-graph/DistanceGraphContainer"), { ssr: false });
@@ -33,7 +33,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
           {hasRouteScheme && (
             <>
               <Divider title="Route scheme" />
-              <DistanceGraphContainer id={post.id} />
+              <RouteSchemeContainer id={post.id} />
             </>
           )}
           <Divider title="Overview" order={1} stickyScrollToElementId="paragraph-overview" />
