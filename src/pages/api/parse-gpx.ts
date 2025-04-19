@@ -34,7 +34,7 @@ type PoiData = {
 
 export type PoiType = "parking" | "water" | "peak" | "signpost" | "pass" | "hut" | "ferrata";
 
-type ErrorResponse = { status: string; error: string };
+export type ErrorResponse = { status: string; error: string };
 
 export default async function handler({ query }: NextApiRequest, res: NextApiResponse<ParseGpxResponse | ErrorResponse>) {
   const zipFilePath = `${process.cwd()}/public/${query.id}/track.zip`;

@@ -1,8 +1,7 @@
-import { Navbar, Layout, Map, Footer } from "components";
+import { Navbar, Layout, Map, Footer, Loader } from "components";
 import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
-import { DistanceGraphContainer } from "components/distance-graph/distance-graph/DistanceGraphContainer";
 import Config from "Config";
 import { access } from "fs/promises";
 import { mongoClient } from "MongoClient";
@@ -10,8 +9,13 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { PostPageProps, FullPost } from "types/PostPage.types";
 import { removeSelectedProps } from "utils";
+import routeSchemeExists from "server/shared/route-scheme-exists";
+import DistanceGraphContainer from "components/distance-graph/distance-graph/DistanceGraphContainer";
 
-const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks }) => {
+// change back to dynamic after enabling suspense !!
+// const DistanceGraphContainer = dynamic(() => import("components/distance-graph/distance-graph/DistanceGraphContainer"), { ssr: false });
+
+const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme }) => {
   return (
     <>
       <Head>
@@ -26,8 +30,12 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks }) => {
         <Navbar />
         <Layout title={post.title}>
           <Map post={post} controlDisplayLinks={controlDisplayLinks} />
-          <Divider title="Route scheme" />
-          <DistanceGraphContainer />
+          {hasRouteScheme && (
+            <>
+              <Divider title="Route scheme" />
+              <DistanceGraphContainer id={post.id} />
+            </>
+          )}
           <Divider title="Overview" order={1} stickyScrollToElementId="paragraph-overview" />
           <Paragraph id="paragraph-overview" body={post.shortDescription} links={post.links["shortDescription"]} />
           <Divider title="Trip conditions" order={2} stickyScrollToElementId="paragraph-conditions" />
@@ -83,11 +91,13 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
   const post: FullPost | {} = dbPost ? removeSelectedProps(dbPost, ["_id"]) : {};
   await mongoClient.close();
 
+  const hasRouteScheme = await routeSchemeExists(params?.id);
   const parsedPost = JSON.parse(JSON.stringify(post));
 
   return {
     props: {
       post: parsedPost as FullPost,
+      hasRouteScheme,
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
         displayGpxDownload: await displayGpxDownloadPromise,

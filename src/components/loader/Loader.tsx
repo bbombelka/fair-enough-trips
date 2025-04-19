@@ -10,6 +10,7 @@ interface LoaderProps {
   hasInternalBorder?: boolean;
   fullscreen?: boolean;
   isImage?: boolean;
+  fitContainer?: boolean;
 }
 
 export const Loader: FC<LoaderProps> = ({ loadingHeading, fullscreen, isLoading, hasExternalBorder, hasInternalBorder, isImage }) => {

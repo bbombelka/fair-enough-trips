@@ -16,7 +16,7 @@ type CurrentPointData = {
   y: number;
 };
 
-export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
+const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
   const svgRef = useRef(null);
   const width = 1200;
   const height = 150;
@@ -298,3 +298,5 @@ export const DistanceGraph = ({ points }: { points: DistanceGraphPoint[] }) => {
     </div>
   );
 };
+
+export default DistanceGraph;

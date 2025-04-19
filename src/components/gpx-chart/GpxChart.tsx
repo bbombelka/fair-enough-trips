@@ -222,7 +222,7 @@ export default function GPXChart({ id }: GPXChartProps) {
           drawPoi();
         }
       });
-  }, [trackData]); // Runs when trackData changes
+  }, [trackData]);
 
   return (
     <div style={{ width }} className={`${styles["container"]} ${isMobileUA ? styles["container-mobile"] : ""}`}>
