@@ -7,7 +7,7 @@ export const mapXAxisData =
       case RouteSchemeChartModes.BASIC:
         return { ...graphPoint, xAxisData: index };
       case RouteSchemeChartModes.DISTANCE:
-        return { ...graphPoint, xAxisData: graphPoint.distance };
+        return { ...graphPoint, xAxisData: graphPoint.distance / 1000 };
       case RouteSchemeChartModes.ELEVATION:
         return { ...graphPoint, xAxisData: graphPoint.elevationGain };
       case RouteSchemeChartModes.TIME:
@@ -23,7 +23,7 @@ export const getMaxDomainValue = (chartMode: RouteSchemeChartModes, points: Rout
     case RouteSchemeChartModes.BASIC:
       return points.length - 1;
     case RouteSchemeChartModes.DISTANCE:
-      return Math.max(...points.map((p) => p.distance));
+      return Math.max(...points.map((p) => p.distance / 1000));
     case RouteSchemeChartModes.ELEVATION:
       return Math.max(...points.map((p) => p.elevationGain));
     case RouteSchemeChartModes.TIME:

@@ -17,7 +17,7 @@ export const RouteSchemeGraphTooltipPointContent: FC<{ point: RouteSchemePoint }
         <hr />
         <li className={styles["content-list-item"]}>
           <span>Distance from start:</span>
-          <span className={styles["value"]}>{distance} km</span>
+          <span className={styles["value"]}>{(distance / 1000).toFixed(2)} km</span>
         </li>
         <li className={styles["content-list-item"]}>
           <span>Altitude: </span>
