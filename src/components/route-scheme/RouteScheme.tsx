@@ -19,7 +19,7 @@ type CurrentPointData = {
 const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; disabledCharts: RouteSchemeChartModes[] }) => {
   const svgRef = useRef(null);
   const width = 1200;
-  const height = 150;
+  const height = 165;
   const [selectedPointData, setSelectedPointData] = useState<CurrentPointData | undefined>();
   const [isRouteSelected, setIsRouteSelected] = useState<boolean>(false);
   const [chartMode, setChartMode] = useState<RouteSchemeChartModes>(RouteSchemeChartModes.BASIC);
