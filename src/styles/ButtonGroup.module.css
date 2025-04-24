@@ -9,6 +9,7 @@
     padding: 4px;
     border: 1px solid var(--font-grey);
     text-transform: lowercase;
+    cursor: pointer;
 }
 
 .group-button-selected {

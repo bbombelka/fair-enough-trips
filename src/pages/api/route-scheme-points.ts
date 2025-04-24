@@ -1,4 +1,4 @@
-import { RouteSchemePoint } from "components/route-scheme/RouteScheme.types";
+import { RouteSchemeChartModes, RouteSchemePoint } from "components/route-scheme/RouteScheme.types";
 import { NextApiRequest, NextApiResponse } from "next";
 import getRouteSchemePoints from "server/shared/route-scheme-get";
 import { ErrorResponse } from "./parse-gpx";
@@ -7,6 +7,7 @@ export type RouteSchemePointsResponse = {
   id: string;
   published: boolean;
   points: RouteSchemePoint[];
+  disabledModes: RouteSchemeChartModes[];
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<RouteSchemePointsResponse | ErrorResponse>) {

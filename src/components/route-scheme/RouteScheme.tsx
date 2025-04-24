@@ -16,7 +16,7 @@ type CurrentPointData = {
   y: number;
 };
 
-const RouteScheme = ({ points }: { points: RouteSchemePoint[] }) => {
+const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; disabledCharts: RouteSchemeChartModes[] }) => {
   const svgRef = useRef(null);
   const width = 1200;
   const height = 150;
@@ -174,7 +174,7 @@ const RouteScheme = ({ points }: { points: RouteSchemePoint[] }) => {
 
     const appendText = (xAxisData: number, name: string, index: number, type: string) => {
       const upperSetting = (lines: number) => height / 2 - 45 - lines * 12.5;
-      const lowerSetting = () => height / 2 + 37.5;
+      const lowerSetting = () => height / 2 + 45;
       const textGroup = svg.append("g");
 
       const rect = textGroup
@@ -220,7 +220,7 @@ const RouteScheme = ({ points }: { points: RouteSchemePoint[] }) => {
       svg
         .append("image")
         .attr("x", scale(xAxisData) - iconSize / 2)
-        .attr("y", index % 2 === 0 ? height / 2 - iconSize - 5 : height / 2 + 5)
+        .attr("y", index % 2 === 0 ? height / 2 - iconSize - 5 : height / 2 + 10)
         .attr("width", iconSize)
         .attr("height", iconSize)
         .attr("xlink:href", `/${type}.svg`)
@@ -242,7 +242,7 @@ const RouteScheme = ({ points }: { points: RouteSchemePoint[] }) => {
 
       text.append("tspan").text(path.difficulty);
 
-      if (path.name) {
+      if (path.name && chartMode === RouteSchemeChartModes.BASIC) {
         text.append("tspan").text(path.name).attr("x", midX).attr("dy", 15);
       }
     };
@@ -251,7 +251,7 @@ const RouteScheme = ({ points }: { points: RouteSchemePoint[] }) => {
     points.map(mapXAxisData(chartMode)).forEach(({ xAxisData, name, path, type }, i, arr) => {
       appendDistancePoint(xAxisData, i);
       appendText(xAxisData, name, i, type);
-      if (path && chartMode !== RouteSchemeChartModes.TIME) {
+      if (path) {
         appendRouteDescription(xAxisData, path, i, arr);
       }
     });
@@ -273,7 +273,7 @@ const RouteScheme = ({ points }: { points: RouteSchemePoint[] }) => {
       <div className={styles["mode-group-buttons"]}>
         <span>Mode: </span>
         <ButtonGroup
-          options={[RouteSchemeChartModes.BASIC, RouteSchemeChartModes.DISTANCE, RouteSchemeChartModes.TIME]}
+          options={[RouteSchemeChartModes.BASIC, RouteSchemeChartModes.DISTANCE, RouteSchemeChartModes.TIME].filter((mode) => !disabledCharts.includes(mode))}
           onSelect={(option) => setChartMode(option)}
           selectedOption={chartMode}
         />

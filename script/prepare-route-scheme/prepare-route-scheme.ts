@@ -50,7 +50,13 @@ export default async function setPoiIndex(zipFilePath: string, jsonFilePath: str
       elevationGain: elevationGain[i],
     }));
 
-    await writeFile(process.cwd() + poiId + ".json", JSON.stringify(mappedData));
+    const dataToWrite = {
+      id: poiId,
+      published: false,
+      points: mappedData,
+    };
+
+    await writeFile(process.cwd() + "/generated/" + poiId + ".json", JSON.stringify(dataToWrite));
 
     console.log("Operation successful for " + jsonFilePath);
   } catch (err) {

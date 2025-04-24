@@ -21,7 +21,7 @@ const RouteSchemeContainer: FC<Props> = ({ id }) => {
           <ErrorIcon fill="red" width={48} height={48} />
         </Alert>
       ) : (
-        <RouteScheme points={data?.points ?? []} />
+        <RouteScheme points={data?.points ?? []} disabledCharts={data?.disabledModes ?? []} />
       )}
     </div>
   );
