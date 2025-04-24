@@ -45,7 +45,7 @@ export default async function setPoiIndex(zipFilePath: string, jsonFilePath: str
       name: poi.name,
       index: poi.index,
       timeElapsed: timeElapsedValues[i],
-      distance: parseInt(distanceValues[i]),
+      distance: parseInt(String(distanceValues[i])),
       altitude: alitudeValues[i],
       elevationGain: elevationGain[i],
     }));
@@ -139,7 +139,7 @@ function calculateAccumulatedElevationGain(parseResult: any, nearestIndexes: num
     }
   }
 
-  return accumulatedGain.filter((e, i) => nearestIndexes.includes(i)).map((e) => parseInt(e * ((100 - GPX_ELEVATION_INACCURACY_MARGIN) / 100)));
+  return accumulatedGain.filter((e, i) => nearestIndexes.includes(i)).map((e) => parseInt(String(e * ((100 - GPX_ELEVATION_INACCURACY_MARGIN) / 100))));
 }
 
 // this will evaluate against gpx file once again. Use when indexes are unset or incorrectly set.
