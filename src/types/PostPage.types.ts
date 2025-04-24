@@ -3,6 +3,7 @@ import { Activities, Regions, Countries } from "enums/categories";
 export type PostPageProps = {
   post: FullPost;
   controlDisplayLinks: ControlDisplayLinks;
+  hasRouteScheme: boolean;
 };
 
 export type ControlDisplayLinks = {

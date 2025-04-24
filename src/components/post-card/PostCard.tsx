@@ -60,6 +60,7 @@ export const PostCard: FC<PostCardProps> = ({
       <div ref={imageRef} className={imageContainerClass}>
         {isMounted && (
           <FETImage
+            priority
             isMainImage={isMainPostCard}
             className={imageClass}
             src={src}

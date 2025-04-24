@@ -12,7 +12,7 @@ export const Paragraph: FC<{
     <div id={id} className={styles.container}>
       {title && <span className={styles.title}>{title}:</span>}
       {body.map((paragraph, i) => (
-        <p key={i} className={styles.paragraph}>
+        <p id={`${id}-paragraph-${i + 1}`} key={i} className={styles.paragraph}>
           {paragraph}
         </p>
       ))}

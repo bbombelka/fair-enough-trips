@@ -1,10 +1,23 @@
 [
-  { "name": "Aljažev dom v Vratih", "type": "parking", "lat": 46.4090311, "lon": 13.8434211, "index": 67 },
-  { "name": "Luknja (1766m)", "type": "pass", "lat": 46.3879639, "lon": 13.8148764, "index": 1875 },
-  { "name": "Plemenice (2372m)", "type": "peak", "lat": 46.3826444, "lon": 13.8224717, "index": 3232 },
-  { "name": "Triglav (2864m)", "type": "peak", "lat": 46.3782981, "lon": 13.8365822, "index": 4444 },
+  { "name": "Aljažev dom v Vratih", "type": "parking", "lat": 46.4090311, "lon": 13.8434211, "index": 65 },
+  { "name": "Luknja", "type": "pass", "lat": 46.3879639, "lon": 13.8148764, "index": 1875 },
+  {
+    "name": "Plemenice",
+    "type": "peak",
+    "lat": 46.3826444,
+    "lon": 13.8224717,
+    "index": 3232
+  },
+  {
+    "name": "Triglav (2864m)",
+    "type": "peak",
+    "lat": 46.3782981,
+    "lon": 13.8365822,
+    "index": 4444
+  },
   { "name": "Mali Triglav (2739m)", "type": "peak", "lat": 46.3769747, "lon": 13.8429506, "index": 4718 },
   { "name": "Triglavski dom na Kredarici", "type": "hut", "lat": 46.378945, "lon": 13.8487875, "index": 5203 },
   { "name": "Kredarica (2541m)", "type": "peak", "lat": 46.3801308, "lon": 13.8524447, "index": 5325 },
-  { "name": "Tominškova Pot", "type": "ferrata", "lat": 46.39023, "lon": 13.8510081, "index": 6406 }
+  { "name": "Tominškova Pot / Pot Čez Prag", "type": "signpost", "lat": 46.39023, "lon": 13.8510081, "index": 6406 },
+  { "name": "Aljažev dom v Vratih", "type": "parking", "lat": 46.4090311, "lon": 13.8434211, "index": 8965 }
 ]

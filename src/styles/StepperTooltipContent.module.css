@@ -1,0 +1,33 @@
+.content-list {
+  list-style: none;
+  padding-inline-start: 0;
+  margin-block-start: 8px;
+  margin-block-end: 8px;
+}
+
+.content-list-item {
+    display: flex;
+    justify-content: space-between;
+
+    span.value{
+        font-weight: 700;
+        &.capitalize {
+            text-transform: capitalize;
+        }
+    }
+}
+
+.content-list-image {
+    margin-left: 4px;
+}
+
+.container {
+    width: 200px;
+}
+
+.title {
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}

@@ -11,4 +11,5 @@ export default {
   COUNTRY_NOTES_COLLECTION: "country-trip-notes",
   EXTERNAL_MAP_TIMEOUT: 20000,
   THUMBNAIL_PREFIX_MOBILE: "thumb_",
+  ROUTE_SCHEME_POINTS: "route-scheme-points",
 };

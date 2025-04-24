@@ -1,0 +1,19 @@
+.container {
+    display: inline-block;
+    margin-left: 4px;
+}
+
+.group-button {
+    background-color: white;
+    font-size: 12px;
+    padding: 4px;
+    border: 1px solid var(--font-grey);
+    text-transform: lowercase;
+    cursor: pointer;
+}
+
+.group-button-selected {
+    background-color: var(--font-grey);
+    color: white;
+}
+
