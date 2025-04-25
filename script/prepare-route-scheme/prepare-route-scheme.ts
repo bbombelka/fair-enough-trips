@@ -13,7 +13,7 @@ type Coords = {
 const GPX_ELEVATION_INACCURACY_MARGIN = 7;
 
 export default async function setPoiIndex(zipFilePath: string, jsonFilePath: string, poiId: string) {
-  console.log("Running setPoiIndex for " + zipFilePath);
+  console.log("Running prepare route scheme for " + zipFilePath);
 
   try {
     const jsonFile = await readFile(jsonFilePath, "utf-8");

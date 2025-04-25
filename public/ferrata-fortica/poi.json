@@ -1,0 +1,8 @@
+[
+  { "type": "signpost", "name": "Omiš - old town", "index": 0, "timeElapsed": 0, "distance": 0, "altitude": 20, "elevationGain": 0 },
+  { "name": "Ferrata start", "type": "ferrata", "lat": 43.44619, "lon": 16.693913, "index": 155 },
+  { "name": "Ferrata ladder", "type": "ferrata", "lat": 43.445684, "lon": 16.695346, "index": 343 },
+  { "name": "Fortica (303m)", "type": "peak", "lat": 43.4448339, "lon": 16.6982678, "index": 710 },
+  { "name": "Fortica castle ruin", "type": "signpost", "lat": 43.4447678, "lon": 16.6994506, "index": 933 },
+  { "name": "Planovo", "type": "parking", "lat": 43.4473556, "lon": 16.6948022, "index": 1557 }
+]
