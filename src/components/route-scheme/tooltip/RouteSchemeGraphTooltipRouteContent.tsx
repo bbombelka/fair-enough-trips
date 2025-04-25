@@ -1,10 +1,13 @@
 import React, { FC } from "react";
 import styles from "styles/StepperTooltipContent.module.css";
 import { RouteSchemePoint } from "../RouteScheme.types";
+import { useScrollForOutOfViewport } from "hooks/useScrollForOutOfViewport";
 
 export const RouteSchemeGraphTooltipRouteContent: FC<{ point: RouteSchemePoint }> = ({ point: { path } }) => {
+  const ref = useScrollForOutOfViewport();
+
   return (
-    <div className={styles["container"]}>
+    <div ref={ref} className={styles["container"]}>
       <h1 className={styles["title"]}>{path?.name}</h1>
       <ul className={styles["content-list"]}>
         <li className={styles["content-list-item"]}>
@@ -28,7 +31,7 @@ export const RouteSchemeGraphTooltipRouteContent: FC<{ point: RouteSchemePoint }
         )}
         {Boolean(path?.paragraphs?.length) && (
           <li className={styles["content-list-item"]}>
-            <span>Mentioned in</span>
+            <span>Read more:</span>
             <span>
               {path?.paragraphs.map((paragraphNum) => {
                 return (

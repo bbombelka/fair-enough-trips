@@ -1,0 +1,26 @@
+.jump-to-top-button {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 25%;
+    background-color: var(--color-dark-grey);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;    
+  }
+  
+  .visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .jump-to-top-button:hover {
+    transform: scale(1.1);
+  }
+  

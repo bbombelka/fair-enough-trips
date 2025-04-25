@@ -9,6 +9,7 @@ import { getMaxDomainValue, mapXAxisData } from "./RouteScheme.utils";
 import styles from "styles/RouteScheme.module.css";
 import { useWindowSize } from "hooks/useWindowSize";
 import ButtonGroup from "components/button-group/ButtonGroup";
+import { JumpToTopButton } from "components/jump-to-top-button/JumpToTopButton";
 
 type CurrentPointData = {
   index: number;
@@ -18,8 +19,9 @@ type CurrentPointData = {
 
 const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; disabledCharts: RouteSchemeChartModes[] }) => {
   const svgRef = useRef(null);
+  const componentRef = useRef<HTMLDivElement>(null);
   const width = 1200;
-  const height = 165;
+  const height = 170;
   const [selectedPointData, setSelectedPointData] = useState<CurrentPointData | undefined>();
   const [isRouteSelected, setIsRouteSelected] = useState<boolean>(false);
   const [chartMode, setChartMode] = useState<RouteSchemeChartModes>(RouteSchemeChartModes.BASIC);
@@ -133,7 +135,7 @@ const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; d
       svg
         .append("line")
         .attr("x1", scale(0))
-        .attr("y1", scaleY)
+        .attr("y1", scaleY + 0)
         .attr("x2", scale(maxDomainValue))
         .attr("y2", scaleY)
         .attr("stroke", "black")
@@ -233,7 +235,7 @@ const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; d
       const text = svg
         .append("text")
         .attr("x", midX)
-        .attr("y", height - 60)
+        .attr("y", height - 70)
         .style("font-size", "10px")
         .attr("text-anchor", "middle")
         .style("user-select", "none")
@@ -269,7 +271,8 @@ const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; d
   }, [points, chartMode]);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div ref={componentRef} style={{ position: "relative" }}>
+      <JumpToTopButton element={componentRef.current} />
       <div className={styles["mode-group-buttons"]}>
         <span>Mode: </span>
         <ButtonGroup
