@@ -11,4 +11,14 @@ export type Post = {
   category: Categories;
   isTop?: boolean;
   postDate: string;
+  base64Image: string;
+};
+
+export type PostDocument = {
+  id: string;
+  title: string;
+  category: Categories;
+  isTop?: boolean;
+  postDate: Date;
+  base64Image: string;
 };

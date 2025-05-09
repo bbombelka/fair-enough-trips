@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Loader, Navbar, PostCard } from "components";
-import { Post } from "components/card-list/CardList.types";
+import { Post, PostDocument } from "components/card-list/CardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
 import { useState } from "react";
@@ -18,7 +18,7 @@ const CardList = dynamic(() => import("components/card-list/CardList"), {
 });
 
 const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
-  const [isMainImageLoaded, setMainImageLoaded] = useState(false);
+  const [isMainImageLoaded, setMainImageLoaded] = useState(true);
   useServiceWorker();
 
   return (
@@ -51,20 +51,24 @@ export default Home;
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   await mongoClient.connect();
 
-  const latestPosts = await mongoClient
+  const posts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
     .find()
+    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .limit(Config.POST_COUNT_HOME_PAGE + 1)
     .toArray();
 
-  const jsonParsed = JSON.parse(JSON.stringify(latestPosts));
+  const serializedPosts: Post[] = posts.map((post, i) => ({
+    ...post,
+    postDate: post.postDate.toISOString(),
+  }));
 
   return {
     props: {
-      mainPost: { ...jsonParsed[0] },
-      latestPosts: jsonParsed.slice(1, Config.POST_COUNT_HOME_PAGE + 1),
+      mainPost: { ...serializedPosts[0] },
+      latestPosts: serializedPosts.slice(1, Config.POST_COUNT_HOME_PAGE + 1),
     },
   };
 };

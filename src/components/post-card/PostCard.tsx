@@ -3,41 +3,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateBox } from "components/date-box/DateBox";
 import { PostCardProps } from "components/post-card/PostCard.types";
 import { useCardClasses } from "hooks/useCardClasses";
-import { useTriggerAnimation } from "hooks/useTriggerAnimation";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
 import { useIsMounted } from "hooks/useIsMounted";
 import { useSourceImagePath } from "hooks/useSourceImagePath";
 
 export const PostCard: FC<PostCardProps> = ({
-  post: { isTop = false, title, category, id, postDate },
+  post: { isTop = false, title, category, id, postDate, base64Image },
   isMainPostCard = false,
   displayScrollDownButton = true,
-  setImageLoaded,
 }) => {
-  const postCardRef = useRef<HTMLDivElement>(null);
   const imageRef = useSetHeightProgramatically<HTMLDivElement>({
     enabled: isMainPostCard,
   });
-
   const [activities, regions, countries] = useMappedCategories(category);
   const isMounted = useIsMounted();
-  const { isAnimationTriggered } = useTriggerAnimation({
-    isMainCard: isMainPostCard,
-    cardRef: postCardRef,
-  });
   const scrollDown = useScrollDown("card-list");
   const { src, setError } = useSourceImagePath({ isMainPostCard, id });
 
   const { imageClass, subtitleClass, buttonClass, scrollDownIconClass, titleClass, textBoxClass, imageContainerClass } = useCardClasses({
     isMainCard: isMainPostCard,
     isTop,
-    isAnimationTriggered,
+    isAnimationTriggered: true,
     styles,
   });
 
@@ -54,21 +46,19 @@ export const PostCard: FC<PostCardProps> = ({
   };
 
   return (
-    <div className={styles.container} ref={postCardRef}>
+    <div className={styles.container}>
       {postDate && <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />}
       {isMainPostCard && displayScrollDownButton && <FontAwesomeIcon className={scrollDownIconClass} icon={faAnglesDown} onClick={scrollDown} />}
       <div ref={imageRef} className={imageContainerClass}>
         {isMounted && (
           <FETImage
-            priority
-            isMainImage={isMainPostCard}
+            priority={isMainPostCard}
             className={imageClass}
             src={src}
             alt={"Main trip picture"}
             layout="fill"
-            onLoad={() => {
-              setImageLoaded?.(true);
-            }}
+            placeholder="blur"
+            blurDataURL={base64Image}
             onError={() => setError(true)}
           />
         )}

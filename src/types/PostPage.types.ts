@@ -69,6 +69,7 @@ export type FullPost = {
   links: Links;
   images: PostImage[];
   postDate: Date;
+  base64Image: string;
 };
 
 export type DateClass = {
@@ -86,4 +87,4 @@ export type Stats = {
   highestPoint: number;
 };
 
-export type SearchPostType = Pick<FullPost, "id" | "category" | "title" | "postDate"> & { isTop: boolean };
+export type SearchPostType = Pick<FullPost, "id" | "category" | "title" | "postDate" | "base64Image"> & { isTop: boolean };

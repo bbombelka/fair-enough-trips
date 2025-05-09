@@ -3,22 +3,20 @@ import React, { FC, useState } from "react";
 import Image from "next/image";
 import { Loader } from "components/loader/Loader";
 
-interface FETImageProps extends ImageProps {
-  isMainImage?: boolean;
-}
-
-export const FETImage: FC<FETImageProps> = ({ isMainImage, onLoad, ...props }) => {
-  const [isLoading, setIsLoading] = useState(() => (isMainImage ? false : true));
+export const FETImage: FC<ImageProps> = ({ onLoad, blurDataURL, ...props }) => {
+  const [isLoading, setIsLoading] = useState(!Boolean(blurDataURL));
 
   const onImageLoad: React.ReactEventHandler<HTMLImageElement> = (event) => {
     onLoad?.(event);
-    setIsLoading(false);
+    if (!blurDataURL) {
+      setIsLoading(false);
+    }
   };
 
   return (
     <>
-      <Loader isLoading={isLoading} loadingHeading="Loading image" hasExternalBorder isImage />
-      <Image objectFit="cover" objectPosition="center" layout="responsive" onLoad={onImageLoad} {...props} />
+      {!blurDataURL && <Loader isLoading={isLoading} loadingHeading="Loading image" hasExternalBorder isImage />}
+      <Image objectFit="cover" objectPosition="center" layout="responsive" onLoad={onImageLoad} blurDataURL={blurDataURL} {...props} />
     </>
   );
 };

@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const ID_QUERY = searchQueryBuilder("id", searchTermRegex);
     const DESCRIPTION_QUERY = searchQueryBuilder("shortDescription", searchTermRegex);
     const LOGICAL_OPERATOR_OR = { $or: [TITLE_QUERY, ID_QUERY, DESCRIPTION_QUERY] };
-    const QUERY_PROJECTION = { category: true, title: true, id: true, postDate: true };
+    const QUERY_PROJECTION = { category: true, title: true, id: true, postDate: true, base64Image: true };
 
     const latestPosts = await mongoClient
       .db(Config.DB_NAME)

@@ -1,4 +1,4 @@
-import { Navbar, Layout, Map, Footer, Loader } from "components";
+import { Navbar, Layout, Map, Footer } from "components";
 import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
@@ -96,7 +96,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
 
   return {
     props: {
-      post: parsedPost as FullPost,
+      post: { ...parsedPost } as FullPost,
       hasRouteScheme,
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
