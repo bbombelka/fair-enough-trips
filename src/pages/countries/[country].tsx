@@ -2,22 +2,26 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Layout, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post } from "components/card-list/CardList.types";
+import { Post, PostDocument } from "components/card-list/CardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
 import { CategoriesEnum, Countries } from "enums/categories";
 import { CategoryCard } from "components/category-card/CategoryCard";
 import { parse } from "utils";
 import { Box } from "components/box/Box";
-import { TripNote, TripNotes } from "components/trip-notes/TripNotes";
+import { TripNotes } from "components/trip-notes/TripNotes";
+import { TripNote } from "components/trip-notes/TripNotes.types";
+import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
 
 type HomePageProps = {
   posts: Post[];
   code: string;
   notes: TripNote[];
+  imageId: string;
+  base64Image: string;
 };
 
-const Category: NextPage<HomePageProps> = ({ posts, notes, code }) => {
+const Category: NextPage<HomePageProps> = ({ posts, notes, code, imageId, base64Image }) => {
   const country = Countries.find((act) => act.code === code)!;
 
   return (
@@ -28,10 +32,7 @@ const Category: NextPage<HomePageProps> = ({ posts, notes, code }) => {
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
       <Navbar />
       <main>
@@ -41,6 +42,8 @@ const Category: NextPage<HomePageProps> = ({ posts, notes, code }) => {
           categoryType={CategoriesEnum.Countries}
           category={{ ...country, originalName: "" }}
           areNotesPresent={Boolean(notes.length)}
+          id={imageId}
+          blurDataURL={base64Image}
         />
         {Boolean(notes.length) && (
           <Layout>
@@ -67,16 +70,12 @@ export default Category;
 export const getStaticPaths: GetStaticPaths = async () => {
   await mongoClient.connect();
 
-  const collection = mongoClient
-    .db(Config.DB_NAME)
-    .collection(Config.POSTS_COLLECTION);
+  const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
 
   const posts = await collection.find().toArray();
   await mongoClient.close();
 
-  const types = Array.from(
-    new Set(posts.map(({ category }) => category.country).flat())
-  )
+  const types = Array.from(new Set(posts.map(({ category }) => category.country).flat()))
     .map((code) => Countries.find((act) => act.code === code)?.url)
     .map((path) => ({ params: { country: path } }));
   return {
@@ -94,22 +93,28 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
     .find({ ["category.country"]: code })
+    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .toArray();
 
-  const notes = await mongoClient
-    .db(Config.DB_NAME)
-    .collection(Config.COUNTRY_NOTES_COLLECTION)
-    .findOne({ id: code });
+  const notes = await mongoClient.db(Config.DB_NAME).collection(Config.COUNTRY_NOTES_COLLECTION).findOne({ id: code });
 
-  const postsParsed = parse(posts);
+  const id = shuffleBackgroundImage(posts.map(({ id }) => id));
+
+  const serializedPosts: Post[] = posts.map((post) => ({
+    ...post,
+    postDate: post.postDate.toISOString(),
+  }));
+
   const notesParsed = parse(notes);
 
   return {
     props: {
-      posts: postsParsed,
+      posts: serializedPosts,
       code,
       notes: notesParsed?.notes ?? [],
+      imageId: id,
+      base64Image: posts.find((post) => post.id === id)?.base64Image,
     },
   };
 };

@@ -60,7 +60,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     .limit(Config.POST_COUNT_HOME_PAGE + 1)
     .toArray();
 
-  const serializedPosts: Post[] = posts.map((post, i) => ({
+  const serializedPosts: Post[] = posts.map((post) => ({
     ...post,
     postDate: post.postDate.toISOString(),
   }));

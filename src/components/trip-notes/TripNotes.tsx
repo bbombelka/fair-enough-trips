@@ -1,17 +1,7 @@
 import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
 import React, { FC } from "react";
-import { PostLink } from "types/PostPage.types";
-
-export type TripNote = {
-  title: string;
-  paragraph: string[];
-  links: PostLink[];
-};
-
-type TripNotesProps = {
-  notes: TripNote[];
-};
+import { TripNotesProps } from "./TripNotes.types";
 
 export const TripNotes: FC<TripNotesProps> = ({ notes }) => {
   return (

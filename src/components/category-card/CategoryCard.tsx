@@ -1,11 +1,10 @@
 import { Box } from "components/box/Box";
 import Config from "Config";
 import { useCardClasses } from "hooks/useCardClasses";
-import { useTriggerAnimation } from "hooks/useTriggerAnimation";
 import { useScrollDown } from "hooks/useScrollDown";
 import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
-import React, { FC, useMemo, useRef } from "react";
+import React, { FC, useRef } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
 
@@ -17,42 +16,35 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   isMainCard,
   categoryType,
   areNotesPresent,
+  blurDataURL,
+  id,
 }) => {
   const postCardRef = useRef<HTMLDivElement>(null);
-  const { isAnimationTriggered } = useTriggerAnimation({
-    isMainCard: false,
-    cardRef: postCardRef,
-  });
   const scrollDownTrips = useScrollDown("card-list");
   const scrollDownNotes = useScrollDown("trip-notes");
   const imageRef = useSetHeightProgramatically<HTMLImageElement>({
     enabled: isMainCard,
   });
 
-  const {
-    imageClass,
-    buttonClass,
-    titleClass,
-    textBoxClass,
-    imageContainerClass,
-  } = useCardClasses({
+  const { imageClass, buttonClass, titleClass, textBoxClass, imageContainerClass } = useCardClasses({
     isMainCard,
     isTop: false,
-    isAnimationTriggered,
+    isAnimationTriggered: true,
     styles,
   });
 
-  const randomBackgroundId = useMemo(() => shuffleBackgroundImage(postIds), []);
   const title = name.concat(originalName ? ` (${originalName})` : "");
 
   return (
     <div className={styles.container} ref={postCardRef}>
       <div ref={imageRef} className={imageContainerClass}>
         <FETImage
-          src={`/${randomBackgroundId}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
+          src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
           className={imageClass}
+          blurDataURL={blurDataURL}
           alt="Main category picture"
           layout="fill"
+          placeholder="blur"
         />
       </div>
       <div className={textBoxClass}>
@@ -67,9 +59,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
               }
             }}
           >
-            <button className={buttonClass}>{`See ${postIds.length} trip${
-              postIds.length > 1 ? "s" : ""
-            }`}</button>
+            <button className={buttonClass}>{`See ${postIds.length} trip${postIds.length > 1 ? "s" : ""}`}</button>
           </a>
         </Link>
         {isMainCard && areNotesPresent && (
@@ -82,7 +72,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
                   scrollDownNotes();
                 }}
               >
-                <button className={buttonClass}>{`Read trip notes`}</button>
+                <button className={buttonClass}>Read trip notes</button>
               </a>
             </Link>
           </Box>
@@ -91,12 +81,3 @@ export const CategoryCard: FC<CategoryCardProps> = ({
     </div>
   );
 };
-
-function shuffleBackgroundImage(postIds: string[]): string {
-  const min = 0;
-  const max = postIds.length;
-
-  const idIndex = Math.floor(Math.random() * (max - min) + min);
-
-  return postIds[idIndex];
-}
