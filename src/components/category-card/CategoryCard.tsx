@@ -2,7 +2,6 @@ import { Box } from "components/box/Box";
 import Config from "Config";
 import { useCardClasses } from "hooks/useCardClasses";
 import { useScrollDown } from "hooks/useScrollDown";
-import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
 import React, { FC, useRef } from "react";
 import styles from "styles/PostCard.module.css";
@@ -22,22 +21,18 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   const postCardRef = useRef<HTMLDivElement>(null);
   const scrollDownTrips = useScrollDown("card-list");
   const scrollDownNotes = useScrollDown("trip-notes");
-  const imageRef = useSetHeightProgramatically<HTMLImageElement>({
-    enabled: isMainCard,
-  });
 
-  const { imageClass, buttonClass, titleClass, textBoxClass, imageContainerClass } = useCardClasses({
+  const { imageClass, buttonClass, titleClass, textBoxClass, imageContainerClass, containerClass } = useCardClasses({
     isMainCard,
     isTop: false,
-    isAnimationTriggered: true,
     styles,
   });
 
   const title = name.concat(originalName ? ` (${originalName})` : "");
 
   return (
-    <div className={styles.container} ref={postCardRef}>
-      <div ref={imageRef} className={imageContainerClass}>
+    <div className={containerClass} ref={postCardRef}>
+      <div className={imageContainerClass}>
         <FETImage
           src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
           className={imageClass}

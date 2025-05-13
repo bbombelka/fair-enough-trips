@@ -5,7 +5,6 @@ import { PostCardProps } from "components/post-card/PostCard.types";
 import { useCardClasses } from "hooks/useCardClasses";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
-import { useSetHeightProgramatically } from "hooks/useSetHeightProgramatically";
 import Link from "next/link";
 import React, { FC } from "react";
 import styles from "styles/PostCard.module.css";
@@ -18,18 +17,14 @@ export const PostCard: FC<PostCardProps> = ({
   isMainPostCard = false,
   displayScrollDownButton = true,
 }) => {
-  const imageRef = useSetHeightProgramatically<HTMLDivElement>({
-    enabled: isMainPostCard,
-  });
   const [activities, regions, countries] = useMappedCategories(category);
   const isMounted = useIsMounted();
   const scrollDown = useScrollDown("card-list");
   const { src, setError } = useSourceImagePath({ isMainPostCard, id });
 
-  const { imageClass, subtitleClass, buttonClass, scrollDownIconClass, titleClass, textBoxClass, imageContainerClass } = useCardClasses({
+  const { imageClass, subtitleClass, buttonClass, scrollDownIconClass, titleClass, textBoxClass, imageContainerClass, containerClass } = useCardClasses({
     isMainCard: isMainPostCard,
     isTop,
-    isAnimationTriggered: true,
     styles,
   });
 
@@ -46,10 +41,10 @@ export const PostCard: FC<PostCardProps> = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={containerClass}>
       {postDate && <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />}
       {isMainPostCard && displayScrollDownButton && <FontAwesomeIcon className={scrollDownIconClass} icon={faAnglesDown} onClick={scrollDown} />}
-      <div ref={imageRef} className={imageContainerClass}>
+      <div className={imageContainerClass}>
         {isMounted && (
           <FETImage
             priority={isMainPostCard}
@@ -67,7 +62,7 @@ export const PostCard: FC<PostCardProps> = ({
         <h1 className={titleClass}>{title}</h1>
         {getPostCardSubtitles()}
         <Link href={`/posts/${id}`}>
-          <a style={{ display: "inline-block" }}>
+          <a className={styles["post-card-link"]}>
             <button className={buttonClass}>Read more</button>
           </a>
         </Link>

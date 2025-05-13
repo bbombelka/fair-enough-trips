@@ -1,10 +1,9 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { Footer, Loader, Navbar, PostCard } from "components";
+import { Footer, Navbar, PostCard } from "components";
 import { Post, PostDocument } from "components/card-list/CardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
-import { useState } from "react";
 import dynamic from "next/dynamic";
 import { useServiceWorker } from "hooks/useServiceWorker";
 
@@ -18,7 +17,6 @@ const CardList = dynamic(() => import("components/card-list/CardList"), {
 });
 
 const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
-  const [isMainImageLoaded, setMainImageLoaded] = useState(true);
   useServiceWorker();
 
   return (
@@ -33,8 +31,7 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
       </Head>
       <Navbar />
       <main>
-        <Loader fullscreen loadingHeading="Loading trips" isLoading={!isMainImageLoaded} hasInternalBorder />
-        <PostCard isMainPostCard post={mainPost} setImageLoaded={setMainImageLoaded} />
+        <PostCard isMainPostCard post={mainPost} />
         <CardList listTitle="Latest trip posts">
           {latestPosts.map((post) => (
             <PostCard post={post} key={post.id} />
