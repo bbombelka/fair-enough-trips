@@ -16,7 +16,14 @@ export const FETImage: FC<ImageProps> = ({ onLoad, blurDataURL, ...props }) => {
   return (
     <>
       {!blurDataURL && <Loader isLoading={isLoading} loadingHeading="Loading image" hasExternalBorder isImage />}
-      <Image objectFit="cover" objectPosition="center" layout="responsive" onLoad={onImageLoad} blurDataURL={blurDataURL} {...props} />
+      <Image
+        objectFit="cover"
+        objectPosition="center"
+        layout="responsive"
+        onLoad={onImageLoad}
+        blurDataURL={`data:image/webp;base64,${blurDataURL}`}
+        {...props}
+      />
     </>
   );
 };
