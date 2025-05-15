@@ -25,9 +25,7 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
         <title>Fair Enough Trips</title>
         <meta name="description" content="Blog about trekking, scrambling, alpine climbing and via-ferrata with maps, gps tracks, images and trip tips" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+        <link rel="canonical" href={`https://${Config.DOMAIN}/`} />
       </Head>
       <Navbar />
       <main>

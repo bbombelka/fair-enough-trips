@@ -21,10 +21,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
       <Head>
         <title>{post.title} @ Fair Enough Trips</title>
         <meta name="description" content={post.subTitle} />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+        <link rel="canonical" href={`https://${Config.DOMAIN}/posts/${post.id}`} />
       </Head>
       <div>
         <Navbar />

@@ -12,4 +12,5 @@ export default {
   EXTERNAL_MAP_TIMEOUT: 20000,
   THUMBNAIL_PREFIX_MOBILE: "thumb_",
   ROUTE_SCHEME_POINTS: "route-scheme-points",
+  DOMAIN: "fairenoughtrips.com",
 };
