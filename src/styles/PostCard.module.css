@@ -34,7 +34,7 @@
 }
 
 .container-main-card {
-  height: calc(100vh - 60px);
+  height: calc(100dvh - 60px);
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
