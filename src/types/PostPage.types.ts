@@ -4,6 +4,7 @@ export type PostPageProps = {
   post: FullPost;
   controlDisplayLinks: ControlDisplayLinks;
   hasRouteScheme: boolean;
+  hdImagesToDisplay: Array<string | undefined>;
 };
 
 export type ControlDisplayLinks = {

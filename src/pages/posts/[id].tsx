@@ -3,7 +3,7 @@ import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
 import Config from "Config";
-import { access } from "fs/promises";
+import { access, readdir } from "fs/promises";
 import { mongoClient } from "MongoClient";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
@@ -15,7 +15,7 @@ import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
 // change back to dynamic after enabling suspense !!
 // const DistanceGraphContainer = dynamic(() => import("components/distance-graph/distance-graph/DistanceGraphContainer"), { ssr: false });
 
-const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme }) => {
+const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay }) => {
   return (
     <>
       <Head>
@@ -45,7 +45,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
           <Paragraph links={post.links["other"]} body={post.other} id="paragraph-other" />
           <Paragraph links={post.links["dangers"]} body={post.dangers} title="Dangers" />
           <Paragraph links={post.links["gear"]} body={post.gear} title="Gear used" />
-          {Boolean(post.images.length) && <PostImages images={post.images} id={post.id} order={5} />}
+          {Boolean(post.images.length) && <PostImages hdImagesToDisplay={hdImagesToDisplay} images={post.images} id={post.id} order={5} />}
         </Layout>
         <Footer isSticky />
       </div>
@@ -82,6 +82,8 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     () => false
   );
 
+  const availableHDImagesPromise = readdir(`./public/${params?.id}`);
+
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
   const dbPost = await postsCollection.findOne({ id: params?.id });
 
@@ -95,6 +97,10 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     props: {
       post: { ...parsedPost } as FullPost,
       hasRouteScheme,
+      hdImagesToDisplay: (await availableHDImagesPromise)
+        .filter((img) => img.includes("-HD"))
+        .map((img) => img.split("-HD").at(0))
+        .filter((img) => img),
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
         displayGpxDownload: await displayGpxDownloadPromise,

@@ -9,9 +9,10 @@ type PostImagesProps = {
   id: string;
   images: PostImage[];
   order?: number;
+  hdImagesToDisplay: Array<string | undefined>;
 };
 
-export const PostImages: FC<PostImagesProps> = ({ id, images, order }) => {
+export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToDisplay }) => {
   return (
     <div>
       <Divider title="Visual" order={order} stickyScrollToElementId="post-images" />
@@ -19,10 +20,23 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order }) => {
         const width = isVertical ? Config.SHORT_STRETCH : Config.LONG_STRETCH;
         const height = isVertical ? Config.LONG_STRETCH : Config.SHORT_STRETCH;
         const src = `/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
+        const hdImageSrc = hdImagesToDisplay.includes(filename) ? `/${id}/${filename}-HD.${Config.DEFAULT_IMAGE_EXTENSION}` : src;
+
         return (
           <div id="post-images" key={imageId} className={styles.images} style={{ maxWidth: width }}>
-            <a href={src} target="_blank" rel="noopener noreferrer">
-              <FETImage id={filename} className={styles.image} src={src} alt={desc} width={width} height={height} sizes="50vw" layout="responsive" />
+            <a href={hdImageSrc} target="_blank" rel="noopener noreferrer">
+              <FETImage
+                id={filename}
+                className={styles.image}
+                src={src}
+                alt={desc}
+                quality="100"
+                width={width}
+                height={height}
+                sizes="50vw"
+                layout="responsive"
+                unoptimized
+              />
             </a>
             <span className={styles.caption}>{desc}</span>
           </div>
