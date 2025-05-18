@@ -4,6 +4,7 @@ import React, { FC } from "react";
 import { FETImage } from "components/fet-image/FETImage";
 import styles from "styles/PostImages.module.css";
 import { PostImage } from "types/PostPage.types";
+import { useBucketSourcePath } from "hooks/useBucketSourcePath";
 
 type PostImagesProps = {
   id: string;
@@ -19,8 +20,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
       {images.map(({ filename, desc, isVertical }, imageId) => {
         const width = isVertical ? Config.SHORT_STRETCH : Config.LONG_STRETCH;
         const height = isVertical ? Config.LONG_STRETCH : Config.SHORT_STRETCH;
-        const src = `/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
-        const hdImageSrc = hdImagesToDisplay.includes(filename) ? `/${id}/${filename}-HD.${Config.DEFAULT_IMAGE_EXTENSION}` : src;
+        const { src, hdImageSrc } = useBucketSourcePath({ id, filename, hdImagesToDisplay });
 
         return (
           <div id="post-images" key={imageId} className={styles.images} style={{ maxWidth: width }}>

@@ -1,12 +1,10 @@
-import React from "react";
+import { useEffect } from "react";
 
 export const useServiceWorker = () => {
   const registerServiceWorker = async () => {
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       try {
-        const registration = await navigator.serviceWorker.register("./sw.js", {
-          scope: "/",
-        });
+        const registration = await navigator.serviceWorker.register("/sw.js");
         if (registration.installing) {
           console.log("Service worker installing");
         } else if (registration.waiting) {
@@ -20,5 +18,7 @@ export const useServiceWorker = () => {
     }
   };
 
-  registerServiceWorker();
+  useEffect(() => {
+    registerServiceWorker();
+  }, []);
 };

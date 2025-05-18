@@ -5,7 +5,6 @@ import { Post, PostDocument } from "components/card-list/CardList.types";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
 import dynamic from "next/dynamic";
-import { useServiceWorker } from "hooks/useServiceWorker";
 
 type HomePageProps = {
   mainPost: Post;
@@ -17,8 +16,6 @@ const CardList = dynamic(() => import("components/card-list/CardList"), {
 });
 
 const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
-  useServiceWorker();
-
   return (
     <div>
       <Head>
