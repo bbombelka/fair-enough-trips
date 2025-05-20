@@ -12,7 +12,8 @@
     "process-images": "./script/process-images/process-images.sh",
     "upload-images": "./script/upload-images/upload-images.sh",
     "cleanup": "./script/cleanup/cleanup.sh",
-    "create-poi": "./script/create-poi/create-poi.sh"
+    "create-poi": "./script/create-poi/create-poi.sh",
+    "set-poi-index": "./script/set-poi-index/set-poi-index.sh"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.812.0",

@@ -34,8 +34,8 @@ function extractCoordinates() {
           coordinates.push({
             name: file.split(".").at(0),
             type: file.split(".").at(1),
-            latitude: lat,
-            longitude: lon,
+            lat,
+            lon,
             index: 0,
           });
         }
