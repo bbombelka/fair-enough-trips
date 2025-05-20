@@ -11,7 +11,8 @@
     "lint": "next lint",
     "process-images": "./script/process-images/process-images.sh",
     "upload-images": "./script/upload-images/upload-images.sh",
-    "cleanup": "./script/cleanup/cleanup.sh"
+    "cleanup": "./script/cleanup/cleanup.sh",
+    "create-poi": "./script/create-poi/create-poi.sh"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.812.0",
@@ -22,6 +23,7 @@
     "clsx": "^1.1.1",
     "d3": "^7.9.0",
     "dotenv": "^16.5.0",
+    "exif-parser": "^0.1.12",
     "haversine-distance": "^1.2.3",
     "lqip-modern": "^2.2.1",
     "mongodb": "^4.5.0",
