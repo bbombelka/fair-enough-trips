@@ -109,6 +109,7 @@ async function processImages(id: string, filename: string): Promise<void> {
       });
 
       await Promise.all(
+        //@ts-ignore
         finalVariants.map(({ width: w, height: h, quality, output }) =>
           sharp(imagePath)
             .resize({ width: w ?? width, height: h ?? height })
