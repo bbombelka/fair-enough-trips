@@ -10,7 +10,7 @@ if (!id) {
 }
 
 const dirPath = path.resolve(__dirname, `../../public/${id}`);
-const keepFiles = new Set(["main.webp", "main-mobile.webp", "track.zip", "poi.json"]);
+const keepFiles = new Set(["main.webp", "main-mobile.webp", "track.zip", "poi.json", "thumb_main.webp"]);
 
 (async () => {
   try {
