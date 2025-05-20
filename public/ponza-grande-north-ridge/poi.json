@@ -1,0 +1,12 @@
+[
+  { "name": "Fusine lakes", "type": "parking", "lat": 46.4733047, "lon": 13.6707531, "index": 6 },
+  { "name": "Rifugio Luigi Zacchi", "type": "hut", "lat": 46.4592325, "lon": 13.6843219, "index": 1210 },
+  { "name": "La Porticina (1845m)", "type": "pass", "lat": 46.4664625, "lon": 13.6937725, "index": 2645 },
+  { "type": "peak", "name": "1st exposed ridge", "lat": 46.4655972, "lon": 13.69395, "index": 3666 },
+  { "type": "peak", "name": "Border sign peak", "lat": 46.4647194, "lon": 13.6936556, "index": 4446 },
+  { "type": "peak", "name": "Presummit", "lat": 46.4618056, "lon": 13.6965306, "index": 5674 },
+  { "name": "Ponza Grande (2274m)", "type": "peak", "lat": 46.4601417, "lon": 13.6973806, "index": 5870 },
+  { "name": "Via-ferrata start/end", "type": "ferrata", "lat": 46.4564167, "lon": 13.6898917, "index": 7289 },
+  { "name": "Rifugio Luigi Zacchi", "type": "hut", "lat": 46.4592325, "lon": 13.6843219, "index": 7685 },
+  { "name": "Fusine lakes", "type": "parking", "lat": 46.4733047, "lon": 13.6707531, "index": 8600 }
+]
