@@ -4,9 +4,8 @@ export function useBucketSourcePath({ id, filename, hdImagesToDisplay }: { id: s
   const isProd = process.env.NODE_ENV === "production";
 
   function getProdParams() {
-    const s3BucketUrl = String(process.env.S3_BUCKET);
-    const src = `${s3BucketUrl}/posts/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
-    const hdImageSrc = hdImagesToDisplay.includes(filename) ? `${s3BucketUrl}/posts/${id}/${filename}-HD.${Config.DEFAULT_IMAGE_EXTENSION}` : src;
+    const src = `${Config.S3_BUCKET}/posts/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
+    const hdImageSrc = hdImagesToDisplay.includes(filename) ? `${Config.S3_BUCKET}/posts/${id}/${filename}-HD.${Config.DEFAULT_IMAGE_EXTENSION}` : src;
 
     return { src, hdImageSrc };
   }

@@ -13,4 +13,5 @@ export default {
   THUMBNAIL_PREFIX_MOBILE: "thumb_",
   ROUTE_SCHEME_POINTS: "route-scheme-points",
   DOMAIN: "fairenoughtrips.com",
+  S3_BUCKET: "https://fair-enough-trips.s3.eu-central-1.amazonaws.com",
 };
