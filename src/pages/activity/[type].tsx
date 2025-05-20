@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const latestPosts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
-    .find({ ["category.activity"]: code })
+    .find({ ["category.activity"]: code, published: true })
     .sort({ postDate: -1 })
     .toArray();
 

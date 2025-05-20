@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { mongoClient } from "MongoClient";
 import Config from "Config";
@@ -22,9 +21,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const latestPosts = await mongoClient
       .db(Config.DB_NAME)
       .collection(Config.POSTS_COLLECTION)
-      .find(LOGICAL_OPERATOR_OR, {
-        projection: QUERY_PROJECTION,
-      })
+      .find(
+        { ...LOGICAL_OPERATOR_OR, published: true },
+        {
+          projection: QUERY_PROJECTION,
+        }
+      )
       .sort({ postDate: -1 })
       .limit(25)
       .toArray();

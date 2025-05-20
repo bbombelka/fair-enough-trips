@@ -58,7 +58,7 @@ export const getStaticProps: GetStaticProps<CountriesPageProps> = async () => {
 
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
   const posts = await postsCollection
-    .find()
+    .find({ published: true })
     .project<CategoryDocument<"country">>({ id: true, ["category.country"]: true, base64Image: true })
     .toArray();
 

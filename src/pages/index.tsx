@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const posts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
-    .find()
+    .find({ published: true })
     .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .limit(Config.POST_COUNT_HOME_PAGE + 1)

@@ -90,7 +90,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const posts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
-    .find({ ["category.country"]: code })
+    .find({ ["category.country"]: code, published: true })
     .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .toArray();
