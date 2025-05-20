@@ -3,7 +3,7 @@ import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
 import Config from "Config";
-import { access, readdir } from "fs/promises";
+import { access } from "fs/promises";
 import { mongoClient } from "MongoClient";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
@@ -11,6 +11,7 @@ import { PostPageProps, FullPost } from "types/PostPage.types";
 import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
 import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
+import readBucketFiles from "server/shared/aws/readBucketFiles";
 
 // change back to dynamic after enabling suspense !!
 // const DistanceGraphContainer = dynamic(() => import("components/distance-graph/distance-graph/DistanceGraphContainer"), { ssr: false });
@@ -82,7 +83,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     () => false
   );
 
-  const availableHDImagesPromise = readdir(`./public/${params?.id}`);
+  const availableHDImagesPromise = readBucketFiles(params?.id as string);
 
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
   const dbPost = await postsCollection.findOne({ id: params?.id });
@@ -98,8 +99,8 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
       post: { ...parsedPost } as FullPost,
       hasRouteScheme,
       hdImagesToDisplay: (await availableHDImagesPromise)
-        .filter((img) => img.includes("-HD"))
-        .map((img) => img.split("-HD").at(0))
+        .filter((img) => img?.includes("-HD"))
+        .map((img) => img?.split("-HD").at(0)?.split("/").at(-1))
         .filter((img) => img),
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
