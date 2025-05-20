@@ -8,7 +8,7 @@ type Props = {
   id: string;
 };
 
-export const useSourceImagePath = ({ isMainPostCard, id }: Props) => {
+export const useMainImagePath = ({ isMainPostCard, id }: Props) => {
   const isMounted = useIsMounted();
   const { isMobile } = checkWindowSize({ isEnabled: isMounted });
   const [isError, setError] = useState(false);

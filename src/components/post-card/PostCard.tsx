@@ -10,7 +10,7 @@ import React, { FC } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
 import { useIsMounted } from "hooks/useIsMounted";
-import { useSourceImagePath } from "hooks/useSourceImagePath";
+import { useMainImagePath } from "hooks/useMainImagePath";
 
 export const PostCard: FC<PostCardProps> = ({
   post: { isTop = false, title, category, id, postDate, base64Image },
@@ -20,7 +20,7 @@ export const PostCard: FC<PostCardProps> = ({
   const [activities, regions, countries] = useMappedCategories(category);
   const isMounted = useIsMounted();
   const scrollDown = useScrollDown("card-list");
-  const { src, setError } = useSourceImagePath({ isMainPostCard, id });
+  const { src, setError } = useMainImagePath({ isMainPostCard, id });
 
   const { imageClass, subtitleClass, buttonClass, scrollDownIconClass, titleClass, textBoxClass, imageContainerClass, containerClass } = useCardClasses({
     isMainCard: isMainPostCard,
