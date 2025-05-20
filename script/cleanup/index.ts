@@ -9,7 +9,7 @@ if (!id) {
   process.exit(1);
 }
 
-const dirPath = path.resolve(`../../public/${id}`);
+const dirPath = path.resolve(__dirname, `../../public/${id}`);
 const keepFiles = new Set(["main.webp", "main-mobile.webp", "track.zip", "poi.json"]);
 
 (async () => {

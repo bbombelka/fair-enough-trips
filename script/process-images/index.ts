@@ -3,6 +3,7 @@ import path from "path";
 import { readdir } from "fs/promises";
 import { readFile, writeFile } from "fs/promises";
 
+const __dirname = path.dirname(__filename);
 const args = process.argv.slice(2);
 const id = args[0];
 
@@ -11,11 +12,11 @@ if (!id) {
   process.exit(1);
 }
 
+const dirPath = path.resolve(__dirname, `../../public/${id}`);
 const imageFilenamesForPostJson: Record<string, unknown>[] = [];
 
 (async () => {
-  const folderPath = path.resolve(`../../public/${id}`);
-  const files = await readdir(folderPath);
+  const files = await readdir(dirPath);
   const imageFiles = files.filter((file) => file.includes(".jpg") || file.includes(".jpeg"));
 
   const processingPromises = imageFiles.map((file) => processImages(id, file));
@@ -24,7 +25,7 @@ const imageFilenamesForPostJson: Record<string, unknown>[] = [];
   // Read and update post.json
   updatePostJson(id, imageFilenamesForPostJson);
   async function updatePostJson(id: string, newImagesArray: any[]) {
-    const jsonPath = path.resolve(`../../public/${id}/post.json`);
+    const jsonPath = path.resolve(`${dirPath}/post.json`);
 
     try {
       // 1. Read the file
@@ -46,7 +47,7 @@ const imageFilenamesForPostJson: Record<string, unknown>[] = [];
 })();
 
 async function processImages(id: string, filename: string): Promise<void> {
-  const imagePath = path.resolve(`../../public/${id}/${filename}`);
+  const imagePath = path.resolve(`${dirPath}/${filename}`);
 
   const highResSetting = { quality: 60, output: "-HD.webp" };
   const regularSetting = { quality: 60, output: ".webp" };
@@ -64,17 +65,17 @@ async function processImages(id: string, filename: string): Promise<void> {
     const quality = 45;
     const outputs = [
       {
-        path: path.resolve(`../../public/${id}/main.webp`),
+        path: path.resolve(`${dirPath}/main.webp`),
         width: 1920,
         height: 1080,
       },
       {
-        path: path.resolve(`../../public/${id}/main-mobile.webp`),
+        path: path.resolve(`${dirPath}/main-mobile.webp`),
         width: 720,
         height: 1280,
       },
       {
-        path: path.resolve(`../../public/${id}/thumb_main.webp`),
+        path: path.resolve(`${dirPath}/thumb_main.webp`),
         width: 584,
         height: 360,
         quality: 75,
@@ -112,7 +113,7 @@ async function processImages(id: string, filename: string): Promise<void> {
           sharp(imagePath)
             .resize({ width: w ?? width, height: h ?? height })
             .webp({ quality })
-            .toFile(path.resolve(`../../public/${id}/${fileName}${output}`))
+            .toFile(path.resolve(`${dirPath}/${fileName}${output}`))
             .then(() => console.log(`Created ${fileName}${output}`))
             .catch(console.error)
         )
