@@ -11,4 +11,4 @@ if (!poiId) {
 
 console.log(`Processing POI ID: ${poiId}`);
 
-prepareRouteScheme(path.resolve(`../../public/${poiId}/track.zip`), path.resolve(`../../public/${poiId}/poi.json`), poiId);
+prepareRouteScheme(path.resolve(__dirname, `../../public/${poiId}/track.zip`), path.resolve(__dirname, `../../public/${poiId}/poi.json`), poiId);

@@ -11,14 +11,14 @@ if (!id) {
 }
 
 (async function createLqip() {
-  const { metadata } = await lqip(path.resolve(`../../public/${id}/main.webp`), { resize: 64 });
+  const { metadata } = await lqip(path.resolve(__dirname, `../../public/${id}/main.webp`), { resize: 64 });
   const base64Image = metadata.dataURIBase64;
 
   await updatePostJson(id, base64Image);
 })();
 
 async function updatePostJson(id: string, base64Image: string) {
-  const jsonPath = path.resolve(`../../public/${id}/post.json`);
+  const jsonPath = path.resolve(__dirname, `../../public/${id}/post.json`);
 
   try {
     const jsonText = await readFile(jsonPath, "utf-8");
