@@ -1,6 +1,6 @@
 import { Divider } from "components/divider/Divider";
 import Config from "Config";
-import React, { FC } from "react";
+import React, { FC, MouseEvent } from "react";
 import { FETImage } from "components/fet-image/FETImage";
 import styles from "styles/PostImages.module.css";
 import { PostImage } from "types/PostPage.types";
@@ -14,6 +14,12 @@ type PostImagesProps = {
 };
 
 export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToDisplay }) => {
+  const isProd = process.env.NODE_ENV === "production";
+
+  const copy = (e: any) => {
+    navigator.clipboard.writeText(`"${e.currentTarget.innerText}"`);
+  };
+
   return (
     <div>
       <Divider title="Visual" order={order} stickyScrollToElementId="post-images" />
@@ -38,6 +44,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
                 unoptimized
               />
             </a>
+            {!isProd && <span onClick={copy}>{filename}</span>}
             <span className={styles.caption}>{desc}</span>
           </div>
         );
