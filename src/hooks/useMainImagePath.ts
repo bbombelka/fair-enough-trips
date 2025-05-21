@@ -18,7 +18,7 @@ export const useMainImagePath = ({ isMainPostCard, id }: Props) => {
     if (isMobile && !isMainPostCard && !isError) {
       filename = "thumb_";
     } else if (isMainPostCard && isMobile && !isError) {
-      filename = "mobile_";
+      filename = "mobile-";
     }
 
     return `/${id}/${filename}main.${Config.DEFAULT_IMAGE_EXTENSION}`;
