@@ -95,7 +95,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .sort({ postDate: -1 })
     .toArray();
 
-  console.log(posts);
   const notes = await mongoClient.db(Config.DB_NAME).collection(Config.REGION_NOTES_COLLECTION).findOne({ id: code });
 
   const id = shuffleBackgroundImage(posts.map(({ id }) => id));
@@ -112,8 +111,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       posts: serializedPosts,
       code,
       notes: notes?.notes ?? [],
-      imageId: id,
-      base64Image: posts.find((post) => post.id === id)?.base64Image,
+      imageId: id ?? null,
+      base64Image: posts.find((post) => post.id === id)?.base64Image ?? null,
     },
   };
 };
