@@ -9,6 +9,7 @@ type Data = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
     const searchTermRegex = new RegExp(req.query.searchTerm as string);
+    const isProd = process.env.NODE_ENV === "production";
 
     await mongoClient.connect();
 
@@ -22,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       .db(Config.DB_NAME)
       .collection(Config.POSTS_COLLECTION)
       .find(
-        { ...LOGICAL_OPERATOR_OR, published: true },
+        { ...LOGICAL_OPERATOR_OR, ...(isProd ? { published: true } : {}) },
         {
           projection: QUERY_PROJECTION,
         }

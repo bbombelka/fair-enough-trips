@@ -84,13 +84,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   await mongoClient.connect();
+  const isProd = process.env.NODE_ENV === "production";
 
   const code = Countries.find(({ url }) => url === params?.country)?.code;
 
   const posts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
-    .find({ ["category.country"]: code, published: true })
+    .find({ ["category.country"]: code, ...(isProd ? { published: true } : {}) })
     .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .toArray();

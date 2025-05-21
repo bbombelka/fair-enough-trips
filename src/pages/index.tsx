@@ -42,11 +42,12 @@ export default Home;
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   await mongoClient.connect();
+  const isProd = process.env.NODE_ENV === "production";
 
   const posts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
-    .find({ published: true })
+    .find(isProd ? { published: true } : {})
     .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .limit(Config.POST_COUNT_HOME_PAGE + 1)
