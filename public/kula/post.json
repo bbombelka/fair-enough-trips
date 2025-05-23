@@ -1,0 +1,166 @@
+{
+  "id": "kula",
+  "category": {
+    "region": [
+      "015"
+    ],
+    "country": [
+      "012"
+    ],
+    "activity": [
+      "001"
+    ]
+  },
+  "published": false,
+  "title": "Peak of Kula",
+  "subTitle": "Hiking trip from Omiš along Adriatic coast to the peak of Kula (863m) - highest in Omiška Dinara, Croatia.",
+  "attractiveness": 3,
+  "condition": 2,
+  "difficulty": "0+",
+  "terrain": "rocky, countryside",
+  "postDate": {
+    "$date": "2025-05-23T14:04:35.185Z"
+  },
+  "date": {
+    "season": 1,
+    "period": 2,
+    "month": 4,
+    "year": 2025
+  },
+  "stats": {
+    "duration": 4.35,
+    "up": 915,
+    "down": 880,
+    "distance": 11,
+    "highestPoint": 869
+  },
+  "trailCondition": [
+    "Trail is marked well and easy to follow with exception of Omiš town where I somehow lost it twice. Path is fine, yet ocasionally crumbly. Stretch above sklonište Luda kuća has plenty of fullsized rocks and we need to be walking around them."
+  ],
+  "shortDescription": [
+    "Kula is the highest peak of the Omiška Dinara mountain range in Croatia, reaching an elevation of approximately 864 meters. It offers panoramic views of the Cetina River canyon, the Adriatic Sea, and the surrounding Dalmatian hinterland. The route to the top is a classical hike in the mixed landscape of mediteranean coast and limestone mountains.",
+    "Starting from the main parking lot in Omiš we cross Cetina river and cut through the old town to find the trail which takes ascending character. First among households, then under rocky face of southern Fortica slopes. This is basically descent path for via-ferrata I described in another post, from the junction it is 15 minutes to the top of Fortica peak. However we continue further along the slopes and along the coastline and traverse above little settlement of Borak.",
+    "Shortened version of this trip could be done from the road that leads up to here.",
+    "After leaving Čečuci site the inclination rises and we enter more mountainous terrain with typical limestone formation therefore more caution is required when stepping as sometimes the path is full of crumbly material. For the next 300 meters up we have the most strenuous part of the trip, at first with limited views, then with occasional shots inbetween the rocks. It pays off to turn your back as after some time Omiš can be observed. Once in a forest we are pretty close to Sklonište Luda kuća hut. Before thevhut we turn left in direction of Kula. It is roughly 200 meters up but the signpost says it is still one hour. We ascent a bit to face a small rocky wall where the trail runs in the most approachable spots. There are some protection cords but nothing difficult can be said about this part. Above we finally learn why it is so time-consuming to get to the top as we take delight in limestone terrain thinking where to make another step, at first surrounded by low maritime forest, to end up on the rocky ground which tells us we are close to the peak.",
+    "Peak of Kula offers truly top-notch views into Adriatic sea direction with Brac island and also Croatian inland. In the south east the Biokovo mountains massif can be seen. However town of Omiš itself is not visible from the top.",
+    "Return route goes exactly the same way. Going down we can pat a visit to viewing point next to Sklonište Luda kuća hut."
+  ],
+  "weather": [
+    "Cloudy weather with mild wind, not that warm for Croatian coast - around 15 degrees."
+  ],
+  "dangers": [
+    "Might want to watch out for vipers and ticks in the grass."
+  ],
+  "accomodation": [
+    "Sklonište Luda kuća hut -  it’s an un-manned hut serving as an accommodation option probably and some place to seat outside. There is also a water well and running water nearby. The water from the well looked a bit muddy, using a filter would be advisable. Place was locked, since I did not plan an overnight stay I have no information about the status of this place, might be available only in high season. Might be that the key opening it lies nearby and you just need to call the owners etc",
+    "During my visit in the area of Omiš I stayed in Podstrana"
+  ],
+  "transportation": [
+    "Starting point reached by car however public transport is also an option as connections along the coast are pretty frequent"
+  ],
+  "gear": [
+    "ascent shoes, poles, 20l rucksack"
+  ],
+  "other": [
+    "I am always surprised how well Croatian trails look like and this no other feeling. "
+  ],
+  "iframeUrl": "https://mapy.com/s/butajenejo",
+  "startingPoint": "Omiš - main parking lot",
+  "endingPoint": "Omiš - main parking lot",
+  "links": {
+    "shortDescription": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "dangers": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "tralCondition": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "transportation": [
+      {
+        "title": "Parking",
+        "href": "https://mapy.com/s/cubolehuho"
+      }
+    ],
+    "accomodation": [
+      {
+        "title": "Apartment Valentina",
+        "href": "https://www.airbnb.pl/rooms/1081171509739181332"
+      }
+    ],
+    "other": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ]
+  },
+  "images": [
+    {
+      "desc": "",
+      "filename": "kula_omis_view",
+      "isVertical": false
+    },
+    {
+      "desc": "",
+      "filename": "kula_from_coast",
+      "isVertical": false
+    },
+    {
+      "desc": "",
+      "filename": "kula_crumbly_stretch",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "kula_path_forest",
+      "isVertical": false
+    },
+    {
+      "desc": "",
+      "filename": "kula_peak",
+      "isVertical": false
+    },
+    {
+      "desc": "",
+      "filename": "kula_rugged_path",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "kula_skloniste_luda",
+      "isVertical": false
+    },
+    {
+      "desc": "",
+      "filename": "kula_protection",
+      "isVertical": false
+    },
+    {
+      "desc": "",
+      "filename": "kula_top_path",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "kula_trail_stairs",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "kula_trail",
+      "isVertical": true
+    }
+  ],
+  "base64Image": ""
+}
