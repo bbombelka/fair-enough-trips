@@ -119,6 +119,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "omiska-dinara",
     originalName: "Omiška Dinara",
   },
+  {
+    code: "016",
+    name: "Poljica Mountain",
+    url: "poljica-mountain",
+    originalName: "Poljička planina",
+  },
 ];
 
 export const Countries: Category[] = [

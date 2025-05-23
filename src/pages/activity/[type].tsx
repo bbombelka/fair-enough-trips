@@ -64,11 +64,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   await mongoClient.connect();
 
   const code = Activities.find((act) => act.url === params?.type)?.code;
+  const isProd = process.env.NODE_ENV === "production";
 
   const latestPosts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
-    .find({ ["category.activity"]: code, published: true })
+    .find({ ["category.activity"]: code, ...(isProd ? { published: true } : {}) })
     .sort({ postDate: -1 })
     .toArray();
 

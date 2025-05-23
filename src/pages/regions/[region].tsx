@@ -85,13 +85,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   await mongoClient.connect();
+  const isProd = process.env.NODE_ENV === "production";
 
   const code = Regions.find((act) => act.url === params?.region)?.code;
 
   const posts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
-    .find({ ["category.region"]: code, published: true })
+    .find({ ["category.region"]: code, ...(isProd ? { published: true } : {}) })
     .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .toArray();
@@ -112,8 +113,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       posts: serializedPosts,
       code,
       notes: notes?.notes ?? [],
-      imageId: id,
-      base64Image: posts.find((post) => post.id === id)?.base64Image,
+      imageId: id ?? null,
+      base64Image: posts.find((post) => post.id === id)?.base64Image ?? null,
     },
   };
 };

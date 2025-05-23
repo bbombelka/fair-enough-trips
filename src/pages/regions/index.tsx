@@ -55,10 +55,11 @@ export default RegionsPage;
 
 export const getStaticProps: GetStaticProps<RegionsPageProps> = async () => {
   await mongoClient.connect();
+  const isProd = process.env.NODE_ENV === "production";
 
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
   const posts = await postsCollection
-    .find({ published: true })
+    .find(isProd ? { published: true } : {})
     .project<CategoryDocument<"region">>({ id: true, ["category.region"]: true, base64Image: true })
     .toArray();
 

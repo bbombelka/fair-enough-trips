@@ -1,0 +1,8 @@
+[
+  { "name": "Strožanac Gornji", "type": "parking", "lat": 43.5004511, "lon": 16.549305, "index": 0 },
+  { "name": "Trails junction", "type": "signpost", "lat": 43.5056553, "lon": 16.5545692, "index": 329 },
+  { "name": "Via-ferrata start", "type": "ferrata", "lat": 43.5064919, "lon": 16.5549003, "index": 395 },
+  { "name": "Pillar", "type": "ferrata", "lat": 43.5058569, "lon": 16.5555053, "index": 583 },
+  { "name": "Via - ferrata end", "type": "ferrata", "lat": 43.5060042, "lon": 16.5564289, "index": 882 },
+  { "name": "Strožanac Gornji", "type": "parking", "lat": 43.5004511, "lon": 16.549305, "index": 1684 }
+]

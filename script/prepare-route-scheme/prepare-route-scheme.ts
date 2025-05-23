@@ -2,6 +2,7 @@ import { Parser } from "xml2js";
 import haversineDistance from "haversine-distance";
 import unzipper from "unzipper";
 import { readFile, writeFile } from "fs/promises";
+import path from "path";
 
 type Coords = {
   lat: number;
@@ -48,6 +49,14 @@ export default async function setPoiIndex(zipFilePath: string, jsonFilePath: str
       distance: parseInt(String(distanceValues[i])),
       altitude: alitudeValues[i],
       elevationGain: elevationGain[i],
+      images: [],
+      paragraphs: [],
+      path: {
+        name: "",
+        difficulty: "",
+        images: [],
+        paragraphs: [],
+      },
     }));
 
     const dataToWrite = {
@@ -56,7 +65,7 @@ export default async function setPoiIndex(zipFilePath: string, jsonFilePath: str
       points: mappedData,
     };
 
-    await writeFile(process.cwd() + "/generated/" + poiId + ".json", JSON.stringify(dataToWrite));
+    await writeFile(path.resolve(__dirname, `../../public/${poiId}/route-scheme-points.json`), JSON.stringify(dataToWrite));
 
     console.log("Operation successful for " + jsonFilePath);
   } catch (err) {

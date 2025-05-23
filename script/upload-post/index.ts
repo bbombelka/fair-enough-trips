@@ -4,7 +4,7 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
 import Config from "../../src/Config";
 
-dotenv.config({ path: path.resolve("../../.env.local") });
+dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 const MONGODB_URI = process.env.DB_URI;
 
 const args = process.argv.slice(2);
@@ -16,7 +16,7 @@ if (!id) {
 }
 
 (async () => {
-  const filePath = path.resolve(`../../public/${id}/post.json`);
+  const filePath = path.resolve(__dirname, `../../public/${id}/post.json`);
 
   try {
     // 1. Read and parse JSON

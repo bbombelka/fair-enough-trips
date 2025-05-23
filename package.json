@@ -13,7 +13,10 @@
     "upload-images": "./script/upload-images/upload-images.sh",
     "cleanup": "./script/cleanup/cleanup.sh",
     "create-poi": "./script/create-poi/create-poi.sh",
-    "set-poi-index": "./script/set-poi-index/set-poi-index.sh"
+    "set-poi-index": "./script/set-poi-index/set-poi-index.sh",
+    "create-lqip": "./script/create-lqip/create-lqip.sh",
+    "upload-post": "./script/upload-post/upload-post.sh",
+    "prepare-route-scheme": "./script/prepare-route-scheme/prepare-route-scheme.sh"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.812.0",
