@@ -66,15 +66,17 @@ export default Category;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   await mongoClient.connect();
+  const isProd = process.env.NODE_ENV === "production";
 
   const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
 
-  const posts = await collection.find().toArray();
+  const posts = await collection.find(isProd ? { published: true } : {}).toArray();
   await mongoClient.close();
 
   const types = Array.from(new Set(posts.map(({ category }) => category.region).flat()))
     .map((code) => Regions.find((act) => act.code === code)?.url)
     .map((path) => ({ params: { region: path } }));
+
   return {
     paths: types,
     fallback: false,
