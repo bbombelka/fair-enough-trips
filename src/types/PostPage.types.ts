@@ -25,6 +25,11 @@ export type PostImage = {
   isVertical: boolean;
 };
 
+export type PostVideo = {
+  src: string;
+  desc: string;
+};
+
 type Paragraph = string[];
 
 export type CodedCategory = {
@@ -71,6 +76,7 @@ export type FullPost = {
   images: PostImage[];
   postDate: Date;
   base64Image: string;
+  videos: PostVideo[];
 };
 
 export type DateClass = {

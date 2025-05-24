@@ -1,19 +1,21 @@
 import { Divider } from "components/divider/Divider";
 import Config from "Config";
-import React, { FC, MouseEvent } from "react";
+import React, { FC } from "react";
 import { FETImage } from "components/fet-image/FETImage";
 import styles from "styles/PostImages.module.css";
-import { PostImage } from "types/PostPage.types";
+import { PostImage, PostVideo } from "types/PostPage.types";
 import { useBucketSourcePath } from "hooks/useBucketSourcePath";
+import { YoutubeIframe } from "components/yt-iframe/YoutubeIframe";
 
 type PostImagesProps = {
   id: string;
   images: PostImage[];
+  videos: PostVideo[];
   order?: number;
   hdImagesToDisplay: Array<string | undefined>;
 };
 
-export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToDisplay }) => {
+export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToDisplay, videos }) => {
   const isProd = process.env.NODE_ENV === "production";
 
   const copy = (e: any) => {
@@ -49,6 +51,9 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
           </div>
         );
       })}
+      {videos.map(({ src, desc }) => (
+        <YoutubeIframe src={src} description={desc} />
+      ))}
     </div>
   );
 };
