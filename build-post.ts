@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Activities, Countries, Regions } from "enums/categories";
 import { readFile } from "fs/promises";
 import { Parser } from "xml2js";
