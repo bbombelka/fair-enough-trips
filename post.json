@@ -1,0 +1,171 @@
+{
+  "id": "",
+  "category": {
+    "region": [""],
+    "country": [""],
+    "activity": [""]
+  },
+  "published": false,
+  "title": "",
+  "subTitle": "",
+  "attractiveness": 3,
+  "condition": 1,
+  "difficulty": "",
+  "terrain": "",
+  "postDate": {
+    "$date": "2025-05-10T03:17:22.554Z"
+  },
+  "date": {
+    "season": 1,
+    "period": 2,
+    "month": 4,
+    "year": 2025
+  },
+  "stats": {
+    "duration": 1.35,
+    "up": 400,
+    "down": 400,
+    "distance": 3.1,
+    "highestPoint": 441,
+    "climb": {
+      "access": 30,
+      "up": 30,
+      "down": 35
+    }
+  },
+  "trailCondition": [""],
+  "shortDescription": [""],
+  "weather": [""],
+  "dangers": [""],
+  "accomodation": [""],
+  "transportation": [""],
+  "gear": [""],
+  "other": [""],
+  "iframeUrl": "",
+  "startingPoint": "",
+  "endingPoint": "",
+  "links": {
+    "shortDescription": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "dangers": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "trailCondition": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "transportation": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "accomodation": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "other": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ]
+  },
+  "images": [
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    }
+  ],
+  "base64Image": ""
+}

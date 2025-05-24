@@ -11,6 +11,7 @@
     "lint": "next lint",
     "process-images": "./script/process-images/process-images.sh",
     "upload-images": "./script/upload-images/upload-images.sh",
+    "upload-post": "./script/upload-post/upload-post.sh",
     "cleanup": "./script/cleanup/cleanup.sh",
     "create-poi": "./script/create-poi/create-poi.sh",
     "set-poi-index": "./script/set-poi-index/set-poi-index.sh",
@@ -24,6 +25,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
+    "archiver": "^7.0.1",
     "clsx": "^1.1.1",
     "d3": "^7.9.0",
     "dotenv": "^16.5.0",
@@ -40,6 +42,7 @@
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
+    "@types/archiver": "^6.0.3",
     "@types/d3": "^7.4.3",
     "@types/node": "^17.0.45",
     "@types/react": "17.0.40",
