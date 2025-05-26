@@ -5,6 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "next dev & open -a \"Google Chrome\" http://localhost:3000",
+    "dev:mobile": "next dev -H 0.0.0.0 -p 3000",
     "dev:server": "next dev & json-server --watch ./server/db.json --port 3001 & open -a \"Google Chrome\" http://localhost:3000",
     "build": "next build",
     "start": "next start",
