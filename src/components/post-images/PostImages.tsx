@@ -51,7 +51,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
           </div>
         );
       })}
-      {videos.map(({ src, desc }) => (
+      {videos?.map(({ src, desc }) => (
         <YoutubeIframe src={src} description={desc} />
       ))}
     </div>

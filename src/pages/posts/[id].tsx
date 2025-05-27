@@ -46,7 +46,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
           <Paragraph links={post.links["other"]} body={post.other} id="paragraph-other" />
           <Paragraph links={post.links["dangers"]} body={post.dangers} title="Dangers" />
           <Paragraph links={post.links["gear"]} body={post.gear} title="Gear used" />
-          {Boolean(post.images.length || post.videos.length) && (
+          {Boolean(post.images.length || post.videos?.length) && (
             <PostImages hdImagesToDisplay={hdImagesToDisplay} videos={post.videos} images={post.images} id={post.id} order={5} />
           )}
         </Layout>
@@ -60,10 +60,11 @@ export default PostPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   await mongoClient.connect();
+  const isProd = process.env.NODE_ENV === "production";
 
   const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
 
-  const posts = await collection.find().toArray();
+  const posts = await collection.find(isProd ? { published: true } : {}).toArray();
   await mongoClient.close();
 
   return {
