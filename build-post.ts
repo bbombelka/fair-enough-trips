@@ -43,7 +43,7 @@ const ask = (q) => new Promise((resolve) => rl.question(q, resolve));
     const isoDate = new Date().toISOString();
 
     zipFile(gpxFilePath, `${dirPath}/track.zip`);
-    post.postDate = { $date: isoDate };
+    post.postDate = isoDate;
     post.date = {
       season,
       period,
