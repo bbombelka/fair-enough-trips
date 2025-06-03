@@ -28,6 +28,8 @@ if (!id) {
       process.exit(1);
     }
 
+    jsonData.postDate = new Date(jsonData.postDate);
+
     const mongoClient = new MongoClient(String(MONGODB_URI), {
       serverApi: ServerApiVersion.v1,
     });
