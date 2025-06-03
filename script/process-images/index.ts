@@ -15,9 +15,13 @@ if (!id) {
 const dirPath = path.resolve(__dirname, `../../public/${id}`);
 const imageFilenamesForPostJson: Record<string, unknown>[] = [];
 
+function naturalSort(a, b) {
+  return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+}
+
 (async () => {
   const files = await readdir(dirPath);
-  const imageFiles = files.filter((file) => file.includes(".jpg") || file.includes(".jpeg"));
+  const imageFiles = files.filter((file) => file.includes(".jpg") || file.includes(".jpeg")).sort(naturalSort);
 
   const processingPromises = imageFiles.map((file) => processImages(id, file));
   await Promise.all(processingPromises);
@@ -100,11 +104,11 @@ async function processImages(id: string, filename: string): Promise<void> {
       const isPortrait = height > width;
       const variant = isPortrait ? "portrait" : "landscape";
       const finalVariants = variants[variant];
-      const fileName = path.basename(filename).split(".")[0];
+      const fileName = path.basename(filename).split(".").at(1);
 
       imageFilenamesForPostJson.push({
         desc: "",
-        filename: fileName.split(".").at(0),
+        filename: fileName,
         isVertical: isPortrait,
       });
 
