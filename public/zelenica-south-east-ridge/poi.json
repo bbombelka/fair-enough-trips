@@ -1,0 +1,10 @@
+[
+  { "name": "Ljubelj tunnel", "type": "parking", "lat": 46.4321486, "lon": 14.2594664, "index": 0 },
+  { "name": "Dom na Zelenici", "type": "hut", "lat": 46.4289917, "lon": 14.2335719, "index": 919 },
+  { "name": "Čez Pod (1688m)", "type": "pass", "lat": 46.4326664, "lon": 14.2366058, "index": 1304 },
+  { "name": "Na Možeh (1784m)", "type": "peak", "lat": 46.4334772, "lon": 14.2332672, "index": 2234 },
+  { "name": "Zelenica (2026m)", "type": "peak", "lat": 46.4432411, "lon": 14.2192931, "index": 4255 },
+  { "name": "Žleb (1912m)", "type": "pass", "lat": 46.4425317, "lon": 14.2172022, "index": 4782 },
+  { "name": "Dom na Zelenici", "type": "hut", "lat": 46.4289917, "lon": 14.2335719, "index": 5780 },
+  { "name": "Ljubelj tunnel", "type": "parking", "lat": 46.4321486, "lon": 14.2594664, "index": 6623 }
+]
