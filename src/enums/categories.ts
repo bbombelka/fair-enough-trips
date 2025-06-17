@@ -125,6 +125,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "poljica-mountain",
     originalName: "Poljička planina",
   },
+  {
+    code: "017",
+    name: "Kamnik–Savinja Alps",
+    url: "kamnik-savinja",
+    originalName: "Kamniško-Savinjske Alpe",
+  },
 ];
 
 export const Countries: Category[] = [

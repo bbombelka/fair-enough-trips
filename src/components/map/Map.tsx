@@ -74,7 +74,7 @@ export const Map: FC<MapProps> = ({ post, controlDisplayLinks: { displayGpxChart
           }}
         >
           <FontAwesomeIcon icon={faMap} className={styles.icon} />
-          <span>Show track graph </span>
+          <span>Show elevation profile</span>
         </a>
       )}
     </>

@@ -1,0 +1,10 @@
+[
+  { "name": "Suhadolnik", "type": "parking", "lat": 46.335205, "lon": 14.5102356, "index": 0 },
+  { "name": "Suhadolnikova planina", "type": "signpost", "lat": 46.3429658, "lon": 14.5366364, "index": 1494 },
+  { "name": "Zois lodge", "type": "hut", "lat": 46.3440858, "lon": 14.5468756, "index": 2030 },
+  { "name": "Dolge stene branch-off", "type": "signpost", "lat": 46.3466844, "lon": 14.5499189, "index": 2427 },
+  { "name": "Grintovec (2558m)", "type": "peak", "lat": 46.3571314, "lon": 14.5354022, "index": 4040 },
+  { "name": "Dolci branch-off", "type": "signpost", "lat": 46.3483292, "lon": 14.5380714, "index": 5016 },
+  { "name": "Suhadolnikova planina", "type": "signpost", "lat": 46.3429658, "lon": 14.5366364, "index": 6700 },
+  { "name": "Suhadolnik", "type": "parking", "lat": 46.335205, "lon": 14.5102356, "index": 8141 }
+]
