@@ -2,7 +2,10 @@
   "crons": [
     {
       "path": "/api/publish",
-      "schedule": "0 18 * * 1,5"
+      "schedule": "0 18 * * 1,5",
+      "headers": {
+        "x-vercel-cron-secret": "@cron_secret"
+      }
     }
   ]
 }
