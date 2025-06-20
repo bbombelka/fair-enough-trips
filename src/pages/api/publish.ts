@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { mongoClient } from "MongoClient";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.headers["x-vercel-cron-secret"] !== process.env.CRON_SECRET) {
+  if (req.query.secret !== process.env.CRON_SECRET) {
     return res.status(401).end();
   }
   const shouldTriggerDeployment = await performDBChanges();
