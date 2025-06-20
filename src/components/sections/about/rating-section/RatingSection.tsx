@@ -14,19 +14,19 @@ export const RatingSection: FC = () => {
         ]}
       />
       <Box margin="8px 0">
-        <StarRate rate={1} comment=" - for connoisseurs only" />
+        <StarRate disableCount rate={1} comment=" - for connoisseurs only" />
       </Box>
       <Box margin="8px 0">
-        <StarRate rate={2} comment=" - you probably have seen better" />
+        <StarRate disableCount rate={2} comment=" - you probably have seen better" />
       </Box>
       <Box margin="8px 0">
-        <StarRate rate={3} comment=" - good enough" />
+        <StarRate disableCount rate={3} comment=" - good enough" />
       </Box>
       <Box margin="8px 0">
-        <StarRate rate={4} comment=" - really worth the effort" />
+        <StarRate disableCount rate={4} comment=" - really worth the effort" />
       </Box>
       <Box margin="8px 0">
-        <StarRate rate={5} comment=" - trip of your lifetime" />
+        <StarRate disableCount rate={5} comment=" - trip of your lifetime" />
       </Box>
       <Paragraph
         body={[
@@ -35,30 +35,35 @@ export const RatingSection: FC = () => {
       />
       <Box margin="8px 0">
         <StarRate
+          disableCount
           rate={1}
           comment=" - tiny to small effort, lack of steep ascents and descents, mostly under 3 hours , no difference in bodily fatigue before or after trip"
         />
       </Box>
       <Box margin="8px 0">
         <StarRate
+          disableCount
           rate={2}
           comment=" - small effort, limited number of milder ascents and descents, occassional short steep ascents, feels good to be seated afterwards "
         />
       </Box>
       <Box margin="8px 0">
         <StarRate
+          disableCount
           rate={3}
           comment=" - noticeable effort, longer strechtes of ascents with steeper sections, experienced pleasant fatigue but nothing a good night sleep wouldn't cure"
         />
       </Box>
       <Box margin="8px 0">
         <StarRate
+          disableCount
           rate={4}
           comment=" - significant effort, long steep climbing sections or long distance with fluctuating altitude, evening won't take long and probably absolute freshness in the morning is out of question. Repeating the trip next day is not considered as pleasant."
         />
       </Box>
       <Box margin="8px 0">
         <StarRate
+          disableCount
           rate={5}
           comment=" - huge to extreme effort, long and time consuming steep climbing sections or very long distance walk with relatively steep stretches, scenario where you are able or barely able to grab something to eat before falling asleep. Repeating the same trip the following day is unlikely."
         />
