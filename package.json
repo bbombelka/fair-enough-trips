@@ -18,7 +18,8 @@
     "set-poi-index": "./script/set-poi-index/set-poi-index.sh",
     "create-lqip": "./script/create-lqip/create-lqip.sh",
     "prepare-route-scheme": "./script/prepare-route-scheme/prepare-route-scheme.sh",
-    "publish": "./script/publish/publish.sh"
+    "publish": "./script/publish/publish.sh",
+    "build-post": "npx tsx ./build-post.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.812.0",
