@@ -1,0 +1,7 @@
+[
+  { "name": "Žrelo branch-off", "type": "signpost", "lat": 46.3564611, "lon": 14.3913392, "index": 86 },
+  { "name": "Vrh Žrela (1842m)", "type": "pass", "lat": 46.3491708, "lon": 14.3959586, "index": 1181 },
+  { "name": "Storžič (2132m)", "type": "peak", "lat": 46.3502353, "lon": 14.4047511, "index": 1736 },
+  { "name": "To Dom pod Storžičem", "type": "signpost", "lat": 46.3614378, "lon": 14.4051067, "index": 2769 },
+  { "name": "Dom pod Storžičem", "type": "parking", "lat": 46.3587881, "lon": 14.3906617, "index": 3776 }
+]
