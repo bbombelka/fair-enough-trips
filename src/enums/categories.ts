@@ -131,6 +131,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "kamnik-savinja",
     originalName: "Kamniško-Savinjske Alpe",
   },
+  {
+    code: "018",
+    name: "Pennine Alps",
+    url: "pennine-alps",
+    originalName: "Walliser Alpen",
+  },
 ];
 
 export const Countries: Category[] = [
