@@ -38,7 +38,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
           <Paragraph id="paragraph-overview" body={post.shortDescription} links={post.links["shortDescription"]} />
           <Divider title="Trip conditions" order={2} stickyScrollToElementId="paragraph-conditions" />
           <Paragraph body={post.weather} title="Weather" id="paragraph-conditions" />
-          <Paragraph body={post.trailCondition} title="Trail" />
+          <Paragraph body={post.trailCondition} title="Trail" links={post.links["trailCondition"]} />
           <Divider title="General" order={3} stickyScrollToElementId="paragraph-general" />
           <Paragraph links={post.links["accomodation"]} body={post.accomodation} title="Accommodation" id="paragraph-general" />
           <Paragraph links={post.links["transportation"]} body={post.transportation} title="Transportation" />

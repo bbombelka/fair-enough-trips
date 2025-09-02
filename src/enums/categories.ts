@@ -137,6 +137,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "pennine-alps",
     originalName: "Walliser Alpen",
   },
+  {
+    code: "019",
+    name: "High Tauras",
+    url: "high-tauras",
+    originalName: "Hohe Tauern",
+  },
 ];
 
 export const Countries: Category[] = [

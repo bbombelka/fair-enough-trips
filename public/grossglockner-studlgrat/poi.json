@@ -1,0 +1,13 @@
+[
+  { "name": "Lucknerhaus", "type": "parking", "lat": 47.0220953, "lon": 12.68945, "index": 10 },
+  { "name": "Lucknerhütte", "type": "hut", "lat": 47.0396536, "lon": 12.6905436, "index": 750 },
+  { "name": "Stüdlhütte", "type": "hut", "lat": 47.0548289, "lon": 12.6810883, "index": 1700 },
+  { "name": "Frühstücksplatz", "type": "signpost", "lat": 47.072875, "lon": 12.6918083, "index": 3555 },
+  { "name": "Stüdlgrat enter", "type": "signpost", "lat": 47.0716111, "lon": 12.689025, "index": 2832 },
+  { "name": "Grossglockner (3798m)", "type": "peak", "lat": 47.0745464, "lon": 12.6938825, "index": 5253 },
+  { "name": "Kleinglockner (3770m)", "type": "peak", "lat": 47.0741836, "lon": 12.6946761, "index": 5491 },
+  { "name": "Erzherzog-Johann-Hütte", "type": "hut", "lat": 47.0700742, "lon": 12.7015797, "index": 6309 },
+  { "name": "Burgwartscharte (3104m)", "type": "pass", "lat": 47.0645747, "lon": 12.698176, "index": 7258 },
+  { "name": "Lucknerhütte", "type": "hut", "lat": 47.0396536, "lon": 12.6905436, "index": 8788 },
+  { "name": "Lucknerhaus", "type": "parking", "lat": 47.0220953, "lon": 12.68945, "index": 9400 }
+]
