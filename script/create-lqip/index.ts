@@ -13,7 +13,7 @@ if (!id) {
 (async function createLqip() {
   const { metadata } = await lqip(path.resolve(__dirname, `../../public/${id}/main.webp`), { resize: 64 });
   const base64Image = metadata.dataURIBase64;
-
+  console.log(base64Image);
   await updatePostJson(id, base64Image);
 })();
 
