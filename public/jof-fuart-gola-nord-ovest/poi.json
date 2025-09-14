@@ -1,0 +1,12 @@
+[
+  { "name": "Malga Saisera", "type": "parking", "lat": 46.4565383, "lon": 13.4692267, "index": 0 },
+  { "name": "Mazzeni bivouac", "type": "hut", "lat": 46.4266256, "lon": 13.4722622, "index": 1685 },
+  { "name": "Access path", "type": "signpost", "lat": 46.4314214, "lon": 13.4802692, "index": 2698 },
+  { "name": "Gola Nord Ovest Start", "type": "signpost", "lat": 46.4306139, "lon": 13.4812389, "index": 3082 },
+  { "name": "Crux chimney", "type": "signpost", "lat": 46.4312444, "lon": 13.4866972, "index": 3520 },
+  { "name": "Tunnel window", "type": "signpost", "lat": 46.4284528, "lon": 13.4887889, "index": 4823 },
+  { "name": "Jôf Fuart (2666m)", "type": "peak", "lat": 46.4306064, "lon": 13.4912692, "index": 5800 },
+  { "name": "Golda Nord Est Start", "type": "signpost", "lat": 46.4302083, "lon": 13.4920667, "index": 6087 },
+  { "name": "Rifugio Pellarini", "type": "hut", "lat": 46.4404422, "lon": 13.5086675, "index": 8737 },
+  { "name": "Malga Saisera", "type": "parking", "lat": 46.4565383, "lon": 13.4692267, "index": 10734 }
+]
