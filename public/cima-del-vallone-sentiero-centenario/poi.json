@@ -1,0 +1,12 @@
+[
+  { "name": "Rio Bianco", "type": "parking", "lat": 46.4096622, "lon": 13.5359367, "index": 25 },
+  { "name": "Capanna Brunner", "type": "hut", "lat": 46.423635, "lon": 13.5308111, "index": 1050 },
+  { "name": "Bivacco C.A.I. Gorizia", "type": "hut", "lat": 46.4257192, "lon": 13.5180536, "index": 2194 },
+  { "name": "Forcella alta di Riobianco (2138m)", "type": "pass", "lat": 46.4229625, "lon": 13.5172356, "index": 2598 },
+  { "name": "Forcella del Vallone (2185m)", "type": "pass", "lat": 46.4255256, "lon": 13.5110408, "index": 3580 },
+  { "name": "Cima del Vallone (2371m)", "type": "peak", "lat": 46.4269108, "lon": 13.5117592, "index": 4209 },
+  { "name": "Forcella del Vallone (2185m)", "type": "pass", "lat": 46.4255256, "lon": 13.5110408, "index": 5110 },
+  { "name": "Re di Sassonia", "type": "ferrata", "lat": 46.4235531, "lon": 13.5306647, "index": 6565 },
+  { "name": "Trail no.650", "type": "signpost", "lat": 46.4123389, "lon": 13.5192039, "index": 7952 },
+  { "name": "Rio Bianco", "type": "parking", "lat": 46.4096622, "lon": 13.5359367, "index": 8860 }
+]
