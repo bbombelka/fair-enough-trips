@@ -1,6 +1,6 @@
 import { ImageProps } from "next/image";
 import React, { FC, useState } from "react";
-import Image from "next/image";
+import NextImage from "next/image";
 import { Loader } from "components/loader/Loader";
 
 export const FETImage: FC<ImageProps> = ({ onLoad, blurDataURL, ...props }) => {
@@ -16,10 +16,8 @@ export const FETImage: FC<ImageProps> = ({ onLoad, blurDataURL, ...props }) => {
   return (
     <>
       {!blurDataURL && <Loader isLoading={isLoading} loadingHeading="Loading image" hasExternalBorder isImage />}
-      <Image
-        objectFit="cover"
-        objectPosition="center"
-        layout="responsive"
+      <NextImage
+        style={{ objectFit: "cover", objectPosition: "center" }}
         onLoad={onImageLoad}
         blurDataURL={`data:image/webp;base64,${blurDataURL}`}
         {...props}

@@ -2,7 +2,7 @@ import { Box } from "components/box/Box";
 import Config from "Config";
 import { useCardClasses } from "hooks/useCardClasses";
 import { useScrollDown } from "hooks/useScrollDown";
-import Link from "next/link";
+import NextLink from "next/link";
 import React, { FC, useRef } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
@@ -38,38 +38,35 @@ export const CategoryCard: FC<CategoryCardProps> = ({
           className={imageClass}
           blurDataURL={blurDataURL}
           alt="Main category picture"
-          layout="fill"
           placeholder="blur"
         />
       </div>
       <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>
-        <Link href={isMainCard ? "" : `/${categoryType}/${url}`}>
-          <a
-            style={{ display: "block" }}
-            onClick={(e) => {
-              if (isMainCard) {
-                e.preventDefault();
-                scrollDownTrips();
-              }
-            }}
-          >
-            <button className={buttonClass}>{`See ${postIds.length} trip${postIds.length > 1 ? "s" : ""}`}</button>
-          </a>
-        </Link>
+        <NextLink
+          href={isMainCard ? "" : `/${categoryType}/${url}`}
+          style={{ display: "block" }}
+          onClick={(e) => {
+            if (isMainCard) {
+              e.preventDefault();
+              scrollDownTrips();
+            }
+          }}
+        >
+          <button className={buttonClass}>{`See ${postIds.length} trip${postIds.length > 1 ? "s" : ""}`}</button>
+        </NextLink>
         {isMainCard && areNotesPresent && (
           <Box margin="12px 0">
-            <Link href={`/${categoryType}/${url}`}>
-              <a
-                style={{ display: "block" }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollDownNotes();
-                }}
-              >
-                <button className={buttonClass}>Read trip notes</button>
-              </a>
-            </Link>
+            <NextLink
+              href={`/${categoryType}/${url}`}
+              style={{ display: "block" }}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollDownNotes();
+              }}
+            >
+              <button className={buttonClass}>Read trip notes</button>
+            </NextLink>
           </Box>
         )}
       </div>

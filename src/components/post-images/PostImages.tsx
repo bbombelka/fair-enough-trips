@@ -33,24 +33,13 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
         return (
           <div id="post-images" key={imageId} className={styles.images} style={{ maxWidth: width }}>
             <a href={hdImageSrc} target="_blank" rel="noopener noreferrer">
-              <FETImage
-                id={filename}
-                className={styles.image}
-                src={src}
-                alt={desc}
-                quality="100"
-                width={width}
-                height={height}
-                sizes="50vw"
-                layout="responsive"
-                unoptimized
-              />
+              <FETImage id={filename} className={styles.image} src={src} alt={desc} quality="100" width={width} height={height} sizes="50vw" unoptimized />
             </a>
             {!isProd && <span onClick={copy}>{filename}</span>}
             <span className={styles.caption}>{desc}</span>
           </div>
         );
-    })}
+      })}
       {videos?.map(({ src, desc }) => (
         <YoutubeIframe key={src} src={src} description={desc} />
       ))}

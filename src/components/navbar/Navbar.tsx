@@ -14,11 +14,9 @@ export const Navbar = () => {
     <nav className={styles.navbar}>
       <div className={styles["container-desktop"]}>
         <NextLink href="/">
-          <a>
-            <div className={styles["logo-container"]}>
-              <Logo width={130} height={45} className={styles.logo} />
-            </div>
-          </a>
+          <div className={styles["logo-container"]}>
+            <Logo width={130} height={45} className={styles.logo} />
+          </div>
         </NextLink>
         {navbarLinks.map(({ name, href }, i) => {
           return <Link className={asPath.includes(href) ? styles["navbar-link-active"] : ""} key={i} href={href} name={name} leftMargin={24} />;
