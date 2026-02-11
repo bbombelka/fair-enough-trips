@@ -14,7 +14,7 @@ export const Link: FC<LinkProps> = ({ name, href, leftMargin, className, ...rest
   return (
     <span className={className} style={{ marginLeft, display: "block" }}>
       <NextLink href={href} {...rest}>
-        <a>{name}</a>
+        {name}
       </NextLink>
     </span>
   );

@@ -5,6 +5,9 @@ const nextConfig = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    qualities: [100, 75],
+  },
   async headers() {
     return [
       {

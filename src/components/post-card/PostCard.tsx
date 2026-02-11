@@ -5,7 +5,7 @@ import { PostCardProps } from "components/post-card/PostCard.types";
 import { useCardClasses } from "hooks/useCardClasses";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
-import Link from "next/link";
+import NextLink from "next/link";
 import React, { FC } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
@@ -47,11 +47,11 @@ export const PostCard: FC<PostCardProps> = ({
       <div className={imageContainerClass}>
         {isMounted && (
           <FETImage
-            priority={isMainPostCard}
+            preload={isMainPostCard}
             className={imageClass}
             src={src}
             alt={"Main trip picture"}
-            layout="fill"
+            fill
             placeholder="blur"
             blurDataURL={base64Image}
             onError={() => setError(true)}
@@ -61,11 +61,9 @@ export const PostCard: FC<PostCardProps> = ({
       <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>
         {getPostCardSubtitles()}
-        <Link href={`/posts/${id}`}>
-          <a className={styles["post-card-link"]}>
-            <button className={buttonClass}>Read more</button>
-          </a>
-        </Link>
+        <NextLink href={`/posts/${id}`} className={styles["post-card-link"]}>
+          <button className={buttonClass}>Read more</button>
+        </NextLink>
       </div>
     </div>
   );

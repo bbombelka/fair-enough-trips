@@ -2,7 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
 import { Post, PostDocument } from "components/card-list/CardList.types";
-import { mongoClient } from "MongoClient";
+import mongoClientConnectPromise from "MongoClient";
 import Config from "Config";
 import dynamic from "next/dynamic";
 
@@ -41,7 +41,7 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  await mongoClient.connect();
+  const mongoClient = await mongoClientConnectPromise;
   const isProd = process.env.NODE_ENV === "production";
 
   const posts = await mongoClient

@@ -2,7 +2,7 @@ import { Footer, Layout, Navbar } from "components";
 import { CategoryCard } from "components/category-card/CategoryCard";
 import Config from "Config";
 import { CategoriesEnum, Regions } from "enums/categories";
-import { mongoClient } from "MongoClient";
+import mongoClientConnectPromise from "MongoClient";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Category } from "types/PostPage.types";
@@ -54,7 +54,7 @@ const RegionsPage: NextPage<RegionsPageProps> = ({ regions }) => {
 export default RegionsPage;
 
 export const getStaticProps: GetStaticProps<RegionsPageProps> = async () => {
-  await mongoClient.connect();
+  const mongoClient = await mongoClientConnectPromise;
   const isProd = process.env.NODE_ENV === "production";
 
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
