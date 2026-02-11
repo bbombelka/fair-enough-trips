@@ -39,6 +39,8 @@ export const CategoryCard: FC<CategoryCardProps> = ({
           blurDataURL={blurDataURL}
           alt="Main category picture"
           placeholder="blur"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className={textBoxClass}>

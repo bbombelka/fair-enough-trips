@@ -3,7 +3,7 @@ import React, { FC, useState } from "react";
 import NextImage from "next/image";
 import { Loader } from "components/loader/Loader";
 
-export const FETImage: FC<ImageProps> = ({ onLoad, blurDataURL, ...props }) => {
+export const FETImage: FC<ImageProps & { sizes?: string }> = ({ onLoad, blurDataURL, sizes = "100vw", ...props }) => {
   const [isLoading, setIsLoading] = useState(!Boolean(blurDataURL));
 
   const onImageLoad: React.ReactEventHandler<HTMLImageElement> = (event) => {
@@ -20,6 +20,7 @@ export const FETImage: FC<ImageProps> = ({ onLoad, blurDataURL, ...props }) => {
         style={{ objectFit: "cover", objectPosition: "center" }}
         onLoad={onImageLoad}
         blurDataURL={`data:image/webp;base64,${blurDataURL}`}
+        sizes={sizes}
         {...props}
       />
     </>
