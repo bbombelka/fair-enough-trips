@@ -3,8 +3,8 @@ import { Category } from "types/PostPage.types";
 export const Activities: Category[] = [
   {
     code: "001",
-    name: "Trekking",
-    url: "trekking",
+    name: "Hiking",
+    url: "hiking",
   },
   {
     code: "002",
@@ -18,13 +18,8 @@ export const Activities: Category[] = [
   },
   {
     code: "004",
-    name: "Alpine Climbing",
-    url: "alpine-climbing",
-  },
-  {
-    code: "005",
-    name: "Kid friendly",
-    url: "kid-friendly",
+    name: "Mountaineering",
+    url: "mountaineering",
   },
 ];
 

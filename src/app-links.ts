@@ -1,8 +1,9 @@
+import { Activities, CategoriesEnum } from "enums/categories";
+
+const activtiesLinks = Activities.map((act) => ({ name: act.name, href: `/activity/${act.url}` }));
+
 export const navbarLinks = [
-  { name: "scrambling", href: "/activity/scrambling" },
-  { name: "trekking", href: "/activity/trekking" },
-  { name: "via-ferrata", href: "/activity/via-ferrata" },
-  { name: "alpine climbing", href: "/activity/alpine-climbing" },
+  ...activtiesLinks,
   { name: "regions", href: "/regions" },
   { name: "countries", href: "/countries" },
   { name: "search", href: "/search" },

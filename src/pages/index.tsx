@@ -20,7 +20,7 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
     <div>
       <Head>
         <title>Fair Enough Trips</title>
-        <meta name="description" content="Blog about trekking, scrambling, alpine climbing and via-ferrata with maps, gps tracks, images and trip tips" />
+        <meta name="description" content="Blog about hiking, scrambling, mountaineering and via-ferrata with maps, gps tracks, images and trip tips" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={`https://${Config.DOMAIN}/`} />
       </Head>
