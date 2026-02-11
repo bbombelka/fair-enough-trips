@@ -3,7 +3,8 @@ import Head from "next/head";
 import { Footer, Layout, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
 import { Post, PostDocument } from "components/card-list/CardList.types";
-import { mongoClient } from "MongoClient";
+import mongoClientConnectPromise from "MongoClient";
+
 import Config from "Config";
 import { CategoriesEnum, Regions } from "enums/categories";
 import { CategoryCard } from "components/category-card/CategoryCard";
@@ -65,13 +66,12 @@ const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, im
 export default Category;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  await mongoClient.connect();
+  const mongoClient = await mongoClientConnectPromise;
   const isProd = process.env.NODE_ENV === "production";
 
   const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
 
   const posts = await collection.find(isProd ? { published: true } : {}).toArray();
-  await mongoClient.close();
 
   const types = Array.from(new Set(posts.map(({ category }) => category.region).flat()))
     .map((code) => Regions.find((act) => act.code === code)?.url)
@@ -84,7 +84,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  await mongoClient.connect();
+  const mongoClient = await mongoClientConnectPromise;
   const isProd = process.env.NODE_ENV === "production";
 
   const code = Regions.find((act) => act.url === params?.region)?.code;
@@ -105,8 +105,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     ...post,
     postDate: post.postDate.toISOString(),
   }));
-
-  await mongoClient.close();
 
   return {
     props: {

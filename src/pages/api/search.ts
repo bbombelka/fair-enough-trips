@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { mongoClient } from "MongoClient";
+import mongoClientConnectPromise from "MongoClient";
 import Config from "Config";
 
 type Data = {
@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const searchTermRegex = new RegExp(req.query.searchTerm as string);
     const isProd = process.env.NODE_ENV === "production";
 
-    await mongoClient.connect();
+    const mongoClient = await mongoClientConnectPromise;
 
     const TITLE_QUERY = searchQueryBuilder("title", searchTermRegex);
     const ID_QUERY = searchQueryBuilder("id", searchTermRegex);
@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         { ...LOGICAL_OPERATOR_OR, ...(isProd ? { published: true } : {}) },
         {
           projection: QUERY_PROJECTION,
-        }
+        },
       )
       .sort({ postDate: -1 })
       .limit(25)

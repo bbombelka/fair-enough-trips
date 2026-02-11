@@ -4,7 +4,7 @@ import { Paragraph } from "components/paragraph/Paragraph";
 import { PostImages } from "components/post-images/PostImages";
 import Config from "Config";
 import { access } from "fs/promises";
-import { mongoClient } from "MongoClient";
+import mongoClientConnectPromise from "MongoClient";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { PostPageProps, FullPost } from "types/PostPage.types";
@@ -59,31 +59,31 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
 export default PostPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  await mongoClient.connect();
+  const mongoClient = await mongoClientConnectPromise;
   const isProd = process.env.NODE_ENV === "production";
 
   const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
 
   const posts = await collection.find(isProd ? { published: true } : {}).toArray();
-  await mongoClient.close();
 
   return {
     paths: posts.map(({ id }) => ({ params: { id } })),
     fallback: false,
   };
+  await mongoClient.close();
 };
 
 export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) => {
-  await mongoClient.connect();
+  const mongoClient = await mongoClientConnectPromise;
 
   const displayGpxChartPromise = access(`./public/${params?.id}/poi.json`).then(
     () => true,
-    () => false
+    () => false,
   );
 
   const displayGpxDownloadPromise = access(`./public/${params?.id}/track.zip`).then(
     () => true,
-    () => false
+    () => false,
   );
 
   const availableHDImagesPromise = readBucketFiles(params?.id as string);
@@ -92,9 +92,9 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
   const dbPost = await postsCollection.findOne({ id: params?.id });
 
   const post: FullPost | {} = dbPost ? removeSelectedProps(dbPost, ["_id"]) : {};
-  await mongoClient.close();
 
   const hasRouteScheme = await routeSchemeExists(params?.id);
+
   const parsedPost = JSON.parse(JSON.stringify(post));
 
   return {

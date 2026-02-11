@@ -1,7 +1,7 @@
 import Config from "Config";
 import triggerDeployment from "server/shared/trigger-deployment";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { mongoClient } from "MongoClient";
+import mongoClientConnectPromise from "MongoClient";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.query.secret !== process.env.CRON_SECRET) {
@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   async function performDBChanges() {
     try {
-      await mongoClient.connect();
+      const mongoClient = await mongoClientConnectPromise;
       const db = mongoClient.db(Config.DB_NAME);
       const collection = db.collection(Config.POSTS_COLLECTION);
 
@@ -52,8 +52,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       } else {
         console.log("Route scheme point published");
       }
-
-      await mongoClient.close();
 
       return Boolean(ids?.length);
     } catch (err) {

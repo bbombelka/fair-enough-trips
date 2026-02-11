@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
 import { Post } from "components/card-list/CardList.types";
-import { mongoClient } from "MongoClient";
+import mongoClientConnectPromise from "MongoClient";
 import Config from "Config";
 import { Activities } from "enums/categories";
 
@@ -43,12 +43,11 @@ const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code }) => {
 export default Category;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  await mongoClient.connect();
+  const mongoClient = await mongoClientConnectPromise;
 
   const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
 
   const posts = await collection.find().toArray();
-  await mongoClient.close();
 
   const types = Array.from(new Set(posts.map(({ category }) => category.activity).flat()))
     .map((code) => Activities.find((act) => act.code === code)?.url)
@@ -61,7 +60,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  await mongoClient.connect();
+  const mongoClient = await mongoClientConnectPromise;
 
   const code = Activities.find((act) => act.url === params?.type)?.code;
   const isProd = process.env.NODE_ENV === "production";
