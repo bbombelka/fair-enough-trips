@@ -29,7 +29,6 @@ const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, im
       <Head>
         <title>{region.name} @ Fair Enough Trips</title>
         <meta name="description" content={`Fair Enough Trips in ${region.name} page`} />
-        <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={`https://${Config.DOMAIN}/regions/${region.url}`} />
       </Head>
       <Navbar />

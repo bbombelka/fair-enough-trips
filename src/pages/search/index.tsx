@@ -10,7 +10,6 @@ const SearchPage: NextPage = () => {
       <Head>
         <title>Search @ Fair Enough Trips</title>
         <meta name="description" content="Search for a trip @ Fair Enough Trips" />
-        <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={`https://${Config.DOMAIN}/search`} />
       </Head>
       <Navbar />

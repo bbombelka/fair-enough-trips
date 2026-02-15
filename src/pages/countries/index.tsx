@@ -25,7 +25,6 @@ const CountriesPage: NextPage<CountriesPageProps> = ({ countries }) => {
       <Head>
         <title>Countries @ Fair Enough Trips</title>
         <meta name="description" content="Find your trip by selecting a country" />
-        <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={`https://${Config.DOMAIN}/countries`} />
       </Head>
       <div>

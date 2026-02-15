@@ -21,7 +21,6 @@ const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code }) => {
       <Head>
         <title>{activity?.name} @ Fair Enough Trips</title>
         <meta name="description" content={`Fair Enough Trips - ${activity?.name} page`} />
-        <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={`https://${Config.DOMAIN}/activity/${activity?.url}`} />
       </Head>
       <Navbar />

@@ -11,7 +11,6 @@ const AboutPage: NextPage = () => {
       <Head>
         <title>About @ Fair Enough Trips</title>
         <meta name="description" content="Fair Enough Trips About Page" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
         <Navbar />
