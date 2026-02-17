@@ -14,7 +14,7 @@ if (!id) {
 }
 
 const dirPath = path.resolve(__dirname, `../../public/${id}`);
-const keepFiles = new Set(["main.webp", "main-mobile.webp", "track.zip", "poi.json", "thumb_main.webp"]);
+const keepFiles = new Set(["main.webp", "mobile-main.webp", "track.zip", "poi.json", "thumb_main.webp"]);
 
 const bucketName = process.env.S3_BUCKET_NAME;
 const s3Prefix = `posts/${id}/`;

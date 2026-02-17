@@ -74,7 +74,7 @@ async function processImages(id: string, filename: string): Promise<void> {
         height: 1080,
       },
       {
-        path: path.resolve(`${dirPath}/main-mobile.webp`),
+        path: path.resolve(`${dirPath}/mobile-main.webp`),
         width: 720,
         height: 1280,
       },
@@ -93,8 +93,8 @@ async function processImages(id: string, filename: string): Promise<void> {
           .webp({ quality: q ?? quality })
           .toFile(outPath)
           .then(() => console.log(`Created ${outPath}`))
-          .catch(console.error)
-      )
+          .catch(console.error),
+      ),
     );
   } else {
     try {
@@ -120,8 +120,8 @@ async function processImages(id: string, filename: string): Promise<void> {
             .webp({ quality })
             .toFile(path.resolve(`${dirPath}/${fileName}${output}`))
             .then(() => console.log(`Created ${fileName}${output}`))
-            .catch(console.error)
-        )
+            .catch(console.error),
+        ),
       );
     } catch (err) {
       console.error(`Failed to process ${filename}:`, err);
