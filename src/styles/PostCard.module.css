@@ -15,12 +15,7 @@
 }
 
 .textBox {
-  background-image: linear-gradient(
-    rgba(0, 0, 0, 0.001) 0%,
-    rgba(0, 0, 0, 0.25) 15%,
-    rgba(0, 0, 0, 0.25) 86%,
-    rgba(0, 0, 0, 0.001) 100%
-  );
+  background-image: linear-gradient(rgba(0, 0, 0, 0.001) 0%, rgba(0, 0, 0, 0.25) 15%, rgba(0, 0, 0, 0.25) 86%, rgba(0, 0, 0, 0.001) 100%);
   width: 100%;
   position: absolute;
   font-family: "Lato", sans-serif;
@@ -35,6 +30,7 @@
 
 .container-main-card {
   height: calc(100dvh - 60px);
+  height: calc(100svh - 60px);
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
