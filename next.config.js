@@ -21,6 +21,21 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/activity/trekking",
+        destination: "/activity/hiking",
+        permanent: true,
+      },
+
+      {
+        source: "/activity/alpine-climbing",
+        destination: "/activity/mountaineering",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
