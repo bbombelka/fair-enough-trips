@@ -23,11 +23,12 @@ type HomePageProps = {
 
 const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, imageId }) => {
   const region = Regions.find((act) => act.code === code)!;
+  const postTitle = `${region.name} @ Fair Enough Trips`;
 
   return (
     <div>
       <Head>
-        <title>{region.name} @ Fair Enough Trips</title>
+        <title>{postTitle}</title>
         <meta name="description" content={`Fair Enough Trips in ${region.name} page`} />
         <link rel="canonical" href={`https://${Config.DOMAIN}/regions/${region.url}`} />
       </Head>

@@ -15,11 +15,12 @@ type HomePageProps = {
 
 const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code }) => {
   const activity = Activities.find((act) => act.code === code);
+  const postTitle = `${activity?.name} @ Fair Enough Trips`;
 
   return (
     <div>
       <Head>
-        <title>{activity?.name} @ Fair Enough Trips</title>
+        <title>{postTitle}</title>
         <meta name="description" content={`Fair Enough Trips - ${activity?.name} page`} />
         <link rel="canonical" href={`https://${Config.DOMAIN}/activity/${activity?.url}`} />
       </Head>
