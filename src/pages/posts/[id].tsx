@@ -18,12 +18,13 @@ import readBucketFiles from "server/shared/aws/readBucketFiles";
 
 const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay }) => {
   const postTitle = `${post.title} @ Fair Enough Trips`;
+  const postContent = `${post.title} - ${post.subTitle}`;
 
   return (
     <>
       <Head>
         <title>{postTitle}</title>
-        <meta name="description" content={post.subTitle} />
+        <meta name="description" content={postContent} />
         <link rel="canonical" href={`https://${Config.DOMAIN}/posts/${post.id}`} />
       </Head>
       <div>
