@@ -73,7 +73,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: posts.map(({ id }) => ({ params: { id } })),
     fallback: false,
   };
-  await mongoClient.close();
 };
 
 export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) => {

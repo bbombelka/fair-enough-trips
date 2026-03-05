@@ -9,18 +9,18 @@ body {
 /* lato-regular - latin */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'Lato';
+  font-family: "Lato";
   font-style: normal;
   font-weight: 400;
-  src: url('/fonts/lato-v24-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("/fonts/lato-v24-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 /* lato-700 - latin */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'Lato';
+  font-family: "Lato";
   font-style: normal;
   font-weight: 700;
-  src: url('/fonts/lato-v24-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("/fonts/lato-v24-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 a {
@@ -42,6 +42,7 @@ a {
   max-width: 1200px;
   margin: auto;
   padding: 12px;
+  height: calc(100vh - var(--navbar-height));
 }
 
 .title {
@@ -62,8 +63,12 @@ a {
 }
 
 @keyframes highlight {
-  0% { background-color: #FFFFC5; }
-  100% { background-color: transparent; }
+  0% {
+    background-color: #ffffc5;
+  }
+  100% {
+    background-color: transparent;
+  }
 }
 
 @media (max-width: 720px) {
@@ -72,4 +77,3 @@ a {
     font-size: 14px;
   }
 }
-
