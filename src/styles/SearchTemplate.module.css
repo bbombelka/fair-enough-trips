@@ -1,9 +1,13 @@
 .alert {
-    margin-top: 20%;;
+  margin-top: 20%;
 }
 
 @media (max-width: 720px) {
-    .alert {
-        margin-top: 50%;;
-    }
+  .alert {
+    margin-top: 50%;
+  }
+}
+
+.container {
+  height: calc(100vh - var(--navbar-height) - var(--navbar-height)-6px);
 }

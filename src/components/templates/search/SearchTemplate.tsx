@@ -15,7 +15,7 @@ export const SearchTemplate = () => {
   const { data: posts, setSearchTerm, isLoading, hasError } = useSearch({ isEnabled: true });
 
   return (
-    <>
+    <div className={styles.container}>
       <SearchBar setSearchTerm={setSearchTerm} isLoading={isLoading} />
       <Layout>
         <CardList listTitle="Search results:" dropGrid={hasError || posts.length === 0}>
@@ -33,6 +33,6 @@ export const SearchTemplate = () => {
           )}
         </CardList>
       </Layout>
-    </>
+    </div>
   );
 };

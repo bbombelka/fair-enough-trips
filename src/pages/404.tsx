@@ -5,7 +5,7 @@ import { Alert } from "components/alert/Alert";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import styles from "styles/SearchTemplate.module.css";
+import styles from "styles/404.module.css";
 
 const REDIRECTION_DELAY_MS = 5000;
 
@@ -30,8 +30,8 @@ export default function Custom404() {
       </Head>
       <div>
         <Navbar />
-        <main className="layout">
-          <Alert className={styles["aler"]} message="Ooops ! This page does not exist, let's go somewhere else! ">
+        <main className={`layout ${styles.container}`}>
+          <Alert className={styles["alert"]} message="Ooops! Let's go somewhere else! ">
             <FontAwesomeIcon icon={faSignsPost} fontSize={48} />
           </Alert>
         </main>
