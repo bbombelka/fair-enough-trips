@@ -8,12 +8,12 @@ type CellProps = {
 
 export const Cell: FC<CellProps> = ({ label, value, children }) => {
   return (
-    <div className={styles.cell}>
-      <span className={styles.label}>{label}</span>
-      <span className={styles.value}>
+    <tr>
+      <th className={styles.label}>{label}</th>
+      <td className={styles.value}>
         {value}
         {children}
-      </span>
-    </div>
+      </td>
+    </tr>
   );
 };
