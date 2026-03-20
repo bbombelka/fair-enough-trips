@@ -12,13 +12,16 @@ import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
 import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
 import readBucketFiles from "server/shared/aws/readBucketFiles";
+import preparePostRichData from "server/utils/prepare-rich-data";
+import { HowTo } from "schema-dts";
 
 // change back to dynamic after enabling suspense !!
 // const DistanceGraphContainer = dynamic(() => import("components/distance-graph/distance-graph/DistanceGraphContainer"), { ssr: false });
 
-const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay }) => {
+const PostPage: NextPage<PostPageProps<HowTo>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData }) => {
   const postTitle = `${post.title} @ Fair Enough Trips`;
-  const postContent = `${post.title} - ${post.subTitle}`;
+  const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${post.stats.duration}h` : "";
+  const postContent = `${post.title} - ${post.subTitle}${statsSummary ? ` [${statsSummary}]` : ""}`;
 
   return (
     <>
@@ -26,6 +29,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
         <title>{postTitle}</title>
         <meta name="description" content={postContent} />
         <link rel="canonical" href={`https://${Config.DOMAIN}/posts/${post.id}`} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }}></script>
       </Head>
       <div>
         <Navbar />
@@ -75,7 +79,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<PostPageProps<HowTo>> = async ({ params }) => {
   const mongoClient = await mongoClientConnectPromise;
 
   const displayGpxChartPromise = access(`./public/${params?.id}/poi.json`).then(
@@ -101,6 +105,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
 
   return {
     props: {
+      richData: preparePostRichData(parsedPost),
       post: { ...parsedPost } as FullPost,
       hasRouteScheme,
       hdImagesToDisplay: (await availableHDImagesPromise)

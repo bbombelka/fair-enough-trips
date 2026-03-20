@@ -1,10 +1,11 @@
-import { Activities, Regions, Countries } from "enums/categories";
+import { HowTo, WithContext } from "schema-dts";
 
-export type PostPageProps = {
+export type PostPageProps<T extends HowTo> = {
   post: FullPost;
   controlDisplayLinks: ControlDisplayLinks;
   hasRouteScheme: boolean;
   hdImagesToDisplay: Array<string | undefined>;
+  richData: WithContext<T>;
 };
 
 export type ControlDisplayLinks = {
