@@ -15,6 +15,7 @@
   padding: 0 12px;
   display: flex;
   align-items: center;
+  background-color: #fff;
 }
 
 .container-mobile {
@@ -34,8 +35,13 @@
   left: 0;
 }
 
-.search-container {
+.navbar-link {
+  margin-left: 24px;
+}
+
+.navbar-link-last {
   margin-left: auto;
+  margin-right: 24px;
 }
 
 .navbar-link-active {
@@ -57,9 +63,7 @@
     display: block;
     height: 100%;
   }
-}
 
-@media (width <=1200px) {
   .logo-container {
     width: 120px;
   }

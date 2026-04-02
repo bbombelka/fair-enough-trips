@@ -1,8 +1,8 @@
-import React, { FC, LinkHTMLAttributes } from "react";
+import React, { FC, LinkHTMLAttributes, ReactNode } from "react";
 import NextLink from "next/link";
 
 interface LinkProps extends LinkHTMLAttributes<HTMLAnchorElement> {
-  name: string;
+  name: string | ReactNode;
   href: string;
   leftMargin?: number | string;
 }
