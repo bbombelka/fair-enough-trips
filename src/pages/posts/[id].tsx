@@ -22,14 +22,22 @@ const PostPage: NextPage<PostPageProps<HowTo>> = ({ post, controlDisplayLinks, h
   const postTitle = `${post.title} @ Fair Enough Trips`;
   const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${post.stats.duration}h` : "";
   const postContent = `${post.title} - ${post.subTitle}${statsSummary ? ` [${statsSummary}]` : ""}`;
+  const pageLink = `https://${Config.DOMAIN}/posts/${post.id}`;
 
   return (
     <>
       <Head>
         <title>{postTitle}</title>
         <meta name="description" content={postContent} />
-        <link rel="canonical" href={`https://${Config.DOMAIN}/posts/${post.id}`} />
+        <link rel="canonical" href={pageLink} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }}></script>
+        <meta property="og:locale" content="en_GB" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={postTitle} />
+        <meta property="og:description" content={postContent} />
+        <meta property="og:url" content={pageLink} />
+        <meta property="og:site_name" content="Fair Enough Trips" />
+        <meta property="og:image" content={`https://${Config.DOMAIN}/${post.id}/main.webp`} />
       </Head>
       <div>
         <Navbar />

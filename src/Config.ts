@@ -5,7 +5,7 @@ export default {
   SHORT_STRETCH: 800,
   DB_NAME: "fet",
   POSTS_COLLECTION: "posts-test",
-  POST_COUNT_HOME_PAGE: 6,
+  POST_COUNT_HOME_PAGE: 8,
   MAX_STARS_COUNT: 5,
   REGION_NOTES_COLLECTION: "region-trip-notes",
   COUNTRY_NOTES_COLLECTION: "country-trip-notes",
