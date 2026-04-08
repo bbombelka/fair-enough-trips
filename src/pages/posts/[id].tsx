@@ -14,12 +14,16 @@ import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
 import readBucketFiles from "server/shared/aws/readBucketFiles";
 import preparePostRichData from "server/utils/prepare-rich-data";
 import { HowTo } from "schema-dts";
+import { useMappedCategories } from "hooks/useMappedCategories";
 
 // change back to dynamic after enabling suspense !!
 // const DistanceGraphContainer = dynamic(() => import("components/distance-graph/distance-graph/DistanceGraphContainer"), { ssr: false });
 
 const PostPage: NextPage<PostPageProps<HowTo>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData }) => {
-  const postTitle = `${post.title} @ Fair Enough Trips`;
+  const [activities, regions, countries] = useMappedCategories(post.category);
+  const shouldIncludeTripDifficulty = post.category.activity.some((activityCode) => ["002", "003", "004"].includes(activityCode));
+
+  const postTitle = `${post.title} ${shouldIncludeTripDifficulty ? `(${post.difficulty.replace(/ /g, "")})` : ""}  |  ${activities} in ${regions}, ${countries}`;
   const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${post.stats.duration}h` : "";
   const postContent = `${post.title} - ${post.subTitle}${statsSummary ? ` [${statsSummary}]` : ""}`;
   const pageLink = `https://${Config.DOMAIN}/posts/${post.id}`;
@@ -30,7 +34,7 @@ const PostPage: NextPage<PostPageProps<HowTo>> = ({ post, controlDisplayLinks, h
         <title>{postTitle}</title>
         <meta name="description" content={postContent} />
         <link rel="canonical" href={pageLink} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }}></script>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }} />
         <meta property="og:locale" content="en_GB" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={postTitle} />
