@@ -1,19 +1,23 @@
-
 /* 
 when changing bottom border or line height please adjust DIVIDER_HEIGHT in main module !!! 
 */
-.divider {
-  border-bottom: 2px solid var(--color-grey); 
-  font-weight: 700;
+.divider-container {
+  border-bottom: 2px solid var(--color-grey);
   margin: 24px 0;
+}
+
+.divider {
+  font-weight: 700;
   line-height: 24px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin: 0;
 }
 
 @media (max-width: 720px) {
-  .sticky-divider {
+  .sticky-divider-container {
     position: sticky;
     background-color: white;
     z-index: 1;
   }
 }
-

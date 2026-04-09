@@ -10,7 +10,7 @@ export const Paragraph: FC<{
 }> = ({ body, title, links, id }) => {
   return (
     <div id={id} className={styles.container}>
-      {title && <span className={styles.title}>{title}:</span>}
+      {title && <h3 className={styles.title}>{title}:</h3>}
       {body.map((paragraph, i) => (
         <p id={`${id}-paragraph-${i + 1}`} key={i} className={styles.paragraph}>
           {paragraph}
