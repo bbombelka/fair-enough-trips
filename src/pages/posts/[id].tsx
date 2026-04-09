@@ -32,7 +32,7 @@ const PostPage: NextPage<PostPageProps<HowTo>> = ({ post, controlDisplayLinks, h
     <>
       <Head>
         <title>{postTitle}</title>
-        <meta name="description" content={postContent} />
+        <meta name="description" content={`${postTitle} ${postContent}`} />
         <link rel="canonical" href={pageLink} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }} />
         <meta property="og:locale" content="en_GB" />
