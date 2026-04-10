@@ -32,6 +32,7 @@ export type PostVideo = {
 };
 
 type Paragraph = string[];
+type TitledParagraph = { title: string; body: Paragraph };
 
 export type CodedCategory = {
   country: string[];
@@ -78,6 +79,7 @@ export type FullPost = {
   postDate: Date;
   base64Image: string;
   videos: PostVideo[];
+  description?: TitledParagraph[];
 };
 
 export type DateClass = {

@@ -23,8 +23,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
   };
 
   return (
-    <div>
-      <Divider title="Visual" order={order} stickyScrollToElementId="post-images" />
+    <>
       {images.map(({ filename, desc, isVertical }, imageId) => {
         const width = isVertical ? Config.SHORT_STRETCH : Config.LONG_STRETCH;
         const height = isVertical ? Config.LONG_STRETCH : Config.SHORT_STRETCH;
@@ -43,6 +42,6 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
       {videos?.map(({ src, desc }) => (
         <YoutubeIframe key={src} src={src} description={desc} />
       ))}
-    </div>
+    </>
   );
 };

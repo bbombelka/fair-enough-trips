@@ -20,4 +20,8 @@ when changing bottom border or line height please adjust DIVIDER_HEIGHT in main 
     background-color: white;
     z-index: 1;
   }
+
+  .divider {
+    font-size: 14px;
+  }
 }
