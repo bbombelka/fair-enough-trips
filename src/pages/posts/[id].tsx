@@ -34,7 +34,7 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
     .filter(Boolean)
     .join(", ");
 
-  const metaDescription = `${postTitle} ${statsSummary ? `[${statsSummary}]` : ""} - Route description including practical information, map, gps track, photos${metaDescriptionElements.length ? `, ${metaDescriptionElements}.` : "."}`;
+  const metaDescription = `${postTitle} ${statsSummary ? `[${statsSummary}]` : ""} - descriptinon with photos, map, gps track,${metaDescriptionElements.length ? `, ${metaDescriptionElements}.` : "."}`;
 
   let orderCounter = 1;
 

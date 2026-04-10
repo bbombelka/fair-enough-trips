@@ -10,6 +10,8 @@ export default function preparePostRichData(post: FullPost) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
+    articleSection: "Mountaineering",
+    mainEntityOfPage: `https://${Config.DOMAIN}/posts/${post.id}`,
     description: postContent,
     image: `https://${Config.DOMAIN}/${post.id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`,
     datePublished: post.postDate as unknown as string,
