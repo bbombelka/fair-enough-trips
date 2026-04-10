@@ -16,9 +16,6 @@ import preparePostRichData from "server/utils/prepare-rich-data";
 import { Article } from "schema-dts";
 import { useMappedCategories } from "hooks/useMappedCategories";
 
-// change back to dynamic after enabling suspense !!
-// const DistanceGraphContainer = dynamic(() => import("components/distance-graph/distance-graph/DistanceGraphContainer"), { ssr: false });
-
 const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData }) => {
   const [activities, regions, countries] = useMappedCategories(post.category);
   const shouldIncludeTripDifficulty = post.category.activity.some((activityCode) => ["002", "003", "004"].includes(activityCode));
@@ -33,6 +30,7 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
       <Head>
         <title>{postTitle}</title>
         <meta name="description" content={`${postTitle} ${postContent}`} />
+        <meta name="author" content="Fair Enough Trips" />
         <link rel="canonical" href={pageLink} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }} />
         <meta property="og:locale" content="en_GB" />
@@ -42,10 +40,14 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
         <meta property="og:url" content={pageLink} />
         <meta property="og:site_name" content="Fair Enough Trips" />
         <meta property="og:image" content={`https://${Config.DOMAIN}/${post.id}/main.webp`} />
+        <meta property="og:image:alt" content={post.title} />
+        {post.postDate && <meta property="article:published_time" content={`${post.postDate}`} />}
+        <meta property="article:section" content={activities.join(", ")} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={postTitle} />
         <meta name="twitter:description" content={postContent} />
         <meta name="twitter:image" content={`https://${Config.DOMAIN}/${post.id}/main.webp`} />
+        <meta name="twitter:image:alt" content={post.title} />
         <meta name="robots" content="index, follow" />
       </Head>
       <div>
