@@ -1,6 +1,6 @@
-import { HowTo, WithContext } from "schema-dts";
+import { Article, WithContext } from "schema-dts";
 
-export type PostPageProps<T extends HowTo> = {
+export type PostPageProps<T extends Article> = {
   post: FullPost;
   controlDisplayLinks: ControlDisplayLinks;
   hasRouteScheme: boolean;

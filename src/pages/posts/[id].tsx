@@ -13,13 +13,13 @@ import routeSchemeExists from "server/shared/route-scheme-exists";
 import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
 import readBucketFiles from "server/shared/aws/readBucketFiles";
 import preparePostRichData from "server/utils/prepare-rich-data";
-import { HowTo } from "schema-dts";
+import { Article } from "schema-dts";
 import { useMappedCategories } from "hooks/useMappedCategories";
 
 // change back to dynamic after enabling suspense !!
 // const DistanceGraphContainer = dynamic(() => import("components/distance-graph/distance-graph/DistanceGraphContainer"), { ssr: false });
 
-const PostPage: NextPage<PostPageProps<HowTo>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData }) => {
+const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData }) => {
   const [activities, regions, countries] = useMappedCategories(post.category);
   const shouldIncludeTripDifficulty = post.category.activity.some((activityCode) => ["002", "003", "004"].includes(activityCode));
 
@@ -42,6 +42,11 @@ const PostPage: NextPage<PostPageProps<HowTo>> = ({ post, controlDisplayLinks, h
         <meta property="og:url" content={pageLink} />
         <meta property="og:site_name" content="Fair Enough Trips" />
         <meta property="og:image" content={`https://${Config.DOMAIN}/${post.id}/main.webp`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={postTitle} />
+        <meta name="twitter:description" content={postContent} />
+        <meta name="twitter:image" content={`https://${Config.DOMAIN}/${post.id}/main.webp`} />
+        <meta name="robots" content="index, follow" />
       </Head>
       <div>
         <Navbar />
@@ -91,7 +96,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PostPageProps<HowTo>> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<PostPageProps<Article>> = async ({ params }) => {
   const mongoClient = await mongoClientConnectPromise;
 
   const displayGpxChartPromise = access(`./public/${params?.id}/poi.json`).then(
