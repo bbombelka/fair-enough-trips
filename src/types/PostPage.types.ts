@@ -32,7 +32,7 @@ export type PostVideo = {
 };
 
 type Paragraph = string[];
-type TitledParagraph = { title: string; body: Paragraph };
+type TitledParagraph = { title: string; body: Paragraph; links?: PostLink[] };
 
 export type CodedCategory = {
   country: string[];

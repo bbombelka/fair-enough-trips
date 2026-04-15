@@ -34,7 +34,7 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
     .filter(Boolean)
     .join(", ");
 
-  const metaDescription = `${postTitle} ${statsSummary ? `[${statsSummary}]` : ""} - descriptinon with photos, map, gps track,${metaDescriptionElements.length ? `, ${metaDescriptionElements}.` : "."}`;
+  const metaDescription = `${postTitle} ${statsSummary ? `[${statsSummary}]` : ""} - description with photos, map, gps track,${metaDescriptionElements.length ? `, ${metaDescriptionElements}.` : "."}`;
 
   let orderCounter = 1;
 
@@ -77,8 +77,8 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
         {post.description?.length && (
           <>
             <Divider title="Route description" order={orderCounter++} stickyScrollToElementId="paragraph-description" />
-            {post.description?.map(({ title, body }, i) => (
-              <Paragraph key={i} body={body} title={title} id="paragraph-conditions" />
+            {post.description?.map(({ title, body, links }, i) => (
+              <Paragraph key={i} body={body} title={title} id={`paragraph-description-${i + 1}`} links={links} />
             ))}
           </>
         )}
