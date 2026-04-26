@@ -57,6 +57,36 @@ a {
   color: var(--font-grey);
 }
 
+.image-gallery-slide {
+  /* background-color: red; */
+}
+
+.image-gallery-right-nav.image-gallery-right-nav {
+  right: -12px;
+}
+
+.image-gallery-left-nav.image-gallery-left-nav {
+  left: -12px;
+}
+
+.image-gallery-thumbnail {
+  /* Forces the slider to show exactly 5 thumbnails side by side */
+  width: calc(100% / 5) !important;
+  max-width: 250px;
+  margin: 24px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
+  font-size: 48px !important;
+  position: relative;
+}
+
+.slick-prev:before {
+  left: -28px !important;
+}
+
 :target {
   animation: highlight 5s ease-in-out;
 }

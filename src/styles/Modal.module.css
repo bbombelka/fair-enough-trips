@@ -1,34 +1,35 @@
 .modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    overflow: scroll;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
 }
 
 .modal-content {
-   display: flex;
-   justify-content: center;
-   padding: 4px;
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+  width: 100%;
 }
 
 .close-icon {
-    cursor: pointer;
-    position: fixed;
-    top: 24px;
-    right:48px;
+  cursor: pointer;
+  position: fixed;
+  top: 24px;
+  right: 48px;
 }
 
-@media screen and (max-width: 1200px)  {
-    .close-icon {
-        top: 6px;
-        right:12px;
-    }
-
-    .modal-header {
-        padding-top: 8px;
-    }
+@media screen and (max-width: 1200px) {
+  .close-icon {
+    top: 6px;
+    right: 12px;
   }
+
+  .modal-header {
+    padding-top: 8px;
+  }
+}
