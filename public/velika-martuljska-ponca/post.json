@@ -1,0 +1,216 @@
+{
+  "id": "velika-martuljska-ponca",
+  "category": {
+    "region": ["004"],
+    "country": ["003"],
+    "activity": ["004"]
+  },
+  "published": false,
+  "title": "Velika Martuljška Ponca",
+  "subTitle": "Climb to the top of Velika Martuljška Ponca (2.602m) in winter conditions from Krnica valley in Slovenian Julian Alps.",
+  "attractiveness": 3.5,
+  "condition": 4,
+  "difficulty": "II/III",
+  "terrain": "ravine,chimney",
+  "postDate": "2026-04-22T10:57:35.533Z",
+  "date": {
+    "season": 1,
+    "period": 2,
+    "month": 4,
+    "year": 2026
+  },
+  "stats": {
+    "duration": 10.25,
+    "up": 1650,
+    "down": 1650,
+    "distance": 14.7,
+    "highestPoint": 2602,
+    "climb": {
+      "access": 300,
+      "up": 60,
+      "down": 35
+    }
+  },
+  "trailCondition": [
+    "Snow cover started at around 1.400 meters (in the ravine) and continued to the top. Gaiters were absolutely necessary as some areas of the snow were soft and at least knee-deep. In the morning and in the shaded parts it was harder, however the climbing part which is oriented to the south and west did not offer very good conditions. It was a bit better in the left couloir which we used for climbing up due to the shade the couloir provided. The crampons were required only shortly before the climbing sections, same goes for ice axes. Trekking poles with snow baskets were enough up to here."
+  ],
+  "shortDescription": [
+    "Velika Martuljška Ponca rises to 2,602 meters in the Martuljek group of the Julian Alps in northwestern Slovenia. It stands above the upper valley of the Sava Dolinka between Kranjska Gora and Gozd Martuljek. The mountain forms a ridge with Mala Martuljška Ponca and drops steeply northward into the glacial amphitheatre of the Krnica Valley. Its northern face rises roughly 1,300 m above the forested valley floor, making it one of the most prominent walls in the Martuljek group. To the west the ridge continues toward Špik, while to the south the terrain descends toward high alpine basins (like Velika Dnina) feeding tributaries of the Sava Dolinka stream.",
+    "There is no marked trail to the summit of Velika Martuljška Ponca, and the ascent is considered a challenging undertaking. This description covers the normal route to the top from the Krnica Valley. The route is rated as II/III on the UIAA scale."
+  ],
+  "weather": ["Clouded but warm, in the sun short sleeve was enough while moving as far as the peak."],
+  "dangers": ["While crossing Velika Dnina cirque it's safer to keep to its left side - less avalanche-prone terrain in there."],
+  "accomodation": [
+    "One can spend the night at Krnica lodge (Koča v Krnici). The other option is to split the trip in two parts with an overnight stay at Bivak I v Veliki Dnini bivouac."
+  ],
+  "transportation": [
+    "The starting point can be reached by car. There is a parking lot in Krnica Valley just below Vršiška cesta road. To get to it we need to drive down a gravel road (its quality will suffice). Parking lot capacity will be enough in the spring, not sure about the summer. There are also single parking spaces right next to the road - that's an option if you are afraid of driving down the gravel road.",
+    "The parking lot is behind the barrier built on Vršič road and the ticket is taken from a different machine than the one for the Vršič pass. There might be a parking fee during the season which is between 15.06 - 15.09."
+  ],
+  "gear": [
+    "crampons",
+    "ice axes",
+    "helmet",
+    "gaiters",
+    "trekking poles",
+    "30l rucksack",
+    "personal climbing set",
+    "harness",
+    "30m rope",
+    "couple of loops",
+    "quickdraws",
+    "couple of friends"
+  ],
+  "other": [
+    "I didn't do proper homework before entering this route because there were expectations for more climbing and less hiking. The access to the climbing sections takes almost 1,400 meters of ascent and around 5h. The climbing itself is not very long but at least in the upper part it was a bit of fun and exciting. So if you plan to climb one of the highest peaks of Slovenia without a marked path - that's your trip. If you, however, aim for easy winter climbing, the ascent/climb ratio does not look good in this case and you may want to find other goals.",
+    "Velika Martuljška Ponca offers a close and detailed view of the Veliki Oltar and Visoki Rokav ridge and allows you to feel dwarfed in comparison with the sharp north face of Škrlatica."
+  ],
+  "iframeUrl": "https://mapy.com/s/penunuluse",
+  "startingPoint": "Krnica valley",
+  "endingPoint": "Krnica valley",
+  "links": {
+    "shortDescription": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "dangers": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "trailCondition": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "transportation": [
+      {
+        "title": "Parking location",
+        "href": "https://mapy.com/s/maruzanala"
+      }
+    ],
+    "accomodation": [
+      {
+        "title": "Bivuoac location",
+        "href": "https://mapy.com/s/gudakodure"
+      },
+      {
+        "title": "Krnica lodge - info",
+        "href": "https://pzs.si/koce/15/"
+      }
+    ],
+    "other": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ]
+  },
+  "images": [
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": ""
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    },
+    {
+      "desc": "",
+      "filename": "",
+      "isVertical": true
+    }
+  ],
+  "base64Image": "",
+  "description": [
+    {
+      "title": "Velika Martuljška Ponca normal route - access",
+      "body": [
+        "Setting off from the parking lot in Krnica Valley (the one below Vršiška cesta road) we cross Suha Pišnica stream and head in the direction of Krnica Lodge (Koča v Krnici). From the hut we follow the marked trail to Špik. On the way up we will cross a dry riverbed ravine and ascend along it - keeping the riverbed on the right. At some point the marked path will turn left - this is where we leave it and continue up along the riverbed."
+      ]
+    },
+    {
+      "title": "Velika Martuljška Ponca normal route (II/III)",
+      "body": [
+        "On leaving the marked trail to Špik we proceed up along the dry riverbed eventually to enter it. We will go up this ravine, passing a long and high branch-off on the left. After a while the direction will take us to the right, we cannot, however, proceed into the deep ravine in front of us and we will bypass it turning even more to the right and using milder slopes with dwarf-pine and some trees. Eventually we will land above the deep ravine we were bypassing. Shortly we will enter Velika Dnina - a glacial cirque surrounded by high walls of Velika Martuljška Ponca, Veliki Oltar, Visoki Rokav and Škrlatica. We have to get almost to the top of the cirque, keeping on the left side where the terrain is less steep. This is the end of the hiking part.",
+        "At around 2,400 meters the first difficulties will await us - in winter conditions with an inclination above 50 degrees. In summer conditions this part is rated as II, however the rock is chossy and requires lots of attention. On climbing it we land on a wide plateau from which we can see the next wall threshold that needs to be climbed and the peak. We ascend a little bit more and head in the direction of a narrow couloir to the left. This couloir is rated as II/III and is around 70 meters long. There are fixed points for abseiling. The quality of the rock is a bit better than in the lower part. On leaving this couloir there are around 50 vertical meters to get to the top of Velika Martuljška Ponca (a few cairns on the way).",
+        "The couloir mentioned above is not the only way up, there is also another one to the right with comparable difficulty not exceeding grade III, however with less reliable fixed points for abseiling if needed. It also seemed a little bit longer, maybe 25 meters more. Refer to the images to see the entrance to the couloirs. It might be problematic in bad weather.",
+        "For the descent, we will use the same route as on the way up - as mentioned, the couloir to the left (when going up) is more advisable because of the better protection."
+      ]
+    }
+  ]
+}
