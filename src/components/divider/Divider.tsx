@@ -8,7 +8,8 @@ export const Divider: FC<{
   title?: string;
   order?: number;
   stickyScrollToElementId?: string;
-}> = ({ title, order = 0, stickyScrollToElementId }) => {
+  id?: string;
+}> = ({ title, order = 0, stickyScrollToElementId, id }) => {
   const [isMounted, setIsMounted] = useState(false);
   const dividerRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +34,7 @@ export const Divider: FC<{
     <div
       onClick={isMobile ? scrollIntoView : undefined}
       ref={dividerRef}
-      id={title}
+      id={id ?? title}
       className={clsx(styles["divider-container"], isMobile && styles["sticky-divider-container"])}
       style={style}
     >

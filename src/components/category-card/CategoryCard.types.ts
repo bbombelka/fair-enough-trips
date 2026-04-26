@@ -9,6 +9,7 @@ export type CategoryCardProps = {
   areNotesPresent?: boolean;
   blurDataURL: string;
   id: string;
+  buttonLabel: string;
 };
 
 export type CategoryDocument<T extends "region" | "country"> = {
