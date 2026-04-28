@@ -1,9 +1,8 @@
-
 /* 
 when changing bottom border or line height please adjust DIVIDER_HEIGHT in main module !!! 
 */
 .divider {
-  border-bottom: 2px solid var(--color-grey); 
+  border-bottom: 2px solid var(--color-grey);
   font-weight: 700;
   margin: 24px 0;
   line-height: 24px;
@@ -13,7 +12,6 @@ when changing bottom border or line height please adjust DIVIDER_HEIGHT in main 
   .sticky-divider {
     position: sticky;
     background-color: white;
-    z-index: 1;
+    z-index: 2;
   }
 }
-

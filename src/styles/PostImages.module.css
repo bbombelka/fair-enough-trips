@@ -27,6 +27,26 @@
   object-position: center;
 }
 
+.slick-container {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.slick-image-container {
+  padding: 0 12px;
+  cursor: pointer;
+  height: 300px;
+}
+
+.slick-container-modal {
+  max-width: 1066px;
+  width: 100%;
+}
+
+.slick-modal-image-container {
+  margin: 0 auto;
+}
+
 @media (max-width: 720px) {
   .image {
     width: 100%;
