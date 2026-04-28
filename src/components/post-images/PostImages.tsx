@@ -22,7 +22,7 @@ type PostImagesProps = {
 
 export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToDisplay, videos }) => {
   const isProd = process.env.NODE_ENV === "production";
-  const galleryRef = useRef<ImageGalleryRef>(null);
+
   const copy = (e: any) => {
     navigator.clipboard.writeText(`"${e.currentTarget.innerText}"`);
   };
@@ -36,23 +36,15 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
 
   const slickSettings: Settings = {
     infinite: false,
-    // nextArrow: true,
-    speed: 500,
 
+    speed: 500,
     slidesToShow: 3.5,
     slidesToScroll: 2,
+    initialSlide: startIndex,
     responsive: [
       {
-        breakpoint: 1024,
-        settings: { slidesToShow: 4, slidesToScroll: 3 },
-      },
-      // {
-      //   breakpoint: 1024,
-      //   settings: { slidesToShow: 3, slidesToScroll: 2 },
-      // },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 2, slidesToScroll: 1 },
+        breakpoint: 720,
+        settings: { slidesToShow: 1, slidesToScroll: 1 },
       },
     ],
   };
@@ -64,12 +56,6 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: startIndex,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 2, slidesToScroll: 1 },
-      },
-    ],
   };
 
   const galleryImages = images.map(({ filename, desc, isVertical }, imageId) => {
@@ -144,30 +130,11 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
     <div>
       <Divider title="Visual" order={order} stickyScrollToElementId="post-images" />
       <div id="post-images" style={{ maxWidth: "1200px" }}>
-        {/* <div style={{ display: "flex", overflowX: "auto", gap: "8px", paddingBottom: "12px" }}>
-          {galleryImages.map((img, index) => (
-            <div
-              key={index}
-              className="image-gallery-thumbnail-inner"
-              onClick={() => openVisualModal(index)}
-              style={{ cursor: "pointer", flexShrink: 0, width: "200px", height: "133px" }}
-            >
-              <img
-                src={img.thumbnail}
-                alt={img.description || `Thumbnail ${index}`}
-                loading="lazy"
-                style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              />
-            </div>
-          ))}
-        </div> */}
-
-        {/* React Slick Version */}
         <div style={{ marginTop: "40px", width: "100%", display: "block" }}>
           <Slider {...slickSettings}>
             {galleryImages.map((img, index) => (
               <div key={index} onClick={() => openVisualModal(index)}>
-                <div style={{ padding: "0 12px", cursor: "pointer", height: "300px" }}>
+                <div style={{ padding: "0 12px", cursor: "pointer", height: "150px" }}>
                   <img
                     src={img.thumbnail}
                     alt={img.description || `Thumbnail ${index}`}
@@ -182,31 +149,15 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
 
         {showModal && (
           <Modal className="image-modal" closeModalCallback={() => setShowModal(false)}>
-            <div style={{ maxWidth: "1066px", height: "auto" }}>
+            <div style={{ maxWidth: "1066px", height: "auto", width: "100%" }}>
               <Slider {...slickSettingsModal}>{galleryImages2}</Slider>
             </div>
           </Modal>
         )}
-
-        {/* {showModal && (
-          <Modal closeModalCallback={() => setShowModal(false)} title="Images"> */}
-        {/* <ImageGallery
-          ref={galleryRef}
-          items={galleryImages}
-          lazyLoad={true}
-          startIndex={startIndex}
-          onClick={() => galleryRef.current?.toggleFullScreen()}
-          onBeforeSlide={() => galleryRef.current?.toggleFullScreen()}
-          showThumbnails={true}
-          showPlayButton={false}
-          infinite={false}
-          // showFullscreenButton={true} // Acts as your lightbox
-          // slideDuration={450}
-          showIndex
-        /> */}
-        {/* </Modal> */}
-        {/* )} */}
       </div>
+      {videos?.map(({ src, desc }) => (
+        <YoutubeIframe key={src} src={src} description={desc} />
+      ))}
     </div>
   );
 };

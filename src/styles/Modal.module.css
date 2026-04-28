@@ -7,6 +7,7 @@
   height: 100%;
   width: 100%;
   overflow: scroll;
+  overscroll-behavior: none;
 }
 
 .modal-content {
@@ -25,11 +26,14 @@
 
 @media screen and (max-width: 1200px) {
   .close-icon {
-    top: 6px;
-    right: 12px;
+    width: 48px;
+    height: 48px;
+    top: 1px;
+    right: 1px;
   }
 
   .modal-header {
     padding-top: 8px;
+    min-height: 24px;
   }
 }

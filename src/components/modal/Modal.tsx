@@ -27,7 +27,7 @@ export const Modal = ({ className, closeModalCallback, children, title, ...props
     <div className={`${styles["modal-container"]} ${className}`} role="dialog" {...props}>
       <div className={styles["modal-header"]}>
         {!isMobileUA && title && <h1 className={layoutStyles.title}>{title}</h1>}
-        <FontAwesomeIcon className={styles["close-icon"]} icon={faXmark} size={isMobileUA ? "2x" : "3x"} onClick={closeModalCallback} />
+        <FontAwesomeIcon className={styles["close-icon"]} icon={faXmark} size={isMobileUA ? "1x" : "3x"} onClick={closeModalCallback} />
       </div>
       <div className={styles["modal-content"]}>{children}</div>
     </div>

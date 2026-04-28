@@ -22,8 +22,17 @@
   border-radius: 4px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  /* width: 100%; */
   height: auto;
   object-fit: cover;
   object-position: center;
+}
+
+@media (max-width: 720px) {
+  .image {
+    width: 100%;
+  }
+
+  :global(.image-modal) .images {
+    margin: 20px auto 12px;
+  }
 }

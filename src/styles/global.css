@@ -4,6 +4,7 @@ body {
   font-family: "Lato", sans-serif;
   scroll-behavior: smooth;
   scroll-padding-top: 90px;
+  overscroll-behavior: none;
 }
 
 /* lato-regular - latin */
@@ -69,13 +70,6 @@ a {
   left: -12px;
 }
 
-.image-gallery-thumbnail {
-  /* Forces the slider to show exactly 5 thumbnails side by side */
-  width: calc(100% / 5) !important;
-  max-width: 250px;
-  margin: 24px;
-}
-
 .slick-prev:before,
 .slick-next:before {
   color: black !important;
@@ -104,5 +98,28 @@ a {
   p,
   span {
     font-size: 14px;
+  }
+
+  .slick-prev {
+    left: 16px !important;
+    z-index: 1;
+  }
+
+  .slick-next {
+    right: 16px !important;
+    z-index: 1;
+  }
+
+  .image-modal .slick-prev {
+    z-index: 1;
+    top: -16px !important;
+    left: 24px !important;
+  }
+
+  .image-modal .slick-next {
+    top: -16px !important;
+    right: 0 !important;
+    left: 56px !important;
+    z-index: 1;
   }
 }
