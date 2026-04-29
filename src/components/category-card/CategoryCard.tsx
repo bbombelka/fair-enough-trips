@@ -17,6 +17,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   areNotesPresent,
   blurDataURL,
   id,
+  buttonLabel,
 }) => {
   const postCardRef = useRef<HTMLDivElement>(null);
   const scrollDownTrips = useScrollDown("card-list");
@@ -67,7 +68,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
                 scrollDownNotes();
               }}
             >
-              <button className={buttonClass}>Read trip notes</button>
+              <button className={buttonClass}>{buttonLabel}</button>
             </NextLink>
           </Box>
         )}

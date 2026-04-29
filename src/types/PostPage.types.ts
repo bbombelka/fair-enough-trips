@@ -1,10 +1,11 @@
-import { Activities, Regions, Countries } from "enums/categories";
+import { Article, WithContext } from "schema-dts";
 
-export type PostPageProps = {
+export type PostPageProps<T extends Article> = {
   post: FullPost;
   controlDisplayLinks: ControlDisplayLinks;
   hasRouteScheme: boolean;
   hdImagesToDisplay: Array<string | undefined>;
+  richData: WithContext<T>;
 };
 
 export type ControlDisplayLinks = {
@@ -31,6 +32,7 @@ export type PostVideo = {
 };
 
 type Paragraph = string[];
+type TitledParagraph = { title: string; body: Paragraph; links?: PostLink[] };
 
 export type CodedCategory = {
   country: string[];
@@ -77,6 +79,7 @@ export type FullPost = {
   postDate: Date;
   base64Image: string;
   videos: PostVideo[];
+  description?: TitledParagraph[];
 };
 
 export type DateClass = {

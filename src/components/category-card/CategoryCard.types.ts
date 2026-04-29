@@ -4,12 +4,14 @@ import { Category } from "types/PostPage.types";
 export type CategoryCardProps = {
   category: Category & { originalName: string };
   postIds: string[];
-  isMainCard: boolean;
   categoryType: CategoriesEnum;
-  areNotesPresent?: boolean;
   blurDataURL: string;
   id: string;
-};
+} & (
+  | { isMainCard: true; areNotesPresent: true; buttonLabel: string }
+  | { isMainCard: true; areNotesPresent?: false; buttonLabel?: string }
+  | { isMainCard: false; areNotesPresent?: boolean; buttonLabel?: string }
+);
 
 export type CategoryDocument<T extends "region" | "country"> = {
   category: { [K in T]: string[] };

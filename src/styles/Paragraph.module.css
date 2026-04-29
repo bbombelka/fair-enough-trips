@@ -6,6 +6,8 @@
 
 .title {
   color: var(--font-grey);
+  font-size: 16px;
+  letter-spacing: 0.5px;
 }
 
 .links {
@@ -28,12 +30,39 @@
   text-decoration: underline;
 }
 
+.list-item {
+  margin-bottom: 8px;
+  padding-left: 8px;
+}
+
+.list {
+  list-style-type: disc;
+  padding-inline-start: 24px;
+  text-align: justify;
+  line-height: 20px;
+}
+
 @media (max-width: 720px) {
   .link span {
     font-size: 12px !important;
   }
 
   .paragraph {
+    text-indent: 12px;
     line-height: 20px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .list-item {
+    font-size: 14px;
+    /* margin-bottom: 4px; */
+    padding-left: 0px;
+  }
+
+  .list {
+    padding-inline-start: 12px;
   }
 }

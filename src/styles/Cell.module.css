@@ -1,20 +1,15 @@
-.cell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 2px solid var(--color-grey);
-  margin: 0 -2px -2px 0;
-  padding: 0 2px;
-}
-
 .label,
 .value {
-  padding: 4px 0;
+  padding: 8px 12px;
   text-align: center;
+  border: 2px solid var(--color-grey);
+  font-size: 14px;
 }
 
 .label {
   color: var(--font-grey);
+  font-weight: normal;
+  font-size: var;
 }
 
 .value {

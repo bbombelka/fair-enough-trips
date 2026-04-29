@@ -1,0 +1,4 @@
+.menu-item {
+  padding: 24px 16px;
+  border-bottom: 2px solid var(--color-grey);
+}

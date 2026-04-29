@@ -1,4 +1,3 @@
-import { Divider } from "components/divider/Divider";
 import Config from "Config";
 import { FC, useState } from "react";
 import { FETImage } from "components/fet-image/FETImage";
@@ -102,27 +101,24 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
   });
 
   return (
-    <>
-      <Divider title="Visual" order={order} stickyScrollToElementId="post-images" />
-      <div id="post-images">
-        <div className={styles["slick-container"]}>
-          <Slider {...slickSettings}>{slickImages}</Slider>
-        </div>
-        <div className={styles["slick-container"]}>
-          <Slider {...videosSlickSettings}>
-            {videos?.map(({ src, desc }) => (
-              <YoutubeIframe key={src} src={src} description={desc} />
-            ))}
-          </Slider>
-        </div>
-        {showModal && (
-          <Modal className="image-modal" closeModalCallback={() => setShowModal(false)}>
-            <div className={styles["slick-container-modal"]}>
-              <Slider {...slickSettingsModal}>{modalSlickImages}</Slider>
-            </div>
-          </Modal>
-        )}
+    <div id="post-images">
+      <div className={styles["slick-container"]}>
+        <Slider {...slickSettings}>{slickImages}</Slider>
       </div>
-    </>
+      <div className={styles["slick-container"]}>
+        <Slider {...videosSlickSettings}>
+          {videos?.map(({ src, desc }) => (
+            <YoutubeIframe key={src} src={src} description={desc} />
+          ))}
+        </Slider>
+      </div>
+      {showModal && (
+        <Modal className="image-modal" closeModalCallback={() => setShowModal(false)}>
+          <div className={styles["slick-container-modal"]}>
+            <Slider {...slickSettingsModal}>{modalSlickImages}</Slider>
+          </div>
+        </Modal>
+      )}
+    </div>
   );
 };

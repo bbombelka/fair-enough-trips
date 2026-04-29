@@ -13,7 +13,9 @@ function useSessionStorage<T>(key: string, initialValue?: T): [T, Dispatch<SetSt
 
   useEffect(() => {
     try {
-      sessionStorage.setItem(key, JSON.stringify(value));
+      if (value !== undefined) {
+        sessionStorage.setItem(key, JSON.stringify(value));
+      }
     } catch (error) {
       console.error("Error saving to sessionStorage", error);
     }

@@ -14,7 +14,7 @@ const RouteSchemeContainer: FC<Props> = ({ id }) => {
   const { data, isLoading, hasError } = useRouteSchemePoints({ id, isEnabled: true });
 
   return (
-    <div className={styles["route-scheme-container"]}>
+    <div id="route-scheme" className={styles["route-scheme-container"]}>
       <Loader loadingHeading="Route scheme is loading" isLoading={isLoading} />
       {hasError ? (
         <Alert className={styles["error"]} message="Error while loading route scheme">

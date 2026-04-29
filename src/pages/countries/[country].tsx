@@ -42,11 +42,12 @@ const Category: NextPage<HomePageProps> = ({ posts, notes, code, imageId, base64
           areNotesPresent={Boolean(notes.length)}
           id={imageId}
           blurDataURL={base64Image}
+          buttonLabel="Country info"
         />
         {Boolean(notes.length) && (
           <Layout>
             <Box margin="0 0 32px">
-              <TripNotes notes={notes} />
+              <TripNotes notes={notes} title="Country info" />
             </Box>
           </Layout>
         )}

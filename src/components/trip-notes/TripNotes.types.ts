@@ -6,7 +6,7 @@ export type TripNote = {
   links: PostLink[];
 };
 
-export type TripNotesProps = Pick<TripNoteDocument, "notes">;
+export type TripNotesProps = Pick<TripNoteDocument, "notes"> & { title: string };
 
 export type TripNoteDocument = {
   id: string;

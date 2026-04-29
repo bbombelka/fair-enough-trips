@@ -8,18 +8,14 @@ export const Divider: FC<{
   title?: string;
   order?: number;
   stickyScrollToElementId?: string;
-}> = ({ title, order = 0, stickyScrollToElementId }) => {
+  id?: string;
+}> = ({ title, order = 0, stickyScrollToElementId, id }) => {
   const [isMounted, setIsMounted] = useState(false);
   const dividerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (
-      process.env.NODE_ENV == "development" &&
-      title === stickyScrollToElementId
-    ) {
-      throw new Error(
-        "title and stickyScrollToElementId cannot be identical due to accesibility duplicated id problem"
-      );
+    if (process.env.NODE_ENV == "development" && title === stickyScrollToElementId) {
+      throw new Error("title and stickyScrollToElementId cannot be identical due to accesibility duplicated id problem");
     }
 
     setIsMounted(true);
@@ -30,9 +26,7 @@ export const Divider: FC<{
 
   const scrollIntoView = () => {
     if (stickyScrollToElementId) {
-      document
-        .getElementById(stickyScrollToElementId)
-        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById(stickyScrollToElementId)?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
@@ -40,11 +34,11 @@ export const Divider: FC<{
     <div
       onClick={isMobile ? scrollIntoView : undefined}
       ref={dividerRef}
-      id={title}
-      className={clsx(styles.divider, isMobile && styles["sticky-divider"])}
+      id={id ?? title}
+      className={clsx(styles["divider-container"], isMobile && styles["sticky-divider-container"])}
       style={style}
     >
-      {title}
+      <h2 className={styles["divider"]}>{title}</h2>
     </div>
   );
 };

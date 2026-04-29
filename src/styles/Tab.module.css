@@ -1,0 +1,25 @@
+.container {
+  cursor: pointer;
+}
+
+.tab-content {
+  height: var(--navbar-height);
+  border-bottom: 3px solid var(--color-grey);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: -1;
+  background-color: #fff;
+  width: 100%;
+  position: fixed;
+  top: calc(var(--navbar-height) * -1);
+  display: flex;
+  left: 0;
+  align-items: center;
+  justify-content: space-around;
+  transition: ease-in 0.2s top;
+}
+
+.tab-content-open {
+  top: var(--navbar-height);
+  transition: ease-in 0.2s top;
+}

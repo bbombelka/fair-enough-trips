@@ -12,6 +12,7 @@
 .next-image-container {
   position: relative;
   height: 100%;
+  overflow: hidden;
 }
 
 .textBox {
@@ -105,7 +106,7 @@
   position: absolute;
   border-radius: 12px;
   color: white;
-  animation: animateScrollButton 5s ease 4s 1 normal forwards;
+  animation: animateScrollButton 5s ease 3s 1 normal forwards;
 }
 
 .scroll-down-icon.is-top {
@@ -162,5 +163,33 @@
 
   .textBox {
     padding: 16px 0;
+  }
+}
+
+@keyframes animateScrollButton {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70% {
+    transform: translateY(-16px);
+  }
+
+  20%,
+  40%,
+  60% {
+    transform: translateY(16px);
+  }
+
+  80% {
+    transform: translateY(12px);
+  }
+
+  90% {
+    transform: translateY(-12px);
   }
 }

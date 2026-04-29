@@ -42,11 +42,12 @@ const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, im
           categoryType={CategoriesEnum.Regions}
           category={region}
           areNotesPresent={Boolean(notes.length)}
+          buttonLabel="Region info"
         />
         {Boolean(notes.length) && (
           <Layout>
             <Box margin="0 0 32px">
-              <TripNotes notes={notes} />
+              <TripNotes notes={notes} title="Region info" />
             </Box>
           </Layout>
         )}

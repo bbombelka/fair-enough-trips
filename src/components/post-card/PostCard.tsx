@@ -45,18 +45,16 @@ export const PostCard: FC<PostCardProps> = ({
       {postDate && <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />}
       {isMainPostCard && displayScrollDownButton && <FontAwesomeIcon className={scrollDownIconClass} icon={faAnglesDown} onClick={scrollDown} />}
       <div className={imageContainerClass}>
-        {isMounted && (
-          <FETImage
-            preload={isMainPostCard}
-            className={imageClass}
-            src={src}
-            alt={"Main trip picture"}
-            fill
-            placeholder="blur"
-            blurDataURL={base64Image}
-            onError={() => setError(true)}
-          />
-        )}
+        <FETImage
+          preload={isMainPostCard}
+          className={imageClass}
+          src={src}
+          alt={`Picture of ${id}`}
+          fill
+          placeholder="blur"
+          blurDataURL={base64Image}
+          onError={() => setError(true)}
+        />
       </div>
       <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>

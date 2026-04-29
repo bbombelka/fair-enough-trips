@@ -1,20 +1,16 @@
 .container {
   margin-left: 24px;
   width: 32%;
+  border-collapse: collapse;
 }
 
 .table {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  width: 100%;
 }
 
 @media (max-width: 720px) {
   .container {
     margin: 24px 0 0;
     width: 100%;
-  }
-
-  .table {
-    grid-template-columns: 1fr 1fr 1fr;
   }
 }
