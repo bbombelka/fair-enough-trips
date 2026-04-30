@@ -1,7 +1,4 @@
-import { Navbar, Layout, Map, Footer } from "components";
-import { Divider } from "components/divider/Divider";
-import { Paragraph } from "components/paragraph/Paragraph";
-import { PostImages } from "components/post-images/PostImages";
+import { Navbar, Footer } from "components";
 import Config from "Config";
 import { access } from "fs/promises";
 import mongoClientConnectPromise from "MongoClient";
@@ -10,11 +7,11 @@ import Head from "next/head";
 import { PostPageProps, FullPost } from "types/PostPage.types";
 import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
-import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
 import readBucketFiles from "server/shared/aws/readBucketFiles";
 import preparePostRichData from "server/utils/prepare-rich-data";
 import { Article } from "schema-dts";
 import { useMappedCategories } from "hooks/useMappedCategories";
+import { PostTemplate } from "components/templates/PostTemplate";
 
 const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData }) => {
   const [activities, regions, countries] = useMappedCategories(post.category);
@@ -35,8 +32,6 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
     .join(", ");
 
   const metaDescription = `${postTitle} ${statsSummary ? `[${statsSummary}]` : ""} - description with photos, map, gps track,${metaDescriptionElements.length ? `, ${metaDescriptionElements}.` : "."}`;
-
-  let orderCounter = 1;
 
   return (
     <>
@@ -64,38 +59,7 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
         <meta name="robots" content="index, follow" />
       </Head>
       <Navbar />
-      <Layout title={post.title}>
-        <Map post={post} controlDisplayLinks={controlDisplayLinks} />
-        {hasRouteScheme && (
-          <>
-            <Divider title="Route scheme" order={orderCounter++} stickyScrollToElementId="route-scheme" />
-            <RouteSchemeContainer id={post.id} />
-          </>
-        )}
-        <Divider title="Trip overview" order={orderCounter++} stickyScrollToElementId="paragraph-overview" />
-        <Paragraph id="paragraph-overview" body={post.shortDescription} links={post.links["shortDescription"]} />
-        {post.description?.length && (
-          <>
-            <Divider title="Route description" order={orderCounter++} stickyScrollToElementId="paragraph-description" />
-            {post.description?.map(({ title, body, links }, i) => (
-              <Paragraph key={i} body={body} title={title} id={`paragraph-description-${i + 1}`} links={links} />
-            ))}
-          </>
-        )}
-        <Divider title="Trip conditions" order={orderCounter++} stickyScrollToElementId="paragraph-conditions" />
-        <Paragraph body={post.weather} title="Weather" id="paragraph-conditions" />
-        <Paragraph body={post.trailCondition} title="Trail" links={post.links["trailCondition"]} />
-        <Divider title="Additional information" order={orderCounter++} stickyScrollToElementId="paragraph-other" />
-        <Paragraph links={post.links["other"]} title="Tips and author's comments" body={post.other} id="paragraph-other" />
-        <Paragraph links={post.links["dangers"]} body={post.dangers} title="Dangers" />
-        <Paragraph links={post.links["gear"]} body={post.gear} title="Gear used" />
-        <Paragraph links={post.links["transportation"]} body={post.transportation} title="Transportation" />
-        <Paragraph links={post.links["accomodation"]} body={post.accomodation} title="Accommodation" id="paragraph-general" />
-        <Divider title={`Trip photos ${post.videos?.length ? "and videos" : ""}`} order={orderCounter++} stickyScrollToElementId="post-images" />
-        {Boolean(post.images.length || post.videos?.length) && (
-          <PostImages hdImagesToDisplay={hdImagesToDisplay} videos={post.videos} images={post.images} id={post.id} order={orderCounter++} />
-        )}
-      </Layout>
+      <PostTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} hdImagesToDisplay={hdImagesToDisplay} />
       <Footer isSticky />
     </>
   );
