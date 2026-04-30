@@ -35,6 +35,18 @@
   },
   "trailCondition": [""],
   "shortDescription": [""],
+  "description": [
+    {
+      "title": "",
+      "body": [],
+      "links": [
+        {
+          "title": "",
+          "href": ""
+        }
+      ]
+    }
+  ],
   "weather": [""],
   "dangers": [""],
   "accomodation": [""],
