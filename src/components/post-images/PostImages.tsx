@@ -1,46 +1,48 @@
 import Config from "Config";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { FETImage } from "components/fet-image/FETImage";
 import styles from "styles/PostImages.module.css";
 import { PostImage, PostVideo } from "types/PostPage.types";
 import { useBucketSourcePath } from "hooks/useBucketSourcePath";
 import { YoutubeIframe } from "components/yt-iframe/YoutubeIframe";
 
-import "react-image-gallery/styles/image-gallery.css";
 import { Modal } from "components/modal/Modal";
 import Slider, { Settings } from "react-slick";
 
 import { useWindowSize } from "hooks/useWindowSize";
+import { useGlobalContext } from "hooks/useGlobalContext";
 
 type PostImagesProps = {
   id: string;
   images: PostImage[];
   videos: PostVideo[];
-  order?: number;
   hdImagesToDisplay: Array<string | undefined>;
 };
 
-export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToDisplay, videos }) => {
+export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay, videos }) => {
   const isProd = process.env.NODE_ENV === "production";
 
   const copy = (e: any) => {
     navigator.clipboard.writeText(`"${e.currentTarget.innerText}"`);
   };
-  const [showModal, setShowModal] = useState(false);
-  const [startIndex, setStartIndex] = useState(0);
+  const { showModal, setOpenModal, currentImage, setCurrentImage } = useGlobalContext();
+
+  // const [startIndex, setImageIndex] = useState(0);
   const { isMobile } = useWindowSize();
 
-  const openVisualModal = (index: number) => {
-    setStartIndex(index);
-    setShowModal(true);
+  const openVisualModal = (currentImage: string) => {
+    setCurrentImage(currentImage);
+    setOpenModal(true);
   };
+
+  const currentImageIndex = images.findIndex((image) => image.filename === currentImage);
 
   const slickSettings: Settings = {
     infinite: false,
     speed: 500,
     slidesToShow: isMobile ? 1 : 3.5,
     slidesToScroll: isMobile ? 1 : 2,
-    initialSlide: startIndex,
+    initialSlide: currentImageIndex === -1 ? 0 : currentImageIndex,
     lazyLoad: "ondemand",
   };
 
@@ -49,7 +51,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: startIndex,
+    initialSlide: currentImageIndex === -1 ? 0 : currentImageIndex,
     lazyLoad: "ondemand",
   };
 
@@ -61,7 +63,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
     const { src } = useBucketSourcePath({ id, filename, hdImagesToDisplay });
 
     return (
-      <div id="post-images" key={index} className={styles.images} style={{ maxWidth: width }} onClick={() => openVisualModal(index)}>
+      <div id="post-images" key={index} className={styles.images} style={{ maxWidth: width }} onClick={() => openVisualModal(filename)}>
         <div className={styles["slick-image-container"]}>
           <FETImage
             id={filename}
@@ -113,7 +115,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, order, hdImagesToD
         </Slider>
       </div>
       {showModal && (
-        <Modal className="image-modal" closeModalCallback={() => setShowModal(false)}>
+        <Modal className="image-modal" closeModalCallback={() => setOpenModal(false)}>
           <div className={styles["slick-container-modal"]}>
             <Slider {...slickSettingsModal}>{modalSlickImages}</Slider>
           </div>

@@ -1,12 +1,15 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { RouteSchemePoint } from "../RouteScheme.types";
 import styles from "styles/StepperTooltipContent.module.css";
 import { formatTimeElapsed } from "../RouteScheme.utils";
 import { useScrollForOutOfViewport } from "hooks/useScrollForOutOfViewport";
 
+import { useGlobalContext } from "hooks/useGlobalContext";
+
 export const RouteSchemeGraphTooltipPointContent: FC<{ point: RouteSchemePoint }> = ({ point }) => {
   const { distance, altitude, images, type, paragraphs, name, timeElapsed, elevationGain } = point;
   const ref = useScrollForOutOfViewport();
+  const { setCurrentImage, setOpenModal } = useGlobalContext();
 
   return (
     <div ref={ref} className={styles["container"]}>
@@ -40,9 +43,17 @@ export const RouteSchemeGraphTooltipPointContent: FC<{ point: RouteSchemePoint }
             <span>
               {images?.map((image) => {
                 return (
-                  <a href={`#${image}`} key={image}>
-                    <img className={styles["content-list-image"]} src="/image.svg" width={16} height={16} />
-                  </a>
+                  <img
+                    key={image}
+                    className={styles["content-list-image"]}
+                    src="/image.svg"
+                    width={16}
+                    height={16}
+                    onClick={() => {
+                      setOpenModal(true);
+                      setCurrentImage(image);
+                    }}
+                  />
                 );
               })}
             </span>
