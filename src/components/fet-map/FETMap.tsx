@@ -11,14 +11,14 @@ import { Modal } from "components/modal/Modal";
 import dynamic from "next/dynamic";
 import { LandscapeOnly } from "components/support/landscape-only/LandscapeOnly";
 
-type MapProps = {
+type FETMapProps = {
   post: FullPost;
   controlDisplayLinks: ControlDisplayLinks;
 };
 
 const GpxChart = dynamic(() => import("components/gpx-chart/GpxChart"), { ssr: false });
 
-export const Map: FC<MapProps> = ({ post, controlDisplayLinks: { displayGpxChart, displayGpxDownload } = {} }) => {
+export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGpxChart, displayGpxDownload } = {} }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [showMapIframe, setShowMapIframe] = useState(true);
   const [showModal, setShowModal] = useState(false);
