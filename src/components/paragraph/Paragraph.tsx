@@ -1,3 +1,6 @@
+import { Link } from "components/link/Link";
+import Config from "Config";
+import { useGlobalContext } from "hooks/useGlobalContext";
 import React, { FC, ReactNode } from "react";
 import styles from "styles/Paragraph.module.css";
 import { PostLink } from "types/PostPage.types";
@@ -15,6 +18,7 @@ export const Paragraph: FC<{
 }> = ({ body, title, links, id }) => {
   const content: ReactNode[] = [];
   let listItems: ReactNode[] = [];
+  const { setOpenModal, setCurrentImage } = useGlobalContext();
 
   body.forEach((paragraph, i) => {
     if (typeof paragraph === "object" && paragraph.tag === "li") {
@@ -53,11 +57,40 @@ export const Paragraph: FC<{
       {Boolean(links?.length) && (
         <p>
           <span className={styles.links}>Links:</span>
-          {links?.map(({ title, href }, id) => (
-            <a key={id} className={styles.link} href={href} target="_blank">
-              <span>{title}</span>
-            </a>
-          ))}
+          {links?.map(({ title, href, internal, type }, id) => {
+            if (internal) {
+              switch (type) {
+                case "navigation":
+                  return <Link key={id} className={styles.link} href={href} name={title} />;
+                case "image":
+                  return (
+                    <a
+                      key={id}
+                      className={styles.link}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCurrentImage(href);
+                        setOpenModal(true);
+                      }}
+                    >
+                      <span>{title}</span>
+                    </a>
+                  );
+                default:
+                  return (
+                    <a key={id} href={`#${href}`}>
+                      {title}
+                    </a>
+                  );
+              }
+            } else {
+              return (
+                <a key={id} className={styles.link} href={href} target="_blank">
+                  <span>{title}</span>
+                </a>
+              );
+            }
+          })}
         </p>
       )}
     </div>

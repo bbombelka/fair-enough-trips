@@ -16,6 +16,8 @@ export type ControlDisplayLinks = {
 export type PostLink = {
   title: string;
   href: string;
+  internal?: boolean;
+  type: "image" | "navigation";
 };
 
 type Links = Record<"accomodation" | "transportation" | "other" | "dangers" | "weather" | "gear" | "shortDescription" | "trailCondition", PostLink[]>;
