@@ -1,16 +1,16 @@
 import Config from "Config";
-import { FC, useContext, useState } from "react";
+import { FC } from "react";
 import { FETImage } from "components/fet-image/FETImage";
 import styles from "styles/PostImages.module.css";
 import { PostImage, PostVideo } from "types/PostPage.types";
-import { useBucketSourcePath } from "hooks/useBucketSourcePath";
+import { useImageSourcePath } from "hooks/useImageSourcePath";
 import { YoutubeIframe } from "components/yt-iframe/YoutubeIframe";
 
 import { Modal } from "components/modal/Modal";
-import Slider, { Settings } from "react-slick";
+import Slider from "react-slick";
 
-import { useWindowSize } from "hooks/useWindowSize";
 import { useGlobalContext } from "hooks/useGlobalContext";
+import { useSlickSettings } from "hooks/useSlickSettings";
 
 type PostImagesProps = {
   id: string;
@@ -27,8 +27,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
   };
   const { showModal, setOpenModal, currentImage, setCurrentImage } = useGlobalContext();
 
-  // const [startIndex, setImageIndex] = useState(0);
-  const { isMobile } = useWindowSize();
+  const getImageSourcePath = useImageSourcePath();
 
   const openVisualModal = (currentImage: string) => {
     setCurrentImage(currentImage);
@@ -37,30 +36,12 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
 
   const currentImageIndex = images.findIndex((image) => image.filename === currentImage);
 
-  const slickSettings: Settings = {
-    infinite: false,
-    speed: 500,
-    slidesToShow: isMobile ? 1 : 3.5,
-    slidesToScroll: isMobile ? 1 : 2,
-    initialSlide: currentImageIndex === -1 ? 0 : currentImageIndex,
-    lazyLoad: "ondemand",
-  };
-
-  const slickSettingsModal: Settings = {
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: currentImageIndex === -1 ? 0 : currentImageIndex,
-    lazyLoad: "ondemand",
-  };
-
-  const videosSlickSettings = { ...slickSettings, slidesToShow: 1, slidesToScroll: 1 };
+  const { slickSettings, slickSettingsModal, videosSlickSettings } = useSlickSettings({ currentImageIndex });
 
   const slickImages = images.map(({ filename, desc, isVertical }, index) => {
     const width = isVertical ? Config.IMAGE_STRETCH_S : Config.IMAGE_STRETCH_L;
     const height = isVertical ? Config.IMAGE_STRETCH_M : Config.IMAGE_STRETCH_M;
-    const { src } = useBucketSourcePath({ id, filename, hdImagesToDisplay });
+    const { thumbSrc } = getImageSourcePath({ id, filename, hdImagesToDisplay });
 
     return (
       <div id="post-images" key={index} className={styles.images} style={{ maxWidth: width }} onClick={() => openVisualModal(filename)}>
@@ -68,7 +49,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
           <FETImage
             id={filename}
             className={styles.image}
-            src={src}
+            src={thumbSrc}
             alt={desc}
             quality="100"
             width={width}
@@ -85,12 +66,22 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
   const modalSlickImages = images.map(({ filename, desc, isVertical }, imageId) => {
     const width = isVertical ? Config.IMAGE_STRETCH_S : Config.IMAGE_STRETCH_L;
     const height = isVertical ? Config.IMAGE_STRETCH_M : Config.IMAGE_STRETCH_M;
-    const { src, hdImageSrc } = useBucketSourcePath({ id, filename, hdImagesToDisplay });
+    const { src } = getImageSourcePath({ id, filename, hdImagesToDisplay });
 
     return (
       <div key={imageId} className={styles.images}>
-        <a href={hdImageSrc} target="_blank" rel="noopener noreferrer">
-          <FETImage id={filename} src={src} alt={desc} quality="100" width={width} height={height} sizes="50vw" unoptimized className={styles["image"]} />
+        <a href={src} target="_blank" rel="noopener noreferrer">
+          <FETImage
+            id={filename}
+            src={src}
+            alt={desc}
+            quality="100"
+            width={width}
+            height={height}
+            sizes="50vw"
+            unoptimized
+            className={`${styles.image} ${styles["image-with-caption"]}`}
+          />
         </a>
         {!isProd && (
           <span className={styles.caption} onClick={copy}>
