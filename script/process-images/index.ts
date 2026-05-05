@@ -19,6 +19,29 @@ function naturalSort(a, b) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
 }
 
+function getWatermarkSvg(imageHeight: number): Buffer {
+  const fontSize = Math.max(12, Math.floor(imageHeight * 0.02));
+  const svgWidth = Math.floor(fontSize * 15);
+  const svgHeight = Math.floor(fontSize * 1.5);
+  const padding = Math.max(10, Math.floor(fontSize * 0.5));
+  const xPos = svgWidth - padding;
+
+  const svgImage = `
+    <svg width="${svgWidth}" height="${svgHeight}">
+      <style>
+        .title { 
+          fill: rgba(255, 255, 255, 0.5); /* White text with 50% opacity */
+          font-size: ${fontSize}px; 
+          font-weight: bold;
+          font-family: Arial, sans-serif;
+        }
+      </style>
+      <text x="${xPos}" y="${fontSize}" text-anchor="end" class="title">© fairenoughtrips.com</text>
+    </svg>
+  `;
+  return Buffer.from(svgImage);
+}
+
 (async () => {
   const files = await readdir(dirPath);
   const imageFiles = files.filter((file) => file.includes(".jpg") || file.includes(".jpeg")).sort(naturalSort);
@@ -53,20 +76,27 @@ function naturalSort(a, b) {
 async function processImages(id: string, filename: string): Promise<void> {
   const imagePath = path.resolve(`${dirPath}/${filename}`);
 
+  const longerDimension = 2000;
+  const shorterDimension = 1600;
+  const thumbRatio = 5;
+
   const highResSetting = { quality: 60, output: "-HD.webp" };
-  const regularSetting = { quality: 60, output: ".webp" };
-  const regularLandscapeDimensions = { width: 1066, height: 800 };
-  const regularPortraitDimension = { width: 800, height: 1066 };
+  const regularSetting = { quality: 75, output: ".webp" };
+  const thumbnailSetting = { quality: 75, output: "-thumb.webp" };
+  const regularLandscapeDimensions = { width: longerDimension, height: shorterDimension };
+  const regularPortraitDimension = { width: shorterDimension, height: longerDimension };
+  const thumbnailLandscapeDimensions = { width: Math.floor(longerDimension / thumbRatio), height: Math.floor(shorterDimension / thumbRatio) };
+  const thumbnailPortraitDimension = { width: Math.floor(shorterDimension / thumbRatio), height: Math.floor(longerDimension / thumbRatio) };
 
   const variants = {
-    portrait: [highResSetting, { ...regularPortraitDimension, ...regularSetting }],
-    landscape: [highResSetting, { ...regularLandscapeDimensions, ...regularSetting }],
+    portrait: [highResSetting, { ...regularPortraitDimension, ...regularSetting }, { ...thumbnailPortraitDimension, ...thumbnailSetting }],
+    landscape: [highResSetting, { ...regularLandscapeDimensions, ...regularSetting }, { ...thumbnailLandscapeDimensions, ...thumbnailSetting }],
   };
 
   const isMain = imagePath.includes("main.jpg") || imagePath.includes("main.jpeg");
 
   if (isMain) {
-    const quality = 45;
+    const quality = 75;
     const outputs = [
       {
         path: path.resolve(`${dirPath}/main.webp`),
@@ -114,14 +144,22 @@ async function processImages(id: string, filename: string): Promise<void> {
 
       await Promise.all(
         //@ts-ignore
-        finalVariants.map(({ width: w, height: h, quality, output }) =>
-          sharp(imagePath)
-            .resize({ width: w ?? width, height: h ?? height })
+        finalVariants.map(({ width: w, height: h, quality, output }) => {
+          const targetWidth = w ?? width;
+          const targetHeight = h ?? height;
+
+          const sharpInstance = sharp(imagePath).resize({ width: targetWidth, height: targetHeight });
+
+          if (!output.includes("-thumb.webp")) {
+            sharpInstance.composite([{ input: getWatermarkSvg(targetHeight), gravity: "southeast" }]);
+          }
+
+          sharpInstance
             .webp({ quality })
             .toFile(path.resolve(`${dirPath}/${fileName}${output}`))
             .then(() => console.log(`Created ${fileName}${output}`))
-            .catch(console.error),
-        ),
+            .catch(console.error);
+        }),
       );
     } catch (err) {
       console.error(`Failed to process ${filename}:`, err);
