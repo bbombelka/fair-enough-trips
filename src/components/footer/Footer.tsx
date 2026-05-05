@@ -14,7 +14,7 @@ export const Footer: FC<FooterProps> = ({ isSticky }) => {
   return (
     <footer className={footerClassName}>
       {footerLinks.map(({ name, href }, i) => (
-        <Link key={i} href={href} name={name} leftMargin={48} />
+        <Link key={i} href={href} name={name} className={styles["footer-link"]} />
       ))}
     </footer>
   );

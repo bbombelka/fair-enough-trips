@@ -12,19 +12,21 @@
   display: block;
   border: 1px solid var(--color-grey);
   border-radius: 4px;
-  /* border-top: 0; */
+  border-top: 0;
   letter-spacing: 0.5px;
   line-height: 1rem;
-  margin-top: 8px;
 }
 
 .image {
   border-radius: 4px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
   height: auto;
   object-fit: cover;
   object-position: center;
+}
+
+.image-with-caption {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .slick-container {
