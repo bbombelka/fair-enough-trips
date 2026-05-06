@@ -5,13 +5,14 @@ export function useImageSourcePath() {
     src: string;
     thumbSrc: string;
   } {
-    const isProd = process.env.NODE_ENV === "production";
+    // const isProd = process.env.NODE_ENV === "production";
+    const isProd = true;
     const isNewPostDevMode = process.env.NEXT_PUBLIC_NEW_POST_ID;
 
     // const isProd = true;
     function getProdParams() {
-      const src = `${Config.S3_BUCKET}/posts/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
-      const thumbSrc = `${Config.S3_BUCKET}/posts/${id}/${filename}-thumb.${Config.DEFAULT_IMAGE_EXTENSION}`;
+      const src = `${Config.S3_BUCKET}/posts-v2/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
+      const thumbSrc = `${Config.S3_BUCKET}/posts-v2/${id}/${filename}-thumb.${Config.DEFAULT_IMAGE_EXTENSION}`;
 
       return { src, thumbSrc };
     }
