@@ -95,7 +95,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
 
   return (
     <div id="post-images">
-      <div className={styles["slick-container"]}>
+      <div className={`post-images-slick ${styles["slick-container"]}`}>
         <Slider {...slickSettings}>{slickImages}</Slider>
       </div>
       <div className={styles["slick-container"]}>

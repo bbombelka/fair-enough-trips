@@ -36,7 +36,8 @@ self.addEventListener("fetch", (event) => {
 
           return fetch(event.request.clone()).then((response) => {
             const isOpaque = response.type === "opaque" || response.status === 0;
-            const isImage = response.headers.has("content-type") && response.headers.get("content-type").match(/^image\//i);
+            // const isImage = response.headers.has("content-type") && response.headers.get("content-type").match(/^image\//i);
+            const isImage = false;
 
             if ((response.status > 0 && response.status < 400 && isImage) || isOpaque) {
               console.log("SW: caching response");

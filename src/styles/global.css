@@ -81,6 +81,14 @@ a {
   animation: highlight 5s ease-in-out;
 }
 
+.post-images-slick .slick-next {
+  transform: rotate(90deg) translate(-100%, -100%);
+}
+
+.post-images-slick .slick-prev {
+  transform: rotate(90deg) translate(50%);
+}
+
 @keyframes highlight {
   0% {
     background-color: #ffffc5;
@@ -94,6 +102,11 @@ a {
   p,
   span {
     font-size: 14px;
+  }
+
+  .post-images-slick .slick-next,
+  .post-images-slick .slick-prev {
+    transform: translate(0, -50%);
   }
 
   .slick-prev {

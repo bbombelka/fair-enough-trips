@@ -10,7 +10,7 @@ export const Tab: FC<TabProps> = ({ name, children }) => {
   const [isOpen, setOpen] = useState(false);
 
   const open = () => setOpen(true);
-  const close = () => setOpen(false);
+  const close = () => setTimeout(() => setOpen(false), 500);
 
   const tagContentClasses = clsx(styles["tab-content"], isOpen && styles["tab-content-open"]);
 

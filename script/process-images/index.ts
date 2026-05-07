@@ -77,7 +77,7 @@ async function processImages(id: string, filename: string): Promise<void> {
   const imagePath = path.resolve(`${dirPath}/${filename}`);
 
   const longerDimension = 2000;
-  const shorterDimension = 1600;
+  const shorterDimension = 1500;
   const thumbRatio = 5;
 
   const highResSetting = { quality: 60, output: "-HD.webp" };
