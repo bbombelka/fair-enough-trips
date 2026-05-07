@@ -12,8 +12,9 @@ import preparePostRichData from "server/utils/prepare-rich-data";
 import { Article } from "schema-dts";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { PostTemplate } from "components/templates/PostTemplate";
+import { Post, PostDocument } from "components/card-list/CardList.types";
 
-const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData }) => {
+const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData, posts }) => {
   const [activities, regions, countries] = useMappedCategories(post.category);
   const shouldIncludeTripDifficulty = post.category.activity.some((activityCode) => ["002", "003", "004"].includes(activityCode));
 
@@ -59,7 +60,7 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
         <meta name="robots" content="index, follow" />
       </Head>
       <Navbar />
-      <PostTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} hdImagesToDisplay={hdImagesToDisplay} />
+      <PostTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} hdImagesToDisplay={hdImagesToDisplay} posts={posts} />
       <Footer isSticky />
     </>
   );
@@ -83,6 +84,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<PostPageProps<Article>> = async ({ params }) => {
   const mongoClient = await mongoClientConnectPromise;
+  const isProd = process.env.NODE_ENV === "production";
 
   const displayGpxChartPromise = access(`./public/${params?.id}/poi.json`).then(
     () => true,
@@ -105,8 +107,23 @@ export const getStaticProps: GetStaticProps<PostPageProps<Article>> = async ({ p
 
   const parsedPost = JSON.parse(JSON.stringify(post));
 
+  const posts = await mongoClient
+    .db(Config.DB_NAME)
+    .collection(Config.POSTS_COLLECTION)
+    .find({ postDate: { $lt: new Date(parsedPost.postDate) }, ...(isProd ? { published: true } : {}) })
+    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
+    .sort({ postDate: -1 })
+    .limit(4)
+    .toArray();
+
+  const serializedPosts: Post[] = posts.map((p) => ({
+    ...p,
+    postDate: p.postDate.toISOString(),
+  }));
+
   return {
     props: {
+      posts: serializedPosts,
       richData: preparePostRichData(parsedPost),
       post: { ...parsedPost } as FullPost,
       hasRouteScheme,

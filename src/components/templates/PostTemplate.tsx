@@ -5,8 +5,11 @@ import { PostImages } from "components/post-images/PostImages";
 import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
 import { PostTemplateProps } from "./PostTemplate.types";
 import { FETMap } from "components/fet-map/FETMap";
+import { PostCard } from "components/post-card/PostCard";
+import { Post } from "components/card-list/CardList.types";
+import CardList from "components/card-list/CardList";
 
-export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay }: PostTemplateProps) => {
+export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, posts }: PostTemplateProps) => {
   let orderCounter = 1;
 
   return (
@@ -40,6 +43,16 @@ export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, hdImag
       <Divider title={`Trip photos ${post.videos?.length ? "and videos" : ""}`} order={orderCounter++} stickyScrollToElementId="post-images" />
       {Boolean(post.images.length || post.videos?.length) && (
         <PostImages hdImagesToDisplay={hdImagesToDisplay} videos={post.videos} images={post.images} id={post.id} />
+      )}
+      {Boolean(posts.length) && (
+        <>
+          <Divider title="Other trips to check" order={orderCounter++} />
+          <CardList>
+            {posts.map((post) => (
+              <PostCard post={post as unknown as Post} key={post.id} />
+            ))}
+          </CardList>
+        </>
       )}
     </Layout>
   );

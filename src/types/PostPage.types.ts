@@ -1,3 +1,4 @@
+import { Post } from "components/card-list/CardList.types";
 import { Article, WithContext } from "schema-dts";
 
 export type PostPageProps<T extends Article> = {
@@ -6,6 +7,7 @@ export type PostPageProps<T extends Article> = {
   hasRouteScheme: boolean;
   hdImagesToDisplay: Array<string | undefined>;
   richData: WithContext<T>;
+  posts: Post[];
 };
 
 export type ControlDisplayLinks = {

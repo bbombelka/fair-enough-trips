@@ -22,6 +22,7 @@
   position: fixed;
   top: 24px;
   right: 48px;
+  z-index: 1001;
 }
 
 @media screen and (max-width: 1200px) {
