@@ -9,7 +9,7 @@ import { PostCard } from "components/post-card/PostCard";
 import { Post } from "components/card-list/CardList.types";
 import CardList from "components/card-list/CardList";
 
-export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, posts }: PostTemplateProps) => {
+export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts }: PostTemplateProps) => {
   let orderCounter = 1;
 
   return (
@@ -41,9 +41,7 @@ export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, hdImag
       <Paragraph links={post.links["transportation"]} body={post.transportation} title="Transportation" />
       <Paragraph links={post.links["accomodation"]} body={post.accomodation} title="Accommodation" id="paragraph-general" />
       <Divider title={`Trip photos ${post.videos?.length ? "and videos" : ""}`} order={orderCounter++} stickyScrollToElementId="post-images" />
-      {Boolean(post.images.length || post.videos?.length) && (
-        <PostImages hdImagesToDisplay={hdImagesToDisplay} videos={post.videos} images={post.images} id={post.id} />
-      )}
+      {Boolean(post.images.length || post.videos?.length) && <PostImages videos={post.videos} images={post.images} id={post.id} />}
       {Boolean(posts.length) && (
         <>
           <Divider title="Other trips to check" order={orderCounter++} />

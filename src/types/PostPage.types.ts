@@ -5,7 +5,6 @@ export type PostPageProps<T extends Article> = {
   post: FullPost;
   controlDisplayLinks: ControlDisplayLinks;
   hasRouteScheme: boolean;
-  hdImagesToDisplay: Array<string | undefined>;
   richData: WithContext<T>;
   posts: Post[];
 };

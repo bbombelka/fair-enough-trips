@@ -1,7 +1,7 @@
 import Config from "Config";
 
 export function useImageSourcePath() {
-  return function ({ id, filename, hdImagesToDisplay }: { id: string; filename: string; hdImagesToDisplay: Array<string | undefined> }): {
+  return function ({ id, filename }: { id: string; filename: string }): {
     src: string;
     thumbSrc: string;
   } {
@@ -20,7 +20,6 @@ export function useImageSourcePath() {
 
     function getPostUploadParams() {
       const src = `/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
-      // const hdImageSrc = hdImagesToDisplay.includes(filename) ? `/${id}/${filename}-HD.${Config.DEFAULT_IMAGE_EXTENSION}` : src;
       const thumbSrc = `/${id}/${filename}-thumb.${Config.DEFAULT_IMAGE_EXTENSION}`;
 
       return { src, thumbSrc };

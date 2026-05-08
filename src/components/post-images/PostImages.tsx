@@ -16,10 +16,9 @@ type PostImagesProps = {
   id: string;
   images: PostImage[];
   videos: PostVideo[];
-  hdImagesToDisplay: Array<string | undefined>;
 };
 
-export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay, videos }) => {
+export const PostImages: FC<PostImagesProps> = ({ id, images, videos }) => {
   const isProd = process.env.NODE_ENV === "production";
 
   const copy = (e: any) => {
@@ -41,7 +40,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
   const slickImages = images.map(({ filename, desc, isVertical }, index) => {
     const width = isVertical ? Config.IMAGE_STRETCH_S : Config.IMAGE_STRETCH_L;
     const height = isVertical ? Config.IMAGE_STRETCH_M : Config.IMAGE_STRETCH_M;
-    const { thumbSrc } = getImageSourcePath({ id, filename, hdImagesToDisplay });
+    const { thumbSrc } = getImageSourcePath({ id, filename });
 
     return (
       <div id="post-images" key={index} className={styles.images} style={{ maxWidth: width }} onClick={() => openVisualModal(filename)}>
@@ -67,7 +66,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
   const modalSlickImages = images.map(({ filename, desc, isVertical }, imageId) => {
     const width = isVertical ? Config.IMAGE_STRETCH_S : Config.IMAGE_STRETCH_L;
     const height = isVertical ? Config.IMAGE_STRETCH_M : Config.IMAGE_STRETCH_M;
-    const { src } = getImageSourcePath({ id, filename, hdImagesToDisplay });
+    const { src } = getImageSourcePath({ id, filename });
 
     return (
       <div key={imageId} className={styles.images}>

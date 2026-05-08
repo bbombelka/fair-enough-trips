@@ -7,14 +7,13 @@ import Head from "next/head";
 import { PostPageProps, FullPost } from "types/PostPage.types";
 import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
-import readBucketFiles from "server/shared/aws/readBucketFiles";
 import preparePostRichData from "server/utils/prepare-rich-data";
 import { Article } from "schema-dts";
 import { useMappedCategories } from "hooks/useMappedCategories";
 import { PostTemplate } from "components/templates/PostTemplate";
 import { Post, PostDocument } from "components/card-list/CardList.types";
 
-const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, hdImagesToDisplay, richData, posts }) => {
+const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, richData, posts }) => {
   const [activities, regions, countries] = useMappedCategories(post.category);
   const shouldIncludeTripDifficulty = post.category.activity.some((activityCode) => ["002", "003", "004"].includes(activityCode));
 
@@ -60,7 +59,7 @@ const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks,
         <meta name="robots" content="index, follow" />
       </Head>
       <Navbar />
-      <PostTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} hdImagesToDisplay={hdImagesToDisplay} posts={posts} />
+      <PostTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} posts={posts} />
       <Footer isSticky />
     </>
   );
@@ -96,8 +95,6 @@ export const getStaticProps: GetStaticProps<PostPageProps<Article>> = async ({ p
     () => false,
   );
 
-  const availableHDImagesPromise = readBucketFiles(params?.id as string);
-
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
   const dbPost = await postsCollection.findOne({ id: params?.id });
 
@@ -127,10 +124,6 @@ export const getStaticProps: GetStaticProps<PostPageProps<Article>> = async ({ p
       richData: preparePostRichData(parsedPost),
       post: { ...parsedPost } as FullPost,
       hasRouteScheme,
-      hdImagesToDisplay: (await availableHDImagesPromise)
-        .filter((img) => img?.includes("-HD"))
-        .map((img) => img?.split("-HD").at(0)?.split("/").at(-1))
-        .filter((img) => img),
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
         displayGpxDownload: await displayGpxDownloadPromise,
