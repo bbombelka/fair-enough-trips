@@ -56,6 +56,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
             height={height}
             sizes="50vw"
             unoptimized
+            crossOrigin="anonymous"
             style={{ width: "100%", height: "100%" }}
           />
         </div>
@@ -80,6 +81,7 @@ export const PostImages: FC<PostImagesProps> = ({ id, images, hdImagesToDisplay,
             height={height}
             sizes="50vw"
             unoptimized
+            crossOrigin="anonymous"
             className={`${styles.image} ${styles["image-with-caption"]}`}
           />
         </a>

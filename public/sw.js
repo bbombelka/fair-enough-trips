@@ -1,4 +1,4 @@
-const IMAGE_CACHE = "images-v1";
+const IMAGE_CACHE = "images-v2";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -11,12 +11,14 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      keys.forEach((key) => {
-        if (key !== IMAGE_CACHE) {
-          console.log(`SW: clearing ${key} cache`);
-          caches.delete(key);
-        }
-      }),
+      Promise.all(
+        keys.map((key) => {
+          if (key !== IMAGE_CACHE) {
+            console.log(`SW: clearing ${key} cache`);
+            return caches.delete(key);
+          }
+        }),
+      ),
     ),
   );
 });
@@ -34,12 +36,12 @@ self.addEventListener("fetch", (event) => {
             return cachedResponse;
           }
 
-          return fetch(event.request.clone()).then((response) => {
-            const isOpaque = response.type === "opaque" || response.status === 0;
-            // const isImage = response.headers.has("content-type") && response.headers.get("content-type").match(/^image\//i);
-            const isImage = false;
+          const fetchRequest = new Request(event.request, { mode: "cors" });
 
-            if ((response.status > 0 && response.status < 400 && isImage) || isOpaque) {
+          return fetch(fetchRequest).then((response) => {
+            const isImage = response.headers.has("content-type") && response.headers.get("content-type").match(/^image\//i);
+
+            if (response.status > 0 && response.status < 400 && isImage) {
               console.log("SW: caching response");
               cache.put(event.request, response.clone());
             }
