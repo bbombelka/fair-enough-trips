@@ -32,8 +32,8 @@ export const PostCard: FC<PostCardProps> = ({
 
     return (
       <>
-        <h2 className={subtitleClass}>{firstSubtitle}</h2>
-        <h2 className={subtitleClass}>{secondSubtitle}</h2>
+        <span className={subtitleClass}>{firstSubtitle}</span>
+        <span className={subtitleClass}>{secondSubtitle}</span>
       </>
     );
   };
@@ -69,18 +69,10 @@ export const PostCard: FC<PostCardProps> = ({
       <div className={containerClass}>
         <DateBox postDate={postDate} isMain={false} isTop={isTop} />
         <div className={imageContainerClass}>
-          <FETImage
-            className={imageClass}
-            src={src}
-            alt={`Picture of ${id}`}
-            fill
-            placeholder="blur"
-            blurDataURL={base64Image}
-            onError={() => setError(true)}
-          />
+          <FETImage className={imageClass} src={src} alt={id} fill placeholder="blur" blurDataURL={base64Image} onError={() => setError(true)} />
         </div>
         <div className={textBoxClass}>
-          <h1 className={titleClass}>{title}</h1>
+          <h3 className={titleClass}>{title}</h3>
           {getPostCardSubtitles()}
         </div>
       </div>

@@ -30,14 +30,14 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   });
 
   const header = (
-    <h1 className={titleClass}>
+    <h3 className={titleClass}>
       {name}
       {originalName && (
         <>
           <br />({originalName})
         </>
       )}
-    </h1>
+    </h3>
   );
 
   const mainCategoryCard = (
