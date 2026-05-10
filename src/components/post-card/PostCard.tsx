@@ -9,7 +9,6 @@ import NextLink from "next/link";
 import React, { FC } from "react";
 import styles from "styles/PostCard.module.css";
 import { FETImage } from "components/fet-image/FETImage";
-import { useIsMounted } from "hooks/useIsMounted";
 import { useMainImagePath } from "hooks/useMainImagePath";
 
 export const PostCard: FC<PostCardProps> = ({
@@ -18,7 +17,6 @@ export const PostCard: FC<PostCardProps> = ({
   displayScrollDownButton = true,
 }) => {
   const [activities, regions, countries] = useMappedCategories(category);
-  const isMounted = useIsMounted();
   const scrollDown = useScrollDown("card-list");
   const { src, setError } = useMainImagePath({ isMainPostCard, id });
 
@@ -40,13 +38,13 @@ export const PostCard: FC<PostCardProps> = ({
     );
   };
 
-  return (
+  const mainPostCard = (
     <div className={containerClass}>
-      {postDate && <DateBox postDate={postDate} isMain={isMainPostCard} isTop={isTop} />}
-      {isMainPostCard && displayScrollDownButton && <FontAwesomeIcon className={scrollDownIconClass} icon={faAnglesDown} onClick={scrollDown} />}
+      <DateBox postDate={postDate} isMain isTop={isTop} />
+      {displayScrollDownButton && <FontAwesomeIcon className={scrollDownIconClass} icon={faAnglesDown} onClick={scrollDown} />}
       <div className={imageContainerClass}>
         <FETImage
-          preload={isMainPostCard}
+          preload
           className={imageClass}
           src={src}
           alt={`Picture of ${id}`}
@@ -59,10 +57,39 @@ export const PostCard: FC<PostCardProps> = ({
       <div className={textBoxClass}>
         <h1 className={titleClass}>{title}</h1>
         {getPostCardSubtitles()}
-        <NextLink href={`/posts/${id}`} className={styles["post-card-link"]}>
-          <button className={buttonClass}>Read more</button>
+        <NextLink href={`/posts/${id}`} className={buttonClass} aria-label={`Read more about ${title}`}>
+          Read more
         </NextLink>
       </div>
     </div>
   );
+
+  const regularPostCard = (
+    <NextLink href={`/posts/${id}`} className={styles["post-card-link"]}>
+      <div className={containerClass}>
+        <DateBox postDate={postDate} isMain={false} isTop={isTop} />
+        <div className={imageContainerClass}>
+          <FETImage
+            className={imageClass}
+            src={src}
+            alt={`Picture of ${id}`}
+            fill
+            placeholder="blur"
+            blurDataURL={base64Image}
+            onError={() => setError(true)}
+          />
+        </div>
+        <div className={textBoxClass}>
+          <h1 className={titleClass}>{title}</h1>
+          {getPostCardSubtitles()}
+        </div>
+      </div>
+    </NextLink>
+  );
+
+  if (isMainPostCard) {
+    return mainPostCard;
+  }
+
+  return regularPostCard;
 };

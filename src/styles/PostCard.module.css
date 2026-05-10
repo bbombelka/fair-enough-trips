@@ -51,7 +51,7 @@
   border-radius: 20px;
   cursor: pointer;
   margin: 16px auto;
-  display: block;
+  display: inline-block;
 }
 
 .top {

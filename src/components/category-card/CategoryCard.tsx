@@ -29,9 +29,18 @@ export const CategoryCard: FC<CategoryCardProps> = ({
     styles,
   });
 
-  const title = name.concat(originalName ? ` (${originalName})` : "");
+  const header = (
+    <h1 className={titleClass}>
+      {name}
+      {originalName && (
+        <>
+          <br />({originalName})
+        </>
+      )}
+    </h1>
+  );
 
-  return (
+  const mainCategoryCard = (
     <div className={containerClass} ref={postCardRef}>
       <div className={imageContainerClass}>
         <FETImage
@@ -45,34 +54,43 @@ export const CategoryCard: FC<CategoryCardProps> = ({
         />
       </div>
       <div className={textBoxClass}>
-        <h1 className={titleClass}>{title}</h1>
-        <NextLink
-          href={isMainCard ? "" : `/${categoryType}/${url}`}
-          style={{ display: "block" }}
-          onClick={(e) => {
-            if (isMainCard) {
-              e.preventDefault();
-              scrollDownTrips();
-            }
-          }}
-        >
-          <button className={buttonClass}>{`See ${postIds.length} trip${postIds.length > 1 ? "s" : ""}`}</button>
-        </NextLink>
-        {isMainCard && areNotesPresent && (
+        {header}
+        <button className={buttonClass} style={{ display: "block", cursor: "pointer" }} onClick={scrollDownTrips}>
+          {`See ${postIds.length} trip${postIds.length > 1 ? "s" : ""}`}
+        </button>
+        {areNotesPresent && (
           <Box margin="12px 0">
-            <NextLink
-              href={`/${categoryType}/${url}`}
-              style={{ display: "block" }}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollDownNotes();
-              }}
-            >
-              <button className={buttonClass}>{buttonLabel}</button>
-            </NextLink>
+            <button className={buttonClass} style={{ display: "block", cursor: "pointer" }} onClick={scrollDownNotes}>
+              {buttonLabel}
+            </button>
           </Box>
         )}
       </div>
     </div>
   );
+
+  const regularCategoryCard = (
+    <NextLink href={`/${categoryType}/${url}`} className={styles["post-card-link"]}>
+      <div className={containerClass}>
+        <div className={imageContainerClass}>
+          <FETImage
+            src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
+            className={imageClass}
+            blurDataURL={blurDataURL}
+            alt="Main category picture"
+            placeholder="blur"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+        <div className={textBoxClass}>{header}</div>
+      </div>
+    </NextLink>
+  );
+
+  if (isMainCard) {
+    return mainCategoryCard;
+  }
+
+  return regularCategoryCard;
 };
