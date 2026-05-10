@@ -78,12 +78,16 @@
 .subtitle {
   font-size: 16px;
   margin: 0;
+  display: block;
+  font-weight: 700;
 }
 
 .main-post-card-subtitle {
   font-size: 24px;
   letter-spacing: 2px;
   margin: 8px 0;
+  display: block;
+  font-weight: 700;
 }
 
 .grid-card {
