@@ -95,6 +95,11 @@ export const getStaticProps: GetStaticProps<PostPageProps<Article>> = async ({ p
     () => false,
   );
 
+  const displayTopoLinkPromise = access(`./public/${params?.id}/topo.webp`).then(
+    () => true,
+    () => false,
+  );
+
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
   const dbPost = await postsCollection.findOne({ id: params?.id });
 
@@ -127,6 +132,7 @@ export const getStaticProps: GetStaticProps<PostPageProps<Article>> = async ({ p
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
         displayGpxDownload: await displayGpxDownloadPromise,
+        displayTopoLink: await displayTopoLinkPromise,
       },
     },
   };

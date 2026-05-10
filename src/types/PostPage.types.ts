@@ -12,6 +12,7 @@ export type PostPageProps<T extends Article> = {
 export type ControlDisplayLinks = {
   displayGpxChart: boolean;
   displayGpxDownload: boolean;
+  displayTopoLink: boolean;
 };
 
 export type PostLink = {

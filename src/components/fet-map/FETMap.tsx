@@ -18,7 +18,7 @@ type FETMapProps = {
 
 const GpxChart = dynamic(() => import("components/gpx-chart/GpxChart"), { ssr: false });
 
-export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGpxChart, displayGpxDownload } = {} }) => {
+export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGpxChart, displayGpxDownload, displayTopoLink } = {} }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [showMapIframe, setShowMapIframe] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -52,7 +52,6 @@ export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGp
           <span>Download gps track</span>
         </a>
       )}
-
       <a
         className={`${styles.link} ${styles["hide-map-link"]}`}
         href="#"
@@ -75,6 +74,12 @@ export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGp
         >
           <FontAwesomeIcon icon={faMap} className={styles.icon} />
           <span>Show elevation profile</span>
+        </a>
+      )}
+      {displayTopoLink && (
+        <a className={styles.link} href={`/${post.id}/topo.webp`} target="_blank" rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faMap} className={styles.icon} />
+          <span>Topo</span>
         </a>
       )}
     </>
