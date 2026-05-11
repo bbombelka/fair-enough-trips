@@ -2,7 +2,6 @@ import { Parser } from "xml2js";
 import { NextApiRequest, NextApiResponse } from "next";
 import haversineDistance from "haversine-distance";
 import unzipper from "unzipper";
-import { readFile } from "fs/promises";
 
 export interface TrackPoint {
   lat: number;
@@ -36,25 +35,30 @@ export type PoiType = "parking" | "water" | "peak" | "signpost" | "pass" | "hut"
 
 export type ErrorResponse = { status: string; error: string };
 
-export default async function handler({ query }: NextApiRequest, res: NextApiResponse<ParseGpxResponse | ErrorResponse>) {
-  const zipFilePath = `${process.cwd()}/public/${query.id}/track.zip`;
-  const jsonFilePath = `${process.cwd()}/public/${query.id}/poi.json`;
-
+export default async function handler({ query, headers }: NextApiRequest, res: NextApiResponse<ParseGpxResponse | ErrorResponse>) {
   try {
-    const jsonFile = await readFile(jsonFilePath, "utf-8");
-    const poiData: PoiData[] = JSON.parse(jsonFile);
-    const directory = await unzipper.Open.file(zipFilePath);
-    const gpxFile = await directory.files[0].buffer();
+    const protocol = headers["x-forwarded-proto"] || (headers.host?.includes("localhost") ? "http" : "https");
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `${protocol}://${headers.host}`;
 
-    // await new Promise((resolve) => setTimeout(() => resolve(""), 5000));
-    // throw new Error();
+    const jsonUrl = `${baseUrl}/${query.id}/poi.json`;
+    const zipUrl = `${baseUrl}/${query.id}/track.zip`;
+
+    const jsonResponse = await fetch(jsonUrl);
+    if (!jsonResponse.ok) throw new Error(`Failed to fetch ${jsonUrl}`);
+    const poiData: PoiData[] = await jsonResponse.json();
+
+    const zipResponse = await fetch(zipUrl);
+    if (!zipResponse.ok) throw new Error(`Failed to fetch ${zipUrl}`);
+    const zipBuffer = Buffer.from(await zipResponse.arrayBuffer());
+    const directory = await unzipper.Open.buffer(zipBuffer);
+    const gpxFile = await directory.files[0].buffer();
 
     const parser = new Parser();
 
     // parses XML file buffer into JS object
     parser.parseString(gpxFile, (err, result) => {
       if (err) {
-        throw new Error("Error during parsing of " + zipFilePath + " file");
+        throw new Error("Error during parsing of the GPX file");
       }
 
       let totalDistance = 0;
