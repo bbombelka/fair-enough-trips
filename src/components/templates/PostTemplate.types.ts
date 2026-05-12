@@ -1,3 +1,3 @@
 import { PostPageProps } from "types/PostPage.types";
 
-export type PostTemplateProps = Pick<PostPageProps<any>, "post" | "controlDisplayLinks" | "hasRouteScheme" | "posts">;
+export type PostTemplateProps = Pick<PostPageProps, "post" | "controlDisplayLinks" | "hasRouteScheme" | "posts">;

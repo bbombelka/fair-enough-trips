@@ -1,13 +1,46 @@
 import { FullPost } from "types/PostPage.types";
-import { PropertyValue, WithContext, Trip, Article } from "schema-dts";
+import { PropertyValue, Trip, Article, BreadcrumbList, Graph } from "schema-dts";
 import Config from "Config";
+import { Activities, Regions } from "enums/categories";
 
 export default function preparePostRichData(post: FullPost) {
   const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${post.stats.duration}h` : "";
   const postContent = `${post.title} - ${post.subTitle}${statsSummary ? ` [${statsSummary}]` : ""}`;
 
-  const richData: WithContext<Article> = {
-    "@context": "https://schema.org",
+  const activity = Activities.find((activity) => activity.code === post.category.activity[0]);
+  const region = Regions.find((region) => region.code === post.category.region[0]);
+
+  const breadcrumbList: BreadcrumbList = {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Homepage",
+        item: `https://${Config.DOMAIN}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: region?.name,
+        item: `https://${Config.DOMAIN}/regions/${region?.url}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: activity?.name,
+        item: `https://${Config.DOMAIN}/activity/${activity?.url}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: post.title,
+        item: `https://${Config.DOMAIN}/posts/${post.id}`,
+      },
+    ],
+  };
+
+  const article: Article = {
     "@type": "Article",
     headline: post.title,
     articleSection: "Mountaineering",
@@ -52,6 +85,11 @@ export default function preparePostRichData(post: FullPost) {
         },
       ],
     } as Trip & { additionalProperty: PropertyValue[] },
+  };
+
+  const richData: Graph & { "@context": string } = {
+    "@context": "https://schema.org",
+    "@graph": [article, breadcrumbList],
   };
 
   return richData;

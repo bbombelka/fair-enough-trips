@@ -15,7 +15,7 @@ export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts 
 
   return (
     <Layout title={post.title}>
-      <Breadcrumbs category={post.category} />
+      <Breadcrumbs category={post.category} postTitle={post.title} />
       <FETMap post={post} controlDisplayLinks={controlDisplayLinks} />
       {hasRouteScheme && (
         <>

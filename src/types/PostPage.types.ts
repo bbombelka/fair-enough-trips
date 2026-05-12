@@ -1,11 +1,11 @@
 import { Post } from "components/card-list/CardList.types";
-import { Article, WithContext } from "schema-dts";
+import { Graph } from "schema-dts";
 
-export type PostPageProps<T extends Article> = {
+export type PostPageProps = {
   post: FullPost;
   controlDisplayLinks: ControlDisplayLinks;
   hasRouteScheme: boolean;
-  richData: WithContext<T>;
+  richData: Graph & { "@context": string };
   posts: Post[];
 };
 

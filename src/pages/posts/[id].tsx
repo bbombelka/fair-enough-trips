@@ -13,7 +13,7 @@ import { useMappedCategoriesNames } from "hooks/useMappedCategories";
 import { PostTemplate } from "components/templates/PostTemplate";
 import { Post, PostDocument } from "components/card-list/CardList.types";
 
-const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, richData, posts }) => {
+const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme, richData, posts }) => {
   const [activities, regions, countries] = useMappedCategoriesNames(post.category);
   const shouldIncludeTripDifficulty = post.category.activity.some((activityCode) => ["002", "003", "004"].includes(activityCode));
 
@@ -81,7 +81,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PostPageProps<Article>> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) => {
   const mongoClient = await mongoClientConnectPromise;
   const isProd = process.env.NODE_ENV === "production";
 
