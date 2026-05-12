@@ -8,12 +8,14 @@ import { FETMap } from "components/fet-map/FETMap";
 import { PostCard } from "components/post-card/PostCard";
 import { Post } from "components/card-list/CardList.types";
 import CardList from "components/card-list/CardList";
+import { Breadcrumbs } from "components/breadcrumbs/Breadcrumbs";
 
 export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts }: PostTemplateProps) => {
   let orderCounter = 1;
 
   return (
     <Layout title={post.title}>
+      <Breadcrumbs category={post.category} />
       <FETMap post={post} controlDisplayLinks={controlDisplayLinks} />
       {hasRouteScheme && (
         <>

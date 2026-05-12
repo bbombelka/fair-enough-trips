@@ -1,0 +1,14 @@
+.container {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.breadcrumb {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .container {
+    margin: 0px;
+  }
+}

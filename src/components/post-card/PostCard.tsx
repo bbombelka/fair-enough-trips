@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateBox } from "components/date-box/DateBox";
 import { PostCardProps } from "components/post-card/PostCard.types";
 import { useCardClasses } from "hooks/useCardClasses";
-import { useMappedCategories } from "hooks/useMappedCategories";
+import { useMappedCategoriesNames } from "hooks/useMappedCategories";
 import { useScrollDown } from "hooks/useScrollDown";
 import NextLink from "next/link";
 import React, { FC } from "react";
@@ -16,7 +16,7 @@ export const PostCard: FC<PostCardProps> = ({
   isMainPostCard = false,
   displayScrollDownButton = true,
 }) => {
-  const [activities, regions, countries] = useMappedCategories(category);
+  const [activities, regions, countries] = useMappedCategoriesNames(category);
   const scrollDown = useScrollDown("card-list");
   const { src, setError } = useMainImagePath({ isMainPostCard, id });
 

@@ -9,12 +9,12 @@ import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
 import preparePostRichData from "server/utils/prepare-rich-data";
 import { Article } from "schema-dts";
-import { useMappedCategories } from "hooks/useMappedCategories";
+import { useMappedCategoriesNames } from "hooks/useMappedCategories";
 import { PostTemplate } from "components/templates/PostTemplate";
 import { Post, PostDocument } from "components/card-list/CardList.types";
 
 const PostPage: NextPage<PostPageProps<Article>> = ({ post, controlDisplayLinks, hasRouteScheme, richData, posts }) => {
-  const [activities, regions, countries] = useMappedCategories(post.category);
+  const [activities, regions, countries] = useMappedCategoriesNames(post.category);
   const shouldIncludeTripDifficulty = post.category.activity.some((activityCode) => ["002", "003", "004"].includes(activityCode));
 
   const postTitle = `${post.title} ${shouldIncludeTripDifficulty ? `(${post.difficulty.replace(/ /g, "")})` : ""} | ${activities} in ${regions}, ${countries}`;
