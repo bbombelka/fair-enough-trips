@@ -8,7 +8,6 @@ import { PostPageProps, FullPost } from "types/PostPage.types";
 import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
 import preparePostRichData from "server/utils/prepare-rich-data";
-import { Article } from "schema-dts";
 import { useMappedCategoriesNames } from "hooks/useMappedCategories";
 import { PostTemplate } from "components/templates/PostTemplate";
 import { Post, PostDocument } from "components/card-list/CardList.types";
@@ -21,7 +20,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
   const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${post.stats.duration}h` : "";
   const postContent = `${post.title} - ${post.subTitle}${statsSummary ? ` [${statsSummary}]` : ""}`;
   const pageLink = `https://${Config.DOMAIN}/posts/${post.id}`;
-  const hasTopo = false; // need to be added
+  const hasTopo = controlDisplayLinks.displayTopoLink;
 
   const metaDescriptionElements = [
     Boolean(post.videos?.length) && "videos",
