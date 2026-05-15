@@ -2,6 +2,7 @@ import { readdir, readFile } from "fs/promises";
 import path from "path";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import dotenv from "dotenv";
+import Config from "../../src/Config";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 
@@ -17,7 +18,9 @@ const dirPath = path.resolve(__dirname, `../../public/${id}`);
 const keepFiles = new Set(["main.webp", "mobile-main.webp", "track.zip", "poi.json", "thumb_main.webp"]);
 
 const bucketName = process.env.S3_BUCKET_NAME;
-const s3Prefix = `posts/${id}/`;
+
+// to add nesting modify this path
+const s3Prefix = `${Config.S3_POST_IMAGES_PREFIX}/${id}/`;
 
 if (!bucketName) {
   console.error("❌ S3_BUCKET_NAME is not defined in .env.local");

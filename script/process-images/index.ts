@@ -80,7 +80,7 @@ async function processImages(id: string, filename: string): Promise<void> {
   const shorterDimension = 1500;
   const thumbRatio = 5;
 
-  const highResSetting = { quality: 60, output: "-HD.webp" };
+  // const highResSetting = { quality: 60, output: "-HD.webp" };
   const regularSetting = { quality: 75, output: ".webp" };
   const thumbnailSetting = { quality: 75, output: "-thumb.webp" };
   const regularLandscapeDimensions = { width: longerDimension, height: shorterDimension };
@@ -89,8 +89,14 @@ async function processImages(id: string, filename: string): Promise<void> {
   const thumbnailPortraitDimension = { width: Math.floor(shorterDimension / thumbRatio), height: Math.floor(longerDimension / thumbRatio) };
 
   const variants = {
-    portrait: [highResSetting, { ...regularPortraitDimension, ...regularSetting }, { ...thumbnailPortraitDimension, ...thumbnailSetting }],
-    landscape: [highResSetting, { ...regularLandscapeDimensions, ...regularSetting }, { ...thumbnailLandscapeDimensions, ...thumbnailSetting }],
+    portrait: [
+      { ...regularPortraitDimension, ...regularSetting },
+      { ...thumbnailPortraitDimension, ...thumbnailSetting },
+    ],
+    landscape: [
+      { ...regularLandscapeDimensions, ...regularSetting },
+      { ...thumbnailLandscapeDimensions, ...thumbnailSetting },
+    ],
   };
 
   const isMain = imagePath.includes("main.jpg") || imagePath.includes("main.jpeg");
