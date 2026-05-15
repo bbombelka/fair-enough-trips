@@ -1,5 +1,4 @@
 import { Link } from "components/link/Link";
-import Config from "Config";
 import { useGlobalContext } from "hooks/useGlobalContext";
 import React, { FC, ReactNode } from "react";
 import styles from "styles/Paragraph.module.css";
@@ -73,7 +72,7 @@ export const Paragraph: FC<{
                         setOpenModal(true);
                       }}
                     >
-                      <span>{title}</span>
+                      <span style={{ cursor: "pointer" }}>{title}</span>
                     </a>
                   );
                 default:

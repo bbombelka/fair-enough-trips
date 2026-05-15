@@ -7,6 +7,8 @@ export type PostPageProps = {
   hasRouteScheme: boolean;
   richData: Graph & { "@context": string };
   posts: Post[];
+  subPosts?: Post[];
+  parentPostData?: BreadcrumbParentPostData;
 };
 
 export type ControlDisplayLinks = {
@@ -22,7 +24,10 @@ export type PostLink = {
   type: "image" | "navigation";
 };
 
-type Links = Record<"accomodation" | "transportation" | "other" | "dangers" | "weather" | "gear" | "shortDescription" | "trailCondition", PostLink[]>;
+type Links = Record<
+  "accomodation" | "transportation" | "other" | "dangers" | "weather" | "gear" | "shortDescription" | "trailCondition" | "provisions",
+  PostLink[]
+>;
 
 export type PostImage = {
   desc: string;
@@ -74,6 +79,7 @@ export type FullPost = {
   transportation: Paragraph;
   gear: Paragraph;
   other: Paragraph;
+  provisions?: Paragraph;
   shortDescription: Paragraph;
   iframeUrl: string;
   startingPoint: string;
@@ -84,6 +90,13 @@ export type FullPost = {
   base64Image: string;
   videos: PostVideo[];
   description?: TitledParagraph[];
+  subIds?: string[];
+  parentId?: string;
+};
+
+export type MultidayFullPost = FullPost & {
+  description?: TitledParagraph[];
+  shortDescription: TitledParagraph[];
 };
 
 export type DateClass = {
@@ -102,3 +115,5 @@ export type Stats = {
 };
 
 export type SearchPostType = Pick<FullPost, "id" | "category" | "title" | "postDate" | "base64Image"> & { isTop: boolean };
+
+export type BreadcrumbParentPostData = Pick<FullPost, "id" | "title">;

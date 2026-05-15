@@ -10,12 +10,12 @@ import { Post } from "components/card-list/CardList.types";
 import CardList from "components/card-list/CardList";
 import { Breadcrumbs } from "components/breadcrumbs/Breadcrumbs";
 
-export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts }: PostTemplateProps) => {
+export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts, parentPostData }: PostTemplateProps) => {
   let orderCounter = 1;
 
   return (
     <Layout title={post.title}>
-      <Breadcrumbs category={post.category} postTitle={post.title} />
+      <Breadcrumbs category={post.category} postTitle={post.title} parentData={parentPostData} />
       <FETMap post={post} controlDisplayLinks={controlDisplayLinks} />
       {hasRouteScheme && (
         <>

@@ -4,15 +4,16 @@ import { access } from "fs/promises";
 import mongoClientConnectPromise from "MongoClient";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { PostPageProps, FullPost } from "types/PostPage.types";
+import { PostPageProps, FullPost, BreadcrumbParentPostData } from "types/PostPage.types";
 import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
 import preparePostRichData from "server/utils/prepare-rich-data";
 import { useMappedCategoriesNames } from "hooks/useMappedCategories";
 import { PostTemplate } from "components/templates/PostTemplate";
 import { Post, PostDocument } from "components/card-list/CardList.types";
+import { PostMultidayTemplate } from "components/templates/multiday/PostMultidayTemplate";
 
-const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme, richData, posts }) => {
+const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme, richData, posts, subPosts, parentPostData }) => {
   const [activities, regions, countries] = useMappedCategoriesNames(post.category);
   const shouldIncludeTripDifficulty = post.category.activity.some((activityCode) => ["002", "003", "004"].includes(activityCode));
 
@@ -58,7 +59,11 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
         <meta name="robots" content="index, follow" />
       </Head>
       <Navbar />
-      <PostTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} posts={posts} />
+      {Boolean(subPosts?.length) ? (
+        <PostMultidayTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} posts={posts} subPosts={subPosts} />
+      ) : (
+        <PostTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} posts={posts} parentPostData={parentPostData} />
+      )}
       <Footer isSticky />
     </>
   );
@@ -75,7 +80,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await collection.find(isProd ? { published: true } : {}).toArray();
 
   return {
-    paths: posts.map(({ id }) => ({ params: { id } })),
+    paths: posts.map((post) => {
+      if (post.parentId) {
+        return { params: { id: [post.parentId, post.id] } };
+      }
+      return { params: { id: [post.id] } };
+    }),
     fallback: false,
   };
 };
@@ -84,34 +94,41 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
   const mongoClient = await mongoClientConnectPromise;
   const isProd = process.env.NODE_ENV === "production";
 
-  const displayGpxChartPromise = access(`./public/${params?.id}/poi.json`).then(
+  const idArray = (params?.id as string[]) || [];
+  const dbQueryId = idArray.length === 2 ? idArray[1] : idArray[0];
+
+  const displayGpxChartPromise = access(`./public/${dbQueryId}/poi.json`).then(
     () => true,
     () => false,
   );
 
-  const displayGpxDownloadPromise = access(`./public/${params?.id}/track.zip`).then(
+  const displayGpxDownloadPromise = access(`./public/${dbQueryId}/track.zip`).then(
     () => true,
     () => false,
   );
 
-  const displayTopoLinkPromise = access(`./public/${params?.id}/topo.webp`).then(
+  const displayTopoLinkPromise = access(`./public/${dbQueryId}/topo.webp`).then(
     () => true,
     () => false,
   );
 
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
-  const dbPost = await postsCollection.findOne({ id: params?.id });
+  const dbPost = await postsCollection.findOne({ id: dbQueryId });
 
   const post: FullPost | {} = dbPost ? removeSelectedProps(dbPost, ["_id"]) : {};
 
-  const hasRouteScheme = await routeSchemeExists(params?.id);
+  const hasRouteScheme = await routeSchemeExists(dbQueryId);
 
   const parsedPost = JSON.parse(JSON.stringify(post));
 
   const posts = await mongoClient
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
-    .find({ postDate: { $lt: new Date(parsedPost.postDate) }, ...(isProd ? { published: true } : {}) })
+    .find({
+      postDate: { $lt: new Date(parsedPost.postDate) },
+      ...(isProd ? { published: true } : {}),
+      ...(parsedPost.parentId ? { id: { $ne: parsedPost.parentId } } : {}),
+    })
     .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .limit(4)
@@ -122,11 +139,39 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     postDate: p.postDate.toISOString(),
   }));
 
+  const subPosts = async () => {
+    const subPosts = await mongoClient
+      .db(Config.DB_NAME)
+      .collection(Config.POSTS_COLLECTION)
+      .find({ parentId: parsedPost.id, ...(isProd ? { published: true } : {}) })
+      .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
+      .sort({ postDate: -1 })
+      .toArray();
+
+    return subPosts.map((p) => ({
+      ...p,
+      postDate: p.postDate.toISOString(),
+    }));
+  };
+
+  const parentPostData = async () => {
+    const data = await mongoClient
+      .db(Config.DB_NAME)
+      .collection(Config.POSTS_COLLECTION)
+      .find({ id: parsedPost.parentId })
+      .project<BreadcrumbParentPostData>({ id: true, title: true, _id: false })
+      .toArray();
+
+    return data[0];
+  };
+
   return {
     props: {
+      subPosts: Boolean(parsedPost.subIds?.length) ? await subPosts() : [],
       posts: serializedPosts,
       richData: preparePostRichData(parsedPost),
       post: { ...parsedPost } as FullPost,
+      parentPostData: Boolean(parsedPost.parentId) ? await parentPostData() : {},
       hasRouteScheme,
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
