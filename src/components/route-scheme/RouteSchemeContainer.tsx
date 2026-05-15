@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import RouteScheme from "./RouteScheme";
-import { useRouteSchemePoints } from "pages/api/hooks/useRouteSchemePoints";
+import useRouteSchemePoints from "pages/api/hooks/useRouteSchemePoints";
 import { Loader } from "components/loader/Loader";
 import { Alert } from "components/alert/Alert";
 import { Error as ErrorIcon } from "components/icons/Icons";

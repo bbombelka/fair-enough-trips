@@ -8,7 +8,7 @@ type Props = {
   id: string;
 };
 
-export const useGPXData = ({ isEnabled, id }: Props) => {
+const useGPXData = ({ isEnabled, id }: Props) => {
   const [data, setData] = useSessionStorage<ParseGpxResponse | undefined>(id);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -38,3 +38,5 @@ export const useGPXData = ({ isEnabled, id }: Props) => {
 
   return { data, isLoading, hasError };
 };
+
+export default useGPXData;

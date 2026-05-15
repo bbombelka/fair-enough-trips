@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "components";
-import { useSearch } from "pages/api/hooks/useSearch";
+import useSearch from "pages/api/hooks/useSearch";
 import { SearchBar } from "components/search-bar/SearchBar";
 import CardList from "components/card-list/CardList";
 import { PostCard } from "components/post-card/PostCard";

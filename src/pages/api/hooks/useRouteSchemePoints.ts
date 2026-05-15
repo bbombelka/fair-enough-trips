@@ -6,7 +6,7 @@ type Props = {
   id: string;
 };
 
-export const useRouteSchemePoints = ({ isEnabled, id }: Props) => {
+const useRouteSchemePoints = ({ isEnabled, id }: Props) => {
   const [data, setData] = useState<RouteSchemePointsResponse>();
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -36,3 +36,5 @@ export const useRouteSchemePoints = ({ isEnabled, id }: Props) => {
 
   return { data, isLoading, hasError };
 };
+
+export default useRouteSchemePoints;

@@ -6,7 +6,7 @@ type Props = {
   isEnabled: boolean;
 };
 
-export const useSearch = ({ isEnabled }: Props) => {
+const useSearch = ({ isEnabled }: Props) => {
   const [data, setData] = useState<SearchPostType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -41,3 +41,5 @@ export const useSearch = ({ isEnabled }: Props) => {
 
   return { setSearchTerm, data, clearData, isLoading, hasError };
 };
+
+export default useSearch;

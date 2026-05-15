@@ -171,7 +171,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
       posts: serializedPosts,
       richData: preparePostRichData(parsedPost),
       post: { ...parsedPost } as FullPost,
-      parentPostData: Boolean(parsedPost.parentId) ? await parentPostData() : {},
+      parentPostData: Boolean(parsedPost.parentId) ? await parentPostData() : { id: "", title: "" },
       hasRouteScheme,
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
