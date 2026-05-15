@@ -138,6 +138,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "high-tauras",
     originalName: "Hohe Tauern",
   },
+  {
+    code: "020",
+    name: "Velebit",
+    url: "velebit",
+    originalName: "Velebit",
+  },
 ];
 
 export const Countries: Category[] = [
