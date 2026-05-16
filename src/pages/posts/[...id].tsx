@@ -21,7 +21,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
   const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${post.stats.duration}h` : "";
   const postContent = `${post.title} - ${post.subTitle}${statsSummary ? ` [${statsSummary}]` : ""}`;
   const pageLink = `https://${Config.DOMAIN}/posts/${post.id}`;
-  const hasTopo = controlDisplayLinks.displayTopoLink;
+  const hasTopo = controlDisplayLinks.topoDownloadLink;
 
   const metaDescriptionElements = [
     Boolean(post.videos?.length) && "videos",
@@ -96,20 +96,21 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
 
   const idArray = (params?.id as string[]) || [];
   const dbQueryId = idArray.length === 2 ? idArray[1] : idArray[0];
+  const filesPath = `./public/${idArray.length === 2 ? idArray.join("/") : idArray[0]}`;
 
-  const displayGpxChartPromise = access(`./public/${dbQueryId}/poi.json`).then(
+  const displayGpxChartPromise = access(`${filesPath}/poi.json`).then(
     () => true,
     () => false,
   );
 
-  const displayGpxDownloadPromise = access(`./public/${dbQueryId}/track.zip`).then(
-    () => true,
-    () => false,
+  const gpxDownloadLinkPromise = access(`${filesPath}/track.zip`).then(
+    () => `${filesPath}/track.zip`.replace("./public", ""),
+    () => "",
   );
 
-  const displayTopoLinkPromise = access(`./public/${dbQueryId}/topo.webp`).then(
-    () => true,
-    () => false,
+  const topoDownloadLinkPromise = access(`${filesPath}/topo.webp`).then(
+    () => `${filesPath}/topo.webp`.replace("./public", ""),
+    () => "",
   );
 
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
@@ -175,8 +176,8 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
       hasRouteScheme,
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,
-        displayGpxDownload: await displayGpxDownloadPromise,
-        displayTopoLink: await displayTopoLinkPromise,
+        gpxDownloadLink: await gpxDownloadLinkPromise,
+        topoDownloadLink: await topoDownloadLinkPromise,
       },
     },
   };

@@ -15,7 +15,7 @@ export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts,
 
   return (
     <Layout title={post.title}>
-      <Breadcrumbs category={post.category} postTitle={post.title} parentData={parentPostData} />
+      <Breadcrumbs category={post.category} postTitle={post.title} parentData={parentPostData?.id ? parentPostData : undefined} />
       <FETMap post={post} controlDisplayLinks={controlDisplayLinks} />
       {hasRouteScheme && (
         <>
@@ -33,15 +33,28 @@ export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts,
           ))}
         </>
       )}
-      <Divider title="Trip conditions" order={orderCounter++} stickyScrollToElementId="paragraph-conditions" />
-      <Paragraph body={post.weather} title="Weather" id="paragraph-conditions" />
-      <Paragraph body={post.trailCondition} title="Trail" links={post.links["trailCondition"]} />
-      <Divider title="Additional information" order={orderCounter++} stickyScrollToElementId="paragraph-other" />
-      <Paragraph links={post.links["other"]} title="Tips and author's comments" body={post.other} id="paragraph-other" />
-      <Paragraph links={post.links["dangers"]} body={post.dangers} title="Dangers" />
-      <Paragraph links={post.links["gear"]} body={post.gear} title="Gear used" />
-      <Paragraph links={post.links["transportation"]} body={post.transportation} title="Transportation" />
-      <Paragraph links={post.links["accomodation"]} body={post.accomodation} title="Accommodation" id="paragraph-general" />
+      {Boolean(post.weather?.[0] || post.trailCondition?.[0]) && (
+        <>
+          <Divider title="Trip conditions" order={orderCounter++} stickyScrollToElementId="paragraph-conditions" />
+          {Boolean(post.weather?.[0]) && <Paragraph body={post.weather} title="Weather" id="paragraph-conditions" links={post.links["weather"]} />}
+          {Boolean(post.trailCondition?.[0]) && <Paragraph body={post.trailCondition} title="Trail" links={post.links["trailCondition"]} />}
+        </>
+      )}
+      {Boolean(post.other?.[0] || post.dangers?.[0] || post.gear?.[0] || post.transportation?.[0] || post.accomodation?.[0] || post.provisions?.[0]) && (
+        <>
+          <Divider title="Additional information" order={orderCounter++} stickyScrollToElementId="paragraph-other" />
+          {Boolean(post.other?.[0]) && <Paragraph links={post.links["other"]} title="Tips and author's comments" body={post.other} id="paragraph-other" />}
+          {Boolean(post.dangers?.[0]) && <Paragraph links={post.links["dangers"]} body={post.dangers} title="Dangers" />}
+          {Boolean(post.gear?.[0]) && <Paragraph links={post.links["gear"]} body={post.gear} title="Gear used" />}
+          {Boolean(post.transportation?.[0]) && <Paragraph links={post.links["transportation"]} body={post.transportation} title="Transportation" />}
+          {Boolean(post.accomodation?.[0]) && (
+            <Paragraph links={post.links["accomodation"]} body={post.accomodation} title="Accommodation" id="paragraph-general" />
+          )}
+          {Boolean(post.provisions?.[0]) && (
+            <Paragraph links={post.links["provisions"]} body={post.provisions as string[]} title="Provisions" id="paragraph-provisions" />
+          )}
+        </>
+      )}
       <Divider title={`Trip photos ${post.videos?.length ? "and videos" : ""}`} order={orderCounter++} stickyScrollToElementId="post-images" />
       {Boolean(post.images.length || post.videos?.length) && <PostImages videos={post.videos} images={post.images} id={post.id} />}
       {Boolean(posts.length) && (

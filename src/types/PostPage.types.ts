@@ -13,8 +13,8 @@ export type PostPageProps = {
 
 export type ControlDisplayLinks = {
   displayGpxChart: boolean;
-  displayGpxDownload: boolean;
-  displayTopoLink: boolean;
+  gpxDownloadLink: string;
+  topoDownloadLink: string;
 };
 
 export type PostLink = {

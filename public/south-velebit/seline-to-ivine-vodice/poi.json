@@ -1,0 +1,8 @@
+[
+  { "name": "Seline bus stop", "type": "signpost", "lat": 44.2766725, "lon": 15.4770622, "index": 0 },
+  { "name": "Trail start", "type": "signpost", "lat": 44.2822686, "lon": 15.4875806, "index": 205 },
+  { "name": "Njive Lekine", "type": "signpost", "lat": 44.3141042, "lon": 15.5124072, "index": 2210 },
+  { "name": "Veliko Močilo", "type": "signpost", "lat": 44.3248017, "lon": 15.5132081, "index": 2637 },
+  { "name": "Martinovo mirilo (910 m)", "type": "pass", "lat": 44.3308764, "lon": 15.5292158, "index": 3380 },
+  { "name": "Ivince Vodice (1.201m)", "type": "hut", "lat": 44.3366244, "lon": 15.5367694, "index": 4100 }
+]

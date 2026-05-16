@@ -18,10 +18,12 @@ type FETMapProps = {
 
 const GpxChart = dynamic(() => import("components/gpx-chart/GpxChart"), { ssr: false });
 
-export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGpxChart, displayGpxDownload, displayTopoLink } = {} }) => {
+export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGpxChart, gpxDownloadLink, topoDownloadLink } = {} }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [showMapIframe, setShowMapIframe] = useState(true);
   const [showModal, setShowModal] = useState(false);
+
+  const postId = post.parentId ? `${post.parentId}/${post.id}` : `${post.id}`;
 
   useEffect(() => {
     setIsMounted(true);
@@ -38,7 +40,7 @@ export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGp
       {showModal && (
         <Modal title={post.title} closeModalCallback={() => setShowModal(false)}>
           <LandscapeOnly>
-            <GpxChart id={post.id} />
+            <GpxChart id={postId} />
           </LandscapeOnly>
         </Modal>
       )}
@@ -46,8 +48,8 @@ export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGp
         {showMapIframe ? <MapIframe iframeUrl={post.iframeUrl} /> : null}
         <TableData post={post} />
       </div>
-      {displayGpxDownload && (
-        <a className={styles.link} href={`/${post.id}/track.${Config.COMPRESSED_FILE_EXTENSION}`}>
+      {gpxDownloadLink && (
+        <a className={styles.link} href={gpxDownloadLink}>
           <FontAwesomeIcon icon={faDownload} className={styles.icon} />
           <span>Download gps track</span>
         </a>
@@ -76,8 +78,8 @@ export const FETMap: FC<FETMapProps> = ({ post, controlDisplayLinks: { displayGp
           <span>Show elevation profile</span>
         </a>
       )}
-      {displayTopoLink && (
-        <a className={styles.link} href={`/${post.id}/topo.webp`} target="_blank" rel="noopener noreferrer">
+      {topoDownloadLink && (
+        <a className={styles.link} href={topoDownloadLink} target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faMap} className={styles.icon} />
           <span>Topo</span>
         </a>
