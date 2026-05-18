@@ -1,0 +1,11 @@
+[
+  { "name": "Ivine Vodice", "type": "hut", "lat": 44.3366244, "lon": 15.5367694, "index": 0 },
+  { "name": "Čičina dolina", "type": "signpost", "lat": 44.3416039, "lon": 15.5424997, "index": 482 },
+  { "name": "Sveto brdo (1750m)", "type": "peak", "lat": 44.3286278, "lon": 15.5697131, "index": 1608 },
+  { "name": "Čičina dolina", "type": "signpost", "lat": 44.3416039, "lon": 15.5424997, "index": 2550 },
+  { "name": "Malovan (1623m)", "type": "pass", "lat": 44.3550636, "lon": 15.5242503, "index": 3335 },
+  { "name": "Brundo (1716m)", "type": "peak", "lat": 44.3596667, "lon": 15.5127433, "index": 3838 },
+  { "name": "Vaganski vrh (1757m)", "type": "peak", "lat": 44.3673158, "lon": 15.5045558, "index": 4538 },
+  { "name": "Marasovac spring", "type": "signpost", "lat": 44.3800747, "lon": 15.4762047, "index": 5532 },
+  { "name": "Struge", "type": "hut", "lat": 44.3765, "lon": 15.4662333, "index": 6057 }
+]

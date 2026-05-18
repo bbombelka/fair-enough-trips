@@ -128,7 +128,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     .find({
       postDate: { $lt: new Date(parsedPost.postDate) },
       ...(isProd ? { published: true } : {}),
-      ...(parsedPost.parentId ? { id: { $ne: parsedPost.parentId } } : {}),
+      ...(parsedPost.parentId ? { id: { $ne: parsedPost.parentId } } : {}), // you need to add parent post sub post ids
     })
     .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
@@ -146,7 +146,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
       .collection(Config.POSTS_COLLECTION)
       .find({ parentId: parsedPost.id, ...(isProd ? { published: true } : {}) })
       .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
-      .sort({ postDate: -1 })
+      .sort({ postDate: 1 })
       .toArray();
 
     return subPosts.map((p) => ({
