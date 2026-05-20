@@ -1,0 +1,9 @@
+[
+  { "name": "Struge", "type": "hut", "lat": 44.3765, "lon": 15.4662333, "index": 3 },
+  { "name": "Buljma (1394m)", "type": "pass", "lat": 44.3688094, "lon": 15.4642933, "index": 218 },
+  { "name": "Stražbenica spring", "type": "signpost", "lat": 44.3632797, "lon": 15.4519408, "index": 1486 },
+  { "name": "Veliko Rujno", "type": "signpost", "lat": 44.355895, "lon": 15.4260747, "index": 2797 },
+  { "name": "Malo Rujno", "type": "signpost", "lat": 44.3717661, "lon": 15.3886967, "index": 3587 },
+  { "name": "Račabuša", "type": "signpost", "lat": 44.3897192, "lon": 15.3637525, "index": 4522 },
+  { "name": "Tatekova koliba", "type": "hut", "lat": 44.4084347, "lon": 15.3188453, "index": 6409 }
+]

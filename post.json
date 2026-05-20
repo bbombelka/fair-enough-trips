@@ -1,11 +1,13 @@
 {
   "id": "",
+  "subIds": [],
   "category": {
     "region": [""],
     "country": [""],
     "activity": [""]
   },
   "published": false,
+  "parentId": "",
   "title": "",
   "subTitle": "",
   "attractiveness": 3,
@@ -55,6 +57,7 @@
   "other": [""],
   "iframeUrl": "",
   "startingPoint": "",
+  "provisions": [""],
   "endingPoint": "",
   "links": {
     "shortDescription": [
@@ -82,6 +85,18 @@
       }
     ],
     "accomodation": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "provisions": [
+      {
+        "title": "",
+        "href": ""
+      }
+    ],
+    "weather:": [
       {
         "title": "",
         "href": ""
