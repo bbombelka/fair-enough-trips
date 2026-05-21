@@ -1,0 +1,8 @@
+[
+  { "name": "Tatekova koliba", "type": "hut", "lat": 44.4084347, "lon": 15.3188453, "index": 0 },
+  { "name": "Debeli kuk branch-off", "type": "signpost", "lat": 44.4122928, "lon": 15.3114797, "index": 750 },
+  { "name": "Debeli Kuk (1.269m)", "type": "peak", "lat": 44.4179169, "lon": 15.3103064, "index": 912 },
+  { "name": "Panos (1258m)", "type": "peak", "lat": 44.4266089, "lon": 15.2819197, "index": 3255 },
+  { "name": "Šugarska Duliba water well", "type": "signpost", "lat": 44.4507444, "lon": 15.2486758, "index": 4993 },
+  { "name": "Šugarska Duliba shelter", "type": "hut", "lat": 44.4523486, "lon": 15.2474369, "index": 5054 }
+]
