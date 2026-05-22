@@ -1,114 +1,37 @@
 {
-  "id": "",
-  "subIds": [],
-  "category": {
-    "region": [""],
-    "country": [""],
-    "activity": [""]
-  },
-  "published": false,
-  "parentId": "",
-  "title": "",
-  "subTitle": "",
+  "accomodation": [""],
   "attractiveness": 3,
-  "condition": 1,
-  "difficulty": "",
-  "terrain": "",
-  "postDate": {
-    "$date": "2025-05-10T03:17:22.554Z"
+  "base64Image": "",
+  "category": {
+    "activity": [""],
+    "country": [""],
+    "region": [""]
   },
+  "condition": 1,
+  "dangers": [""],
   "date": {
-    "season": 1,
-    "period": 2,
     "month": 4,
+    "period": 2,
+    "season": 1,
     "year": 2025
   },
-  "stats": {
-    "duration": 1.35,
-    "up": 400,
-    "down": 400,
-    "distance": 3.1,
-    "highestPoint": 441,
-    "climb": {
-      "access": 30,
-      "up": 30,
-      "down": 35
-    }
-  },
-  "trailCondition": [""],
-  "shortDescription": [""],
   "description": [
     {
-      "title": "",
       "body": [],
       "links": [
         {
-          "title": "",
-          "href": ""
+          "href": "",
+          "title": ""
         }
-      ]
+      ],
+      "title": ""
     }
   ],
-  "weather": [""],
-  "dangers": [""],
-  "accomodation": [""],
-  "transportation": [""],
-  "gear": [""],
-  "other": [""],
-  "iframeUrl": "",
-  "startingPoint": "",
-  "provisions": [""],
+  "difficulty": "",
   "endingPoint": "",
-  "links": {
-    "shortDescription": [
-      {
-        "title": "",
-        "href": ""
-      }
-    ],
-    "dangers": [
-      {
-        "title": "",
-        "href": ""
-      }
-    ],
-    "trailCondition": [
-      {
-        "title": "",
-        "href": ""
-      }
-    ],
-    "transportation": [
-      {
-        "title": "",
-        "href": ""
-      }
-    ],
-    "accomodation": [
-      {
-        "title": "",
-        "href": ""
-      }
-    ],
-    "provisions": [
-      {
-        "title": "",
-        "href": ""
-      }
-    ],
-    "weather:": [
-      {
-        "title": "",
-        "href": ""
-      }
-    ],
-    "other": [
-      {
-        "title": "",
-        "href": ""
-      }
-    ]
-  },
+  "gear": [""],
+  "id": "",
+  "iframeUrl": "",
   "images": [
     {
       "desc": "",
@@ -194,5 +117,82 @@
       "isVertical": true
     }
   ],
-  "base64Image": ""
+  "links": {
+    "accomodation": [
+      {
+        "href": "",
+        "title": ""
+      }
+    ],
+    "dangers": [
+      {
+        "href": "",
+        "title": ""
+      }
+    ],
+    "other": [
+      {
+        "href": "",
+        "title": ""
+      }
+    ],
+    "provisions": [
+      {
+        "href": "",
+        "title": ""
+      }
+    ],
+    "shortDescription": [
+      {
+        "href": "",
+        "title": ""
+      }
+    ],
+    "trailCondition": [
+      {
+        "href": "",
+        "title": ""
+      }
+    ],
+    "transportation": [
+      {
+        "href": "",
+        "title": ""
+      }
+    ],
+    "weather": [
+      {
+        "href": "",
+        "title": ""
+      }
+    ]
+  },
+  "other": [""],
+  "parentId": "",
+  "postDate": {
+    "$date": "2025-05-10T03:17:22.554Z"
+  },
+  "provisions": [""],
+  "published": false,
+  "shortDescription": [""],
+  "startingPoint": "",
+  "stats": {
+    "climb": {
+      "access": 30,
+      "down": 35,
+      "up": 30
+    },
+    "distance": 3.1,
+    "down": 400,
+    "duration": 1.35,
+    "highestPoint": 441,
+    "up": 400
+  },
+  "subIds": [],
+  "subTitle": "",
+  "terrain": "",
+  "title": "",
+  "trailCondition": [""],
+  "transportation": [""],
+  "weather": [""]
 }
