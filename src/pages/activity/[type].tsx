@@ -6,14 +6,16 @@ import { Post } from "components/card-list/CardList.types";
 import mongoClientConnectPromise from "MongoClient";
 import Config from "Config";
 import { Activities } from "enums/categories";
+import prepareActivityRichData from "server/utils/prepare-activity-rich-data";
 
 type HomePageProps = {
   mainPost: Post;
   latestPosts: Post[];
   code: string;
+  richData: any[];
 };
 
-const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code }) => {
+const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code, richData }) => {
   const activity = Activities.find((act) => act.code === code);
   const postTitle = `${activity?.name} @ Fair Enough Trips`;
 
@@ -23,6 +25,7 @@ const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code }) => {
         <title>{postTitle}</title>
         <meta name="description" content={`Fair Enough Trips - ${activity?.name} page`} />
         <link rel="canonical" href={`https://${Config.DOMAIN}/activity/${activity?.url}`} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }} />
       </Head>
       <Navbar />
       <main>
@@ -73,12 +76,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .toArray();
 
   const jsonParsed = JSON.parse(JSON.stringify(latestPosts));
+  const richData = prepareActivityRichData(code as string, jsonParsed);
 
   return {
     props: {
       mainPost: { ...jsonParsed[0] },
       latestPosts: jsonParsed.slice(1),
       code,
+      richData,
     },
   };
 };

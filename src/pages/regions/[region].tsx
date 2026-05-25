@@ -12,6 +12,7 @@ import { TripNotes } from "components/trip-notes/TripNotes";
 import { TripNote } from "components/trip-notes/TripNotes.types";
 import { Box } from "components/box/Box";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
+import prepareRegionRichData from "server/utils/prepare-region-rich-data";
 
 type HomePageProps = {
   posts: Post[];
@@ -19,9 +20,10 @@ type HomePageProps = {
   notes: TripNote[];
   imageId: string;
   base64Image: string;
+  richData: any[];
 };
 
-const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, imageId }) => {
+const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, imageId, richData }) => {
   const region = Regions.find((act) => act.code === code)!;
   const postTitle = `${region.name} @ Fair Enough Trips`;
 
@@ -31,6 +33,7 @@ const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, im
         <title>{postTitle}</title>
         <meta name="description" content={`Fair Enough Trips in ${region.name} page`} />
         <link rel="canonical" href={`https://${Config.DOMAIN}/regions/${region.url}`} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }} />
       </Head>
       <Navbar />
       <main>
@@ -107,6 +110,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     postDate: post.postDate.toISOString(),
   }));
 
+  const richData = prepareRegionRichData(code as string, serializedPosts);
+
   return {
     props: {
       posts: serializedPosts,
@@ -114,6 +119,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       notes: notes?.notes ?? [],
       imageId: id ?? null,
       base64Image: posts.find((post) => post.id === id)?.base64Image ?? null,
+      richData,
     },
   };
 };

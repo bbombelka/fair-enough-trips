@@ -12,6 +12,7 @@ import { Box } from "components/box/Box";
 import { TripNotes } from "components/trip-notes/TripNotes";
 import { TripNote } from "components/trip-notes/TripNotes.types";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
+import prepareCountryRichData from "server/utils/prepare-country-rich-data";
 
 type HomePageProps = {
   posts: Post[];
@@ -19,9 +20,10 @@ type HomePageProps = {
   notes: TripNote[];
   imageId: string;
   base64Image: string;
+  richData: any[];
 };
 
-const Category: NextPage<HomePageProps> = ({ posts, notes, code, imageId, base64Image }) => {
+const Category: NextPage<HomePageProps> = ({ posts, notes, code, imageId, base64Image, richData }) => {
   const country = Countries.find((act) => act.code === code)!;
   const postTitle = `${country.name} @ Fair Enough Trips`;
 
@@ -31,6 +33,7 @@ const Category: NextPage<HomePageProps> = ({ posts, notes, code, imageId, base64
         <title>{postTitle}</title>
         <meta name="description" content={`Fair Enough Trips -  ${country.name} page.`} />
         <link rel="canonical" href={`https://${Config.DOMAIN}/countries/${country.url}`} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }} />
       </Head>
       <Navbar />
       <main>
@@ -107,6 +110,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }));
 
   const notesParsed = parse(notes);
+  const richData = prepareCountryRichData(code as string, serializedPosts);
 
   return {
     props: {
@@ -115,6 +119,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       notes: notesParsed?.notes ?? [],
       imageId: id,
       base64Image: posts.find((post) => post.id === id)?.base64Image,
+      richData,
     },
   };
 };
