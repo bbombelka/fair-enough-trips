@@ -37,23 +37,28 @@ export const StarRate: FC<StarRateProps> = ({ rate, comment, disableCount }) => 
   };
 
   const [stars, setStars] = useState(() => getInitialStarBlueprint(Config.MAX_STARS_COUNT, "empty"));
-  const finalStars = useMemo(() => getFinalStarBlueprint(rate), []);
+  const finalStars = useMemo(() => getFinalStarBlueprint(rate), [rate]);
   const [starsDrawnCount, setStarsDrawnCount] = useState(1);
 
-  function drawStars(starsDrawnCount: number) {
-    setTimeout(() => {
-      setStars(() => [...finalStars.slice(0, starsDrawnCount), ...getInitialStarBlueprint(4, "empty")].slice(0, Config.MAX_STARS_COUNT));
-      setStarsDrawnCount(starsDrawnCount + 1);
-    }, 500);
-  }
+  useEffect(() => {
+    setStars(getInitialStarBlueprint(Config.MAX_STARS_COUNT, "empty"));
+    setStarsDrawnCount(1);
+  }, [rate]);
 
   useEffect(() => {
     if (disableCount) {
-      setStars([...getInitialStarBlueprint(rate, "solid"), ...getInitialStarBlueprint(4, "empty")]);
-    } else if (starsDrawnCount < Config.MAX_STARS_COUNT + 1) {
-      drawStars(starsDrawnCount);
+      setStars(finalStars);
+      return;
     }
-  }, [starsDrawnCount]);
+    
+    if (starsDrawnCount < Config.MAX_STARS_COUNT + 1) {
+      const timer = setTimeout(() => {
+        setStars([...finalStars.slice(0, starsDrawnCount), ...getInitialStarBlueprint(Config.MAX_STARS_COUNT, "empty")].slice(0, Config.MAX_STARS_COUNT));
+        setStarsDrawnCount((prev) => prev + 1);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [starsDrawnCount, disableCount, finalStars]);
 
   return (
     <div>

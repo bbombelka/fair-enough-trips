@@ -11,6 +11,7 @@ type TableDataProps = {
 
 export const TableData: FC<TableDataProps> = ({
   post: {
+    id,
     attractiveness,
     difficulty,
     terrain,
@@ -26,12 +27,12 @@ export const TableData: FC<TableDataProps> = ({
       <tbody className={styles.table}>
         <Cell label="Attractiveness">
           <a href="/about#rating">
-            <StarRate rate={attractiveness} />
+            <StarRate key={id} rate={attractiveness} />
           </a>
         </Cell>
         <Cell label="Condition">
           <a href="/about#rating">
-            <StarRate rate={condition} />
+            <StarRate key={id} rate={condition} />
           </a>
         </Cell>
         <Cell label="Distance" value={`${distance} km`}></Cell>
