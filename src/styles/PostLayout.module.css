@@ -7,9 +7,23 @@
   letter-spacing: 4px;
 }
 
+.subtitle {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2xpx;
+  margin: 12px;
+  color: var(--font-grey);
+  letter-spacing: 4px;
+}
+
 @media (max-width: 720px) {
   .title {
     font-size: 20px;
+    margin: 0 12px 12px;
+  }
+
+  .subtitle {
+    font-size: 16px;
     margin: 0 12px 12px;
   }
 }

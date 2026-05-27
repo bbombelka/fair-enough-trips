@@ -59,10 +59,17 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
         <meta name="robots" content="index, follow" />
       </Head>
       <Navbar />
-      {Boolean(subPosts?.length) ? (
-        <PostMultidayTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} posts={posts} subPosts={subPosts} />
+      {Boolean(parentPostData?.id) ? (
+        <PostTemplate
+          post={post}
+          controlDisplayLinks={controlDisplayLinks}
+          hasRouteScheme={hasRouteScheme}
+          posts={posts}
+          parentPostData={parentPostData}
+          subPosts={subPosts}
+        />
       ) : (
-        <PostTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} posts={posts} parentPostData={parentPostData} />
+        <PostMultidayTemplate post={post} controlDisplayLinks={controlDisplayLinks} hasRouteScheme={hasRouteScheme} posts={posts} subPosts={subPosts} />
       )}
       <Footer isSticky />
     </>
@@ -128,7 +135,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     .find({
       postDate: { $lt: new Date(parsedPost.postDate) },
       ...(isProd ? { published: true } : {}),
-      ...(parsedPost.parentId ? { id: { $ne: parsedPost.parentId } } : {}), // you need to add parent post sub post ids
+      ...(parsedPost.parentId ? { id: { $ne: parsedPost.parentId }, parentId: { $ne: parsedPost.parentId } } : {}), // you need to add parent post sub post ids
     })
     .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
@@ -140,11 +147,14 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     postDate: p.postDate.toISOString(),
   }));
 
-  const subPosts = async () => {
+  const isParentPost = Boolean(parsedPost.subIds?.length);
+  const isSubPost = Boolean(parsedPost.parentId);
+
+  const subPosts = async (id: string) => {
     const subPosts = await mongoClient
       .db(Config.DB_NAME)
       .collection(Config.POSTS_COLLECTION)
-      .find({ parentId: parsedPost.id, ...(isProd ? { published: true } : {}) })
+      .find({ parentId: id, ...(isProd ? { published: true } : {}) })
       .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
       .sort({ postDate: 1 })
       .toArray();
@@ -155,11 +165,11 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
     }));
   };
 
-  const parentPostData = async () => {
+  const parentPostData = async (id: string) => {
     const data = await mongoClient
       .db(Config.DB_NAME)
       .collection(Config.POSTS_COLLECTION)
-      .find({ id: parsedPost.parentId })
+      .find({ id })
       .project<BreadcrumbParentPostData>({ id: true, title: true, _id: false })
       .toArray();
 
@@ -168,11 +178,11 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
 
   return {
     props: {
-      subPosts: Boolean(parsedPost.subIds?.length) ? await subPosts() : [],
+      subPosts: isParentPost || isSubPost ? await subPosts(isParentPost ? parsedPost.id : parsedPost.parentId) : [],
       posts: serializedPosts,
       richData: preparePostRichData(parsedPost),
       post: { ...parsedPost } as FullPost,
-      parentPostData: Boolean(parsedPost.parentId) ? await parentPostData() : { id: "", title: "" },
+      parentPostData: isSubPost ? await parentPostData(parsedPost.parentId) : { id: "", title: "" },
       hasRouteScheme,
       controlDisplayLinks: {
         displayGpxChart: await displayGpxChartPromise,

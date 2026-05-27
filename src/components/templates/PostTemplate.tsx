@@ -9,13 +9,19 @@ import { PostCard } from "components/post-card/PostCard";
 import { Post } from "components/card-list/CardList.types";
 import CardList from "components/card-list/CardList";
 import { Breadcrumbs } from "components/breadcrumbs/Breadcrumbs";
+import { TripSections } from "components/trip-sections/TripSections";
 
-export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts, parentPostData }: PostTemplateProps) => {
+export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts, parentPostData, subPosts }: PostTemplateProps) => {
   let orderCounter = 1;
 
   return (
-    <Layout title={post.title}>
+    <Layout title={parentPostData?.title || post.title} subTitle={parentPostData?.title ? post.title : undefined}>
       <Breadcrumbs category={post.category} postTitle={post.title} parentData={parentPostData?.id ? parentPostData : undefined} />
+      {Boolean(subPosts?.length) && (
+        <>
+          <TripSections subPosts={subPosts!} parentPostId={post.parentId!} />
+        </>
+      )}
       <FETMap post={post} controlDisplayLinks={controlDisplayLinks} />
       {hasRouteScheme && (
         <>

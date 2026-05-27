@@ -18,13 +18,12 @@ export const PostMultidayTemplate = ({ post, controlDisplayLinks, hasRouteScheme
   return (
     <Layout title={post.title}>
       <Breadcrumbs category={post.category} postTitle={post.title} />
-      <FETMap post={post} controlDisplayLinks={controlDisplayLinks} />
       {Boolean(subPosts?.length) && (
         <>
-          <Divider title="Trip sections" order={orderCounter++} />
           <TripSections subPosts={subPosts!} parentPostId={post.id} />
         </>
       )}
+      <FETMap post={post} controlDisplayLinks={controlDisplayLinks} />
       {hasRouteScheme && (
         <>
           <Divider title="Route scheme" order={orderCounter++} stickyScrollToElementId="route-scheme" />
