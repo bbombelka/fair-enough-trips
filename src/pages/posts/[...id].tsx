@@ -155,7 +155,7 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
       .db(Config.DB_NAME)
       .collection(Config.POSTS_COLLECTION)
       .find({ parentId: id, ...(isProd ? { published: true } : {}) })
-      .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
+      .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false })
       .sort({ postDate: 1 })
       .toArray();
 

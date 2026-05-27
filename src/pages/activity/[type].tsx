@@ -2,7 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post } from "components/card-list/CardList.types";
+import { Post, PostDocument } from "components/card-list/CardList.types";
 import mongoClientConnectPromise from "MongoClient";
 import Config from "Config";
 import { Activities } from "enums/categories";
@@ -72,6 +72,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .db(Config.DB_NAME)
     .collection(Config.POSTS_COLLECTION)
     .find({ ["category.activity"]: code, parentId: null, ...(isProd ? { published: true } : {}) })
+    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
     .sort({ postDate: -1 })
     .toArray();
 
