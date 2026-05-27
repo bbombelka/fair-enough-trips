@@ -5,7 +5,7 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
   <loc>https://fairenoughtrips.com/</loc>
-  <lastmod>2026-05-12T09:41:55+00:00</lastmod>
+  <lastmod>2026-05-27T16:26:17+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
@@ -41,6 +41,11 @@
 <url>
   <loc>https://fairenoughtrips.com/search</loc>
   <lastmod>2026-05-12T09:41:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fairenoughtrips.com/posts/south-velebit</loc>
+  <lastmod>2026-05-27T16:26:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
@@ -438,6 +443,30 @@
   <lastmod>2026-05-12T09:41:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
-
+<url>
+  <loc>https://fairenoughtrips.com/posts/south-velebit/seline-to-ivine-vodice</loc>
+  <lastmod>2026-05-27T16:26:17+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://fairenoughtrips.com/posts/south-velebit/ivine-vodice-to-struge</loc>
+  <lastmod>2026-05-27T16:26:17+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://fairenoughtrips.com/posts/south-velebit/struge-to-tatekova-koliba</loc>
+  <lastmod>2026-05-27T16:26:17+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://fairenoughtrips.com/posts/south-velebit/tatekova-koliba-to-sugarska-duliba</loc>
+  <lastmod>2026-05-27T16:26:17+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://fairenoughtrips.com/posts/south-velebit/sugarska-duliba-to-baske-ostarije</loc>
+  <lastmod>2026-05-27T16:26:17+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
 
 </urlset>
