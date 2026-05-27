@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import mongoClientConnectPromise from "MongoClient";
-import Config from "Config";
+import { getLatestPosts } from "server/shared/posts";
 
 type Data = {
   name: string;
@@ -9,30 +8,20 @@ type Data = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
     const searchTermRegex = new RegExp(req.query.searchTerm as string);
-    const isProd = process.env.NODE_ENV === "production";
-
-    const mongoClient = await mongoClientConnectPromise;
 
     const TITLE_QUERY = searchQueryBuilder("title", searchTermRegex);
     const ID_QUERY = searchQueryBuilder("id", searchTermRegex);
     const DESCRIPTION_QUERY = searchQueryBuilder("shortDescription", searchTermRegex);
     const LOGICAL_OPERATOR_OR = { $or: [TITLE_QUERY, ID_QUERY, DESCRIPTION_QUERY] };
-    const QUERY_PROJECTION = { category: true, title: true, id: true, postDate: true, base64Image: true };
 
-    const latestPosts = await mongoClient
-      .db(Config.DB_NAME)
-      .collection(Config.POSTS_COLLECTION)
-      .find(
-        { ...LOGICAL_OPERATOR_OR, ...(isProd ? { published: true } : {}) },
-        {
-          projection: QUERY_PROJECTION,
-        },
-      )
-      .sort({ postDate: -1 })
-      .limit(25)
-      .toArray();
+    const latestPosts = await getLatestPosts(LOGICAL_OPERATOR_OR, 25);
 
-    return res.status(200).json(JSON.parse(JSON.stringify(latestPosts)));
+    // Strip category for search response to reduce payload, search component only needs a few fields
+    const searchResults = latestPosts.map(({ id, title, postDate, base64Image, category }) => ({
+      id, title, postDate, base64Image, category
+    }));
+
+    return res.status(200).json(searchResults as any);
   } catch (error) {}
 }
 

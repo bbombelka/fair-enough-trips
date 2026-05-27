@@ -2,8 +2,9 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Layout, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post, PostDocument } from "components/card-list/CardList.types";
+import { Post } from "components/card-list/CardList.types";
 import mongoClientConnectPromise from "MongoClient";
+import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 
 import Config from "Config";
 import { CategoriesEnum, Regions } from "enums/categories";
@@ -70,12 +71,7 @@ const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, im
 export default Category;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const mongoClient = await mongoClientConnectPromise;
-  const isProd = process.env.NODE_ENV === "production";
-
-  const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
-
-  const posts = await collection.find(isProd ? { published: true } : {}).toArray();
+  const posts = await getPathsPosts();
 
   const types = Array.from(new Set(posts.map(({ category }) => category.region).flat()))
     .map((code) => Regions.find((act) => act.code === code)?.url)
@@ -89,32 +85,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const mongoClient = await mongoClientConnectPromise;
-  const isProd = process.env.NODE_ENV === "production";
 
   const code = Regions.find((act) => act.url === params?.region)?.code;
 
-  const posts = await mongoClient
-    .db(Config.DB_NAME)
-    .collection(Config.POSTS_COLLECTION)
-    .find({ ["category.region"]: code, parentId: { $exists: false }, ...(isProd ? { published: true } : {}) })
-    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
-    .sort({ postDate: -1 })
-    .toArray();
+  const posts = await getLatestPosts({ ["category.region"]: code, parentId: { $exists: false } });
 
   const notes = await mongoClient.db(Config.DB_NAME).collection(Config.REGION_NOTES_COLLECTION).findOne({ id: code });
 
   const id = shuffleBackgroundImage(posts.map(({ id }) => id));
 
-  const serializedPosts: Post[] = posts.map((post) => ({
-    ...post,
-    postDate: post.postDate.toISOString(),
-  }));
-
-  const richData = prepareRegionRichData(code as string, serializedPosts);
+  const richData = prepareRegionRichData(code as string, posts);
 
   return {
     props: {
-      posts: serializedPosts,
+      posts,
       code,
       notes: notes?.notes ?? [],
       imageId: id ?? null,

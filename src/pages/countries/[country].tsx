@@ -2,8 +2,9 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Layout, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post, PostDocument } from "components/card-list/CardList.types";
+import { Post } from "components/card-list/CardList.types";
 import mongoClientConnectPromise from "MongoClient";
+import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 import Config from "Config";
 import { CategoriesEnum, Countries } from "enums/categories";
 import { CategoryCard } from "components/category-card/CategoryCard";
@@ -70,11 +71,7 @@ const Category: NextPage<HomePageProps> = ({ posts, notes, code, imageId, base64
 export default Category;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const mongoClient = await mongoClientConnectPromise;
-
-  const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
-
-  const posts = await collection.find().toArray();
+  const posts = await getPathsPosts();
 
   const types = Array.from(new Set(posts.map(({ category }) => category.country).flat()))
     .map((code) => Countries.find((act) => act.code === code)?.url)
@@ -88,33 +85,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const mongoClient = await mongoClientConnectPromise;
   await mongoClient.connect();
-  const isProd = process.env.NODE_ENV === "production";
 
   const code = Countries.find(({ url }) => url === params?.country)?.code;
 
-  const posts = await mongoClient
-    .db(Config.DB_NAME)
-    .collection(Config.POSTS_COLLECTION)
-    .find({ ["category.country"]: code, ...(isProd ? { published: true } : {}), parentId: { $exists: false } })
-    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
-    .sort({ postDate: -1 })
-    .toArray();
+  const posts = await getLatestPosts({ ["category.country"]: code, parentId: { $exists: false } });
 
   const notes = await mongoClient.db(Config.DB_NAME).collection(Config.COUNTRY_NOTES_COLLECTION).findOne({ id: code });
 
   const id = shuffleBackgroundImage(posts.map(({ id }) => id));
 
-  const serializedPosts: Post[] = posts.map((post) => ({
-    ...post,
-    postDate: post.postDate.toISOString(),
-  }));
-
   const notesParsed = parse(notes);
-  const richData = prepareCountryRichData(code as string, serializedPosts);
+  const richData = prepareCountryRichData(code as string, posts);
 
   return {
     props: {
-      posts: serializedPosts,
+      posts,
       code,
       notes: notesParsed?.notes ?? [],
       imageId: id,
