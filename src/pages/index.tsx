@@ -1,10 +1,10 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
-import { Post, PostDocument } from "components/card-list/CardList.types";
-import mongoClientConnectPromise from "MongoClient";
+import { Post } from "components/card-list/CardList.types";
 import Config from "Config";
 import CardList from "components/card-list/CardList";
+import { getLatestPosts } from "server/shared/posts";
 
 type HomePageProps = {
   mainPost: Post;
@@ -52,27 +52,12 @@ const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const mongoClient = await mongoClientConnectPromise;
-  const isProd = process.env.NODE_ENV === "production";
-
-  const posts = await mongoClient
-    .db(Config.DB_NAME)
-    .collection(Config.POSTS_COLLECTION)
-    .find({ parentId: null, ...(isProd ? { published: true } : {}) })
-    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
-    .sort({ postDate: -1 })
-    .limit(Config.POST_COUNT_HOME_PAGE + 1)
-    .toArray();
-
-  const serializedPosts: Post[] = posts.map((post) => ({
-    ...post,
-    postDate: post.postDate.toISOString(),
-  }));
+  const posts = await getLatestPosts({ parentId: null }, Config.POST_COUNT_HOME_PAGE + 1);
 
   return {
     props: {
-      mainPost: { ...serializedPosts[0] },
-      latestPosts: serializedPosts.slice(1, Config.POST_COUNT_HOME_PAGE + 1),
+      mainPost: { ...posts[0] },
+      latestPosts: posts.slice(1, Config.POST_COUNT_HOME_PAGE + 1),
     },
   };
 };

@@ -10,7 +10,7 @@ import routeSchemeExists from "server/shared/route-scheme-exists";
 import preparePostRichData from "server/utils/prepare-rich-data";
 import { useMappedCategoriesNames } from "hooks/useMappedCategories";
 import { PostTemplate } from "components/templates/PostTemplate";
-import { Post, PostDocument } from "components/card-list/CardList.types";
+import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 import { PostMultidayTemplate } from "components/templates/multiday/PostMultidayTemplate";
 
 const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRouteScheme, richData, posts, subPosts, parentPostData }) => {
@@ -79,12 +79,7 @@ const PostPage: NextPage<PostPageProps> = ({ post, controlDisplayLinks, hasRoute
 export default PostPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const mongoClient = await mongoClientConnectPromise;
-  const isProd = process.env.NODE_ENV === "production";
-
-  const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
-
-  const posts = await collection.find(isProd ? { published: true } : {}).toArray();
+  const posts = await getPathsPosts();
 
   return {
     paths: posts.map((post) => {
@@ -129,40 +124,19 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({ params }) 
 
   const parsedPost = JSON.parse(JSON.stringify(post));
 
-  const posts = await mongoClient
-    .db(Config.DB_NAME)
-    .collection(Config.POSTS_COLLECTION)
-    .find({
+  const serializedPosts = await getLatestPosts(
+    {
       postDate: { $lt: new Date(parsedPost.postDate) },
-      ...(isProd ? { published: true } : {}),
       ...(parsedPost.parentId ? { id: { $ne: parsedPost.parentId }, parentId: { $ne: parsedPost.parentId } } : {}), // you need to add parent post sub post ids
-    })
-    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
-    .sort({ postDate: -1 })
-    .limit(4)
-    .toArray();
-
-  const serializedPosts: Post[] = posts.map((p) => ({
-    ...p,
-    postDate: p.postDate.toISOString(),
-  }));
+    },
+    4
+  );
 
   const isParentPost = Boolean(parsedPost.subIds?.length);
   const isSubPost = Boolean(parsedPost.parentId);
 
   const subPosts = async (id: string) => {
-    const subPosts = await mongoClient
-      .db(Config.DB_NAME)
-      .collection(Config.POSTS_COLLECTION)
-      .find({ parentId: id, ...(isProd ? { published: true } : {}) })
-      .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false })
-      .sort({ postDate: 1 })
-      .toArray();
-
-    return subPosts.map((p) => ({
-      ...p,
-      postDate: p.postDate.toISOString(),
-    }));
+    return getLatestPosts({ parentId: id }, undefined, 1);
   };
 
   const parentPostData = async (id: string) => {

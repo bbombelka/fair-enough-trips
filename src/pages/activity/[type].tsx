@@ -2,11 +2,11 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post, PostDocument } from "components/card-list/CardList.types";
-import mongoClientConnectPromise from "MongoClient";
+import { Post } from "components/card-list/CardList.types";
 import Config from "Config";
 import { Activities } from "enums/categories";
 import prepareActivityRichData from "server/utils/prepare-activity-rich-data";
+import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 
 type HomePageProps = {
   mainPost: Post;
@@ -46,11 +46,7 @@ const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code, richDa
 export default Category;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const mongoClient = await mongoClientConnectPromise;
-
-  const collection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
-
-  const posts = await collection.find().toArray();
+  const posts = await getPathsPosts();
 
   const types = Array.from(new Set(posts.map(({ category }) => category.activity).flat()))
     .map((code) => Activities.find((act) => act.code === code)?.url)
@@ -63,26 +59,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const mongoClient = await mongoClientConnectPromise;
-
   const code = Activities.find((act) => act.url === params?.type)?.code;
-  const isProd = process.env.NODE_ENV === "production";
 
-  const latestPosts = await mongoClient
-    .db(Config.DB_NAME)
-    .collection(Config.POSTS_COLLECTION)
-    .find({ ["category.activity"]: code, parentId: null, ...(isProd ? { published: true } : {}) })
-    .project<PostDocument>({ id: true, title: true, category: true, isTop: true, postDate: true, _id: false, base64Image: true })
-    .sort({ postDate: -1 })
-    .toArray();
+  const latestPosts = await getLatestPosts({ ["category.activity"]: code, parentId: null });
 
-  const jsonParsed = JSON.parse(JSON.stringify(latestPosts));
-  const richData = prepareActivityRichData(code as string, jsonParsed);
+  const richData = prepareActivityRichData(code as string, latestPosts);
 
   return {
     props: {
-      mainPost: { ...jsonParsed[0] },
-      latestPosts: jsonParsed.slice(1),
+      mainPost: { ...latestPosts[0] },
+      latestPosts: latestPosts.slice(1),
       code,
       richData,
     },
