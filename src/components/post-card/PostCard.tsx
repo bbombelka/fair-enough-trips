@@ -1,3 +1,5 @@
+"use client";
+
 import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateBox } from "components/date-box/DateBox";

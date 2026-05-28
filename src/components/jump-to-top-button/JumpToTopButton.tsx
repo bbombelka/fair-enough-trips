@@ -1,6 +1,8 @@
+"use client";
+
 import clsx from "clsx";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "styles/JumpToTopButton.module.css";
 import { useHasHash } from "hooks/useHasHash";

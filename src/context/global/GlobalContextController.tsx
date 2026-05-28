@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, PropsWithChildren, useContext, FC, useState } from "react";
 
 export type GlobalContextType = {

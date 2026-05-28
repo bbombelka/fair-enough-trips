@@ -1,3 +1,5 @@
+"use client";
+
 import { footerLinks } from "app-links";
 import clsx from "clsx";
 import { Link } from "components/link/Link";

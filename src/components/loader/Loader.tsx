@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import { LogoCursor } from "components/icons/Icons";
 import React, { FC, useEffect, useState } from "react";

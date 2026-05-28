@@ -3,47 +3,20 @@ import { CategoryCard } from "components/category-card/CategoryCard";
 import Config from "Config";
 import { CategoriesEnum, Countries } from "enums/categories";
 import mongoClientConnectPromise from "MongoClient";
-import { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
+import { Metadata } from "next";
 import CardList from "components/card-list/CardList";
 import { CategoryDocument } from "types/database.types";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
-import { CountriesPageProps } from "types/pages/countries.types";
 
-const CountriesPage: NextPage<CountriesPageProps> = ({ countries }) => {
-  return (
-    <>
-      <Head>
-        <title>Countries @ Fair Enough Trips</title>
-        <meta name="description" content="Find your trip by selecting a country" />
-        <link rel="canonical" href={`https://${Config.DOMAIN}/countries`} />
-      </Head>
-      <div>
-        <Navbar />
-        <Layout>
-          <CardList listTitle="Find trip in country">
-            {countries.map(({ country, postIds, blurDataURL, id }) => (
-              <CategoryCard
-                id={id}
-                blurDataURL={blurDataURL}
-                key={country.code}
-                categoryType={CategoriesEnum.Countries}
-                category={country}
-                postIds={postIds}
-                isMainCard={false}
-              />
-            ))}
-          </CardList>
-        </Layout>
-        <Footer isSticky />
-      </div>
-    </>
-  );
+export const metadata: Metadata = {
+  title: "Countries @ Fair Enough Trips",
+  description: "Find your trip by selecting a country",
+  alternates: {
+    canonical: `https://${Config.DOMAIN}/countries`,
+  },
 };
 
-export default CountriesPage;
-
-export const getStaticProps: GetStaticProps<CountriesPageProps> = async () => {
+export default async function CountriesPage() {
   const mongoClient = await mongoClientConnectPromise;
   const isProd = process.env.NODE_ENV === "production";
 
@@ -53,7 +26,7 @@ export const getStaticProps: GetStaticProps<CountriesPageProps> = async () => {
     .project<CategoryDocument<"country">>({ id: true, ["category.country"]: true, base64Image: true })
     .toArray();
 
-  const countries = Countries.sort((a, b) => a.name.localeCompare(b.name))
+  const countriesData = Countries.sort((a, b) => a.name.localeCompare(b.name))
     .map((country) => {
       const postIds = posts.filter(({ category }) => category.country.includes(country.code)).map((post) => post.id);
       const id = shuffleBackgroundImage(postIds);
@@ -68,9 +41,25 @@ export const getStaticProps: GetStaticProps<CountriesPageProps> = async () => {
     })
     .filter(({ postIds }) => postIds.length);
 
-  return {
-    props: {
-      countries,
-    },
-  };
-};
+  return (
+    <div>
+      <Navbar />
+      <Layout>
+        <CardList listTitle="Find trip in country">
+          {countriesData.map(({ country, postIds, blurDataURL, id }) => (
+            <CategoryCard
+              id={id}
+              blurDataURL={blurDataURL}
+              key={country.code}
+              categoryType={CategoriesEnum.Countries}
+              category={country}
+              postIds={postIds}
+              isMainCard={false}
+            />
+          ))}
+        </CardList>
+      </Layout>
+      <Footer isSticky />
+    </div>
+  );
+}

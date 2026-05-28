@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { checkWindowSize } from "./checkWindowSize";
 import { useIsMounted } from "./useIsMounted";

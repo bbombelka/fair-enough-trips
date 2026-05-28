@@ -1,3 +1,5 @@
+"use client";
+
 import { Box } from "components/box/Box";
 import { Divider } from "components/divider/Divider";
 import { Paragraph } from "components/paragraph/Paragraph";

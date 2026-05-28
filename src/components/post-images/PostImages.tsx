@@ -1,3 +1,5 @@
+"use client";
+
 import Config from "Config";
 import { FC } from "react";
 import { FETImage } from "components/fet-image/FETImage";

@@ -1,3 +1,5 @@
+"use client";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TableData } from "components/table-data/TableData";
 import { FC, useState, useEffect } from "react";

@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import { checkWindowSize } from "hooks/checkWindowSize";
 import React, { FC, useState, useEffect, useRef } from "react";

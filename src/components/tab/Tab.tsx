@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import React, { FC, useState } from "react";
 import styles from "styles/Tab.module.css";

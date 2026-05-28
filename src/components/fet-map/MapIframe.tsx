@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC, useEffect, useState } from "react";
 import { Alert } from "components/alert/Alert";
 import { Loader } from "components/loader/Loader";

@@ -1,3 +1,5 @@
+"use client";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Config from "Config";
 import React, { FC, useEffect, useMemo, useState } from "react";

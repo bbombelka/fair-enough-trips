@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState, MouseEvent } from "react";
 import * as d3 from "d3";
 import { splitPoiNames } from "../gpx-chart/GpxChart.options";

@@ -1,18 +1,20 @@
+"use client";
+
 import { Link } from "components/link/Link";
 
 import styles from "styles/TripSections.module.css";
 
 import React from "react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { TripSectionsProps } from "./TripSections.types";
 
 export const TripSections = ({ subPosts, parentPostId }: TripSectionsProps) => {
-  const { asPath } = useRouter();
+  const pathname = usePathname();
 
   return (
     <ol className={styles.list}>
       <li>
-        <Link name={`Overview`} href={`${parentPostId}`} className={`${asPath.endsWith(`/${parentPostId}`) ? styles.active : ""}`} />
+        <Link name={`Overview`} href={`${parentPostId}`} className={`${pathname?.endsWith(`/${parentPostId}`) ? styles.active : ""}`} />
       </li>
       <li aria-hidden="true" className={styles.separator}>
         |
@@ -20,7 +22,7 @@ export const TripSections = ({ subPosts, parentPostId }: TripSectionsProps) => {
       {subPosts.map((post, index) => {
         const href = `${parentPostId}/${post.id}`;
 
-        const isActive = asPath.includes(href);
+        const isActive = pathname?.includes(href);
 
         return (
           <React.Fragment key={post.id}>

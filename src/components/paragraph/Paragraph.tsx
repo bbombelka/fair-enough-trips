@@ -1,3 +1,5 @@
+"use client";
+
 import { Link } from "components/link/Link";
 import { useGlobalContext } from "hooks/useGlobalContext";
 import React, { FC, ReactNode } from "react";

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC } from "react";
 import RouteScheme from "./RouteScheme";
 import useRouteSchemePoints from "pages/api/hooks/useRouteSchemePoints";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useIsMounted } from "hooks/useIsMounted";
 import { useEffect, useState } from "react";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 function useSessionStorage<T>(key: string, initialValue?: T): [T, Dispatch<SetStateAction<T>>] {

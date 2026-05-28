@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC, useState } from "react";
 import NextImage from "next/image";
 import { Loader } from "components/loader/Loader";

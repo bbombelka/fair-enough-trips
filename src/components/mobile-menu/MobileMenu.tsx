@@ -1,3 +1,5 @@
+"use client";
+
 import { menuLinks } from "app-links";
 import { Link } from "components/link/Link";
 import React, { useEffect, useState } from "react";

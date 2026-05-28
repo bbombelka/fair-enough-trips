@@ -1,4 +1,6 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { SearchPostType } from "types/pages/post.types";
 import { UseSearchProps } from "types/hooks/useSearch.types";
@@ -8,7 +10,7 @@ const useSearch = ({ isEnabled }: UseSearchProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   const clearData = () => {
     setSearchTerm("");

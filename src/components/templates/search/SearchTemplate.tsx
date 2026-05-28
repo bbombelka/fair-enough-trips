@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Layout } from "components";
 import useSearch from "pages/api/hooks/useSearch";
