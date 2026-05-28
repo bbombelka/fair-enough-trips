@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { RouteSchemePointsResponse } from "../route-scheme-points";
 
-type Props = {
-  isEnabled: boolean;
-  id: string;
-};
+import { useRouteSchemePointsProps } from "types/hooks/useRouteSchemePoints.types";
 
-const useRouteSchemePoints = ({ isEnabled, id }: Props) => {
+const useRouteSchemePoints = ({ isEnabled, id }: useRouteSchemePointsProps) => {
   const [data, setData] = useState<RouteSchemePointsResponse>();
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);

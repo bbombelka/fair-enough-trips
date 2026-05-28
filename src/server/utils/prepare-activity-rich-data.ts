@@ -1,6 +1,6 @@
 import { CollectionPage, ItemList, BreadcrumbList, WithContext } from "schema-dts";
 import Config from "Config";
-import { Post } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
 import { Activities } from "enums/categories";
 
 export default function prepareActivityRichData(code: string, posts: Post[]) {

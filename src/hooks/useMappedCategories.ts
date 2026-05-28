@@ -1,6 +1,6 @@
 import { Activities, Countries, Regions } from "enums/categories";
 import { useMemo } from "react";
-import { Categories } from "types/PostPage.types";
+import { Categories } from "types/common.types";
 
 export const useMappedCategoriesNames = (category: Categories) => {
   const [activities, regions, countries] = useMemo(() => {

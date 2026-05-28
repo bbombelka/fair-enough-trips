@@ -1,6 +1,6 @@
 import { Activities, Countries, Regions } from "enums/categories";
 import { Document, WithId } from "mongodb";
-import { CodedCategory, DateClass } from "types/PostPage.types";
+import { CodedCategory, DateClass } from "types/common.types";
 
 export const parseDate = (date: DateClass) => {
   const seasons = {

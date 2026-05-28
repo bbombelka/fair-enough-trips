@@ -1,4 +1,4 @@
-import { FullPost } from "types/PostPage.types";
+import { FullPost } from "types/pages/post.types";
 import { PropertyValue, Trip, Article, BreadcrumbList, Graph } from "schema-dts";
 import Config from "Config";
 import { Activities, Regions } from "enums/categories";

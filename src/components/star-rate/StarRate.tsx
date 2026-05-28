@@ -3,12 +3,7 @@ import Config from "Config";
 import React, { FC, useEffect, useMemo, useState } from "react";
 import { faStar as SolidStarIcon, faStarHalfStroke as HalfStarIcon } from "@fortawesome/free-solid-svg-icons";
 import { faStar as HollowStarIcon } from "@fortawesome/free-regular-svg-icons";
-
-type StarRateProps = {
-  rate: number;
-  comment?: string;
-  disableCount?: boolean;
-};
+import { StarRateProps } from "./StarRate.types";
 
 export const StarRate: FC<StarRateProps> = ({ rate, comment, disableCount }) => {
   const getInitialStarBlueprint = (count: number, type: "empty" | "solid") => {

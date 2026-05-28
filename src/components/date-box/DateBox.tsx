@@ -1,12 +1,7 @@
 import clsx from "clsx";
 import React, { FC } from "react";
 import styles from "styles/DateBox.module.css";
-
-type DateBoxProps = {
-  postDate: string | Date;
-  isMain: boolean;
-  isTop: boolean;
-};
+import { DateBoxProps } from "./DateBox.types";
 
 export const DateBox: FC<DateBoxProps> = ({ postDate, isMain, isTop }) => {
   const date = postDate instanceof Date ? postDate : new Date(postDate);

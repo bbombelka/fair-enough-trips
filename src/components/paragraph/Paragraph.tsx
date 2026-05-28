@@ -2,19 +2,9 @@ import { Link } from "components/link/Link";
 import { useGlobalContext } from "hooks/useGlobalContext";
 import React, { FC, ReactNode } from "react";
 import styles from "styles/Paragraph.module.css";
-import { PostLink } from "types/PostPage.types";
+import { ParagraphProps } from "./Paragraph.types";
 
-type ParapgraphHTMLElement = {
-  tag: "li" | "ul" | "ol";
-  body: string;
-};
-
-export const Paragraph: FC<{
-  body: Array<string | ParapgraphHTMLElement>;
-  title?: string;
-  links?: PostLink[];
-  id?: string;
-}> = ({ body, title, links, id }) => {
+export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id }) => {
   const content: ReactNode[] = [];
   let listItems: ReactNode[] = [];
   const { setOpenModal, setCurrentImage } = useGlobalContext();

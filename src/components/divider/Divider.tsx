@@ -2,14 +2,10 @@ import clsx from "clsx";
 import { checkWindowSize } from "hooks/checkWindowSize";
 import React, { FC, useState, useEffect, useRef } from "react";
 import styles from "styles/Divider.module.css";
+import { DividerProps } from "./Divider.types";
 import { useSetDividerTop } from "./useSetDividerTop";
 
-export const Divider: FC<{
-  title?: string;
-  order?: number;
-  stickyScrollToElementId?: string;
-  id?: string;
-}> = ({ title, order = 0, stickyScrollToElementId, id }) => {
+export const Divider: FC<DividerProps> = ({ title, order = 0, stickyScrollToElementId, id }) => {
   const [isMounted, setIsMounted] = useState(false);
   const dividerRef = useRef<HTMLDivElement>(null);
 

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "styles/YoutubeIframe.module.css";
 import postImagesStyles from "styles/PostImages.module.css";
+import { YoutubeIframeProps } from "./YoutubeIframe.types";
 
-export const YoutubeIframe = ({ src, description }: { src: string; description: string }) => {
+export const YoutubeIframe: FC<YoutubeIframeProps> = ({ src, description }) => {
   return (
     <div className={styles["container"]}>
       <iframe

@@ -1,9 +1,5 @@
 import React, { FC } from "react";
-
-type BoxProps = {
-  margin?: string;
-  padding?: string;
-};
+import { BoxProps } from "./Box.types";
 
 export const Box: FC<BoxProps> = ({ children, margin, padding }) => {
   return (

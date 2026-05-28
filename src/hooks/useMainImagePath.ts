@@ -3,17 +3,15 @@ import { checkWindowSize } from "./checkWindowSize";
 import { useIsMounted } from "./useIsMounted";
 import Config from "Config";
 
-type Props = {
-  isMainPostCard: boolean;
-  id: string;
-};
+import { useMainImagePathProps } from "./useMainImagePath.types";
 
-export const useMainImagePath = ({ isMainPostCard, id }: Props) => {
+export const useMainImagePath = ({ isMainPostCard, id }: useMainImagePathProps) => {
   const isMounted = useIsMounted();
   const { isMobile } = checkWindowSize({ isEnabled: isMounted });
   const [isError, setError] = useState(false);
 
   const getSourceImagePath = () => {
+    if (!id) return "";
     let filename = "";
     if (!isMainPostCard && !isError) {
       filename = "thumb_";

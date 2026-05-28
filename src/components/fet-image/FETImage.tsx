@@ -1,11 +1,11 @@
-import { ImageProps } from "next/image";
 import React, { FC, useState } from "react";
 import NextImage from "next/image";
 import { Loader } from "components/loader/Loader";
 
 import styles from "styles/FETImage.module.css";
+import { FETImageProps } from "./FETImage.types";
 
-export const FETImage: FC<ImageProps & { sizes?: string }> = ({ onLoad, blurDataURL, sizes = "100vw", className, ...props }) => {
+export const FETImage: FC<FETImageProps> = ({ onLoad, blurDataURL, sizes = "100vw", className, ...props }) => {
   const [isLoading, setIsLoading] = useState(!Boolean(blurDataURL));
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -23,7 +23,7 @@ export const FETImage: FC<ImageProps & { sizes?: string }> = ({ onLoad, blurData
       <NextImage
         style={{ objectFit: "cover", objectPosition: "center", margin: "0 auto" }}
         onLoad={onImageLoad}
-        blurDataURL={`data:image/webp;base64,${blurDataURL}`}
+        blurDataURL={blurDataURL ? `data:image/webp;base64,${blurDataURL}` : undefined}
         sizes={sizes}
         className={`${className} ${isLoaded ? styles["liven-up"] : ""}`}
         {...props}

@@ -1,7 +1,8 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import styles from "styles/LandscapeOnly.module.css";
+import { LandscapeOnlyProps } from "./LandscapeOnly.types";
 
-export const LandscapeOnly = ({ children }: PropsWithChildren<{}>) => {
+export const LandscapeOnly = ({ children }: LandscapeOnlyProps) => {
   return (
     <div className={styles["landscape-only-container"]}>
       <h1 className={styles["portrait-only"]}>To see the content rotate your device to landscape mode</h1>

@@ -1,7 +1,8 @@
-import React, { FC, SVGProps } from "react";
+import React, { FC } from "react";
 import styles from "styles/Error.module.css";
+import { AlertProps } from "./Alert.types";
 
-export const Alert: FC<{ message: string; className?: string } & SVGProps<SVGSVGElement>> = ({ message, className = "", children, ...props }) => {
+export const Alert: FC<AlertProps> = ({ message, className = "", children, ...props }) => {
   return (
     <div className={`${styles.container} ${className}`}>
       <div className={styles["center-box"]}>

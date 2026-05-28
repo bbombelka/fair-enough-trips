@@ -2,7 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Layout, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
 import mongoClientConnectPromise from "MongoClient";
 import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 import Config from "Config";
@@ -11,20 +11,13 @@ import { CategoryCard } from "components/category-card/CategoryCard";
 import { parse } from "utils";
 import { Box } from "components/box/Box";
 import { TripNotes } from "components/trip-notes/TripNotes";
-import { TripNote } from "components/trip-notes/TripNotes.types";
+import { TripNote } from "types/database.types";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
 import prepareCountryRichData from "server/utils/prepare-country-rich-data";
 
-type HomePageProps = {
-  posts: Post[];
-  code: string;
-  notes: TripNote[];
-  imageId: string;
-  base64Image: string;
-  richData: any[];
-};
+import { CountryPageProps } from "types/pages/country.types";
 
-const Category: NextPage<HomePageProps> = ({ posts, notes, code, imageId, base64Image, richData }) => {
+const Category: NextPage<CountryPageProps> = ({ posts, notes, code, imageId, base64Image, richData }) => {
   const country = Countries.find((act) => act.code === code)!;
   const postTitle = `${country.name} @ Fair Enough Trips`;
 
@@ -82,7 +75,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<CountryPageProps> = async ({ params }) => {
   const mongoClient = await mongoClientConnectPromise;
   await mongoClient.connect();
 

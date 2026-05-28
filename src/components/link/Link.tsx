@@ -1,10 +1,6 @@
-import React, { FC, LinkHTMLAttributes, ReactNode } from "react";
+import React, { FC } from "react";
 import NextLink from "next/link";
-
-interface LinkProps extends LinkHTMLAttributes<HTMLAnchorElement> {
-  name: string | ReactNode;
-  href: string;
-}
+import { LinkProps } from "./Link.types";
 
 export const Link: FC<LinkProps> = ({ name, href, className, ...rest }) => {
   return (

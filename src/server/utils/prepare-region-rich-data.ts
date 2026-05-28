@@ -1,6 +1,6 @@
 import { CollectionPage, ItemList, BreadcrumbList, WithContext } from "schema-dts";
 import Config from "Config";
-import { Post } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
 import { Regions } from "enums/categories";
 
 export default function prepareRegionRichData(code: string, posts: Post[]) {

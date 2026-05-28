@@ -1,17 +1,12 @@
-import { Post } from "components/card-list/CardList.types";
 import { Link } from "components/link/Link";
 
 import styles from "styles/TripSections.module.css";
 
 import React from "react";
 import { useRouter } from "next/router";
+import { TripSectionsProps } from "./TripSections.types";
 
-type TripSections = {
-  subPosts: Post[];
-  parentPostId: string;
-};
-
-export const TripSections = ({ subPosts, parentPostId }: TripSections) => {
+export const TripSections = ({ subPosts, parentPostId }: TripSectionsProps) => {
   const { asPath } = useRouter();
 
   return (

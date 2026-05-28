@@ -6,11 +6,9 @@ import { Alert } from "components/alert/Alert";
 import { Error as ErrorIcon } from "components/icons/Icons";
 import styles from "styles/RouteScheme.module.css";
 
-type Props = {
-  id: string;
-};
+import { RouteSchemeContainerProps } from "./RouteSchemeContainer.types";
 
-const RouteSchemeContainer: FC<Props> = ({ id }) => {
+const RouteSchemeContainer: FC<RouteSchemeContainerProps> = ({ id }) => {
   const { data, isLoading, hasError } = useRouteSchemePoints({ id, isEnabled: true });
 
   return (

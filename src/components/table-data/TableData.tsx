@@ -1,13 +1,9 @@
 import { StarRate } from "components/star-rate/StarRate";
 import { FC } from "react";
 import styles from "styles/TableData.module.css";
-import { FullPost } from "types/PostPage.types";
 import { parseDate } from "utils";
 import { Cell } from "./components/Cell";
-
-type TableDataProps = {
-  post: FullPost;
-};
+import { TableDataProps } from "./TableData.types";
 
 export const TableData: FC<TableDataProps> = ({
   post: {

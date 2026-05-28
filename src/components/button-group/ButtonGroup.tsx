@@ -1,12 +1,7 @@
 import clsx from "clsx";
-import React, { useState } from "react";
+import React from "react";
 import styles from "styles/ButtonGroup.module.css";
-
-type ButtonGroupProps<T> = {
-  onSelect: (arg0: T) => void;
-  options: T[];
-  selectedOption: T;
-};
+import { ButtonGroupProps } from "./ButtonGroup.types";
 
 const ButtonGroup = <T extends string>({ options, onSelect, selectedOption }: ButtonGroupProps<T>) => {
   const handleClick = (option: T) => {

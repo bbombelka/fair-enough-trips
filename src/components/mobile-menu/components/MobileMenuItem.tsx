@@ -1,15 +1,8 @@
-import { LinkData } from "app-links";
 import { AccordionItem } from "components/accordion/AccordionItem";
 import { Link } from "components/link/Link";
 import React, { FC } from "react";
 import styles from "styles/MobileMenuItem.module.css";
-
-type MobileMenuItemProps = {
-  href: string;
-  onClickCallback: () => void;
-  name: string;
-  nestedItems?: LinkData[];
-};
+import { MobileMenuItemProps } from "./MobileMenuItem.types";
 
 export const MobileMenuItem: FC<MobileMenuItemProps> = ({ href, onClickCallback, name, nestedItems }) => {
   const hasNestedItems = Boolean(nestedItems?.length);

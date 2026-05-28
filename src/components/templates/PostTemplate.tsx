@@ -6,7 +6,7 @@ import RouteSchemeContainer from "components/route-scheme/RouteSchemeContainer";
 import { PostTemplateProps } from "./PostTemplate.types";
 import { FETMap } from "components/fet-map/FETMap";
 import { PostCard } from "components/post-card/PostCard";
-import { Post } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
 import CardList from "components/card-list/CardList";
 import { Breadcrumbs } from "components/breadcrumbs/Breadcrumbs";
 import { TripSections } from "components/trip-sections/TripSections";

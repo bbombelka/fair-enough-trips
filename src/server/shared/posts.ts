@@ -1,7 +1,8 @@
 import mongoClientConnectPromise from "MongoClient";
 import Config from "Config";
 import { Filter } from "mongodb";
-import { Post, PostDocument } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
+import { PostDocument } from "types/database.types";
 
 export const getLatestPosts = async (
   query: Filter<PostDocument> = {},

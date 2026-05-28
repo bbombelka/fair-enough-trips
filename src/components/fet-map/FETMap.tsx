@@ -1,20 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TableData } from "components/table-data/TableData";
-import Config from "Config";
 import { FC, useState, useEffect } from "react";
 import styles from "styles/Map.module.css";
-import { ControlDisplayLinks, FullPost } from "types/PostPage.types";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { MapIframe } from "./MapIframe";
 import { faMap } from "@fortawesome/free-regular-svg-icons";
 import { Modal } from "components/modal/Modal";
 import dynamic from "next/dynamic";
 import { LandscapeOnly } from "components/support/landscape-only/LandscapeOnly";
-
-type FETMapProps = {
-  post: FullPost;
-  controlDisplayLinks: ControlDisplayLinks;
-};
+import { FETMapProps } from "./FETMap.types";
 
 const GpxChart = dynamic(() => import("components/gpx-chart/GpxChart"), { ssr: false });
 

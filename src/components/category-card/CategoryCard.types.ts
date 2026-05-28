@@ -1,12 +1,12 @@
 import { CategoriesEnum } from "enums/categories";
-import { Category } from "types/PostPage.types";
+import { Category } from "types/common.types";
 
 export type CategoryCardProps = {
   category: Category & { originalName: string };
   postIds: string[];
   categoryType: CategoriesEnum;
-  blurDataURL: string;
-  id: string;
+  blurDataURL?: string | null;
+  id?: string | null;
 } & (
   | { isMainCard: true; areNotesPresent: true; buttonLabel: string }
   | { isMainCard: true; areNotesPresent?: false; buttonLabel?: string }

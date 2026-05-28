@@ -1,14 +1,10 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { AllHTMLAttributes, PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import styles from "styles/Modal.module.css";
 import layoutStyles from "styles/PostLayout.module.css";
 import { isMobileDevice } from "utils";
-
-interface ModalProps extends AllHTMLAttributes<HTMLDivElement> {
-  closeModalCallback: () => void;
-  title?: string;
-}
+import { ModalProps } from "./Modal.types";
 
 export const Modal = ({ className, closeModalCallback, children, title, ...props }: PropsWithChildren<ModalProps>) => {
   const isMobileUA = isMobileDevice();

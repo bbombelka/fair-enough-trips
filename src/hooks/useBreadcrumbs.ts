@@ -1,4 +1,4 @@
-import { Categories } from "types/PostPage.types";
+import { Categories } from "types/common.types";
 import { Activities, Countries, Regions } from "enums/categories";
 
 export const useBreadcrumbs = (category: Categories) => {

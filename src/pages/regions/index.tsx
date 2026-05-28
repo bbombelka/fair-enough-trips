@@ -5,19 +5,10 @@ import { CategoriesEnum, Regions } from "enums/categories";
 import mongoClientConnectPromise from "MongoClient";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { Category } from "types/PostPage.types";
 import CardList from "components/card-list/CardList";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
-import { CategoryDocument } from "components/category-card/CategoryCard.types";
-
-type RegionsPageProps = {
-  regions: Array<{
-    region: Category & { originalName: string };
-    postIds: string[];
-    blurDataURL: string;
-    id: string;
-  }>;
-};
+import { CategoryDocument } from "types/database.types";
+import { RegionsPageProps } from "types/pages/regions.types";
 
 const RegionsPage: NextPage<RegionsPageProps> = ({ regions }) => {
   return (

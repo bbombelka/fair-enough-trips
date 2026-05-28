@@ -2,7 +2,6 @@ import Config from "Config";
 import { FC } from "react";
 import { FETImage } from "components/fet-image/FETImage";
 import styles from "styles/PostImages.module.css";
-import { PostImage, PostVideo } from "types/PostPage.types";
 import { useImageSourcePath } from "hooks/useImageSourcePath";
 import { YoutubeIframe } from "components/yt-iframe/YoutubeIframe";
 
@@ -11,12 +10,7 @@ import Slider from "react-slick";
 
 import { useGlobalContext } from "hooks/useGlobalContext";
 import { useSlickSettings } from "hooks/useSlickSettings";
-
-type PostImagesProps = {
-  id: string;
-  images: PostImage[];
-  videos: PostVideo[];
-};
+import { PostImagesProps } from "./PostImages.types";
 
 export const PostImages: FC<PostImagesProps> = ({ id, images, videos }) => {
   const isProd = process.env.NODE_ENV === "production";

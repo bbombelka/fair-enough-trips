@@ -1,10 +1,7 @@
 import clsx from "clsx";
 import React, { FC, useState } from "react";
 import styles from "styles/Tab.module.css";
-
-type TabProps = {
-  name: string;
-};
+import { TabProps } from "./Tab.types";
 
 export const Tab: FC<TabProps> = ({ name, children }) => {
   const [isOpen, setOpen] = useState(false);

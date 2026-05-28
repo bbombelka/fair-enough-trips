@@ -4,7 +4,7 @@ import { access } from "fs/promises";
 import mongoClientConnectPromise from "MongoClient";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { PostPageProps, FullPost, BreadcrumbParentPostData } from "types/PostPage.types";
+import { PostPageProps, FullPost, BreadcrumbParentPostData } from "types/pages/post.types";
 import { removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
 import preparePostRichData from "server/utils/prepare-rich-data";

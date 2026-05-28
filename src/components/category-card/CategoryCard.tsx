@@ -49,7 +49,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
         <FETImage
           src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
           className={imageClass}
-          blurDataURL={blurDataURL}
+          blurDataURL={blurDataURL ?? undefined}
           alt="Main category picture"
           placeholder="blur"
           fill
@@ -79,7 +79,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
           <FETImage
             src={src}
             className={imageClass}
-            blurDataURL={blurDataURL}
+            blurDataURL={blurDataURL ?? undefined}
             alt="Main category picture"
             placeholder="blur"
             fill

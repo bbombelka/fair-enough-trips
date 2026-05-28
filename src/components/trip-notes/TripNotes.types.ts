@@ -1,14 +1,3 @@
-import { PostLink } from "types/PostPage.types";
-
-export type TripNote = {
-  title: string;
-  paragraph: string[];
-  links: PostLink[];
-};
+import { TripNoteDocument } from "types/database.types";
 
 export type TripNotesProps = Pick<TripNoteDocument, "notes"> & { title: string };
-
-export type TripNoteDocument = {
-  id: string;
-  notes: TripNote[];
-};

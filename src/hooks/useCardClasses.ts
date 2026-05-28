@@ -1,10 +1,5 @@
 import clsx from "clsx";
-
-type UseCardClassesProps = {
-  isMainCard: boolean;
-  isTop: boolean;
-  styles: Record<string, string>;
-};
+import { UseCardClassesProps } from "./useCardClasses.types";
 
 export const useCardClasses = ({ styles, isMainCard, isTop }: UseCardClassesProps) => {
   const textBoxClass = clsx(styles.textBox, isTop ? styles.top : styles.bottom, isMainCard && styles.main);

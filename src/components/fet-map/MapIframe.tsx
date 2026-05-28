@@ -6,10 +6,7 @@ import { Status } from "enums/statuses";
 import styles from "styles/MapIframe.module.css";
 import Config from "Config";
 import { Error as ErrorIcon } from "components/icons/Icons";
-
-type MapIframeProps = {
-  iframeUrl: string;
-};
+import { MapIframeProps } from "./MapIframe.types";
 
 export const MapIframe: FC<MapIframeProps> = ({ iframeUrl }) => {
   const [status, setStatus] = useState<Status>(Status.LOADING);

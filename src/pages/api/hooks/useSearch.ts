@@ -1,12 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { SearchPostType } from "types/PostPage.types";
+import { SearchPostType } from "types/pages/post.types";
+import { UseSearchProps } from "types/hooks/useSearch.types";
 
-type Props = {
-  isEnabled: boolean;
-};
-
-const useSearch = ({ isEnabled }: Props) => {
+const useSearch = ({ isEnabled }: UseSearchProps) => {
   const [data, setData] = useState<SearchPostType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);

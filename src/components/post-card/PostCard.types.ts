@@ -1,6 +1,6 @@
-import { Post } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
+import { SearchPostType } from "types/pages/post.types";
 
-import { SearchPostType } from "types/PostPage.types";
 
 export type PostCardProps = {
   post: Post | SearchPostType;

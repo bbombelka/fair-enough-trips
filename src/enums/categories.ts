@@ -1,4 +1,4 @@
-import { Category } from "types/PostPage.types";
+import { Category } from "types/common.types";
 
 export const Activities: Category[] = [
   {

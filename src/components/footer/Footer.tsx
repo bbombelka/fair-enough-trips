@@ -3,10 +3,7 @@ import clsx from "clsx";
 import { Link } from "components/link/Link";
 import React, { FC } from "react";
 import styles from "styles/Footer.module.css";
-
-type FooterProps = {
-  isSticky?: boolean;
-};
+import { FooterProps } from "./Footer.types";
 
 export const Footer: FC<FooterProps> = ({ isSticky }) => {
   const footerClassName = clsx(styles.footer, isSticky && styles.sticky);

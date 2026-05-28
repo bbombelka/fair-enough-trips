@@ -2,20 +2,15 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
 import Config from "Config";
 import { Activities } from "enums/categories";
 import prepareActivityRichData from "server/utils/prepare-activity-rich-data";
 import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 
-type HomePageProps = {
-  mainPost: Post;
-  latestPosts: Post[];
-  code: string;
-  richData: any[];
-};
+import { ActivityPageProps } from "types/pages/activity.types";
 
-const Category: NextPage<HomePageProps> = ({ mainPost, latestPosts, code, richData }) => {
+const Category: NextPage<ActivityPageProps> = ({ mainPost, latestPosts, code, richData }) => {
   const activity = Activities.find((act) => act.code === code);
   const postTitle = `${activity?.name} @ Fair Enough Trips`;
 
@@ -58,7 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<ActivityPageProps> = async ({ params }) => {
   const code = Activities.find((act) => act.url === params?.type)?.code;
 
   const latestPosts = await getLatestPosts({ ["category.activity"]: code, parentId: null });

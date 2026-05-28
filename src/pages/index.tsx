@@ -1,15 +1,11 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Navbar, PostCard } from "components";
-import { Post } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
 import Config from "Config";
 import CardList from "components/card-list/CardList";
 import { getLatestPosts } from "server/shared/posts";
-
-type HomePageProps = {
-  mainPost: Post;
-  latestPosts: Post[];
-};
+import { HomePageProps } from "types/pages/home.types";
 
 const Home: NextPage<HomePageProps> = ({ mainPost, latestPosts }) => {
   const siteLink = `https://${Config.DOMAIN}/`;

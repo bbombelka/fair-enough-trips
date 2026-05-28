@@ -2,7 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Footer, Layout, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post } from "components/card-list/CardList.types";
+import { Post } from "types/common.types";
 import mongoClientConnectPromise from "MongoClient";
 import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 
@@ -10,21 +10,14 @@ import Config from "Config";
 import { CategoriesEnum, Regions } from "enums/categories";
 import { CategoryCard } from "components/category-card/CategoryCard";
 import { TripNotes } from "components/trip-notes/TripNotes";
-import { TripNote } from "components/trip-notes/TripNotes.types";
+import { TripNote } from "types/database.types";
 import { Box } from "components/box/Box";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
 import prepareRegionRichData from "server/utils/prepare-region-rich-data";
 
-type HomePageProps = {
-  posts: Post[];
-  code: string;
-  notes: TripNote[];
-  imageId: string;
-  base64Image: string;
-  richData: any[];
-};
+import { RegionPageProps } from "types/pages/region.types";
 
-const Category: NextPage<HomePageProps> = ({ posts, code, notes, base64Image, imageId, richData }) => {
+const Category: NextPage<RegionPageProps> = ({ posts, code, notes, base64Image, imageId, richData }) => {
   const region = Regions.find((act) => act.code === code)!;
   const postTitle = `${region.name} @ Fair Enough Trips`;
 
@@ -83,7 +76,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<RegionPageProps> = async ({ params }) => {
   const mongoClient = await mongoClientConnectPromise;
 
   const code = Regions.find((act) => act.url === params?.region)?.code;

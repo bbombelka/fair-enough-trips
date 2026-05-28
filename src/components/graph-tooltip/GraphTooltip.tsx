@@ -1,12 +1,7 @@
 import useClickAway from "hooks/useClickAway";
 import React, { PropsWithChildren, FC, useRef } from "react";
 import styles from "styles/GraphTooltip.module.css";
-
-type GraphTooltipProps = {
-  left: number;
-  top: number;
-  onClickAway?: () => void;
-};
+import { GraphTooltipProps } from "./GraphTooltip.types";
 
 export const GraphTooltip: FC<PropsWithChildren<GraphTooltipProps>> = ({ children, left, top, onClickAway }) => {
   const tooltipRef = useRef<HTMLDivElement>(null);

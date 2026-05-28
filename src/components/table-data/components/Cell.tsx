@@ -1,10 +1,6 @@
 import React, { FC } from "react";
 import styles from "styles/Cell.module.css";
-
-type CellProps = {
-  label: string;
-  value?: string | number;
-};
+import { CellProps } from "./Cell.types";
 
 export const Cell: FC<CellProps> = ({ label, value, children }) => {
   return (

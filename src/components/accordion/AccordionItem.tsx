@@ -1,12 +1,8 @@
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { FC, ReactNode, useState } from "react";
+import { FC, useState } from "react";
 import styles from "styles/Accordion.module.css";
-
-type AccordionItemProps = {
-  title: string;
-  content: ReactNode;
-};
+import { AccordionItemProps } from "./AccordionItem.types";
 
 export const AccordionItem: FC<AccordionItemProps> = ({ title, content }) => {
   const [isOpen, setIsOpen] = useState(false);

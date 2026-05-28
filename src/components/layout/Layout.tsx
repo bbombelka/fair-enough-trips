@@ -1,10 +1,6 @@
 import { FC } from "react";
 import styles from "styles/PostLayout.module.css";
-
-type LayoutProps = {
-  title?: string;
-  subTitle?: string;
-};
+import { LayoutProps } from "./Layout.types";
 
 export const Layout: FC<LayoutProps> = ({ children, title, subTitle }) => {
   return (

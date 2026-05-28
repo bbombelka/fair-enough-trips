@@ -3,12 +3,9 @@ import { useEffect, useState } from "react";
 import { ParseGpxResponse } from "../parse-gpx";
 import useSessionStorage from "hooks/useSessionStorage";
 
-type Props = {
-  isEnabled: boolean;
-  id: string;
-};
+import { useGPXDataProps } from "types/hooks/useGpxData.types";
 
-const useGPXData = ({ isEnabled, id }: Props) => {
+const useGPXData = ({ isEnabled, id }: useGPXDataProps) => {
   const [data, setData] = useSessionStorage<ParseGpxResponse | undefined>(id);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);

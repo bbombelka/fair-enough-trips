@@ -2,16 +2,7 @@ import clsx from "clsx";
 import { LogoCursor } from "components/icons/Icons";
 import React, { FC, useEffect, useState } from "react";
 import styles from "styles/Loader.module.css";
-
-interface LoaderProps {
-  loadingHeading: string;
-  isLoading: boolean;
-  hasExternalBorder?: boolean;
-  hasInternalBorder?: boolean;
-  fullscreen?: boolean;
-  isImage?: boolean;
-  fitContainer?: boolean;
-}
+import { LoaderProps } from "./Loader.types";
 
 export const Loader: FC<LoaderProps> = ({ loadingHeading, fullscreen, isLoading, hasExternalBorder, hasInternalBorder, isImage }) => {
   const [isHidden, setHidden] = useState(false);

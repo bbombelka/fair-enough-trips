@@ -4,12 +4,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styles from "styles/JumpToTopButton.module.css";
 import { useHasHash } from "hooks/useHasHash";
+import { JumpToTopButtonProps } from "./JumpToTopButton.types";
 
-type Props<T> = {
-  element: T | null;
-};
-
-export function JumpToTopButton<T extends HTMLElement>({ element }: Props<T>) {
+export function JumpToTopButton<T extends HTMLElement>({ element }: JumpToTopButtonProps<T>) {
   const [visible, setVisible] = useState(false);
   const router = useRouter();
   const hash = useHasHash();
