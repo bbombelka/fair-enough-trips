@@ -34,8 +34,8 @@
     "exif-parser": "0.1.12",
     "haversine-distance": "1.2.3",
     "lqip-modern": "2.2.1",
-    "mongodb": "4.5.0",
-    "next": "16.1.4",
+    "mongodb": "^4.17.2",
+    "next": "^16.2.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-slick": "^0.31.0",
@@ -55,8 +55,8 @@
     "@types/react-slick": "^0.23.13",
     "@types/unzipper": "0.10.11",
     "@types/xml2js": "0.4.14",
-    "eslint": "8.10.0",
-    "eslint-config-next": "12.1.0",
+    "eslint": "^10.4.0",
+    "eslint-config-next": "^16.2.6",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
   },
@@ -67,6 +67,7 @@
     "flatted": "^3.4.1",
     "fast-xml-parser": "5.7.3",
     "minimatch": "9.0.7",
-    "lodash": ">=4.18.0"
+    "lodash": ">=4.18.0",
+    "postcss": "^8.5.10"
   }
 }
