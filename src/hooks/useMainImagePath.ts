@@ -15,7 +15,7 @@ export const useMainImagePath = ({ isMainPostCard, id }: Props) => {
 
   const getSourceImagePath = () => {
     let filename = "";
-    if (isMobile && !isMainPostCard && !isError) {
+    if (!isMainPostCard && !isError) {
       filename = "thumb_";
     } else if (isMainPostCard && isMobile && !isError) {
       filename = "mobile-";

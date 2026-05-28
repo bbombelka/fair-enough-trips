@@ -69,7 +69,7 @@ export const PostCard: FC<PostCardProps> = ({
       <div className={containerClass}>
         <DateBox postDate={postDate} isMain={false} isTop={isTop} />
         <div className={imageContainerClass}>
-          <FETImage className={imageClass} src={src} alt={id} fill placeholder="blur" blurDataURL={base64Image} onError={() => setError(true)} />
+          <FETImage className={imageClass} src={src} alt={id} fill placeholder="blur" blurDataURL={base64Image} onError={() => setError(true)} unoptimized={true} />
         </div>
         <div className={textBoxClass}>
           <h3 className={titleClass}>{title}</h3>

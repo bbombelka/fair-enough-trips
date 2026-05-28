@@ -1,6 +1,7 @@
 import { Box } from "components/box/Box";
 import Config from "Config";
 import { useCardClasses } from "hooks/useCardClasses";
+import { useMainImagePath } from "hooks/useMainImagePath";
 import { useScrollDown } from "hooks/useScrollDown";
 import NextLink from "next/link";
 import React, { FC, useRef } from "react";
@@ -22,6 +23,8 @@ export const CategoryCard: FC<CategoryCardProps> = ({
   const postCardRef = useRef<HTMLDivElement>(null);
   const scrollDownTrips = useScrollDown("card-list");
   const scrollDownNotes = useScrollDown("trip-notes");
+
+  const { src, setError } = useMainImagePath({ isMainPostCard: isMainCard, id });
 
   const { imageClass, buttonClass, titleClass, textBoxClass, imageContainerClass, containerClass } = useCardClasses({
     isMainCard,
@@ -74,13 +77,15 @@ export const CategoryCard: FC<CategoryCardProps> = ({
       <div className={containerClass}>
         <div className={imageContainerClass}>
           <FETImage
-            src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
+            src={src}
             className={imageClass}
             blurDataURL={blurDataURL}
             alt="Main category picture"
             placeholder="blur"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onError={() => setError(true)}
+            unoptimized={true}
           />
         </div>
         <div className={textBoxClass}>{header}</div>
