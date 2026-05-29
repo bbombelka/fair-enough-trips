@@ -47,7 +47,7 @@ export const RouteSchemeGraphTooltipRouteContent: FC<{ point: RouteSchemePoint }
               {path?.paragraphs.map((paragraphNum) => {
                 return (
                   <a href={`#paragraph-overview-paragraph-${paragraphNum}`} key={paragraphNum}>
-                    <img className={styles["content-list-image"]} src="/paragraph.svg" width={16} height={16} />
+                    <img className={styles["content-list-image"]} src="/assets/paragraph.svg" width={16} height={16} />
                   </a>
                 );
               })}

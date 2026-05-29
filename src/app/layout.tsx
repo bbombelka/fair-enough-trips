@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   title: "Fair Enough Trips",
   description: "Mountain blog covering hiking trails, climbing routes and via-ferrata across Europe.",
   icons: {
-    apple: "/icons/apple-touch-icon.png",
+    apple: "/assets/icons/apple-touch-icon.png",
     icon: [
-      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/assets/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/assets/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
   },
-  manifest: "/icons/site.webmanifest",
+  manifest: "/assets/icons/site.webmanifest",
 };
 
 export const viewport: Viewport = {

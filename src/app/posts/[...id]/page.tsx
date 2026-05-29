@@ -112,7 +112,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       type: "article",
       images: [
         {
-          url: `https://${Config.DOMAIN}/${post.id}/main.webp`,
+          url: `https://${Config.DOMAIN}/content/posts/${post.id}/main.webp`,
           alt: post.title,
         },
       ],

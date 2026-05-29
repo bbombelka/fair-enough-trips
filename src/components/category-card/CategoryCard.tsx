@@ -49,7 +49,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({
     <div className={containerClass} ref={postCardRef}>
       <div className={imageContainerClass}>
         <FETImage
-          src={`/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
+          src={`/content/posts/${id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`}
           className={imageClass}
           blurDataURL={blurDataURL ?? undefined}
           alt="Main category picture"

@@ -209,7 +209,7 @@ export default function GPXChart({ id }: GPXChartProps) {
               .attr("y", orientation[orientationType].image.y) // Above text
               .attr("width", 20)
               .attr("height", 20)
-              .attr("xlink:href", `/${d.poi?.type}.svg`);
+              .attr("xlink:href", `/assets/${d.poi?.type}.svg`);
           };
 
           if (index > 0) {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 read -p "Enter POI ID: " poi_id
-dir="../public/$poi_id"
+dir="../public/content/posts/$poi_id"
 
 # Check if directory exists, otherwise use ./created-poi
 if [[ ! -d "$dir" ]]; then

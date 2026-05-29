@@ -65,7 +65,7 @@ export default async function setPoiIndex(zipFilePath: string, jsonFilePath: str
       points: mappedData,
     };
 
-    await writeFile(path.resolve(__dirname, `../../public/${poiId}/route-scheme-points.json`), JSON.stringify(dataToWrite));
+    await writeFile(path.resolve(__dirname, `../../public/content/posts/${poiId}/route-scheme-points.json`), JSON.stringify(dataToWrite));
 
     console.log("Operation successful for " + jsonFilePath);
   } catch (err) {

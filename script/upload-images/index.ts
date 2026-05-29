@@ -14,7 +14,7 @@ if (!id) {
   process.exit(1);
 }
 
-const dirPath = path.resolve(__dirname, `../../public/${id}`);
+const dirPath = path.resolve(__dirname, `../../public/content/posts/${id}`);
 const keepFiles = new Set(["main.webp", "mobile-main.webp", "track.zip", "poi.json", "thumb_main.webp"]);
 
 const bucketName = process.env.S3_BUCKET_NAME;

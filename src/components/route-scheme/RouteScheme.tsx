@@ -227,7 +227,7 @@ const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; d
         .attr("y", index % 2 === 0 ? height / 2 - iconSize - 5 : height / 2 + 10)
         .attr("width", iconSize)
         .attr("height", iconSize)
-        .attr("xlink:href", `/${type}.svg`)
+        .attr("xlink:href", `/assets/${type}.svg`)
         .style("cursor", "pointer")
         .on("click", onPointClick(index, false));
     };

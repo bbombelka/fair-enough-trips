@@ -19,12 +19,11 @@ export function useImageSourcePath() {
     }
 
     function getPostUploadParams() {
-      const src = `/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
-      const thumbSrc = `/${id}/${filename}-thumb.${Config.DEFAULT_IMAGE_EXTENSION}`;
+      const src = `/content/posts/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
+      const thumbSrc = `/content/posts/${id}/${filename}-thumb.${Config.DEFAULT_IMAGE_EXTENSION}`;
 
       return { src, thumbSrc };
     }
-
     function getDevParams() {
       const src = `/placeholder.${Config.DEFAULT_IMAGE_EXTENSION}`;
       const thumbSrc = `/placeholder.${Config.DEFAULT_IMAGE_EXTENSION}`;

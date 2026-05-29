@@ -12,7 +12,7 @@ if (!id) {
   process.exit(1);
 }
 
-const dirPath = path.resolve(__dirname, `../../public/${id}`);
+const dirPath = path.resolve(__dirname, `../../public/content/posts/${id}`);
 
 function naturalSort(a, b) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });

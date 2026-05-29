@@ -40,8 +40,8 @@ export default async function handler({ query, headers }: NextApiRequest, res: N
     const protocol = headers["x-forwarded-proto"] || (headers.host?.includes("localhost") ? "http" : "https");
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `${protocol}://${headers.host}`;
 
-    const jsonUrl = `${baseUrl}/${query.id}/poi.json`;
-    const zipUrl = `${baseUrl}/${query.id}/track.zip`;
+    const jsonUrl = `${baseUrl}/content/posts/${query.id}/poi.json`;
+    const zipUrl = `${baseUrl}/content/posts/${query.id}/track.zip`;
 
     const jsonResponse = await fetch(jsonUrl);
     if (!jsonResponse.ok) throw new Error(`Failed to fetch ${jsonUrl}`);

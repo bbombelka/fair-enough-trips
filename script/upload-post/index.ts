@@ -16,7 +16,7 @@ if (!id) {
 }
 
 (async () => {
-  const filePath = path.resolve(__dirname, `../../public/${id}/post.json`);
+  const filePath = path.resolve(__dirname, `../../public/content/posts/${id}/post.json`);
 
   try {
     // 1. Read and parse JSON

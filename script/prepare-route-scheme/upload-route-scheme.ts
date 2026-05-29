@@ -16,7 +16,7 @@ if (!id) {
 }
 
 (async () => {
-  const filePath = path.resolve(__dirname, `../../public/${id}/route-scheme-points.json`);
+  const filePath = path.resolve(__dirname, `../../public/content/posts/${id}/route-scheme-points.json`);
 
   try {
     // 1. Read and parse JSON

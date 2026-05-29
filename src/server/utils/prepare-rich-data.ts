@@ -46,7 +46,7 @@ export default function preparePostRichData(post: FullPost) {
     articleSection: "Mountaineering",
     mainEntityOfPage: `https://${Config.DOMAIN}/posts/${post.id}`,
     description: postContent,
-    image: `https://${Config.DOMAIN}/${post.id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`,
+    image: `https://${Config.DOMAIN}/content/posts/${post.id}/main.${Config.DEFAULT_IMAGE_EXTENSION}`,
     datePublished: post.postDate as unknown as string,
     author: {
       "@type": "Person",

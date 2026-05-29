@@ -21,7 +21,7 @@ export const useMainImagePath = ({ isMainPostCard, id }: useMainImagePathProps) 
       filename = "mobile-";
     }
 
-    return `/${id}/${filename}main.${Config.DEFAULT_IMAGE_EXTENSION}`;
+    return `/content/posts/${id}/${filename}main.${Config.DEFAULT_IMAGE_EXTENSION}`;
   };
 
   return { src: getSourceImagePath(), setError };
