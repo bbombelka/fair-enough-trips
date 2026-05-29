@@ -49,6 +49,32 @@ export const mapCategories = ({ activity, region, country }: CodedCategory) => {
 
 export const parse = <T>(dbData: T) => JSON.parse(JSON.stringify(dbData)) as T;
 
+export const formatIsoDuration = (duration: string) => {
+  if (!duration || !duration.startsWith("PT")) return duration;
+  const hoursMatch = duration.match(/(\d+)H/);
+  const minutesMatch = duration.match(/(\d+)M/);
+  const hours = hoursMatch ? hoursMatch[1] : "0";
+  const minutes = minutesMatch ? minutesMatch[1] : "0";
+  return `${hours}h ${minutes.padStart(2, "0")}m`;
+};
+
+export const numberToIsoDuration = (val: number) => {
+  const hours = Math.floor(val);
+  const fraction = parseFloat((val - hours).toFixed(2));
+  let minutes;
+  if (fraction >= 0.6) {
+    minutes = Math.round(fraction * 60);
+  } else {
+    minutes = Math.round(fraction * 100);
+  }
+
+  let isoDuration = `PT${hours}H`;
+  if (minutes > 0) {
+    isoDuration += `${minutes}M`;
+  }
+  return isoDuration;
+};
+
 export const isMobileDevice = () => {
   const userAgent = navigator.userAgent.toLowerCase();
   return /android|iphone|ipod|ipad|windows phone/i.test(userAgent);

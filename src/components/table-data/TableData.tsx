@@ -1,7 +1,7 @@
 import { StarRate } from "components/star-rate/StarRate";
 import { FC } from "react";
 import styles from "styles/TableData.module.css";
-import { parseDate } from "utils";
+import { formatIsoDuration, parseDate } from "utils";
 import { Cell } from "./components/Cell";
 import { TableDataProps } from "./TableData.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,7 +35,7 @@ export const TableData: FC<TableDataProps> = ({
           </a>
         </Cell>
         <Cell label="Distance" value={`${distance} km`}></Cell>
-        <Cell label="Duration" value={`${duration} h`}></Cell>
+        <Cell label="Duration" value={formatIsoDuration(duration)}></Cell>
         <Cell label="Ascent" value={`${up} meters`}></Cell>
         <Cell label="Descent" value={`${down} meters`}></Cell>
         <Cell label="Highest point" value={`${highestPoint} meters`} />

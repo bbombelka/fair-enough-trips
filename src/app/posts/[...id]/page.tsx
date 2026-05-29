@@ -4,7 +4,7 @@ import Config from "Config";
 import { access } from "fs/promises";
 import mongoClientConnectPromise from "MongoClient";
 import { FullPost, BreadcrumbParentPostData } from "types/pages/post.types";
-import { removeSelectedProps } from "utils";
+import { formatIsoDuration, removeSelectedProps } from "utils";
 import routeSchemeExists from "server/shared/route-scheme-exists";
 import preparePostRichData from "server/utils/prepare-rich-data";
 import { PostTemplate } from "components/templates/PostTemplate";
@@ -94,7 +94,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { post } = await getPostData(id);
 
   const postTitle = post.title;
-  const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${post.stats.duration}h` : "";
+  const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${formatIsoDuration(post.stats.duration)}` : "";
   const pageLink = `https://${Config.DOMAIN}/posts/${post.id}`;
 
   return {

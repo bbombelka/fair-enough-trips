@@ -2,9 +2,12 @@ import { FullPost } from "types/pages/post.types";
 import { PropertyValue, Trip, Article, BreadcrumbList, Graph } from "schema-dts";
 import Config from "Config";
 import { Activities, Regions } from "enums/categories";
+import { formatIsoDuration } from "utils";
 
 export default function preparePostRichData(post: FullPost) {
-  const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${post.stats.duration}h` : "";
+  const statsSummary = post.stats
+    ? `${post.stats.distance}km / ${post.stats.up}m / ${formatIsoDuration(post.stats.duration)}`
+    : "";
   const postContent = `${post.title} - ${post.subTitle}${statsSummary ? ` [${statsSummary}]` : ""}`;
 
   const activity = Activities.find((activity) => activity.code === post.category.activity[0]);
@@ -80,7 +83,7 @@ export default function preparePostRichData(post: FullPost) {
         },
         {
           "@type": "PropertyValue",
-          name: "duration (h)",
+          name: "duration",
           value: post.stats.duration,
         },
       ],

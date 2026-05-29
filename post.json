@@ -184,7 +184,7 @@
     },
     "distance": 3.1,
     "down": 400,
-    "duration": 1.35,
+    "duration": "PT1H35M",
     "highestPoint": 441,
     "up": 400
   },

@@ -39,7 +39,7 @@ export type DateClass = {
 };
 
 export type Stats = {
-  duration: number;
+  duration: string;
   up: number;
   down: number;
   distance: number;
