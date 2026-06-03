@@ -2,8 +2,16 @@ const fs = require("fs");
 const path = require("path");
 const exifParser = require("exif-parser");
 
+const args = process.argv.slice(2);
+const id = args[0];
+
+if (!id) {
+  console.error("Error: No POI ID provided.");
+  process.exit(1);
+}
+
 const directoryPath = __dirname;
-const outputPath = "./poi.json";
+const outputPath = path.resolve(__dirname, `../../public/${id}/poi.json`);
 
 // place the images in the same dir as script
 

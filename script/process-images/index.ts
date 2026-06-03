@@ -13,7 +13,6 @@ if (!id) {
 }
 
 const dirPath = path.resolve(__dirname, `../../public/${id}`);
-const imageFilenamesForPostJson: Record<string, unknown>[] = [];
 
 function naturalSort(a, b) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
@@ -47,7 +46,8 @@ function getWatermarkSvg(imageHeight: number): Buffer {
   const imageFiles = files.filter((file) => file.includes(".jpg") || file.includes(".jpeg")).sort(naturalSort);
 
   const processingPromises = imageFiles.map((file) => processImages(id, file));
-  await Promise.all(processingPromises);
+  const processedImages = await Promise.all(processingPromises);
+  const imageFilenamesForPostJson = processedImages.filter(Boolean);
 
   // Read and update post.json
   updatePostJson(id, imageFilenamesForPostJson);
@@ -60,11 +60,11 @@ function getWatermarkSvg(imageHeight: number): Buffer {
 
       // 2. Parse it
       const data = JSON.parse(jsonText);
-      console.log(data, imageFilenamesForPostJson);
+      console.log(data, newImagesArray);
 
       // 3. Modify it
 
-      await writeFile(jsonPath, JSON.stringify({ ...data, images: imageFilenamesForPostJson }, null, 2), "utf-8");
+      await writeFile(jsonPath, JSON.stringify({ ...data, images: newImagesArray }, null, 2), "utf-8");
 
       console.log(`✅ Updated post.json with ${newImagesArray.length} images`);
     } catch (err) {
@@ -73,7 +73,7 @@ function getWatermarkSvg(imageHeight: number): Buffer {
   }
 })();
 
-async function processImages(id: string, filename: string): Promise<void> {
+async function processImages(id: string, filename: string): Promise<Record<string, unknown> | null> {
   const imagePath = path.resolve(`${dirPath}/${filename}`);
 
   const longerDimension = 2000;
@@ -132,6 +132,8 @@ async function processImages(id: string, filename: string): Promise<void> {
           .catch(console.error),
       ),
     );
+
+    return null;
   } else {
     try {
       const metadata = await sharp(imagePath).metadata();
@@ -140,13 +142,7 @@ async function processImages(id: string, filename: string): Promise<void> {
       const isPortrait = height > width;
       const variant = isPortrait ? "portrait" : "landscape";
       const finalVariants = variants[variant];
-      const fileName = path.basename(filename).split(".").at(1);
-
-      imageFilenamesForPostJson.push({
-        desc: "",
-        filename: fileName,
-        isVertical: isPortrait,
-      });
+      const fileName = path.parse(filename).name.replace(/^\d+\./, "");
 
       await Promise.all(
         //@ts-ignore
@@ -167,8 +163,15 @@ async function processImages(id: string, filename: string): Promise<void> {
             .catch(console.error);
         }),
       );
+
+      return {
+        desc: "",
+        filename: fileName,
+        isVertical: isPortrait,
+      };
     } catch (err) {
       console.error(`Failed to process ${filename}:`, err);
+      return null;
     }
   }
 }
