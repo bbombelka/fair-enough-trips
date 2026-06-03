@@ -17,6 +17,7 @@ const config: Config = {
     '^utils/(.*)$': '<rootDir>/src/utils/$1',
     '^utils$': '<rootDir>/src/utils/index.ts',
     '^hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^context/(.*)$': '<rootDir>/src/context/$1',
     '^enums/(.*)$': '<rootDir>/src/enums/$1',
     '^server/(.*)$': '<rootDir>/src/server/$1',
     '^styles/(.*)$': '<rootDir>/src/styles/$1',
