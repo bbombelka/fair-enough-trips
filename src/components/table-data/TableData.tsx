@@ -4,6 +4,9 @@ import styles from "styles/TableData.module.css";
 import { parseDate } from "utils";
 import { Cell } from "./components/Cell";
 import { TableDataProps } from "./TableData.types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
+import Link from "next/link";
 
 export const TableData: FC<TableDataProps> = ({
   post: {
@@ -40,7 +43,12 @@ export const TableData: FC<TableDataProps> = ({
         <Cell label="Season" value={parseDate(date)} />
         <Cell label="Starting point" value={startingPoint} />
         <Cell label="Ending point" value={endingPoint} />
-        <Cell label="Difficulty" value={difficulty} />
+        <Cell label="Difficulty">
+          {difficulty}
+          <Link href="/wiki/difficulty" style={{ marginLeft: "8px", color: "inherit" }} title="Difficulty scales explained">
+            <FontAwesomeIcon icon={faCircleQuestion} />
+          </Link>
+        </Cell>
       </tbody>
     </table>
   );
