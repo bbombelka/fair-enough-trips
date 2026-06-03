@@ -42,7 +42,7 @@ async function getPostData(idArray: string[]) {
   const serializedPosts = await getLatestPosts(
     {
       postDate: { $lt: new Date(parsedPost.postDate) },
-      ...(parsedPost.parentId ? { id: { $ne: parsedPost.parentId }, parentId: { $ne: parsedPost.parentId } } : {}),
+      ...(parsedPost.parentId ? { id: { $ne: parsedPost.parentId }, parentId: { $ne: parsedPost.parentId } } : { parentId: { $exists: false } }),
     },
     4,
   );
