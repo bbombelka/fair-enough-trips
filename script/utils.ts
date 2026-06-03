@@ -1,4 +1,4 @@
-import { readdir } from "fs/promises";
+import { readdir, stat } from "fs/promises";
 import path from "path";
 import readlineSync from "readline-sync";
 
@@ -17,23 +17,34 @@ export async function getOrSelectId(providedId: string | undefined): Promise<str
 
   try {
     const entries = await readdir(POSTS_ROOT, { withFileTypes: true });
-    const dirs = entries
-      .filter((dirent) => dirent.isDirectory())
-      .map((dirent) => dirent.name)
-      .sort();
+    const dirEntries = entries.filter((dirent) => dirent.isDirectory());
 
-    if (dirs.length === 0) {
+    // Sort by modification time (newest first) and limit to 100
+    const dirsWithStats = await Promise.all(
+      dirEntries.map(async (dirent) => {
+        const fullPath = path.join(POSTS_ROOT, dirent.name);
+        const stats = await stat(fullPath);
+        return { name: dirent.name, mtime: stats.mtime };
+      })
+    );
+
+    const sortedDirs = dirsWithStats
+      .sort((a, b) => b.mtime.getTime() - a.mtime.getTime())
+      .map((d) => d.name)
+      .slice(0, 100);
+
+    if (sortedDirs.length === 0) {
       console.error(`❌ No post directories found in ${POSTS_ROOT}`);
       process.exit(1);
     }
 
-    const index = readlineSync.keyInSelect(dirs, "Select a post ID:");
+    const index = readlineSync.keyInSelect(sortedDirs, "Select a post ID (latest 100):");
     if (index === -1) {
       console.log("Exiting...");
       process.exit(0);
     }
 
-    return dirs[index];
+    return sortedDirs[index];
   } catch (err) {
     console.error(`❌ Error reading post directories from ${POSTS_ROOT}:`, err);
     process.exit(1);

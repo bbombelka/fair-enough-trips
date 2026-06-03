@@ -5,11 +5,11 @@ POSTS_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../public/content/posts" && 
 
 # Check if a POI ID was provided as an argument
 if [ -z "$1" ]; then
-    echo "No POI ID provided. Select from existing directories:"
+    echo "No POI ID provided. Select from existing directories (latest 100):"
     
-    # List directories in public/content/posts
+    # List directories in public/content/posts, sort by modification time, and limit to 100
     cd "$POSTS_ROOT"
-    dirs=($(ls -d */ 2>/dev/null | xargs -n 1 basename))
+    dirs=($(ls -dt */ 2>/dev/null | head -n 100 | xargs -n 1 basename))
     
     if [ ${#dirs[@]} -eq 0 ]; then
         echo "❌ No post directories found in $POSTS_ROOT"
