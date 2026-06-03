@@ -19,18 +19,18 @@ const useSearch = ({ isEnabled }: UseSearchProps) => {
 
   useEffect(() => {
     if (isEnabled && searchTerm) {
-      try {
-        setHasError(false);
-        setIsLoading(true);
-        fetch("/api/search?searchTerm=" + searchTerm)
-          .then((res) => res.json())
-          .then((res) => {
-            setData(res);
-            setIsLoading(false);
-          });
-      } catch {
-        setHasError(true);
-      }
+      setHasError(false);
+      setIsLoading(true);
+      fetch("/api/search?searchTerm=" + searchTerm)
+        .then((res) => res.json())
+        .then((res) => {
+          setData(res);
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setHasError(true);
+          setIsLoading(false);
+        });
     }
   }, [isEnabled, searchTerm]);
 

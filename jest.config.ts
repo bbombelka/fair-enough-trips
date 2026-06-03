@@ -25,6 +25,7 @@ const config: Config = {
     '^pages/(.*)$': '<rootDir>/src/pages/$1',
     '^app-links$': '<rootDir>/src/app-links.ts',
     '^Config$': '<rootDir>/src/Config.ts',
+    '^MongoClient$': '<rootDir>/src/MongoClient.ts',
     '^d3(.*)$': '<rootDir>/src/__mocks__/d3.ts',
   },
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],

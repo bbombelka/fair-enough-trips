@@ -64,6 +64,7 @@
     "eslint-config-next": "^16.2.6",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
+    "node-mocks-http": "^1.17.2",
     "ts-node": "^10.9.2",
     "typescript": "5.9.3"
   },
