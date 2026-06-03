@@ -15,7 +15,7 @@ async function getPostData(idArray: string[]) {
   const mongoClient = await mongoClientConnectPromise;
 
   const dbQueryId = idArray.length === 2 ? idArray[1] : idArray[0];
-  const filesPath = `./public/${idArray.length === 2 ? idArray.join("/") : idArray[0]}`;
+  const filesPath = `./public/content/posts/${idArray.length === 2 ? idArray.join("/") : idArray[0]}`;
 
   const displayGpxChartPromise = access(`${filesPath}/poi.json`).then(
     () => true,
