@@ -21,7 +21,10 @@ const config: Config = {
     '^server/(.*)$': '<rootDir>/src/server/$1',
     '^styles/(.*)$': '<rootDir>/src/styles/$1',
     '^types/(.*)$': '<rootDir>/src/types/$1',
+    '^pages/(.*)$': '<rootDir>/src/pages/$1',
+    '^app-links$': '<rootDir>/src/app-links.ts',
     '^Config$': '<rootDir>/src/Config.ts',
+    '^d3(.*)$': '<rootDir>/src/__mocks__/d3.ts',
   },
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
 }
