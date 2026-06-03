@@ -1,25 +1,23 @@
 //@ts-nocheck
-import { Activities, Countries, Regions } from "enums/categories";
+import { Activities, Countries, Regions } from "./src/enums/categories";
 import { readFile } from "fs/promises";
 import { Parser } from "xml2js";
 import archiver from "archiver";
+import fs from "fs";
+import path from "path";
+import readline from "readline";
 
-const fs = require("fs");
-const path = require("path");
-const readline = require("readline");
-
-// Categories data
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-const ask = (q) => new Promise((resolve) => rl.question(q, resolve));
+const ask = (q: string) => new Promise<string>((resolve) => rl.question(q, resolve));
 
 (async () => {
   try {
-    const id = await ask("Enter ID (used as directory name in /public): ");
-    const dirPath = path.join(__dirname, "public", id);
+    const id = await ask("Enter ID (used as directory name in /public/content/posts): ");
+    const dirPath = path.join(__dirname, "public", "content", "posts", id);
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath, { recursive: true });
       console.log(`✅ Created directory: ${dirPath}`);
@@ -32,8 +30,12 @@ const ask = (q) => new Promise((resolve) => rl.question(q, resolve));
 
     const post = JSON.parse(fs.readFileSync(templatePath, "utf-8"));
 
-    await ask("Upload gpx file to post directory");
-    const gpxFilePath = `${dirPath}/track.gpx`;
+    await ask("Upload gpx file to post directory. Press Enter when done.");
+    const gpxFilePath = path.join(dirPath, "track.gpx");
+
+    if (!fs.existsSync(gpxFilePath)) {
+        throw new Error(`track.gpx not found at ${gpxFilePath}`);
+    }
 
     const parser = new Parser();
     const gpxFile = await readFile(gpxFilePath);
@@ -42,7 +44,7 @@ const ask = (q) => new Promise((resolve) => rl.question(q, resolve));
     const { season, period, month, year } = parseIsoToDateObject(tripTime);
     const isoDate = new Date().toISOString();
 
-    zipFile(gpxFilePath, `${dirPath}/track.zip`);
+    zipFile(gpxFilePath, path.join(dirPath, "track.zip"));
     post.postDate = isoDate;
     post.date = {
       season,
@@ -68,14 +70,14 @@ const ask = (q) => new Promise((resolve) => rl.question(q, resolve));
     const outPath = path.join(dirPath, "post.json");
     fs.writeFileSync(outPath, JSON.stringify(post, null, 2));
     console.log(`✅ Saved: ${outPath}`);
-  } catch (err) {
+  } catch (err: any) {
     console.error(`❌ Error: ${err.message}`);
   } finally {
     rl.close();
   }
 })();
 
-function parseIsoToDateObject(isoString) {
+function parseIsoToDateObject(isoString: string) {
   const date = new Date(isoString);
   const year = date.getUTCFullYear();
   const month = date.getUTCMonth() + 1;
@@ -111,7 +113,7 @@ function parseIsoToDateObject(isoString) {
   };
 }
 
-function zipFile(sourceFilePath, outputZipPath) {
+function zipFile(sourceFilePath: string, outputZipPath: string) {
   const output = fs.createWriteStream(outputZipPath);
   const archive = archiver("zip", { zlib: { level: 9 } });
 
@@ -124,11 +126,11 @@ function zipFile(sourceFilePath, outputZipPath) {
   });
 
   archive.pipe(output);
-  archive.file(sourceFilePath, { name: require("path").basename(sourceFilePath) });
+  archive.file(sourceFilePath, { name: path.basename(sourceFilePath) });
   archive.finalize();
 }
 
-async function promptSelectMultiple(title, options) {
+async function promptSelectMultiple(title: string, options: any[]) {
   console.log(`\n📋 Select ${title} (comma-separated numbers):`);
   options.forEach((item, i) => {
     console.log(`${i + 1}. ${item.name}`);

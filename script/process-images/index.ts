@@ -1,20 +1,9 @@
 import sharp from "sharp";
 import path from "path";
-import { readdir } from "fs/promises";
-import { readFile, writeFile } from "fs/promises";
+import { readdir, readFile, writeFile } from "fs/promises";
+import { getOrSelectId, POSTS_ROOT } from "../utils";
 
-const __dirname = path.dirname(__filename);
-const args = process.argv.slice(2);
-const id = args[0];
-
-if (!id) {
-  console.error("Error: No POI ID provided.");
-  process.exit(1);
-}
-
-const dirPath = path.resolve(__dirname, `../../public/content/posts/${id}`);
-
-function naturalSort(a, b) {
+function naturalSort(a: string, b: string) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
 }
 
@@ -42,45 +31,46 @@ function getWatermarkSvg(imageHeight: number): Buffer {
 }
 
 (async () => {
-  const files = await readdir(dirPath);
-  const imageFiles = files.filter((file) => file.includes(".jpg") || file.includes(".jpeg")).sort(naturalSort);
+  const args = process.argv.slice(2);
+  const id = await getOrSelectId(args[0]);
 
-  const processingPromises = imageFiles.map((file) => processImages(id, file));
-  const processedImages = await Promise.all(processingPromises);
-  const imageFilenamesForPostJson = processedImages.filter(Boolean);
+  const dirPath = path.join(POSTS_ROOT, id);
 
-  // Read and update post.json
-  updatePostJson(id, imageFilenamesForPostJson);
-  async function updatePostJson(id: string, newImagesArray: any[]) {
-    const jsonPath = path.resolve(`${dirPath}/post.json`);
+  try {
+    const files = await readdir(dirPath);
+    const imageFiles = files.filter((file) => file.includes(".jpg") || file.includes(".jpeg")).sort(naturalSort);
 
-    try {
-      // 1. Read the file
-      const jsonText = await readFile(jsonPath, "utf-8");
+    const processingPromises = imageFiles.map((file) => processImages(id, file, dirPath));
+    const processedImages = await Promise.all(processingPromises);
+    const imageFilenamesForPostJson = processedImages.filter(Boolean);
 
-      // 2. Parse it
-      const data = JSON.parse(jsonText);
-      console.log(data, newImagesArray);
-
-      // 3. Modify it
-
-      await writeFile(jsonPath, JSON.stringify({ ...data, images: newImagesArray }, null, 2), "utf-8");
-
-      console.log(`✅ Updated post.json with ${newImagesArray.length} images`);
-    } catch (err) {
-      console.error("❌ Error reading or writing post.json:", err);
-    }
+    // Read and update post.json
+    await updatePostJson(id, imageFilenamesForPostJson, dirPath);
+  } catch (err) {
+    console.error(`❌ Failed to process images for ${id}:`, err);
   }
 })();
 
-async function processImages(id: string, filename: string): Promise<Record<string, unknown> | null> {
-  const imagePath = path.resolve(`${dirPath}/${filename}`);
+async function updatePostJson(id: string, newImagesArray: any[], dirPath: string) {
+  const jsonPath = path.join(dirPath, "post.json");
+
+  try {
+    const jsonText = await readFile(jsonPath, "utf-8");
+    const data = JSON.parse(jsonText);
+    await writeFile(jsonPath, JSON.stringify({ ...data, images: newImagesArray }, null, 2), "utf-8");
+    console.log(`✅ Updated post.json for ${id} with ${newImagesArray.length} images`);
+  } catch (err) {
+    console.error(`❌ Error updating post.json for ${id}:`, err);
+  }
+}
+
+async function processImages(id: string, filename: string, dirPath: string): Promise<Record<string, unknown> | null> {
+  const imagePath = path.join(dirPath, filename);
 
   const longerDimension = 2000;
   const shorterDimension = 1500;
   const thumbRatio = 5;
 
-  // const highResSetting = { quality: 60, output: "-HD.webp" };
   const regularSetting = { quality: 75, output: ".webp" };
   const thumbnailSetting = { quality: 75, output: "-thumb.webp" };
   const regularLandscapeDimensions = { width: longerDimension, height: shorterDimension };
@@ -99,23 +89,23 @@ async function processImages(id: string, filename: string): Promise<Record<strin
     ],
   };
 
-  const isMain = imagePath.includes("main.jpg") || imagePath.includes("main.jpeg");
+  const isMain = filename.includes("main.jpg") || filename.includes("main.jpeg");
 
   if (isMain) {
     const quality = 75;
     const outputs = [
       {
-        path: path.resolve(`${dirPath}/main.webp`),
+        path: path.join(dirPath, "main.webp"),
         width: 1920,
         height: 1080,
       },
       {
-        path: path.resolve(`${dirPath}/mobile-main.webp`),
+        path: path.join(dirPath, "mobile-main.webp"),
         width: 720,
         height: 1280,
       },
       {
-        path: path.resolve(`${dirPath}/thumb_main.webp`),
+        path: path.join(dirPath, "thumb_main.webp"),
         width: 584,
         height: 360,
         quality: 75,
@@ -128,7 +118,7 @@ async function processImages(id: string, filename: string): Promise<Record<strin
           .resize({ width, height, fit: "cover" })
           .webp({ quality: q ?? quality })
           .toFile(outPath)
-          .then(() => console.log(`Created ${outPath}`))
+          .then(() => console.log(`Created ${path.basename(outPath)}`))
           .catch(console.error),
       ),
     );
@@ -156,9 +146,10 @@ async function processImages(id: string, filename: string): Promise<Record<strin
             sharpInstance.composite([{ input: getWatermarkSvg(targetHeight), gravity: "southeast" }]);
           }
 
-          sharpInstance
+          const outPath = path.join(dirPath, `${fileName}${output}`);
+          return sharpInstance
             .webp({ quality })
-            .toFile(path.resolve(`${dirPath}/${fileName}${output}`))
+            .toFile(outPath)
             .then(() => console.log(`Created ${fileName}${output}`))
             .catch(console.error);
         }),

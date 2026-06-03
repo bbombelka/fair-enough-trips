@@ -1,18 +1,14 @@
 import { readdir, unlink } from "fs/promises";
 import path from "path";
-
-const args = process.argv.slice(2);
-const id = args[0];
-
-if (!id) {
-  console.error("❌ Error: No POI ID provided.");
-  process.exit(1);
-}
-
-const dirPath = path.resolve(__dirname, `../../public/content/posts/${id}`);
-const keepFiles = new Set(["main.webp", "mobile-main.webp", "track.zip", "poi.json", "thumb_main.webp", "topo.webp"]);
+import { getOrSelectId, POSTS_ROOT } from "../utils";
 
 (async () => {
+  const args = process.argv.slice(2);
+  const id = await getOrSelectId(args[0]);
+
+  const dirPath = path.join(POSTS_ROOT, id);
+  const keepFiles = new Set(["main.webp", "mobile-main.webp", "track.zip", "poi.json", "thumb_main.webp", "topo.webp"]);
+
   try {
     const files = await readdir(dirPath);
 
