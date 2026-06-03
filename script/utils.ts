@@ -38,13 +38,22 @@ export async function getOrSelectId(providedId: string | undefined): Promise<str
       process.exit(1);
     }
 
-    const index = readlineSync.keyInSelect(sortedDirs, "Select a post ID (latest 100):");
-    if (index === -1) {
+    console.log("\n📋 Select a post ID (latest 100):");
+    sortedDirs.forEach((dir, i) => {
+      console.log(`[${i + 1}] ${dir}`);
+    });
+
+    const choice = readlineSync.questionInt(`\nEnter selection (1-${sortedDirs.length}, 0 to cancel): `, {
+      min: 0,
+      max: sortedDirs.length,
+    });
+
+    if (choice === 0) {
       console.log("Exiting...");
       process.exit(0);
     }
 
-    return sortedDirs[index];
+    return sortedDirs[choice - 1];
   } catch (err) {
     console.error(`❌ Error reading post directories from ${POSTS_ROOT}:`, err);
     process.exit(1);
