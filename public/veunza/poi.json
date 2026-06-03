@@ -1,0 +1,16 @@
+[
+  { "name": "Fusine lakes", "type": "parking", "lat": 46.4733047, "lon": 13.6707531, "index": 0 },
+  { "name": "Trail 513", "type": "signpost", "lat": 46.4659575, "lon": 13.6714339, "index": 156 },
+  { "name": "Trail 513a shortcut", "type": "signpost", "lat": 46.4497256, "lon": 13.6759894, "index": 1509 },
+  { "name": "Della Vita start", "type": "ferrata", "lat": 46.4406678, "lon": 13.6811469, "index": 2891 },
+  { "name": "Della Vita exit", "type": "ferrata", "lat": 46.4387286, "lon": 13.6817622, "index": 5800 },
+  { "name": "Sella Veunza pass", "type": "pass", "lat": 46.4383853, "lon": 13.6848283, "index": 6154 },
+  { "name": "Veunza(2341m)", "type": "peak", "lat": 46.4395781, "lon": 13.6858261, "index": 6386 },
+  { "name": "Via Degli Alpini", "type": "ferrata", "lat": 46.4409708, "lon": 13.687875, "index": 6892 },
+  { "name": "Cima Strugova(2265m)", "type": "peak", "lat": 46.4438686, "lon": 13.6937344, "index": 8235 },
+  { "name": "Kugy via ferrata", "type": "ferrata", "lat": 46.4450194, "lon": 13.6938133, "index": 8473 },
+  { "name": "Kugy via ferrata exit", "type": "ferrata", "lat": 46.4441389, "lon": 13.6897919, "index": 9684 },
+  { "name": "Trail 513", "type": "signpost", "lat": 46.4535708, "lon": 13.6842547, "index": 10492 },
+  { "name": "Luigi Zacchi", "type": "hut", "lat": 46.4592325, "lon": 13.6843219, "index": 10721 },
+  { "name": "Fusine lakes", "type": "parking", "lat": 46.4733047, "lon": 13.6707531, "index": 11699 }
+]
