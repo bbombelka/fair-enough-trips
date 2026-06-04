@@ -20,7 +20,8 @@
     "create-lqip": "./script/create-lqip/create-lqip.sh",
     "prepare-route-scheme": "./script/prepare-route-scheme/prepare-route-scheme.sh",
     "publish": "./script/publish/publish.sh",
-    "build-post": "npx tsx ./build-post.ts"
+    "build-post": "npx tsx ./build-post.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1044.0",
@@ -62,6 +63,7 @@
     "@types/xml2js": "0.4.14",
     "eslint": "^10.4.0",
     "eslint-config-next": "^16.2.6",
+    "husky": "^9.1.7",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "node-mocks-http": "^1.17.2",
