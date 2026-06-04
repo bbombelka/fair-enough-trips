@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.62% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/27</span>
+                <span class='fraction'>27/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.62% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/27</span>
+                <span class='fraction'>27/27</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -95,55 +95,55 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Activities, Countries, Regions } from "enums/categories";
 import { useMemo } from "react";
 import { Categories } from "types/common.types";
 &nbsp;
-export const useMappedCategoriesNames = <span class="fstat-no" title="function not covered" >(category: Categories) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const [activities, regions, countries] = useMemo(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return [mapActivityToName(category.activity), mapRegionToName(category.region), mapCountryToName(category.country)];</span>
-<span class="cstat-no" title="statement not covered" >  }, [category]);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  return [activities, regions, countries];</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+export const useMappedCategoriesNames = (category: Categories) =&gt; {
+  const [activities, regions, countries] = useMemo(() =&gt; {
+    return [mapActivityToName(category.activity), mapRegionToName(category.region), mapCountryToName(category.country)];
+  }, [category]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function mapActivityToName(activities: string[]) {</span></span>
-<span class="cstat-no" title="statement not covered" >  const mapped = activities.map((code) =&gt; Activities.find((act) =&gt; act.code === code)?.name);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  return mapped.length ? mapped.filter(Boolean) : ["Activity"];</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+  return [activities, regions, countries];
+};
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function mapCountryToName(countries: string[]) {</span></span>
-<span class="cstat-no" title="statement not covered" >  const mapped = countries.map((code) =&gt; Countries.find((country) =&gt; country.code === code)?.name);</span>
-<span class="cstat-no" title="statement not covered" >  return mapped.length ? mapped.filter(Boolean) : ["Country"];</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+function mapActivityToName(activities: string[]) {
+  const mapped = activities.map((code) =&gt; Activities.find((act) =&gt; act.code === code)?.name);
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function mapRegionToName(regions: string[]) {</span></span>
-<span class="cstat-no" title="statement not covered" >  const mapped = regions.map((code) =&gt; Regions.find((region) =&gt; region.code === code)?.name);</span>
-<span class="cstat-no" title="statement not covered" >  return mapped.length ? mapped.filter(Boolean) : ["Region"];</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+  return mapped.length ? mapped.filter(Boolean) : ["Activity"];
+}
+&nbsp;
+function mapCountryToName(countries: string[]) {
+  const mapped = countries.map((code) =&gt; Countries.find((country) =&gt; country.code === code)?.name);
+  return mapped.length ? mapped.filter(Boolean) : ["Country"];
+}
+&nbsp;
+function mapRegionToName(regions: string[]) {
+  const mapped = regions.map((code) =&gt; Regions.find((region) =&gt; region.code === code)?.name);
+  return mapped.length ? mapped.filter(Boolean) : ["Region"];
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -151,7 +151,7 @@ export const useMappedCategoriesNames = <span class="fstat-no" title="function n
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-04T03:29:13.318Z
+                at 2026-06-04T04:05:37.187Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

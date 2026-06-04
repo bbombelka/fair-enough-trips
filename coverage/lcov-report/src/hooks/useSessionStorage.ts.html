@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.68% </span>
+                <span class="strong">93.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/29</span>
+                <span class='fraction'>27/29</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">87.5% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.68% </span>
+                <span class="strong">93.1% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/29</span>
+                <span class='fraction'>27/29</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -96,58 +96,58 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use client";
 &nbsp;
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function useSessionStorage&lt;T&gt;(key: string, initialValue?: T): [T, Dispatch&lt;SetStateAction&lt;T&gt;&gt;] {</span></span>
-<span class="cstat-no" title="statement not covered" >  const [value, setValue] = useState&lt;T&gt;(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      const storedValue = sessionStorage.getItem(key);</span>
-<span class="cstat-no" title="statement not covered" >      return storedValue !== null ? JSON.parse(storedValue) : initialValue;</span>
-<span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      console.error("Error reading sessionStorage", error);</span>
-<span class="cstat-no" title="statement not covered" >      return initialValue;</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >  });</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      if (value !== undefined) {</span>
-<span class="cstat-no" title="statement not covered" >        sessionStorage.setItem(key, JSON.stringify(value));</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
-<span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
+function useSessionStorage&lt;T&gt;(key: string, initialValue?: T): [T, Dispatch&lt;SetStateAction&lt;T&gt;&gt;] {
+  const [value, setValue] = useState&lt;T&gt;(() =&gt; {
+    try {
+      const storedValue = sessionStorage.getItem(key);
+      return storedValue !== null ? JSON.parse(storedValue) : initialValue;
+    } catch (error) {
+      console.error("Error reading sessionStorage", error);
+      return initialValue;
+    }
+  });
+&nbsp;
+  useEffect(() =&gt; {
+    try {
+      if (value !== undefined) {
+        sessionStorage.setItem(key, JSON.stringify(value));
+      }
+    } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >      console.error("Error saving to sessionStorage", error);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >  }, [key, value]);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  return [value, setValue];</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+  }, [key, value]);
+&nbsp;
+  return [value, setValue];
+}
 &nbsp;
 export default useSessionStorage;
 &nbsp;</pre></td></tr></table></pre>
@@ -157,7 +157,7 @@ export default useSessionStorage;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-04T03:29:13.318Z
+                at 2026-06-04T04:05:37.187Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

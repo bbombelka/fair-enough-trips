@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -91,50 +91,50 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import clsx from "clsx";
 import { UseCardClassesProps } from "./useCardClasses.types";
 &nbsp;
-export const useCardClasses = <span class="fstat-no" title="function not covered" >({ styles, isMainCard, isTop }: UseCardClassesProps) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const textBoxClass = clsx(styles.textBox, isTop ? styles.top : styles.bottom, isMainCard &amp;&amp; styles.main);</span>
-<span class="cstat-no" title="statement not covered" >  const imageClass = clsx(styles["next-image"], isMainCard &amp;&amp; styles["next-image-main"]);</span>
-<span class="cstat-no" title="statement not covered" >  const titleClass = clsx(styles.text, styles[isMainCard ? "title-main" : "title"]);</span>
-<span class="cstat-no" title="statement not covered" >  const subtitleClass = clsx(styles.text, styles[isMainCard ? "main-post-card-subtitle" : "subtitle"]);</span>
-<span class="cstat-no" title="statement not covered" >  const scrollDownIconClass = clsx(styles["scroll-down-icon"], isTop &amp;&amp; styles["is-top"]);</span>
-<span class="cstat-no" title="statement not covered" >  const buttonClass = clsx(styles.button, isMainCard &amp;&amp; styles.main);</span>
-<span class="cstat-no" title="statement not covered" >  const imageContainerClass = clsx(styles["next-image-container"], !isMainCard &amp;&amp; styles["grid-card"]);</span>
-<span class="cstat-no" title="statement not covered" >  const containerClass = clsx(styles["container"], isMainCard &amp;&amp; styles["container-main-card"]);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  return {</span>
-<span class="cstat-no" title="statement not covered" >    textBoxClass,</span>
-<span class="cstat-no" title="statement not covered" >    imageClass,</span>
-<span class="cstat-no" title="statement not covered" >    titleClass,</span>
-<span class="cstat-no" title="statement not covered" >    subtitleClass,</span>
-<span class="cstat-no" title="statement not covered" >    scrollDownIconClass,</span>
-<span class="cstat-no" title="statement not covered" >    buttonClass,</span>
-<span class="cstat-no" title="statement not covered" >    imageContainerClass,</span>
-<span class="cstat-no" title="statement not covered" >    containerClass,</span>
-<span class="cstat-no" title="statement not covered" >  };</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+export const useCardClasses = ({ styles, isMainCard, isTop }: UseCardClassesProps) =&gt; {
+  const textBoxClass = clsx(styles.textBox, isTop ? styles.top : styles.bottom, isMainCard &amp;&amp; styles.main);
+  const imageClass = clsx(styles["next-image"], isMainCard &amp;&amp; styles["next-image-main"]);
+  const titleClass = clsx(styles.text, styles[isMainCard ? "title-main" : "title"]);
+  const subtitleClass = clsx(styles.text, styles[isMainCard ? "main-post-card-subtitle" : "subtitle"]);
+  const scrollDownIconClass = clsx(styles["scroll-down-icon"], isTop &amp;&amp; styles["is-top"]);
+  const buttonClass = clsx(styles.button, isMainCard &amp;&amp; styles.main);
+  const imageContainerClass = clsx(styles["next-image-container"], !isMainCard &amp;&amp; styles["grid-card"]);
+  const containerClass = clsx(styles["container"], isMainCard &amp;&amp; styles["container-main-card"]);
+&nbsp;
+  return {
+    textBoxClass,
+    imageClass,
+    titleClass,
+    subtitleClass,
+    scrollDownIconClass,
+    buttonClass,
+    imageContainerClass,
+    containerClass,
+  };
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -142,7 +142,7 @@ export const useCardClasses = <span class="fstat-no" title="function not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-04T03:29:13.318Z
+                at 2026-06-04T04:05:37.187Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/28</span>
+                <span class='fraction'>28/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/28</span>
+                <span class='fraction'>28/28</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -101,24 +101,24 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use client";
 &nbsp;
 import { useState } from "react";
@@ -128,25 +128,25 @@ import Config from "Config";
 &nbsp;
 import { useMainImagePathProps } from "./useMainImagePath.types";
 &nbsp;
-export const useMainImagePath = <span class="fstat-no" title="function not covered" >({ isMainPostCard, id }: useMainImagePathProps) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const isMounted = useIsMounted();</span>
-<span class="cstat-no" title="statement not covered" >  const { isMobile } = checkWindowSize({ isEnabled: isMounted });</span>
-<span class="cstat-no" title="statement not covered" >  const [isError, setError] = useState(false);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const getSourceImagePath = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!id) return "";</span>
-<span class="cstat-no" title="statement not covered" >    let filename = "";</span>
-<span class="cstat-no" title="statement not covered" >    if (!isMainPostCard &amp;&amp; !isError) {</span>
-<span class="cstat-no" title="statement not covered" >      filename = "thumb_";</span>
-<span class="cstat-no" title="statement not covered" >    } else if (isMainPostCard &amp;&amp; isMobile &amp;&amp; !isError) {</span>
-<span class="cstat-no" title="statement not covered" >      filename = "mobile-";</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return `/content/posts/${id}/${filename}main.${Config.DEFAULT_IMAGE_EXTENSION}`;</span>
-<span class="cstat-no" title="statement not covered" >  };</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  return { src: getSourceImagePath(), setError };</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+export const useMainImagePath = ({ isMainPostCard, id }: useMainImagePathProps) =&gt; {
+  const isMounted = useIsMounted();
+  const { isMobile } = checkWindowSize({ isEnabled: isMounted });
+  const [isError, setError] = useState(false);
+&nbsp;
+  const getSourceImagePath = () =&gt; {
+    if (!id) return "";
+    let filename = "";
+    if (!isMainPostCard &amp;&amp; !isError) {
+      filename = "thumb_";
+    } else if (isMainPostCard &amp;&amp; isMobile &amp;&amp; !isError) {
+      filename = "mobile-";
+    }
+&nbsp;
+    return `/content/posts/${id}/${filename}main.${Config.DEFAULT_IMAGE_EXTENSION}`;
+  };
+&nbsp;
+  return { src: getSourceImagePath(), setError };
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -154,7 +154,7 @@ export const useMainImagePath = <span class="fstat-no" title="function not cover
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-04T03:29:13.318Z
+                at 2026-06-04T04:05:37.187Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
