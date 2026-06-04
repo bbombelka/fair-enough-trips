@@ -127,4 +127,36 @@ describe('PostTemplate Component', () => {
     expect(screen.queryByTestId('mock-post-images')).not.toBeInTheDocument();
     expect(screen.queryByTestId('mock-card-list')).not.toBeInTheDocument();
   });
+
+  it('renders correctly when only weather is provided in conditions', () => {
+    const postWithWeatherOnly = {
+      ...mockPost,
+      weather: ['Sunny'],
+      trailCondition: undefined,
+    };
+    render(<PostTemplate post={postWithWeatherOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{}} />);
+    expect(screen.getByText('Weather')).toBeInTheDocument();
+    expect(screen.queryByText('Trail')).not.toBeInTheDocument();
+  });
+
+  it('renders correctly when only trail condition is provided in conditions', () => {
+    const postWithTrailOnly = {
+      ...mockPost,
+      weather: undefined,
+      trailCondition: ['Muddy'],
+    };
+    render(<PostTemplate post={postWithTrailOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{}} />);
+    expect(screen.queryByText('Weather')).not.toBeInTheDocument();
+    expect(screen.getByText('Trail')).toBeInTheDocument();
+  });
+
+  it('renders correctly when only videos are provided', () => {
+    const postWithVideosOnly = {
+      ...mockPost,
+      images: [],
+      videos: [{ src: 'video.com' }],
+    };
+    render(<PostTemplate post={postWithVideosOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{}} />);
+    expect(screen.getByTestId('mock-post-images')).toBeInTheDocument();
+  });
 });

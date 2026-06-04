@@ -46,4 +46,16 @@ describe('Loader Component', () => {
     // Should be hidden now
     expect(container.firstChild).toHaveClass('hidden');
   });
+
+  it('applies border classes correctly', () => {
+    const { container } = render(
+      <Loader isLoading={true} hasExternalBorder={true} hasInternalBorder={true} />
+    );
+    
+    const rootDiv = container.firstChild as HTMLElement;
+    expect(rootDiv).toHaveClass('border');
+    
+    const centerBox = rootDiv.querySelector('.center-box') as HTMLElement;
+    expect(centerBox).toHaveClass('border');
+  });
 });

@@ -10,7 +10,7 @@ jest.mock('hooks/useMainImagePath');
 jest.mock('hooks/useCardClasses');
 jest.mock('hooks/useScrollDown');
 jest.mock('components/fet-image/FETImage', () => ({
-  FETImage: ({ src, alt }: any) => <img src={src} alt={alt} data-testid="mock-fet-image" />
+  FETImage: ({ src, alt, onError }: any) => <img src={src} alt={alt} data-testid="mock-fet-image" onError={onError} />
 }));
 
 describe('CategoryCard Component', () => {
@@ -105,5 +105,44 @@ describe('CategoryCard Component', () => {
 
     fireEvent.click(screen.getByText('Trip Notes'));
     expect(mockScrollDownNotes).toHaveBeenCalled();
+  });
+
+  it('does not render originalName if not provided', () => {
+    const noOriginalNameCategory = { ...mockCategory, originalName: undefined };
+    render(
+      <CategoryCard
+        category={noOriginalNameCategory as any}
+        postIds={mockPostIds}
+        isMainCard={true}
+        categoryType="regions"
+        id="test-id"
+      />
+    );
+
+    expect(screen.getByText('Test Category')).toBeInTheDocument();
+    expect(screen.queryByText(/\(Original Test Category\)/)).not.toBeInTheDocument();
+  });
+
+  it('calls setError on image load error in regular card', () => {
+    const mockSetError = jest.fn();
+    (useMainImagePathHook.useMainImagePath as jest.Mock).mockReturnValue({
+      src: '/test-image.webp',
+      setError: mockSetError,
+    });
+
+    render(
+      <CategoryCard
+        category={mockCategory}
+        postIds={mockPostIds}
+        isMainCard={false}
+        categoryType="regions"
+        id="test-id"
+      />
+    );
+
+    const image = screen.getByTestId('mock-fet-image');
+    fireEvent.error(image);
+    
+    expect(mockSetError).toHaveBeenCalledWith(true);
   });
 });

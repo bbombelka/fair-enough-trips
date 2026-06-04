@@ -74,4 +74,19 @@ describe('Divider Component', () => {
     
     document.body.removeChild(mockElement);
   });
+
+  it('throws an error in development if title equals stickyScrollToElementId', () => {
+    const originalEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'development';
+    
+    // Suppress console.error output from React error boundary during the test
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    
+    expect(() => {
+      render(<Divider title="SameValue" stickyScrollToElementId="SameValue" />);
+    }).toThrow('title and stickyScrollToElementId cannot be identical due to accesibility duplicated id problem');
+    
+    consoleSpy.mockRestore();
+    process.env.NODE_ENV = originalEnv;
+  });
 });
