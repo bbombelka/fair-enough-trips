@@ -167,7 +167,7 @@ const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; d
         .text(text);
     };
 
-    const appendDistancePoint = (xAxisData: number, index: number) => {
+    const appendDistancePoint = (xAxisData: number) => {
       svg
         .append("circle")
         .attr("cx", scale(xAxisData))

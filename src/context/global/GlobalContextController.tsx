@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, PropsWithChildren, useContext, FC, useState } from "react";
+import { createContext, PropsWithChildren, FC, useState } from "react";
 
 export type GlobalContextType = {
   showModal: boolean;

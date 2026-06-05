@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { PostTemplate } from './PostTemplate';
-import { Post } from 'types/common.types';
 
 // Mock child components to isolate the template logic
 jest.mock('components/layout/Layout', () => ({

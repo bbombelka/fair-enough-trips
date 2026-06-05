@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react';
 import { useBucketSourcePath } from './useBucketSourcePath';
-import Config from 'Config';
 
 jest.mock('Config', () => ({
   S3_BUCKET: 'https://s3.bucket.com',

@@ -1,5 +1,5 @@
 import { Categories } from "types/common.types";
-import { Activities, Countries, Regions } from "enums/categories";
+import { Activities, Regions } from "enums/categories";
 
 export const useBreadcrumbs = (category: Categories) => {
   const activity = Activities.find((activity) => activity.code === category.activity[0]);

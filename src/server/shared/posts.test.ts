@@ -1,5 +1,4 @@
 import { getLatestPosts, getPathsPosts } from './posts';
-import mongoClientConnectPromise from 'MongoClient';
 
 jest.mock('MongoClient', () => {
   return Promise.resolve({

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { RouteSchemePoint } from "../RouteScheme.types";
 import styles from "styles/StepperTooltipContent.module.css";
 import { formatTimeElapsed } from "../RouteScheme.utils";

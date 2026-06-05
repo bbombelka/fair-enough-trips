@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import { StarRate } from './StarRate';
-import Config from 'Config';
 
 describe('StarRate Component', () => {
   beforeEach(() => {

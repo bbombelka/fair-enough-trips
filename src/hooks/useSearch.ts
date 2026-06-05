@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { SearchPostType } from "types/pages/post.types";
 import { UseSearchProps } from "types/hooks/useSearch.types";
 

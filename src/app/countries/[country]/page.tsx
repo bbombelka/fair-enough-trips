@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Footer, Layout, Navbar, PostCard } from "components";
 import CardList from "components/card-list/CardList";
-import { Post } from "types/common.types";
 import mongoClientConnectPromise from "MongoClient";
 import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 import Config from "Config";
@@ -10,7 +9,6 @@ import { CategoryCard } from "components/category-card/CategoryCard";
 import { parse } from "utils";
 import { Box } from "components/box/Box";
 import { TripNotes } from "components/trip-notes/TripNotes";
-import { TripNote } from "types/database.types";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
 import prepareCountryRichData from "server/utils/prepare-country-rich-data";
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TableData } from './TableData';
-import * as utils from 'utils';
 
 // Mock components
 jest.mock('components/star-rate/StarRate', () => ({
