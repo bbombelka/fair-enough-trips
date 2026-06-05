@@ -2,7 +2,7 @@
 
 import { useEffect, RefObject } from "react";
 
-const useClickAway = (ref: RefObject<HTMLElement>, callback?: () => void) => {
+const useClickAway = <T extends HTMLElement>(ref: RefObject<T | null>, callback?: () => void) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
