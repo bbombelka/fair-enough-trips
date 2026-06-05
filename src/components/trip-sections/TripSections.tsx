@@ -14,15 +14,15 @@ export const TripSections = ({ subPosts, parentPostId }: TripSectionsProps) => {
   return (
     <ol className={styles.list}>
       <li>
-        <Link name={`Overview`} href={`${parentPostId}`} className={`${pathname?.endsWith(`/${parentPostId}`) ? styles.active : ""}`} />
+        <Link name={`Overview`} href={`/posts/${parentPostId}`} className={`${pathname?.endsWith(`/${parentPostId}`) ? styles.active : ""}`} />
       </li>
       <li aria-hidden="true" className={styles.separator}>
         |
       </li>
       {subPosts.map((post, index) => {
-        const href = `${parentPostId}/${post.id}`;
+        const href = `/posts/${parentPostId}/${post.id}`;
 
-        const isActive = pathname?.includes(href);
+        const isActive = pathname === href;
 
         return (
           <React.Fragment key={post.id}>

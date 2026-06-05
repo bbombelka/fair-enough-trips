@@ -55,7 +55,7 @@ describe('TableData Component', () => {
 
     // Check specific mapped/formatted values
     expect(screen.getByText('5 km')).toBeInTheDocument();
-    expect(screen.getByText('1.5 h')).toBeInTheDocument(); // formatted duration
+    expect(screen.getByText('1h 30m')).toBeInTheDocument(); // formatted duration
     expect(screen.getByText('500 meters')).toBeInTheDocument();
     expect(screen.getByText('1200 meters')).toBeInTheDocument();
     expect(screen.getByText('Summer 2023')).toBeInTheDocument(); // parsed date

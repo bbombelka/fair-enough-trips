@@ -27,9 +27,9 @@ describe('TripSections Component', () => {
     render(<TripSections subPosts={subPosts as any} parentPostId="parent-post" />);
 
     // Check links
-    expect(screen.getByRole('link', { name: 'Overview' })).toHaveAttribute('href', 'parent-post');
-    expect(screen.getByRole('link', { name: 'Day 1' })).toHaveAttribute('href', 'parent-post/day-1');
-    expect(screen.getByRole('link', { name: 'Day 2' })).toHaveAttribute('href', 'parent-post/day-2');
+    expect(screen.getByRole('link', { name: 'Overview' })).toHaveAttribute('href', '/posts/parent-post');
+    expect(screen.getByRole('link', { name: 'Day 1' })).toHaveAttribute('href', '/posts/parent-post/day-1');
+    expect(screen.getByRole('link', { name: 'Day 2' })).toHaveAttribute('href', '/posts/parent-post/day-2');
 
     // Check separators
     const separators = screen.getAllByText('|');

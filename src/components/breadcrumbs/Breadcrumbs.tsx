@@ -19,7 +19,7 @@ export const Breadcrumbs = ({ category, postTitle, parentData }: BreadcrumbsProp
       ))}
       {parentData && (
         <>
-          <Link href={parentData.id} name={parentData?.title} className={styles.breadcrumb} />
+          <Link href={`/posts/${parentData.id}`} name={parentData?.title} className={styles.breadcrumb} />
           <span> {">"} </span>
         </>
       )}
