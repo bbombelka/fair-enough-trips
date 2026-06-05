@@ -1,5 +1,5 @@
 import { createMocks } from 'node-mocks-http';
-import publishHandler from './publish';
+import publishHandler from 'pages/api/publish';
 import triggerDeployment from 'server/shared/trigger-deployment';
 import mongoClientConnectPromise from 'MongoClient';
 

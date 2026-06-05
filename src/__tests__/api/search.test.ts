@@ -1,5 +1,5 @@
 import { createMocks } from 'node-mocks-http';
-import searchHandler from './search';
+import searchHandler from 'pages/api/search';
 import { getLatestPosts } from 'server/shared/posts';
 
 jest.mock('server/shared/posts', () => ({

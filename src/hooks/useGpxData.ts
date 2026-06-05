@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { ParseGpxResponse } from "../parse-gpx";
+import { ParseGpxResponse } from "pages/api/parse-gpx";
 import useSessionStorage from "hooks/useSessionStorage";
 
 import { useGPXDataProps } from "types/hooks/useGpxData.types";

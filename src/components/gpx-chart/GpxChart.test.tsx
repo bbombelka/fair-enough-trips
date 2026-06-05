@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import GpxChart from './GpxChart';
-import useGPXData from 'pages/api/hooks/useGpxData';
+import useGPXData from 'hooks/useGpxData';
 
 // Mock the hook
-jest.mock('pages/api/hooks/useGpxData');
+jest.mock('hooks/useGpxData');
 
 // Mock utilities
 jest.mock('utils', () => ({

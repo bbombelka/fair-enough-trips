@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
-import useGPXData from "pages/api/hooks/useGpxData";
+import useGPXData from "hooks/useGpxData";
 import {
   getOrientation,
   Orientation,

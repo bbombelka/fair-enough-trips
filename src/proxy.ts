@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest, NextFetchEvent } from "next/server";
 
-export function middleware(req: NextRequest, event: NextFetchEvent) {
+export function proxy(req: NextRequest, event: NextFetchEvent) {
   const userAgent = req.headers.get("user-agent") || "";
 
   if (userAgent.toLowerCase().includes("googlebot")) {

@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
-import useSearch from './useSearch';
+import useSearch from 'hooks/useSearch';
 import * as navigation from 'next/navigation';
 
 jest.mock('next/navigation', () => ({

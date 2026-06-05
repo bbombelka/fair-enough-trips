@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RouteSchemeContainer from './RouteSchemeContainer';
-import useRouteSchemePoints from 'pages/api/hooks/useRouteSchemePoints';
+import useRouteSchemePoints from 'hooks/useRouteSchemePoints';
 
-jest.mock('pages/api/hooks/useRouteSchemePoints');
+jest.mock('hooks/useRouteSchemePoints');
 jest.mock('./RouteScheme', () => ({
   __esModule: true,
   default: ({ points }: any) => <div data-testid="mock-route-scheme">Points: {points.length}</div>

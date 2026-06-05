@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { RouteSchemePointsResponse } from "../route-scheme-points";
+import { RouteSchemePointsResponse } from "pages/api/route-scheme-points";
 
 import { useRouteSchemePointsProps } from "types/hooks/useRouteSchemePoints.types";
 

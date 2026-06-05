@@ -1,5 +1,5 @@
 import { createMocks } from 'node-mocks-http';
-import parseGpxHandler from './parse-gpx';
+import parseGpxHandler from 'pages/api/parse-gpx';
 import unzipper from 'unzipper';
 
 jest.mock('unzipper', () => ({
