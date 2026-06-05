@@ -253,7 +253,7 @@ const RouteScheme = ({ points, disabledCharts }: { points: RouteSchemePoint[]; d
 
     appendBaseLine();
     points.map(mapXAxisData(chartMode)).forEach(({ xAxisData, name, path, type }, i, arr) => {
-      appendDistancePoint(xAxisData, i);
+      appendDistancePoint(xAxisData);
       appendText(xAxisData, name, i, type);
       if (path) {
         appendRouteDescription(xAxisData, path, i, arr);
