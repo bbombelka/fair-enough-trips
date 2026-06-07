@@ -39,7 +39,20 @@ type Links = Record<
 >;
 
 type Paragraph = string[];
-type TitledParagraph = { title: string; body: Paragraph; links?: PostLink[] };
+
+export type RouteStats = {
+  access?: string;
+  down?: string;
+  up?: string;
+  length?: string;
+  pitches?: number;
+  difficulty?: string;
+  rock?: string;
+  orientation?: string;
+  protection?: string;
+};
+
+type TitledParagraph = { title: string; body: Paragraph; links?: PostLink[]; stats?: RouteStats };
 
 export type FullPost = {
   id: string;

@@ -35,8 +35,8 @@ export const PostMultidayTemplate = ({ post, controlDisplayLinks, hasRouteScheme
       {Boolean(post.description?.length) && (
         <>
           <Divider title="Route description" order={orderCounter++} stickyScrollToElementId="paragraph-description" />
-          {post.description?.map(({ title, body, links }, i) =>
-            Boolean(body?.[0]) ? <Paragraph key={i} body={body} title={title} id={`paragraph-description-${i + 1}`} links={links} /> : null,
+          {post.description?.map(({ title, body, links, stats }, i) =>
+            Boolean(body?.[0]) ? <Paragraph key={i} body={body} title={title} id={`paragraph-description-${i + 1}`} links={links} stats={stats} /> : null,
           )}
         </>
       )}

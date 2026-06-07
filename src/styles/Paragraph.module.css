@@ -45,6 +45,10 @@
   list-style-type: square;
 }
 
+.table {
+  margin: 20px auto;
+}
+
 @media (max-width: 720px) {
   .link span {
     font-size: 12px !important;

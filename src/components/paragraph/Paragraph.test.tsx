@@ -147,4 +147,23 @@ describe('Paragraph Component', () => {
     expect(container.querySelector('ul')).toBeInTheDocument();
     expect(container.querySelector('ol')).not.toBeInTheDocument();
   });
+
+  it('renders stats correctly', () => {
+    const stats = {
+      up: 'PT1H',
+      length: '500',
+      difficulty: 'IV'
+    };
+    render(<Paragraph body={[]} stats={stats as any} />);
+
+    expect(screen.getByText('Ascent')).toBeInTheDocument();
+    expect(screen.getByText('1h 00m')).toBeInTheDocument();
+    
+    expect(screen.getByText('Length')).toBeInTheDocument();
+    expect(screen.getByText('500 meters')).toBeInTheDocument();
+    
+    expect(screen.getByText('Difficulty')).toBeInTheDocument();
+    expect(screen.getByText('IV')).toBeInTheDocument();
+    expect(screen.getByTitle('Difficulty scales explained')).toBeInTheDocument();
+  });
 });

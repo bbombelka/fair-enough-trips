@@ -4,14 +4,42 @@ import { Link } from "components/link/Link";
 import { useGlobalContext } from "hooks/useGlobalContext";
 import React, { FC, ReactNode } from "react";
 import styles from "styles/Paragraph.module.css";
+import tableDataStyles from "styles/TableData.module.css";
 import { ParagraphProps } from "./Paragraph.types";
+import { formatIsoDuration } from "utils";
+import { Cell } from "components/table-data/components/Cell";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
+import NextLink from "next/link";
 
-export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id }) => {
+const statsLabels: Record<string, string> = {
+  difficulty: "Difficulty",
+  access: "Access time",
+  down: "Descent time",
+  up: "Climbing time",
+  length: "Length",
+  pitches: "Pitches",
+  rock: "Rock type",
+  orientation: "Wall orientation",
+  protection: "Protection",
+};
+
+export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id, stats }) => {
   const content: ReactNode[] = [];
   let listItems: ReactNode[] = [];
   let listTag: "ul" | "ol" = "ul";
   const { setOpenModal, setCurrentImage } = useGlobalContext();
   const getListTagClassname = (tag: string) => (tag === "ul" ? styles["list-unordered"] : "");
+
+  const formatValue = (key: string, value: string | number) => {
+    if (["access", "down", "up"].includes(key) && typeof value === "string") {
+      return formatIsoDuration(value);
+    }
+    if (key === "length" && typeof value === "string") {
+      return `${value} meters`;
+    }
+    return value;
+  };
 
   body.forEach((paragraph, i) => {
     if (typeof paragraph === "object" && paragraph.tag.startsWith("li")) {
@@ -55,6 +83,21 @@ export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id }) => {
   return (
     <div id={id} className={styles.container}>
       {title && <h3 className={styles.title}>{title}:</h3>}
+      {stats && (
+        <table className={`${tableDataStyles.container} ${styles.table}`}>
+          <tbody className={tableDataStyles.table}>
+            {Object.entries(stats).map(([key, value]) => (
+              <Cell key={key} label={statsLabels[key]} value={formatValue(key, value)}>
+                {key === "difficulty" && (
+                  <NextLink href="/wiki/difficulty" style={{ marginLeft: "8px", color: "inherit" }} title="Difficulty scales explained">
+                    <FontAwesomeIcon icon={faCircleQuestion} />
+                  </NextLink>
+                )}
+              </Cell>
+            ))}
+          </tbody>
+        </table>
+      )}
       {content}
       {Boolean(links?.length) && (
         <p>

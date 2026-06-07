@@ -34,8 +34,8 @@ export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts,
       {post.description?.length && (
         <>
           <Divider title="Route description" order={orderCounter++} stickyScrollToElementId="paragraph-description" />
-          {post.description?.map(({ title, body, links }, i) => (
-            <Paragraph key={i} body={body} title={title} id={`paragraph-description-${i + 1}`} links={links} />
+          {post.description?.map(({ title, body, links, stats }, i) => (
+            <Paragraph key={i} body={body} title={title} id={`paragraph-description-${i + 1}`} links={links} stats={stats} />
           ))}
         </>
       )}

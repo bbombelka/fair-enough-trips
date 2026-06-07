@@ -1,4 +1,5 @@
 import { PostLink } from "types/common.types";
+import { RouteStats } from "types/pages/post.types";
 
 export type ParagraphHTMLElement = {
   tag: "li" | "li-ol" | "ul" | "ol";
@@ -10,4 +11,5 @@ export type ParagraphProps = {
   title?: string;
   links?: PostLink[];
   id?: string;
+  stats?: RouteStats;
 };
