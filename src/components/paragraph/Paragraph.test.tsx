@@ -156,7 +156,7 @@ describe('Paragraph Component', () => {
     };
     render(<Paragraph body={[]} stats={stats as any} />);
 
-    expect(screen.getByText('Ascent')).toBeInTheDocument();
+    expect(screen.getByText('Climbing time')).toBeInTheDocument();
     expect(screen.getByText('1h 00m')).toBeInTheDocument();
     
     expect(screen.getByText('Length')).toBeInTheDocument();
@@ -165,5 +165,18 @@ describe('Paragraph Component', () => {
     expect(screen.getByText('Difficulty')).toBeInTheDocument();
     expect(screen.getByText('IV')).toBeInTheDocument();
     expect(screen.getByTitle('Difficulty scales explained')).toBeInTheDocument();
+  });
+
+  it('renders correctly with empty body but defined stats', () => {
+    const stats = {
+      up: 'PT1H',
+      length: '500',
+    };
+    render(<Paragraph body={[]} stats={stats as any} />);
+
+    expect(screen.getByText('Climbing time')).toBeInTheDocument();
+    expect(screen.getByText('1h 00m')).toBeInTheDocument();
+    expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    expect(screen.queryByRole('paragraph')).not.toBeInTheDocument();
   });
 });
