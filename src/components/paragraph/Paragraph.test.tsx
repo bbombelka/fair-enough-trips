@@ -61,4 +61,90 @@ describe('Paragraph Component', () => {
     expect(mockSetCurrentImage).toHaveBeenCalledWith('/img.jpg');
     expect(mockSetOpenModal).toHaveBeenCalledWith(true);
   });
+
+  it('renders ordered lists when first li has tag li-ol', () => {
+    const { container } = render(
+      <Paragraph 
+        body={[
+          { tag: 'li-ol', body: 'Step 1' }, 
+          { tag: 'li', body: 'Step 2' }
+        ]} 
+      />
+    );
+    const ol = container.querySelector('ol');
+    expect(ol).toBeInTheDocument();
+    expect(ol).toHaveTextContent('Step 1');
+    expect(ol).toHaveTextContent('Step 2');
+    expect(container.querySelector('ul')).not.toBeInTheDocument();
+  });
+
+  it('renders unordered lists by default', () => {
+    const { container } = render(
+      <Paragraph 
+        body={[
+          { tag: 'li', body: 'Item 1' }, 
+          { tag: 'li', body: 'Item 2' }
+        ]} 
+      />
+    );
+    const ul = container.querySelector('ul');
+    expect(ul).toBeInTheDocument();
+    expect(container.querySelector('ol')).not.toBeInTheDocument();
+  });
+
+  it('renders mixed content in correct order', () => {
+    const { container } = render(
+      <Paragraph 
+        body={[
+          'Text before',
+          { tag: 'li', body: 'Item 1' },
+          'Text between',
+          { tag: 'li-ol', body: 'Step 1' },
+          'Text after'
+        ]} 
+      />
+    );
+    
+    const contentDiv = container.firstChild as HTMLElement;
+    const children = Array.from(contentDiv.children);
+    
+    expect(children[0].tagName).toBe('P');
+    expect(children[0]).toHaveTextContent('Text before');
+    
+    expect(children[1].tagName).toBe('UL');
+    expect(children[1]).toHaveTextContent('Item 1');
+    
+    expect(children[2].tagName).toBe('P');
+    expect(children[2]).toHaveTextContent('Text between');
+    
+    expect(children[3].tagName).toBe('OL');
+    expect(children[3]).toHaveTextContent('Step 1');
+    
+    expect(children[4].tagName).toBe('P');
+    expect(children[4]).toHaveTextContent('Text after');
+  });
+
+  it('correctly uses the tag of the FIRST li in a group to determine list type', () => {
+    const { container, rerender } = render(
+      <Paragraph 
+        body={[
+          { tag: 'li-ol', body: 'Ordered 1' },
+          { tag: 'li', body: 'Ordered 2' }
+        ]} 
+      />
+    );
+    expect(container.querySelector('ol')).toBeInTheDocument();
+    expect(container.querySelector('ul')).not.toBeInTheDocument();
+
+    rerender(
+      <Paragraph 
+        body={[
+          { tag: 'li', body: 'Unordered 1' },
+          { tag: 'li-ol', body: 'Unordered 2' }
+        ]} 
+      />
+    );
+    expect(container.querySelector('ul')).toBeInTheDocument();
+    expect(container.querySelector('ol')).not.toBeInTheDocument();
+  });
 });

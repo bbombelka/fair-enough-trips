@@ -36,10 +36,13 @@
 }
 
 .list {
-  list-style-type: disc;
   padding-inline-start: 24px;
   text-align: justify;
   line-height: 20px;
+}
+
+.list-unordered {
+  list-style-type: square;
 }
 
 @media (max-width: 720px) {

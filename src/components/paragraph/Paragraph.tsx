@@ -9,10 +9,15 @@ import { ParagraphProps } from "./Paragraph.types";
 export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id }) => {
   const content: ReactNode[] = [];
   let listItems: ReactNode[] = [];
+  let listTag: "ul" | "ol" = "ul";
   const { setOpenModal, setCurrentImage } = useGlobalContext();
+  const getListTagClassname = (tag: string) => (tag === "ul" ? styles["list-unordered"] : "");
 
   body.forEach((paragraph, i) => {
-    if (typeof paragraph === "object" && paragraph.tag === "li") {
+    if (typeof paragraph === "object" && paragraph.tag.startsWith("li")) {
+      if (listItems.length === 0) {
+        listTag = paragraph.tag === "li-ol" ? "ol" : "ul";
+      }
       listItems.push(
         <li key={`li-${i}`} className={styles["list-item"]}>
           {paragraph.body}
@@ -20,10 +25,11 @@ export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id }) => {
       );
     } else {
       if (listItems.length > 0) {
+        const ListWrapper = listTag;
         content.push(
-          <ul key={`ul-${i}`} className={styles.list}>
+          <ListWrapper key={`${listTag}-${i}`} className={`${styles.list} ${getListTagClassname(listTag)}`}>
             {listItems}
-          </ul>,
+          </ListWrapper>,
         );
         listItems = [];
       }
@@ -38,7 +44,12 @@ export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id }) => {
   });
 
   if (listItems.length > 0) {
-    content.push(<ul key="ul-last">{listItems}</ul>);
+    const ListWrapper = listTag;
+    content.push(
+      <ListWrapper key={`${listTag}-last`} className={`${styles.list} ${getListTagClassname(listTag)}`}>
+        {listItems}
+      </ListWrapper>,
+    );
   }
 
   return (
