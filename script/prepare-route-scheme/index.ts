@@ -1,14 +1,16 @@
 import path from "path";
 import prepareRouteScheme from "./prepare-route-scheme";
+import { getOrSelectId, POSTS_ROOT } from "../utils";
 
-const args = process.argv.slice(2); // Get arguments passed to script
-const poiId = args[0]; // First argument is the POI ID
+(async () => {
+  const args = process.argv.slice(2);
+  const poiId = await getOrSelectId(args[0]);
 
-if (!poiId) {
-  console.error("Error: No POI ID provided.");
-  process.exit(1);
-}
+  console.log(`Processing POI ID: ${poiId}`);
 
-console.log(`Processing POI ID: ${poiId}`);
-
-prepareRouteScheme(path.resolve(__dirname, `../../public/content/posts/${poiId}/track.zip`), path.resolve(__dirname, `../../public/content/posts/${poiId}/poi.json`), poiId);
+  prepareRouteScheme(
+    path.join(POSTS_ROOT, poiId, "track.zip"),
+    path.join(POSTS_ROOT, poiId, "poi.json"),
+    poiId
+  );
+})();

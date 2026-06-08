@@ -3,23 +3,18 @@ import path from "path";
 import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
 import Config from "../../src/Config";
+import { getOrSelectId, POSTS_ROOT } from "../utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 const MONGODB_URI = process.env.DB_URI;
 
-const args = process.argv.slice(2);
-const id = args[0];
-
-if (!id) {
-  console.error("❌ Error: No POI ID provided.");
-  process.exit(1);
-}
-
 (async () => {
-  const filePath = path.resolve(__dirname, `../../public/content/posts/${id}/post.json`);
+  const args = process.argv.slice(2);
+  const id = await getOrSelectId(args[0]);
+
+  const filePath = path.join(POSTS_ROOT, id, "post.json");
 
   try {
-    // 1. Read and parse JSON
     const raw = await readFile(filePath, "utf-8");
     const jsonData = JSON.parse(raw);
 
@@ -37,7 +32,7 @@ if (!id) {
     await mongoClient.connect();
     const db = mongoClient.db(Config.DB_NAME);
     const collection = db.collection(Config.POSTS_COLLECTION);
-    const filter = { id: jsonData.id }; // or use { _id: jsonData.id } if you're storing as _id
+    const filter = { id: jsonData.id };
     const update = { $set: jsonData };
     const options = { upsert: true };
 

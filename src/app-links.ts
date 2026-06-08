@@ -1,6 +1,6 @@
 import { Activities } from "enums/categories";
 
-const activtiesLinks = Activities.map((act) => ({ name: act.name, href: `/activity/${act.url}` }));
+const activitiesLinks = Activities.map((act) => ({ name: act.name, href: `/activity/${act.url}` }));
 
 export type LinkData = {
   name: string;
@@ -9,7 +9,7 @@ export type LinkData = {
 };
 
 export const navbarLinks: LinkData[] = [
-  { name: "activities", href: "", nestedLinks: activtiesLinks },
+  { name: "activities", href: "", nestedLinks: activitiesLinks },
   { name: "countries", href: "/countries" },
   { name: "regions", href: "/regions" },
   { name: "search", href: "/search" },

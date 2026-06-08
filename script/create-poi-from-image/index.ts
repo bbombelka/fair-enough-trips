@@ -1,23 +1,19 @@
-const fs = require("fs");
-const path = require("path");
-const exifParser = require("exif-parser");
+import fs from "fs";
+import path from "path";
+import exifParser from "exif-parser";
+import { getOrSelectId, POSTS_ROOT } from "../utils";
 
-const args = process.argv.slice(2);
-const id = args[0];
+(async () => {
+  const args = process.argv.slice(2);
+  const id = await getOrSelectId(args[0]);
 
-if (!id) {
-  console.error("Error: No POI ID provided.");
-  process.exit(1);
-}
+  const directoryPath = path.resolve(__dirname);
+  const outputPath = path.join(POSTS_ROOT, id, "poi.json");
 
-const directoryPath = __dirname;
-const outputPath = path.resolve(__dirname, `../../public/${id}/poi.json`);
+  extractCoordinates(directoryPath, outputPath);
+})();
 
-// place the images in the same dir as script
-
-// image format  name.type.extension
-
-function extractCoordinates() {
+function extractCoordinates(directoryPath: string, outputPath: string) {
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
       console.error("Error reading directory:", err.message);
@@ -61,5 +57,3 @@ function extractCoordinates() {
     });
   });
 }
-
-extractCoordinates();

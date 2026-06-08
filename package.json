@@ -11,6 +11,11 @@
     "test": "jest",
     "start": "next start",
     "lint": "eslint src",
+<<<<<<< HEAD
+=======
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test --update-snapshots",
+>>>>>>> feature/update-scripts-paths
     "process-images": "./script/process-images/process-images.sh",
     "upload-images": "./script/upload-images/upload-images.sh",
     "upload-post": "./script/upload-post/upload-post.sh",
@@ -21,7 +26,11 @@
     "prepare-route-scheme": "./script/prepare-route-scheme/prepare-route-scheme.sh",
     "publish": "./script/publish/publish.sh",
     "build-post": "npx tsx ./build-post.ts",
+<<<<<<< HEAD
     "prepare": "husky"
+=======
+    "menu": "npx tsx ./script/menu.ts"
+>>>>>>> feature/update-scripts-paths
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1044.0",
@@ -61,18 +70,25 @@
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "@types/react-slick": "^0.23.13",
+    "@types/readline-sync": "^1.4.8",
     "@types/unzipper": "0.10.11",
     "@types/xml2js": "0.4.14",
     "@typescript-eslint/eslint-plugin": "^8.60.1",
     "@typescript-eslint/parser": "^8.60.1",
     "eslint": "^10.4.0",
     "eslint-config-next": "^16.2.6",
+<<<<<<< HEAD
     "eslint-plugin-unused-imports": "^4.4.1",
     "husky": "^9.1.7",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "node-mocks-http": "^1.17.2",
     "ts-node": "^10.9.2",
+=======
+    "readline-sync": "^1.4.10",
+    "ts-node": "10.9.2",
+    "tsx": "^4.22.4",
+>>>>>>> feature/update-scripts-paths
     "typescript": "5.9.3"
   },
   "engines": {
