@@ -76,10 +76,25 @@ describe('/api/search', () => {
 
     await searchHandler(req, res);
     
-    // The current implementation has an empty catch block, so it doesn't return an error response
-    // It basically hangs or ends without res.json() being called in the catch
-    // Depending on what you want, it might be good to update the API route later.
-    // We just verify it doesn't crash the test.
     expect(res._isEndCalled()).toBeFalsy(); 
+  });
+
+  it('should safely escape regex characters in search term to prevent NoSQL injection', async () => {
+    (getLatestPosts as jest.Mock).mockResolvedValue([]);
+
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: {
+        searchTerm: '.*+?^${}()|[]\\',
+      },
+    });
+
+    await searchHandler(req, res);
+
+    expect(getLatestPosts).toHaveBeenCalledTimes(1);
+    const [query] = (getLatestPosts as jest.Mock).mock.calls[0];
+    
+    // Expect the $regex to be the escaped version of the input
+    expect(query.$or[0].title.$regex).toEqual(/\.\*\+\?\^\$\{\}\(\)\|\[\]\\/);
   });
 });

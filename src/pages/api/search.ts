@@ -5,9 +5,15 @@ type Data = {
   name: string;
 };
 
+function escapeRegExp(string: string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
-    const searchTermRegex = new RegExp(req.query.searchTerm as string);
+    const rawSearchTerm = Array.isArray(req.query.searchTerm) ? req.query.searchTerm[0] : req.query.searchTerm;
+    const sanitizedSearchTerm = escapeRegExp(rawSearchTerm || "");
+    const searchTermRegex = new RegExp(sanitizedSearchTerm);
 
     const TITLE_QUERY = searchQueryBuilder("title", searchTermRegex);
     const ID_QUERY = searchQueryBuilder("id", searchTermRegex);
