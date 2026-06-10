@@ -41,13 +41,14 @@ export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id, stats })
   };
 
   body.forEach((paragraph, i) => {
-    if (typeof paragraph === "object" && paragraph.tag.startsWith("li")) {
+    if (paragraph !== null && typeof paragraph === "object" && "tag" in paragraph && (paragraph as any).tag.startsWith("li")) {
+      const pElem = paragraph as any;
       if (listItems.length === 0) {
-        listTag = paragraph.tag === "li-ol" ? "ol" : "ul";
+        listTag = pElem.tag === "li-ol" ? "ol" : "ul";
       }
       listItems.push(
         <li key={`li-${i}`} className={styles["list-item"]}>
-          {paragraph.body}
+          {pElem.body}
         </li>,
       );
     } else {
@@ -61,6 +62,12 @@ export const Paragraph: FC<ParagraphProps> = ({ body, title, links, id, stats })
         listItems = [];
       }
       if (typeof paragraph === "string") {
+        content.push(
+          <p id={`${id}-paragraph-${i + 1}`} key={i} className={styles.paragraph}>
+            {paragraph}
+          </p>,
+        );
+      } else if (React.isValidElement(paragraph)) {
         content.push(
           <p id={`${id}-paragraph-${i + 1}`} key={i} className={styles.paragraph}>
             {paragraph}
