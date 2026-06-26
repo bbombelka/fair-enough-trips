@@ -34,17 +34,25 @@ const ask = (q: string) => new Promise<string>((resolve) => rl.question(q, resol
     const gpxFilePath = path.join(dirPath, "track.gpx");
 
     if (!fs.existsSync(gpxFilePath)) {
-        throw new Error(`track.gpx not found at ${gpxFilePath}`);
+      console.error(`❌ Error: track.gpx not found at ${gpxFilePath}`);
+      await ask("Press Enter to return to the main menu...");
+      return;
     }
 
     const parser = new Parser();
     const gpxFile = await readFile(gpxFilePath);
     const result = await parser.parseStringPromise(gpxFile);
-    const tripTime = result.gpx?.trk[0]?.trkseg[0]?.trkpt[0]?.time[0];
-    const { season, period, month, year } = parseIsoToDateObject(tripTime);
+    
     const isoDate = new Date().toISOString();
+    const tripTime = result?.gpx?.trk?.[0]?.trkseg?.[0]?.trkpt?.[0]?.time?.[0];
+    
+    if (!tripTime) {
+        console.warn("⚠️ Could not find trip time in GPX, using current date.");
+    }
+    
+    const { season, period, month, year } = parseIsoToDateObject(tripTime || isoDate);
 
-    zipFile(gpxFilePath, path.join(dirPath, "track.zip"));
+    await zipFile(gpxFilePath, path.join(dirPath, "track.zip"));
     post.postDate = isoDate;
     post.date = {
       season,
@@ -70,8 +78,10 @@ const ask = (q: string) => new Promise<string>((resolve) => rl.question(q, resol
     const outPath = path.join(dirPath, "post.json");
     fs.writeFileSync(outPath, JSON.stringify(post, null, 2));
     console.log(`✅ Saved: ${outPath}`);
+    await ask("\nPress Enter to return to the main menu...");
   } catch (err: any) {
     console.error(`❌ Error: ${err.message}`);
+    await ask("Press Enter to return to the main menu...");
   } finally {
     rl.close();
   }
@@ -114,20 +124,23 @@ function parseIsoToDateObject(isoString: string) {
 }
 
 function zipFile(sourceFilePath: string, outputZipPath: string) {
-  const output = fs.createWriteStream(outputZipPath);
-  const archive = archiver("zip", { zlib: { level: 9 } });
+  return new Promise<void>((resolve, reject) => {
+    const output = fs.createWriteStream(outputZipPath);
+    const archive = archiver("zip", { zlib: { level: 9 } });
 
-  output.on("close", () => {
-    console.log(`Zipped ${archive.pointer()} total bytes`);
+    output.on("close", () => {
+      console.log(`Zipped ${archive.pointer()} total bytes`);
+      resolve();
+    });
+
+    archive.on("error", (err) => {
+      reject(err);
+    });
+
+    archive.pipe(output);
+    archive.file(sourceFilePath, { name: path.basename(sourceFilePath) });
+    archive.finalize();
   });
-
-  archive.on("error", (err) => {
-    throw err;
-  });
-
-  archive.pipe(output);
-  archive.file(sourceFilePath, { name: path.basename(sourceFilePath) });
-  archive.finalize();
 }
 
 async function promptSelectMultiple(title: string, options: any[]) {
