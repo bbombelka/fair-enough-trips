@@ -40,14 +40,18 @@ async function getPostData(idArray: string[]) {
   const parsedPost = JSON.parse(JSON.stringify(post));
 
   if (parsedPost.gear && Array.isArray(parsedPost.gear)) {
-    const gearIds = parsedPost.gear.filter((g: any) => typeof g === 'object' && g.id).map((g: any) => g.id);
+    const gearIds = parsedPost.gear.filter((g: any) => typeof g === "object" && g.id).map((g: any) => g.id);
     if (gearIds.length > 0) {
-      const gearDocs = await mongoClient.db(Config.DB_NAME).collection('gear').find({ id: { $in: gearIds } }).toArray();
-      const gearMap = new Map(gearDocs.map(g => [g.id, g]));
+      const gearDocs = await mongoClient
+        .db(Config.DB_NAME)
+        .collection("gear")
+        .find({ id: { $in: gearIds } })
+        .toArray();
+      const gearMap = new Map(gearDocs.map((g) => [g.id, g]));
       parsedPost.gear = parsedPost.gear.map((g: any) => {
-        if (typeof g === 'object' && g.id && gearMap.has(g.id)) {
-           const dbGear = gearMap.get(g.id)!;
-           return { ...g, name: dbGear.name || dbGear.type, type: dbGear.type, id: dbGear.id }; 
+        if (typeof g === "object" && g.id && gearMap.has(g.id)) {
+          const dbGear = gearMap.get(g.id)!;
+          return { ...g, name: dbGear.name, type: dbGear.type, id: dbGear.id, slug: dbGear.slug };
         }
         return g;
       });

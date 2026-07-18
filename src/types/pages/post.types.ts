@@ -1,6 +1,6 @@
 import { Graph } from "schema-dts";
 import { Post, Categories, PostLink, PostImage, PostVideo, Stats, DateClass } from "../common.types";
-import { GearEnum } from "enums/gear";
+import { GearKeyType } from "enums/gear";
 
 export type PostPageProps = {
   post: FullPost;
@@ -43,7 +43,8 @@ export type GearObject = {
   id: number | string;
   name: string;
   category?: number;
-  type: keyof typeof GearEnum;
+  type: GearKeyType;
+  slug: string;
 };
 
 export type FullPost = {
