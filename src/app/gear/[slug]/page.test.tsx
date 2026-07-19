@@ -91,6 +91,7 @@ describe("GearPage Server Component", () => {
         weight: 535,
         rating: 8,
         frequency: "very often",
+        purchased: "2025-09-26T13:57:00.330+00:00",
       },
       statsSpecific: {
         volume: "20 L",
@@ -123,6 +124,8 @@ describe("GearPage Server Component", () => {
     expect(screen.getByText("Stars: 4")).toBeInTheDocument();
     expect(screen.getByText("Times used")).toBeInTheDocument();
     expect(screen.getByText("very often")).toBeInTheDocument();
+    expect(screen.getByText("Used since")).toBeInTheDocument();
+    expect(screen.getByText("Sep 2025")).toBeInTheDocument();
     expect(screen.getByText("Volume")).toBeInTheDocument();
     expect(screen.getByText("20 L")).toBeInTheDocument();
 
