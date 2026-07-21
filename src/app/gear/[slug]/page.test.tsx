@@ -34,6 +34,15 @@ jest.mock("next/navigation", () => ({
   notFound: jest.fn(),
 }));
 
+jest.mock("hooks/useGlobalContext", () => ({
+  useGlobalContext: () => ({
+    showModal: false,
+    setOpenModal: jest.fn(),
+    currentImage: "",
+    setCurrentImage: jest.fn(),
+  }),
+}));
+
 // Mock components
 jest.mock("components", () => ({
   Layout: ({ children, title }: any) => <div data-testid="layout" title={title}>{children}</div>,
@@ -96,6 +105,16 @@ describe("GearPage Server Component", () => {
       statsSpecific: {
         volume: "20 L",
       },
+      images: {
+        general: ["thule-stir-20l-main"],
+        timeline: [
+          {
+            date: "2020-09-26T13:57:00.330+00:00",
+            title: "Old model",
+            img: ["thule-stir-20l-1"],
+          },
+        ],
+      },
     };
 
     mockFindOne.mockResolvedValueOnce(fakeGearItem);
@@ -147,6 +166,9 @@ describe("GearPage Server Component", () => {
 
     const link2 = screen.getByRole("link", { name: "Trip Two Title" });
     expect(link2).toHaveAttribute("href", "/posts/trip-2");
+
+    // Verify image gallery timeline title is rendered
+    expect(screen.getByText("Old model")).toBeInTheDocument();
   });
 
   it("should not render usage or used-in if they are missing in database document", async () => {

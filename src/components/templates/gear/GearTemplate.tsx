@@ -8,25 +8,27 @@ import { GearMap } from "enums/gear";
 import { GearTemplateProps } from "./GearTemplate.types";
 import { GearTable } from "./components/GearTable";
 import { GearProsCons } from "./components/GearProsCons";
+import { GearGallery } from "./components/GearGallery";
 
 export const GearTemplate: FC<GearTemplateProps> = ({ gearItem, referencedTrips }) => {
-  const { brand, name, type, description, usage, statsGeneral, statsSpecific, pros, cons } = gearItem;
+  const { slug, brand, name, type, description, usage, statsGeneral, statsSpecific, pros, cons, images } = gearItem;
 
   let orderCounter = 1;
   const title = `${brand} ${name}`;
+  const hasImages = Boolean(images?.general?.length || images?.timeline?.length);
 
   return (
     <>
       <Navbar />
       <Layout title={title} subTitle={GearMap.get(type as any)}>
         <GearTable statsGeneral={statsGeneral} statsSpecific={statsSpecific} />
-        <Divider title={`${title} - review`} order={orderCounter++} stickyScrollToElementId="gear-description" />
+        <Divider title={`Review of ${title}`} order={orderCounter++} stickyScrollToElementId="gear-description" />
         <Paragraph id="gear-description" body={[description]} />
         <Paragraph id="gear-usage" title="Mostly used for" body={[usage]} />
         {referencedTrips.length > 0 && (
           <Paragraph
             id="gear-used-in"
-            title="Used in"
+            title={`Used on these ${referencedTrips.length === 1 ? "trip" : "trips"}`}
             body={[
               <ul key="used-in-list" className={`${paragraphStyles.list} ${paragraphStyles["list-unordered"]}`}>
                 {referencedTrips.map((trip) => {
@@ -41,14 +43,14 @@ export const GearTemplate: FC<GearTemplateProps> = ({ gearItem, referencedTrips 
             ]}
           />
         )}
-        <GearProsCons brand={brand} name={name} pros={pros} cons={cons} order={orderCounter++} />
-        <Divider title="Images" order={orderCounter++} stickyScrollToElementId="gear-images" />
-        <div
-          id="gear-images"
-          style={{ margin: "2rem auto", maxWidth: "1000px", textAlign: "center", padding: "4rem", background: "#f4f4f4", borderRadius: "8px" }}
-        >
-          <p style={{ color: "#666", fontSize: "1.2rem" }}>Image Gallery Placeholder</p>
-        </div>
+        <GearProsCons gearName={title} pros={pros} cons={cons} order={orderCounter++} />
+
+        {hasImages && (
+          <>
+            <Divider title={`Images of ${title}`} order={orderCounter++} stickyScrollToElementId="gear-images" />
+            <GearGallery slug={slug} images={images} />
+          </>
+        )}
       </Layout>
       <Footer />
     </>

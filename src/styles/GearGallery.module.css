@@ -1,0 +1,8 @@
+.timelineTitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--font-grey);
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}

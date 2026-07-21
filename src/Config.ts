@@ -16,4 +16,5 @@ export default {
   DOMAIN: "fairenoughtrips.com",
   S3_BUCKET: "https://fair-enough-trips.s3.eu-central-1.amazonaws.com",
   S3_POST_IMAGES_PREFIX: "posts-v2",
+  S3_GEAR_PREFIX: "gear",
 };

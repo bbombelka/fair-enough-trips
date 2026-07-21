@@ -1,0 +1,60 @@
+.images {
+  position: relative;
+  display: block;
+  margin: 0 auto 12px;
+}
+
+.caption {
+  margin: 0 0 16px;
+  padding: 4px;
+  text-align: center;
+  color: var(--color-dark-grey);
+  display: block;
+  border: 1px solid var(--color-grey);
+  border-radius: 4px;
+  border-top: 0;
+  letter-spacing: 0.5px;
+  line-height: 1rem;
+}
+
+.image {
+  border-radius: 4px;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.image-with-caption {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.slick-container {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.slick-image-container {
+  padding: 0 12px;
+  cursor: pointer;
+  height: 300px;
+}
+
+.slick-container-modal {
+  max-width: 1066px;
+  width: 100%;
+}
+
+.slick-modal-image-container {
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  .image {
+    width: 100%;
+  }
+
+  :global(.image-modal) .images {
+    margin: 20px auto 12px;
+  }
+}
