@@ -1,7 +1,32 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import mongoClientConnectPromise from "MongoClient";
 import Config from "Config";
 import { GearTemplate } from "components/templates/gear/GearTemplate";
+import prepareGearRichData from "server/utils/prepare-gear-rich-data";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+
+  const client = await mongoClientConnectPromise;
+  const db = client.db(Config.DB_NAME);
+
+  const gearItem = await db.collection("gear").findOne({ slug: slug });
+
+  if (!gearItem) {
+    return {};
+  }
+
+  const titleName = `${gearItem.brand} ${gearItem.name}`;
+
+  return {
+    title: `${titleName} Review @ Fair Enough Trips`,
+    description: `Long-term review of the ${titleName} after real mountain use. Pros, cons, photos, and the trips where I tested it.`,
+    alternates: {
+      canonical: `https://${Config.DOMAIN}/gear/${slug}`,
+    },
+  };
+}
 
 export default async function GearPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -46,10 +71,12 @@ export default async function GearPage({ params }: { params: Promise<{ slug: str
     });
   }
 
+  const richData = prepareGearRichData(safeGearItem, referencedTrips);
+
   return (
-    <GearTemplate
-      gearItem={safeGearItem}
-      referencedTrips={referencedTrips}
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richData) }} />
+      <GearTemplate gearItem={safeGearItem} referencedTrips={referencedTrips} />
+    </>
   );
 }

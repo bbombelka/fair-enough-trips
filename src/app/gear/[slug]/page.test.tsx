@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import GearPage from "./page";
+import GearPage, { generateMetadata } from "./page";
 import { notFound } from "next/navigation";
 
 // Declare mock functions that will be referenced lazily
@@ -134,7 +134,7 @@ describe("GearPage Server Component", () => {
 
     const params = Promise.resolve({ slug: "thule-stir-20l" });
     const element = await GearPage({ params });
-    render(element);
+    const { container } = render(element);
 
     expect(notFound).not.toHaveBeenCalled();
 
@@ -179,6 +179,13 @@ describe("GearPage Server Component", () => {
 
     // Verify image gallery timeline title is rendered
     expect(screen.getByText("Old model")).toBeInTheDocument();
+
+    // Verify JSON-LD rich data is rendered
+    const script = container.querySelector("script[type='application/ld+json']");
+    expect(script).toBeInTheDocument();
+    expect(JSON.parse(script!.textContent || "{}")).toEqual(expect.objectContaining({
+      "@context": "https://schema.org",
+    }));
   });
 
   it("should not render usage or used-in if they are missing in database document", async () => {
@@ -200,5 +207,36 @@ describe("GearPage Server Component", () => {
     expect(screen.getByTestId("gear-description")).toHaveTextContent("Simple description.");
     expect(screen.queryByTestId("gear-usage")).not.toBeInTheDocument();
     expect(screen.queryByTestId("gear-used-in")).not.toBeInTheDocument();
+  });
+
+  describe("generateMetadata", () => {
+    it("should generate metadata correctly for an existing gear item", async () => {
+      const fakeGearItem = {
+        id: "pant-gear",
+        slug: "pant-gear",
+        brand: "Mountain Equipment",
+        name: "Ibex Mountain Pant",
+      };
+
+      mockFindOne.mockResolvedValueOnce(fakeGearItem);
+
+      const metadata = await generateMetadata({ params: Promise.resolve({ slug: "pant-gear" }) });
+
+      expect(metadata).toEqual({
+        title: "Mountain Equipment Ibex Mountain Pant Review @ Fair Enough Trips",
+        description: "Long-term review of the Mountain Equipment Ibex Mountain Pant after real mountain use. Pros, cons, photos, and the trips where I tested it.",
+        alternates: {
+          canonical: "https://fairenoughtrips.com/gear/pant-gear",
+        },
+      });
+    });
+
+    it("should return empty metadata if gear item does not exist", async () => {
+      mockFindOne.mockResolvedValueOnce(null);
+
+      const metadata = await generateMetadata({ params: Promise.resolve({ slug: "non-existent" }) });
+
+      expect(metadata).toEqual({});
+    });
   });
 });
