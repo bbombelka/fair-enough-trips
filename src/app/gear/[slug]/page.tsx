@@ -20,20 +20,28 @@ export default async function GearPage({ params }: { params: Promise<{ slug: str
   const { _id, ...safeGearItem } = gearItem as any;
   const { tripsUsed } = safeGearItem;
 
-  let referencedTrips: { id: string; title: string; parentId?: string }[] = [];
+  let referencedTrips: any[] = [];
   if (tripsUsed && Array.isArray(tripsUsed) && tripsUsed.length > 0) {
     const postsCollection = db.collection(Config.POSTS_COLLECTION);
     const trips = await postsCollection
       .find({ id: { $in: tripsUsed } })
-      .project({ id: 1, title: 1, parentId: 1 })
+      .project({ id: 1, title: 1, parentId: 1, category: 1, difficulty: 1, postDate: 1 })
       .toArray();
 
-    referencedTrips = tripsUsed.map((id: string) => {
-      const trip = trips.find((t) => t.id === id);
+    // Sort chronologically (latest first)
+    trips.sort((a, b) => {
+      const dateA = a.postDate ? new Date(a.postDate).getTime() : 0;
+      const dateB = b.postDate ? new Date(b.postDate).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    referencedTrips = trips.map((trip) => {
       return {
-        id,
-        title: trip?.title || id,
-        parentId: trip?.parentId,
+        id: trip.id,
+        title: trip.title,
+        parentId: trip.parentId,
+        category: trip.category,
+        difficulty: trip.difficulty,
       };
     });
   }

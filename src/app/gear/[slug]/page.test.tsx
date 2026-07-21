@@ -121,8 +121,15 @@ describe("GearPage Server Component", () => {
 
     // Mock corresponding post documents from DB
     mockToArray.mockResolvedValueOnce([
-      { id: "trip-1", title: "Trip One Title", parentId: "parent-1" },
-      { id: "trip-2", title: "Trip Two Title" },
+      {
+        id: "trip-1",
+        title: "Trip One Title",
+        parentId: "parent-1",
+        difficulty: "III",
+        category: { activity: ["002"], region: ["004"], country: ["008"] },
+        postDate: "2020-09-26T13:57:00.330+00:00",
+      },
+      { id: "trip-2", title: "Trip Two Title", postDate: "2025-09-26T13:57:00.330+00:00" },
     ]);
 
     const params = Promise.resolve({ slug: "thule-stir-20l" });
@@ -156,16 +163,19 @@ describe("GearPage Server Component", () => {
     expect(usageParagraph).toHaveAttribute("data-title", "Mostly used for");
     expect(usageParagraph).toHaveTextContent("Single day climbing and hiking.");
 
-    // Verify used-in paragraph
-    const usedInParagraph = screen.getByTestId("gear-used-in");
-    expect(usedInParagraph).toHaveAttribute("data-title", "Used in");
+    // Verify used-in paragraph and divider title
+    expect(screen.getByText("2 Trips Thule Stir 20l was used in")).toBeInTheDocument();
+    expect(screen.getByTestId("gear-used-in")).toBeInTheDocument();
 
-    // Verify the correct links and their paths
-    const link1 = screen.getByRole("link", { name: "Trip One Title" });
-    expect(link1).toHaveAttribute("href", "/posts/parent-1/trip-1");
+    // Verify the correct links and their paths and rich formatted names in chronological order (latest first)
+    const listItems = screen.getAllByRole("listitem");
+    expect(listItems[0]).toHaveTextContent("Trip Two Title");
+    expect(listItems[1]).toHaveTextContent("Trip One Title [III] (scrambling in Julian Alps, Italy)");
 
-    const link2 = screen.getByRole("link", { name: "Trip Two Title" });
-    expect(link2).toHaveAttribute("href", "/posts/trip-2");
+    const links = screen.getAllByRole("link");
+    const hrefs = links.map((l) => l.getAttribute("href"));
+    expect(hrefs).toContain("/posts/parent-1/trip-1");
+    expect(hrefs).toContain("/posts/trip-2");
 
     // Verify image gallery timeline title is rendered
     expect(screen.getByText("Old model")).toBeInTheDocument();

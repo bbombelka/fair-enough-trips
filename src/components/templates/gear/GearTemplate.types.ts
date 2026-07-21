@@ -1,9 +1,12 @@
+import { Categories } from "types/common.types";
 import { TimelineItem } from "./components/GearGallery";
 
 export interface ReferencedTrip {
   id: string;
   title: string;
   parentId?: string;
+  category: Categories;
+  difficulty: string;
 }
 
 export interface GearItem {

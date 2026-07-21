@@ -43,7 +43,8 @@ export const GearGallery: FC<GearGalleryProps> = ({ slug, images }) => {
   return (
     <div id="gear-images">
       {hasGeneral && (
-        <div style={{ marginBottom: "2rem" }}>
+        <div className={styles.generalGalleryWrapper}>
+          <h3 className={styles.timelineHeading}>{}</h3>
           <ImageGallery
             id={slug}
             images={general.map((filename) => ({
@@ -66,12 +67,8 @@ export const GearGallery: FC<GearGalleryProps> = ({ slug, images }) => {
           }));
 
           return (
-            <div key={index} style={{ marginTop: "3rem", marginBottom: "2rem" }}>
-              {title && (
-                <h3 className={styles.timelineTitle}>
-                  {title}
-                </h3>
-              )}
+            <div key={index} className={styles.timelineItemWrapper}>
+              <h3 className={styles.timelineHeading}>{title}</h3>
               <ImageGallery id={slug} images={mappedImages} getImageSourcePath={getGearImageSourcePath} />
             </div>
           );
