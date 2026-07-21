@@ -23,7 +23,7 @@ export const GearTemplate: FC<GearTemplateProps> = ({ gearItem, referencedTrips 
         <GearTable statsGeneral={statsGeneral} statsSpecific={statsSpecific} />
         <Divider title={`Review of ${title}`} order={orderCounter++} stickyScrollToElementId="gear-description" />
         <Paragraph id="gear-description" body={[description]} />
-        <Paragraph id="gear-usage" title="Mostly used for" body={[usage]} />
+        {usage && <Paragraph id="gear-usage" title="Mostly used for" body={[usage]} />}
         <GearProsCons gearName={title} pros={pros} cons={cons} order={orderCounter++} />
         {referencedTrips.length > 0 && (
           <>
@@ -32,7 +32,9 @@ export const GearTemplate: FC<GearTemplateProps> = ({ gearItem, referencedTrips 
               order={orderCounter++}
               stickyScrollToElementId="gear-used-in"
             />
-            <Paragraph id="gear-used-in" body={[<ReferencedTrips key="used-in-list" referencedTrips={referencedTrips} />]} />
+            <div id="gear-used-in" data-testid="gear-used-in">
+              <ReferencedTrips referencedTrips={referencedTrips} />
+            </div>
           </>
         )}
 
