@@ -12,6 +12,7 @@ export const navbarLinks: LinkData[] = [
   { name: "activities", href: "", nestedLinks: activitiesLinks },
   { name: "countries", href: "/countries" },
   { name: "regions", href: "/regions" },
+  { name: "gear", href: "/gear" },
   { name: "search", href: "/search" },
 ];
 

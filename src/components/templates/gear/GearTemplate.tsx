@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Layout, Navbar, Footer } from "components";
+import { Layout, Navbar, Footer, Breadcrumbs } from "components";
 import { Paragraph } from "components/paragraph/Paragraph";
 import { Divider } from "components/divider/Divider";
 import { GearMap } from "enums/gear";
@@ -19,7 +19,8 @@ export const GearTemplate: FC<GearTemplateProps> = ({ gearItem, referencedTrips 
   return (
     <>
       <Navbar />
-      <Layout title={title} subTitle={GearMap.get(type as any)}>
+      <Layout title={`${title} review`} subTitle={GearMap.get(type as any)}>
+        <Breadcrumbs postTitle={title} customBreadcrumbs={[{ name: "Gear", url: "gear" }]} />
         <GearTable statsGeneral={statsGeneral} statsSpecific={statsSpecific} />
         <Divider title={`Review of ${title}`} order={orderCounter++} stickyScrollToElementId="gear-description" />
         <Paragraph id="gear-description" body={[description]} />

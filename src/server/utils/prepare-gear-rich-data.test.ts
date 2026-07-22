@@ -51,7 +51,7 @@ describe("prepareGearRichData", () => {
           review: {
             "@type": "Review",
             author: {
-              "@type": "Person",
+              "@type": "Organization",
               name: "Fair Enough Trips",
               url: `https://${Config.DOMAIN}`,
             },

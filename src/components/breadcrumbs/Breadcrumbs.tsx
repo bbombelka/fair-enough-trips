@@ -4,8 +4,8 @@ import React from "react";
 import styles from "styles/Breadcrumbs.module.css";
 import { BreadcrumbsProps } from "./Breadcrumbs.types";
 
-export const Breadcrumbs = ({ category, postTitle, parentData }: BreadcrumbsProps) => {
-  const breadCrumbs = useBreadcrumbs(category);
+export const Breadcrumbs = ({ category, postTitle, parentData, customBreadcrumbs }: BreadcrumbsProps) => {
+  const breadCrumbs = category ? useBreadcrumbs(category) : (customBreadcrumbs || []);
 
   return (
     <div className={styles.container}>

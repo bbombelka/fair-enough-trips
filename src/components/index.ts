@@ -6,3 +6,5 @@ export { Layout } from "./layout/Layout";
 export { Loader } from "./loader/Loader";
 export { Contents } from "./contents/Contents";
 export { GearList } from "./gear-list/GearList";
+export { GearCard } from "./gear-card/GearCard";
+export { Breadcrumbs } from "./breadcrumbs/Breadcrumbs";

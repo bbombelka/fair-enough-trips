@@ -48,6 +48,7 @@ jest.mock("components", () => ({
   Layout: ({ children, title }: any) => <div data-testid="layout" title={title}>{children}</div>,
   Navbar: () => <div data-testid="navbar">Navbar</div>,
   Footer: () => <div data-testid="footer">Footer</div>,
+  Breadcrumbs: () => <div data-testid="breadcrumbs">Breadcrumbs</div>,
 }), { virtual: true });
 
 jest.mock("components/paragraph/Paragraph", () => ({
@@ -140,6 +141,9 @@ describe("GearPage Server Component", () => {
 
     // Verify Title inside Layout
     expect(screen.getByTestId("layout")).toHaveAttribute("title", "Thule Stir 20l");
+
+    // Verify breadcrumbs are rendered
+    expect(screen.getByTestId("breadcrumbs")).toBeInTheDocument();
 
     // Verify stats are rendered
     expect(screen.getByText("Price")).toBeInTheDocument();
