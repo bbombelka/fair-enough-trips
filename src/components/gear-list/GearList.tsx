@@ -20,10 +20,14 @@ export const GearList: FC<GearListProps> = ({ gear }) => {
             </React.Fragment>
           );
         } else {
+          const quantityPrefix = item.quantity && item.quantity > 1 ? `${item.quantity} x ` : "";
+          const brandPrefix = item.brand ? `${item.brand} ` : "";
+          const gearTypeLabel = GearMap.get(item.type) || item.type;
+          const displayName = `${quantityPrefix}${gearTypeLabel} - ${brandPrefix}${item.name}`;
           return (
             <React.Fragment key={index}>
               <NextLink style={{ textDecoration: "underline" }} href={`/gear/${item.slug}`}>
-                {GearMap.get(item.type)}
+                {displayName}
               </NextLink>
               {suffix}
             </React.Fragment>

@@ -45,6 +45,8 @@ export type GearObject = {
   category?: number;
   type: GearKeyType;
   slug: string;
+  brand?: string;
+  quantity?: number;
 };
 
 export type FullPost = {

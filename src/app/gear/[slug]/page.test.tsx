@@ -140,7 +140,7 @@ describe("GearPage Server Component", () => {
     expect(notFound).not.toHaveBeenCalled();
 
     // Verify Title inside Layout
-    expect(screen.getByTestId("layout")).toHaveAttribute("title", "Thule Stir 20l");
+    expect(screen.getByTestId("layout")).toHaveAttribute("title", "Thule Stir 20l review");
 
     // Verify breadcrumbs are rendered
     expect(screen.getByTestId("breadcrumbs")).toBeInTheDocument();

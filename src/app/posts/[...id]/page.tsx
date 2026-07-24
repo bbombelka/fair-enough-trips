@@ -51,7 +51,7 @@ async function getPostData(idArray: string[]) {
       parsedPost.gear = parsedPost.gear.map((g: any) => {
         if (typeof g === "object" && g.id && gearMap.has(g.id)) {
           const dbGear = gearMap.get(g.id)!;
-          return { ...g, name: dbGear.name, type: dbGear.type, id: dbGear.id, slug: dbGear.slug };
+          return { ...g, name: dbGear.name, type: dbGear.type, id: dbGear.id, slug: dbGear.slug, brand: dbGear.brand };
         }
         return g;
       });
