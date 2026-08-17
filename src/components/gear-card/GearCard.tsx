@@ -11,10 +11,10 @@ import styles from "styles/PostCard.module.css";
 import Config from "Config";
 
 export const GearCard: FC<GearCardProps> = ({ gearItem }) => {
-  const { slug, brand, name, type, images } = gearItem;
+  const { slug, brand, name, type } = gearItem;
 
   const getGearImageSourcePath = useGearImageSourcePath();
-  const mainImageName = images?.general?.[0];
+  const mainImageName = `${slug}-1`;
 
   const { src } = mainImageName ? getGearImageSourcePath({ id: slug, filename: mainImageName }) : { src: `/placeholder.${Config.DEFAULT_IMAGE_EXTENSION}` };
 

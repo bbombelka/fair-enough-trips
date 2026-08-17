@@ -37,11 +37,11 @@ export function useImageSourcePath() {
 }
 
 export function useGearImageSourcePath() {
-  return function ({ id, filename }: { id: string; filename: string }) {
+  return function ({ filename }: { id: string; filename: string }) {
     const originHost = process.env.NEXT_PUBLIC_AWS_CDN;
 
-    const src = `${originHost}/${Config.S3_GEAR_PREFIX}/${id}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
-    const thumbSrc = `${originHost}/${Config.S3_GEAR_PREFIX}/${id}/${filename}-thumb.${Config.DEFAULT_IMAGE_EXTENSION}`;
+    const src = `${originHost}/${Config.S3_GEAR_PREFIX}/${filename}.${Config.DEFAULT_IMAGE_EXTENSION}`;
+    const thumbSrc = `${originHost}/${Config.S3_GEAR_PREFIX}/${filename}-thumb.${Config.DEFAULT_IMAGE_EXTENSION}`;
 
     return { src, thumbSrc };
   };

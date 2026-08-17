@@ -22,7 +22,7 @@ export interface GearItem {
   pros: string[];
   cons: string[];
   images: {
-    general: string[];
+    general: Array<{ desc: string; isVertical?: boolean }>;
     timeline?: TimelineItem[];
   };
 }

@@ -15,6 +15,7 @@
     "test:e2e:update": "playwright test --update-snapshots",
     "process-images": "./script/process-images/process-images.sh",
     "upload-images": "./script/upload-images/upload-images.sh",
+    "upload-gear-images": "./script/upload-gear-images/upload-gear-images.sh",
     "upload-post": "./script/upload-post/upload-post.sh",
     "cleanup": "./script/cleanup/cleanup.sh",
     "create-poi": "./script/create-poi/create-poi.sh",

@@ -70,7 +70,7 @@ describe('PostImages Component', () => {
     fireEvent.click(imageContainer!);
 
     expect(mockSetCurrentImage).toHaveBeenCalledWith('img1.jpg');
-    expect(mockSetOpenModal).toHaveBeenCalledWith(true);
+    expect(mockSetOpenModal).toHaveBeenCalledWith('test-id');
   });
 
   it('renders modal with full size images when showModal is true', () => {

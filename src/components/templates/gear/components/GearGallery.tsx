@@ -9,13 +9,14 @@ import styles from "styles/GearGallery.module.css";
 export interface TimelineItem {
   date: string;
   title: string;
-  img: string[];
+  img: Array<{ desc: string; isVertical?: boolean }>;
+  id: string;
 }
 
 export interface GearGalleryProps {
   slug: string;
   images: {
-    general: string[];
+    general: Array<{ desc: string; isVertical?: boolean }>;
     timeline?: TimelineItem[];
   };
 }
@@ -40,6 +41,7 @@ export const GearGallery: FC<GearGalleryProps> = ({ slug, images }) => {
 
   if (!hasGeneral && !hasTimeline) return null;
 
+  console.log(general);
   return (
     <div id="gear-images">
       {hasGeneral && (
@@ -47,10 +49,11 @@ export const GearGallery: FC<GearGalleryProps> = ({ slug, images }) => {
           <h3 className={styles.timelineHeading}>{}</h3>
           <ImageGallery
             id={slug}
-            images={general.map((filename) => ({
-              filename,
-              desc: "",
-              isVertical: false,
+            galleryId={`${slug}-general`}
+            images={general.map((filename, index) => ({
+              filename: `${slug}-${index + 1}`,
+              desc: filename.desc,
+              isVertical: filename.isVertical || false,
             }))}
             getImageSourcePath={getGearImageSourcePath}
           />
@@ -60,16 +63,16 @@ export const GearGallery: FC<GearGalleryProps> = ({ slug, images }) => {
       {hasTimeline &&
         timeline!.map((item, index) => {
           const title = item.title || formatTimelineDate(item.date);
-          const mappedImages: PostImage[] = item.img.map((filename) => ({
-            filename,
-            desc: item.title || "",
-            isVertical: false,
+          const mappedImages: PostImage[] = item.img.map((filename, index) => ({
+            filename: `${slug}-${item.id}-${index + 1}`,
+            desc: filename.desc,
+            isVertical: filename.isVertical || false,
           }));
 
           return (
             <div key={index} className={styles.timelineItemWrapper}>
               <h3 className={styles.timelineHeading}>{title}</h3>
-              <ImageGallery id={slug} images={mappedImages} getImageSourcePath={getGearImageSourcePath} />
+              <ImageGallery id={slug} galleryId={`${slug}-${item.id}`} images={mappedImages} getImageSourcePath={getGearImageSourcePath} />
             </div>
           );
         })}

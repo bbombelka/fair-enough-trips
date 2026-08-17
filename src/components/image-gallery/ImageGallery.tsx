@@ -13,6 +13,7 @@ import { PostImage, PostVideo } from "types/common.types";
 
 export interface ImageGalleryProps {
   id: string;
+  galleryId?: string;
   images: PostImage[];
   videos?: PostVideo[];
   getImageSourcePath: ({ id, filename }: { id: string; filename: string }) => { src: string; thumbSrc: string };
@@ -20,6 +21,7 @@ export interface ImageGalleryProps {
 
 export const ImageGallery: FC<ImageGalleryProps> = ({
   id,
+  galleryId,
   images,
   videos,
   getImageSourcePath,
@@ -31,9 +33,12 @@ export const ImageGallery: FC<ImageGalleryProps> = ({
   };
   const { showModal, setOpenModal, currentImage, setCurrentImage } = useGlobalContext();
 
+  const activeGalleryId = galleryId || id;
+  const isModalOpen = showModal === true || showModal === activeGalleryId;
+
   const openVisualModal = (currentImage: string) => {
     setCurrentImage(currentImage);
-    setOpenModal(true);
+    setOpenModal(activeGalleryId);
   };
 
   const currentImageIndex = images.findIndex((image) => image.filename === currentImage);
@@ -111,7 +116,7 @@ export const ImageGallery: FC<ImageGalleryProps> = ({
           </Slider>
         </div>
       )}
-      {showModal && (
+      {isModalOpen && (
         <Modal className="image-modal" closeModalCallback={() => setOpenModal(false)}>
           <div className={styles["slick-container-modal"]}>
             <Slider {...slickSettingsModal}>{modalSlickImages}</Slider>
