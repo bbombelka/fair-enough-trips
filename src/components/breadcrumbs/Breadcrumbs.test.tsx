@@ -46,4 +46,16 @@ describe('Breadcrumbs Component', () => {
     );
     expect(screen.getByText('Parent Post')).toBeInTheDocument();
   });
+
+  it('renders custom breadcrumbs when provided', () => {
+    render(
+      <Breadcrumbs
+        postTitle="My Gear Item"
+        customBreadcrumbs={[{ name: "Gear", url: "gear" }]}
+      />
+    );
+    expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.getByText('Gear')).toBeInTheDocument();
+    expect(screen.getByText('My Gear Item')).toBeInTheDocument();
+  });
 });

@@ -1,0 +1,52 @@
+{
+  "id": 1,
+  "name": "Stir 20l",
+  "brand": "Thule",
+  "type": "RUCKSACK_20L",
+  "slug": "thule-stir-20l",
+  "statsGeneral": {
+    "price": 60,
+    "weight": 535,
+    "purchased": "2025-09-26T13:57:00.330+00:00",
+    "rating": 8,
+    "durability": 7,
+    "frequency": "very often"
+  },
+  "statsSpecific": {
+    "volume": "20 litres"
+  },
+  "pros": [
+    "Narrow construction good for climbing and skitouring",
+    "Rope can be carried on top of the rucsack extending the space inside",
+    "Reasonably comfortable hip straps",
+    "Easy access when on the back side pockets",
+    "Weight",
+    "Durability",
+    "Extendable - loops on front of the rucksack with cord can work wonders to"
+  ],
+  "cons": [
+    "Construction - good only for sunny days because of open pocket on the top",
+    "Something is on the bottom - everything above needs to go out",
+    "Hide pocket for keys is hard to reach when fully loaded - same with removing water bag",
+    "No additional clips for poles, iceaxe, pads",
+    "A bit stinky though proper ventillation"
+  ],
+  "usage": "Single day climbing, scrambling and hiking trips. Works also for short skitouring. Because of capacity not suitable for winter trips that require carrying of more gear. Used on mountaineering trips as a second rucksack for summit attack. ",
+  "tripsUsed": ["vetta-bella-rampa-mediane", "jof-fuart-gola-nord-ovest", "prisojnik-tapeta", "stenar-brojanov-raz"],
+  "description": "The Thule Stir 20L is a lightweight, durable, and minimalist daypack tailored for fast-and-light outdoor adventures. Featuring a streamlined, narrow profile and reasonably comfortable straps, it performs exceptionally well during dynamic activities like climbing and ski touring. However, its simple top-loading construction means reaching items at the bottom can be inconvenient, and the stripped-down design lacks extra gear loops for attaching external equipment.",
+  "images": {
+    "general": ["thule-stir-20l-main"],
+    "timeline": [
+      {
+        "date": "2020-09-26T13:57:00.330+00:00",
+        "title": "",
+        "img": ["thule-stir-20l-1"]
+      },
+      {
+        "date": "2025-09-26T13:57:00.330+00:00",
+        "title": "",
+        "img": ["thule-stir-20l-2"]
+      }
+    ]
+  }
+}

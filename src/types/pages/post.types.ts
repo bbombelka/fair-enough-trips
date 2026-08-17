@@ -1,13 +1,6 @@
 import { Graph } from "schema-dts";
-import {
-  Post,
-  Categories,
-  PostLink,
-  PostImage,
-  PostVideo,
-  Stats,
-  DateClass,
-} from "../common.types";
+import { Post, Categories, PostLink, PostImage, PostVideo, Stats, DateClass } from "../common.types";
+import { GearKeyType } from "enums/gear";
 
 export type PostPageProps = {
   post: FullPost;
@@ -26,15 +19,7 @@ export type ControlDisplayLinks = {
 };
 
 type Links = Record<
-  | "accomodation"
-  | "transportation"
-  | "other"
-  | "dangers"
-  | "weather"
-  | "gear"
-  | "shortDescription"
-  | "trailCondition"
-  | "provisions",
+  "accomodation" | "transportation" | "other" | "dangers" | "weather" | "gear" | "shortDescription" | "trailCondition" | "provisions",
   PostLink[]
 >;
 
@@ -54,6 +39,16 @@ export type RouteStats = {
 
 type TitledParagraph = { title: string; body: Paragraph; links?: PostLink[]; stats?: RouteStats };
 
+export type GearObject = {
+  id: number | string;
+  name: string;
+  category?: number;
+  type: GearKeyType;
+  slug: string;
+  brand?: string;
+  quantity?: number;
+};
+
 export type FullPost = {
   id: string;
   title: string;
@@ -70,7 +65,7 @@ export type FullPost = {
   dangers: Paragraph;
   accomodation: Paragraph;
   transportation: Paragraph;
-  gear: Paragraph;
+  gear: Array<string | GearObject>;
   other: Paragraph;
   provisions?: Paragraph;
   shortDescription: Paragraph;
@@ -92,9 +87,6 @@ export type MultidayFullPost = FullPost & {
   shortDescription: TitledParagraph[];
 };
 
-export type SearchPostType = Pick<
-  FullPost,
-  "id" | "category" | "title" | "postDate" | "base64Image"
-> & { isTop: boolean };
+export type SearchPostType = Pick<FullPost, "id" | "category" | "title" | "postDate" | "base64Image"> & { isTop: boolean };
 
 export type BreadcrumbParentPostData = Pick<FullPost, "id" | "title">;

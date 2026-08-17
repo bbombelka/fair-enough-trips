@@ -1,0 +1,47 @@
+export const gearEntries = [
+  ["APPROACH_SHOES", "approach shoes"],
+  ["CAMS", "cams"],
+  ["CLIMBING_SHOES", "climbing shoes"],
+  ["COOKING_STOVE", "cooking stove"],
+  ["CORD", "cord"],
+  ["CRAMPONS", "crampons"],
+  ["GAITERS", "gaiters"],
+  ["GAS_CARTRIDGE", "gas cartridge"],
+  ["HAMMER", "hammer"],
+  ["HARNESS", "harness"],
+  ["HEADLAMP", "headlamp"],
+  ["HELMET", "helmet"],
+  ["ICE_AXE", "ice axe"],
+  ["KNIFE", "knife"],
+  ["LOCKED_CARABINER", "locked carabiner"],
+  ["MOUNTAINEERING_BOOTS", "mountaineering boots"],
+  ["NUTS", "nuts"],
+  ["PERSONAL_CLIMBING_SET", "personal climbing kit"],
+  ["PITONS", "pitons"],
+  ["POLES", "poles"],
+  ["PRUSIK", "prusik"],
+  ["QUICKDRAWS", "quickdraws"],
+  ["QUICKDRAWS_ALPINE", "alpine quickdraws"],
+  ["ROPE_2X30M", "2x30m rope"],
+  ["ROPE_2X60M", "2x60m rope"],
+  ["ROPE_30M", "30m rope"],
+  ["ROPE_60M", "60m rope"],
+  ["RUCKSACK_20L", "20l rucksack"],
+  ["RUCKSACK_30L", "30l rucksack"],
+  ["RUCKSACK_35L", "35l rucksack"],
+  ["RUCKSACK_60_10L", "60+10l rucksack"],
+  ["SLEEPING_BAG", "sleeping bag"],
+  ["SLEEPING_PAD", "sleeping pad"],
+  ["SLING", "sling"],
+  ["SNOWSHOES", "snowshoes"],
+  ["TRICAMS", "tricams"],
+  ["VIA_FERRATA_SET", "via ferrata set"],
+  ["WALKIE_TALKIE", "walkie-talkie"],
+  ["WATER_FILTER", "water filter"],
+] as const;
+
+export type GearKeyType = (typeof gearEntries)[number][0];
+export type GearEnumType = (typeof gearEntries)[number][1];
+
+// Use Map if you want to retrieve values by keys, e.g., GearMap.get("RUCKSACK_20L")
+export const GearMap = new Map<GearKeyType, GearEnumType>(gearEntries);

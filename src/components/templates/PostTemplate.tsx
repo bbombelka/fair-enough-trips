@@ -10,6 +10,8 @@ import { Post } from "types/common.types";
 import CardList from "components/card-list/CardList";
 import { Breadcrumbs } from "components/breadcrumbs/Breadcrumbs";
 import { TripSections } from "components/trip-sections/TripSections";
+import { GearList } from "components/gear-list/GearList";
+import React from "react";
 
 export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts, parentPostData, subPosts }: PostTemplateProps) => {
   let orderCounter = 1;
@@ -51,7 +53,13 @@ export const PostTemplate = ({ post, controlDisplayLinks, hasRouteScheme, posts,
           <Divider title="Additional information" order={orderCounter++} stickyScrollToElementId="paragraph-other" />
           {Boolean(post.other?.[0]) && <Paragraph links={post.links["other"]} title="Tips and author's comments" body={post.other} id="paragraph-other" />}
           {Boolean(post.dangers?.[0]) && <Paragraph links={post.links["dangers"]} body={post.dangers} title="Dangers" />}
-          {Boolean(post.gear?.[0]) && <Paragraph links={post.links["gear"]} body={post.gear} title="Gear used" />}
+          {Boolean(post.gear?.[0]) && (
+            <Paragraph
+              links={post.links["gear"]}
+              body={[<GearList key="gear" gear={post.gear} />]}
+              title="Gear used"
+            />
+          )}
           {Boolean(post.transportation?.[0]) && <Paragraph links={post.links["transportation"]} body={post.transportation} title="Transportation" />}
           {Boolean(post.accomodation?.[0]) && (
             <Paragraph links={post.links["accomodation"]} body={post.accomodation} title="Accommodation" id="paragraph-general" />

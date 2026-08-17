@@ -39,6 +39,25 @@ async function getPostData(idArray: string[]) {
   const hasRouteScheme = await routeSchemeExists(dbQueryId);
   const parsedPost = JSON.parse(JSON.stringify(post));
 
+  if (parsedPost.gear && Array.isArray(parsedPost.gear)) {
+    const gearIds = parsedPost.gear.filter((g: any) => typeof g === "object" && g.id).map((g: any) => g.id);
+    if (gearIds.length > 0) {
+      const gearDocs = await mongoClient
+        .db(Config.DB_NAME)
+        .collection("gear")
+        .find({ id: { $in: gearIds } })
+        .toArray();
+      const gearMap = new Map(gearDocs.map((g) => [g.id, g]));
+      parsedPost.gear = parsedPost.gear.map((g: any) => {
+        if (typeof g === "object" && g.id && gearMap.has(g.id)) {
+          const dbGear = gearMap.get(g.id)!;
+          return { ...g, name: dbGear.name, type: dbGear.type, id: dbGear.id, slug: dbGear.slug, brand: dbGear.brand };
+        }
+        return g;
+      });
+    }
+  }
+
   const serializedPosts = await getLatestPosts(
     {
       postDate: { $lt: new Date(parsedPost.postDate) },

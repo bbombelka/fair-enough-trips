@@ -2,7 +2,8 @@ import { Categories } from "types/common.types";
 import { BreadcrumbParentPostData } from "types/pages/post.types";
 
 export type BreadcrumbsProps = {
-  category: Categories;
+  category?: Categories;
   postTitle: string;
   parentData?: BreadcrumbParentPostData;
+  customBreadcrumbs?: Array<{ name: string; url: string }>;
 };
