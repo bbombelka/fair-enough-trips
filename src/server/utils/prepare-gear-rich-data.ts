@@ -8,9 +8,9 @@ export default function prepareGearRichData(gearItem: GearItem, _referencedTrips
   const titleName = `${brand} ${name}`;
 
   // Image URL selection
-  const mainImageName = images?.general?.[0];
+  const mainImageName = `${slug}-1`;
   const imageUrl = mainImageName
-    ? `${Config.S3_BUCKET}/${Config.S3_GEAR_PREFIX}/${id}/${mainImageName}.${Config.DEFAULT_IMAGE_EXTENSION}`
+    ? `${Config.S3_BUCKET}/${Config.S3_GEAR_PREFIX}/${mainImageName}.${Config.DEFAULT_IMAGE_EXTENSION}`
     : `https://${Config.DOMAIN}/placeholder.webp`;
 
   // rating out of 10 in statsGeneral

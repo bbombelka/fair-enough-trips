@@ -42,7 +42,7 @@ describe("prepareGearRichData", () => {
         {
           "@type": "Product",
           name: "Thule Stir 20l",
-          image: `${Config.S3_BUCKET}/${Config.S3_GEAR_PREFIX}/thule-stir-20l/thule-stir-20l-main.${Config.DEFAULT_IMAGE_EXTENSION}`,
+          image: `${Config.S3_BUCKET}/${Config.S3_GEAR_PREFIX}/thule-stir-20l-1.${Config.DEFAULT_IMAGE_EXTENSION}`,
           description: "The Thule Stir 20L is a lightweight and durable daypack.",
           brand: {
             "@type": "Brand",
@@ -132,7 +132,7 @@ describe("prepareGearRichData", () => {
 
     // Verify main fields and fallback canonical / fallback image
     const product = result["@graph"][0] as any;
-    expect(product.image).toBe(`https://${Config.DOMAIN}/placeholder.webp`);
+    expect(product.image).toBe("https://fair-enough-trips.s3.eu-central-1.amazonaws.com/gear/simple-gear-1.webp");
     expect(product.review.reviewRating).toBeUndefined();
     expect(product.positiveNotes).toBeUndefined();
     expect(product.negativeNotes).toBeUndefined();
