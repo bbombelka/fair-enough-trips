@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { CategoryCard } from './CategoryCard';
+import { CategoriesEnum } from 'enums/categories';
 import * as useMainImagePathHook from 'hooks/useMainImagePath';
 import * as useCardClassesHook from 'hooks/useCardClasses';
 import * as useScrollDownHook from 'hooks/useScrollDown';
@@ -49,7 +50,7 @@ describe('CategoryCard Component', () => {
         category={mockCategory}
         postIds={mockPostIds}
         isMainCard={true}
-        categoryType="regions"
+        categoryType={CategoriesEnum.Regions}
         id="test-id"
       />
     );
@@ -66,7 +67,7 @@ describe('CategoryCard Component', () => {
         category={mockCategory}
         postIds={mockPostIds}
         isMainCard={false}
-        categoryType="regions"
+        categoryType={CategoriesEnum.Regions}
         id="test-id"
       />
     );
@@ -93,7 +94,7 @@ describe('CategoryCard Component', () => {
         category={mockCategory}
         postIds={mockPostIds}
         isMainCard={true}
-        categoryType="regions"
+        categoryType={CategoriesEnum.Regions}
         areNotesPresent={true}
         buttonLabel="Trip Notes"
         id="test-id"
@@ -114,7 +115,7 @@ describe('CategoryCard Component', () => {
         category={noOriginalNameCategory as any}
         postIds={mockPostIds}
         isMainCard={true}
-        categoryType="regions"
+        categoryType={CategoriesEnum.Regions}
         id="test-id"
       />
     );
@@ -135,7 +136,7 @@ describe('CategoryCard Component', () => {
         category={mockCategory}
         postIds={mockPostIds}
         isMainCard={false}
-        categoryType="regions"
+        categoryType={CategoriesEnum.Regions}
         id="test-id"
       />
     );

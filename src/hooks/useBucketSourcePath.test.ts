@@ -19,7 +19,7 @@ describe('useBucketSourcePath', () => {
   });
 
   it('generates prod params when NODE_ENV is production', () => {
-    process.env.NODE_ENV = 'production';
+    (process.env as any).NODE_ENV = 'production';
     const { result } = renderHook(() => useBucketSourcePath({ id: 'test-id', filename: 'test-img' }));
 
     expect(result.current).toEqual({
@@ -29,7 +29,7 @@ describe('useBucketSourcePath', () => {
   });
 
   it('generates local upload params if not in prod and NEXT_PUBLIC_NEW_POST_ID is set', () => {
-    process.env.NODE_ENV = 'development';
+    (process.env as any).NODE_ENV = 'development';
     process.env.NEXT_PUBLIC_NEW_POST_ID = 'test-id';
     
     const { result } = renderHook(() => useBucketSourcePath({ id: 'test-id', filename: 'test-img' }));
@@ -41,7 +41,7 @@ describe('useBucketSourcePath', () => {
   });
 
   it('generates dev placeholder params if not in prod and no new post ID', () => {
-    process.env.NODE_ENV = 'development';
+    (process.env as any).NODE_ENV = 'development';
     delete process.env.NEXT_PUBLIC_NEW_POST_ID;
     
     const { result } = renderHook(() => useBucketSourcePath({ id: 'test-id', filename: 'test-img' }));

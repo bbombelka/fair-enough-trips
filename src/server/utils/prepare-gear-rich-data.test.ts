@@ -20,7 +20,7 @@ describe("prepareGearRichData", () => {
     pros: ["Lightweight", "Durable"],
     cons: ["Hard to reach pockets"],
     images: {
-      general: ["thule-stir-20l-main"],
+      general: [{ isVertical: false, desc: "test" }],
     },
   };
 

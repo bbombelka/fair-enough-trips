@@ -52,7 +52,7 @@ describe("GearCard", () => {
     const minimalGear: GearItem = {
       ...fakeGearItem,
       images: {
-        general: [{ isVertical: false, desc: "test" }],
+        general: [],
       },
     };
 

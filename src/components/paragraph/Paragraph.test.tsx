@@ -45,9 +45,9 @@ describe('Paragraph Component', () => {
         body={['Content']} 
         links={[
           { title: 'Image Link', href: '/img.jpg', internal: true, type: 'image' },
-          { title: 'External Link', href: 'http://ext.com', internal: false },
+          { title: 'External Link', href: 'http://ext.com', internal: false } as any,
           { title: 'Nav Link', href: '/nav', internal: true, type: 'navigation' },
-          { title: 'Anchor Link', href: 'anchor', internal: true }
+          { title: 'Anchor Link', href: 'anchor', internal: true } as any
         ]} 
       />
     );

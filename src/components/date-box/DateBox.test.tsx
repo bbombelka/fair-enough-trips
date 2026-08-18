@@ -6,7 +6,7 @@ describe('DateBox Component', () => {
   const mockDate = new Date('2023-05-15T10:00:00Z');
 
   it('renders day, month, and year correctly from a Date object', () => {
-    render(<DateBox postDate={mockDate} />);
+    render(<DateBox postDate={mockDate} isMain={false} isTop={false} />);
     
     // toDateString() in English locales typically returns "Mon May 15 2023"
     // split filters out index 0 ("Mon"), leaving ["May", "15", "2023"]
@@ -16,7 +16,7 @@ describe('DateBox Component', () => {
   });
 
   it('renders correctly from an ISO string', () => {
-    render(<DateBox postDate="2024-10-20T10:00:00Z" />);
+    render(<DateBox postDate="2024-10-20T10:00:00Z" isMain={false} isTop={false} />);
     
     expect(screen.getByText('20')).toBeInTheDocument();
     expect(screen.getByText('Oct')).toBeInTheDocument();
@@ -24,12 +24,12 @@ describe('DateBox Component', () => {
   });
 
   it('applies main class when isMain is true', () => {
-    const { container } = render(<DateBox postDate={mockDate} isMain={true} />);
+    const { container } = render(<DateBox postDate={mockDate} isMain={true} isTop={false} />);
     expect(container.firstChild).toHaveClass('main');
   });
 
   it('applies is-bottom class when isTop is true', () => {
-    const { container } = render(<DateBox postDate={mockDate} isTop={true} />);
+    const { container } = render(<DateBox postDate={mockDate} isMain={false} isTop={true} />);
     expect(container.firstChild).toHaveClass('is-bottom');
   });
 });

@@ -14,13 +14,13 @@ describe('CardList Component', () => {
   });
 
   it('renders listTitle if provided', () => {
-    render(<CardList listTitle="My Awesome List" />);
+    render(<CardList listTitle="My Awesome List"><div /></CardList>);
     expect(screen.getByText('My Awesome List')).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
   });
 
   it('does not render listTitle if not provided', () => {
-    render(<CardList />);
+    render(<CardList><div /></CardList>);
     expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
   });
 

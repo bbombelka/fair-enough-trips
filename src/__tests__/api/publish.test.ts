@@ -51,7 +51,7 @@ describe('/api/publish', () => {
   it('should return no deployment message if no records found', async () => {
     // Override the toArray mock for this specific test
     const mockDb = await mongoClientConnectPromise;
-    (mockDb.db().collection().toArray as jest.Mock).mockResolvedValueOnce([]);
+    ((mockDb.db().collection as any)().toArray as jest.Mock).mockResolvedValueOnce([]);
 
     const { req, res } = createMocks({
       method: 'GET',

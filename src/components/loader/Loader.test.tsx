@@ -16,12 +16,12 @@ describe('Loader Component', () => {
   });
 
   it('hides after timeout when isLoading becomes false', () => {
-    const { container, rerender } = render(<Loader isLoading={true} />);
+    const { container, rerender } = render(<Loader isLoading={true} loadingHeading="Loading" />);
     // Not hidden yet
     expect(container.firstChild).not.toHaveClass('hidden');
 
     // Change to false
-    rerender(<Loader isLoading={false} />);
+    rerender(<Loader isLoading={false} loadingHeading="Loading" />);
     
     act(() => {
       jest.advanceTimersByTime(0); // non-image timeout is 0
@@ -31,8 +31,8 @@ describe('Loader Component', () => {
   });
 
   it('uses 2000ms timeout for images', () => {
-    const { container, rerender } = render(<Loader isLoading={true} isImage={true} />);
-    rerender(<Loader isLoading={false} isImage={true} />);
+    const { container, rerender } = render(<Loader isLoading={true} isImage={true} loadingHeading="Loading" />);
+    rerender(<Loader isLoading={false} isImage={true} loadingHeading="Loading" />);
     
     act(() => {
       jest.advanceTimersByTime(1000);
@@ -49,7 +49,7 @@ describe('Loader Component', () => {
 
   it('applies border classes correctly', () => {
     const { container } = render(
-      <Loader isLoading={true} hasExternalBorder={true} hasInternalBorder={true} />
+      <Loader isLoading={true} hasExternalBorder={true} hasInternalBorder={true} loadingHeading="Loading" />
     );
     
     const rootDiv = container.firstChild as HTMLElement;

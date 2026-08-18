@@ -5,7 +5,7 @@ import ButtonGroup from './ButtonGroup';
 describe('ButtonGroup Component', () => {
   it('renders all options', () => {
     const options = ['Option 1', 'Option 2', 'Option 3'];
-    render(<ButtonGroup options={options} selectedOption="Option 1" />);
+    render(<ButtonGroup options={options} selectedOption="Option 1" onSelect={() => {}} />);
     
     options.forEach(option => {
       expect(screen.getByText(option)).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe('ButtonGroup Component', () => {
 
   it('applies selected class to the selected option', () => {
     const options = ['Option 1', 'Option 2'];
-    render(<ButtonGroup options={options} selectedOption="Option 2" />);
+    render(<ButtonGroup options={options} selectedOption="Option 2" onSelect={() => {}} />);
     
     const selectedButton = screen.getByText('Option 2');
     const unselectedButton = screen.getByText('Option 1');

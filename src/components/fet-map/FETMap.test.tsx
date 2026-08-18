@@ -37,7 +37,7 @@ describe('FETMap Component', () => {
   } as any;
 
   it('renders MapIframe and TableData initially', () => {
-    render(<FETMap post={mockPost} />);
+    render(<FETMap post={mockPost} controlDisplayLinks={{ displayGpxChart: false, gpxDownloadLink: '', topoDownloadLink: '' }} />);
     
     // By default, showMapIframe is true
     expect(screen.getByTestId('mock-map-iframe')).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe('FETMap Component', () => {
   });
 
   it('toggles map visibility when hide/show link is clicked', () => {
-    render(<FETMap post={mockPost} />);
+    render(<FETMap post={mockPost} controlDisplayLinks={{ displayGpxChart: false, gpxDownloadLink: '', topoDownloadLink: '' }} />);
     
     const toggleLink = screen.getByText(/Hide the map/i);
     expect(screen.getByTestId('mock-map-iframe')).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe('FETMap Component', () => {
     render(
       <FETMap 
         post={mockPost} 
-        controlDisplayLinks={{ displayGpxChart: true }} 
+        controlDisplayLinks={{ displayGpxChart: true, gpxDownloadLink: '', topoDownloadLink: '' }} 
       />
     );
 

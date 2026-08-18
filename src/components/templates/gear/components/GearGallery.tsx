@@ -41,7 +41,6 @@ export const GearGallery: FC<GearGalleryProps> = ({ slug, images }) => {
 
   if (!hasGeneral && !hasTimeline) return null;
 
-  console.log(general);
   return (
     <div id="gear-images">
       {hasGeneral && (

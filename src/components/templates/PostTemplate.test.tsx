@@ -63,8 +63,8 @@ describe('PostTemplate Component', () => {
         hasRouteScheme={true}
         posts={[{ id: 'other-post' } as any]}
         parentPostData={{ id: 'parent', title: 'Parent Trip' }}
-        subPosts={[{ id: 'sub-post', title: 'Sub' }]}
-        controlDisplayLinks={{}}
+        subPosts={[{ id: 'sub-post', title: 'Sub' } as any]}
+        controlDisplayLinks={{ displayGpxChart: false, gpxDownloadLink: '', topoDownloadLink: '' }}
       />
     );
 
@@ -108,7 +108,7 @@ describe('PostTemplate Component', () => {
         post={minimalPost}
         hasRouteScheme={false}
         posts={[]}
-        controlDisplayLinks={{}}
+        controlDisplayLinks={{ displayGpxChart: false, gpxDownloadLink: '', topoDownloadLink: '' }}
       />
     );
 
@@ -133,7 +133,7 @@ describe('PostTemplate Component', () => {
       weather: ['Sunny'],
       trailCondition: undefined,
     };
-    render(<PostTemplate post={postWithWeatherOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{}} />);
+    render(<PostTemplate post={postWithWeatherOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{ displayGpxChart: false, gpxDownloadLink: '', topoDownloadLink: '' }} />);
     expect(screen.getByText('Weather')).toBeInTheDocument();
     expect(screen.queryByText('Trail')).not.toBeInTheDocument();
   });
@@ -144,7 +144,7 @@ describe('PostTemplate Component', () => {
       weather: undefined,
       trailCondition: ['Muddy'],
     };
-    render(<PostTemplate post={postWithTrailOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{}} />);
+    render(<PostTemplate post={postWithTrailOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{ displayGpxChart: false, gpxDownloadLink: '', topoDownloadLink: '' }} />);
     expect(screen.queryByText('Weather')).not.toBeInTheDocument();
     expect(screen.getByText('Trail')).toBeInTheDocument();
   });
@@ -155,7 +155,7 @@ describe('PostTemplate Component', () => {
       images: [],
       videos: [{ src: 'video.com' }],
     };
-    render(<PostTemplate post={postWithVideosOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{}} />);
+    render(<PostTemplate post={postWithVideosOnly} hasRouteScheme={false} posts={[]} controlDisplayLinks={{ displayGpxChart: false, gpxDownloadLink: '', topoDownloadLink: '' }} />);
     expect(screen.getByTestId('mock-post-images')).toBeInTheDocument();
   });
 });

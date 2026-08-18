@@ -18,7 +18,7 @@ jest.mock('MongoClient', () => {
 describe('posts shared server utils', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env.NODE_ENV = 'production';
+    (process.env as any).NODE_ENV = 'production';
   });
 
   it('getLatestPosts should fetch published posts in production', async () => {

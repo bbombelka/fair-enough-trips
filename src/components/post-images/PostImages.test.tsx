@@ -52,7 +52,7 @@ describe('PostImages Component', () => {
       { filename: 'img2.jpg', desc: 'Desc 2', isVertical: true }
     ];
 
-    render(<PostImages id="test-id" images={images} />);
+    render(<PostImages id="test-id" images={images} videos={[]} />);
     
     const renderedImages = screen.getAllByTestId('mock-fet-image');
     expect(renderedImages).toHaveLength(2);
@@ -63,7 +63,7 @@ describe('PostImages Component', () => {
   it('opens modal and sets current image on click', () => {
     const images = [{ filename: 'img1.jpg', desc: 'Desc 1', isVertical: false }];
     
-    const { container } = render(<PostImages id="test-id" images={images} />);
+    const { container } = render(<PostImages id="test-id" images={images} videos={[]} />);
     
     // The clickable div wraps the slick-image-container
     const imageContainer = container.querySelector('#post-images .images');
@@ -82,7 +82,7 @@ describe('PostImages Component', () => {
     });
 
     const images = [{ filename: 'img1.jpg', desc: 'Desc 1', isVertical: false }];
-    render(<PostImages id="test-id" images={images} />);
+    render(<PostImages id="test-id" images={images} videos={[]} />);
 
     // Since showModal is true, we should see the images rendered twice (once in main slider, once in modal)
     const allImages = screen.getAllByTestId('mock-fet-image');
