@@ -10,10 +10,16 @@ import { TripNotes } from "components/trip-notes/TripNotes";
 import { Box } from "components/box/Box";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
 import prepareRegionRichData from "server/utils/prepare-region-rich-data";
+import { notFound } from "next/navigation";
 
 async function getRegionData(regionUrl: string) {
   const mongoClient = await mongoClientConnectPromise;
   const region = Regions.find((act) => act.url === regionUrl);
+
+  if (!region) {
+    notFound();
+  }
+
   const code = region?.code;
 
   const posts = await getLatestPosts({ ["category.region"]: code, parentId: { $exists: false } });

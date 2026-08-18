@@ -5,9 +5,7 @@ import { Activities, Regions } from "enums/categories";
 import { formatIsoDuration } from "utils";
 
 export default function preparePostRichData(post: FullPost) {
-  const statsSummary = post.stats
-    ? `${post.stats.distance}km / ${post.stats.up}m / ${formatIsoDuration(post.stats.duration)}`
-    : "";
+  const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${formatIsoDuration(post.stats.duration)}` : "";
   const postContent = `${post.title} - ${post.subTitle}${statsSummary ? ` [${statsSummary}]` : ""}`;
 
   const activity = Activities.find((activity) => activity.code === post.category.activity[0]);

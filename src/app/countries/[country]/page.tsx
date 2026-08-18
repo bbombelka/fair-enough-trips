@@ -11,10 +11,16 @@ import { Box } from "components/box/Box";
 import { TripNotes } from "components/trip-notes/TripNotes";
 import { shuffleBackgroundImage } from "server/utils/ShuffleImage";
 import prepareCountryRichData from "server/utils/prepare-country-rich-data";
+import { notFound } from "next/navigation";
 
 async function getCountryData(countryUrl: string) {
   const mongoClient = await mongoClientConnectPromise;
   const country = Countries.find(({ url }) => url === countryUrl);
+
+  if (!country) {
+    notFound();
+  }
+
   const code = country?.code;
 
   const posts = await getLatestPosts({ ["category.country"]: code, parentId: { $exists: false } });
@@ -58,9 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ country: 
 
 export default async function CountryPage({ params }: { params: Promise<{ country: string }> }) {
   const { country: countryUrl } = await params;
-  const { posts, notes, code, imageId, base64Image, richData, country } = await getCountryData(countryUrl);
-
-  if (!country) return null;
+  const { posts, notes, imageId, base64Image, richData, country } = await getCountryData(countryUrl);
 
   return (
     <div>

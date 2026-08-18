@@ -10,6 +10,7 @@ import preparePostRichData from "server/utils/prepare-rich-data";
 import { PostTemplate } from "components/templates/PostTemplate";
 import { getLatestPosts, getPathsPosts } from "server/shared/posts";
 import { PostMultidayTemplate } from "components/templates/multiday/PostMultidayTemplate";
+import { notFound } from "next/navigation";
 
 async function getPostData(idArray: string[]) {
   const mongoClient = await mongoClientConnectPromise;
@@ -34,6 +35,9 @@ async function getPostData(idArray: string[]) {
 
   const postsCollection = mongoClient.db(Config.DB_NAME).collection(Config.POSTS_COLLECTION);
   const dbPost = await postsCollection.findOne({ id: dbQueryId });
+  if (!dbPost) {
+    notFound();
+  }
 
   const post: FullPost | {} = dbPost ? removeSelectedProps(dbPost, ["_id"]) : {};
   const hasRouteScheme = await routeSchemeExists(dbQueryId);
@@ -82,6 +86,7 @@ async function getPostData(idArray: string[]) {
     parentData = data[0] || { id: "", title: "" };
   }
 
+  console.log(parsedPost);
   return {
     post: parsedPost as FullPost,
     posts: serializedPosts,

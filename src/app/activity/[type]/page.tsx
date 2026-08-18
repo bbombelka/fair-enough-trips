@@ -5,9 +5,15 @@ import Config from "Config";
 import { Activities } from "enums/categories";
 import prepareActivityRichData from "server/utils/prepare-activity-rich-data";
 import { getLatestPosts, getPathsPosts } from "server/shared/posts";
+import { notFound } from "next/navigation";
 
 async function getActivityData(type: string) {
   const activity = Activities.find((act) => act.url === type);
+
+  if (!activity) {
+    notFound();
+  }
+
   const code = activity?.code;
 
   const latestPosts = await getLatestPosts({ ["category.activity"]: code, parentId: null });
