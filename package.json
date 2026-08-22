@@ -17,6 +17,8 @@
     "upload-images": "./script/upload-images/upload-images.sh",
     "upload-gear-images": "./script/upload-gear-images/upload-gear-images.sh",
     "upload-post": "./script/upload-post/upload-post.sh",
+    "change-post-id": "./script/change-post-id/change-post-id.sh",
+    "cleanup-s3-post": "./script/cleanup-s3-post/cleanup-s3-post.sh",
     "cleanup": "./script/cleanup/cleanup.sh",
     "create-poi": "./script/create-poi/create-poi.sh",
     "set-poi-index": "./script/set-poi-index/set-poi-index.sh",
