@@ -86,7 +86,6 @@ async function getPostData(idArray: string[]) {
     parentData = data[0] || { id: "", title: "" };
   }
 
-  console.log(parsedPost);
   return {
     post: parsedPost as FullPost,
     posts: serializedPosts,

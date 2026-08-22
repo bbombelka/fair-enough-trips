@@ -9,6 +9,8 @@ export const useSlickSettings = ({ currentImageIndex }: { currentImageIndex: num
     speed: 500,
     initialSlide: currentImageIndex === -1 ? 0 : currentImageIndex,
     lazyLoad: "ondemand",
+    accessibility: false, // Disables keyboard/tab index mapping that triggers the scroll
+    focusOnSelect: false, // Prevents automatic focus alignment shifts
   };
 
   const slickSettingsDesktop: Settings = {

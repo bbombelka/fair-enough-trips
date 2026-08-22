@@ -19,13 +19,7 @@ export interface ImageGalleryProps {
   getImageSourcePath: ({ id, filename }: { id: string; filename: string }) => { src: string; thumbSrc: string };
 }
 
-export const ImageGallery: FC<ImageGalleryProps> = ({
-  id,
-  galleryId,
-  images,
-  videos,
-  getImageSourcePath,
-}) => {
+export const ImageGallery: FC<ImageGalleryProps> = ({ id, galleryId, images, videos, getImageSourcePath }) => {
   const isProd = process.env.NODE_ENV === "production";
 
   const copy = (e: any) => {
