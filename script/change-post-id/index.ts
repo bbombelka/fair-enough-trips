@@ -124,6 +124,12 @@ const MONGODB_URI = process.env.DB_URI;
     const gearResult = await gearCollection.updateMany({ tripsUsed: oldId }, { $set: { "tripsUsed.$": newId } });
     console.log(`   Matches: ${gearResult.matchedCount}, Modified: ${gearResult.modifiedCount}`);
 
+    // 2.5 Update id inside route-scheme-points collection
+    const routeSchemeCollection = db.collection(Config.ROUTE_SCHEME_POINTS);
+    console.log(`📝 Updating ID inside "${Config.ROUTE_SCHEME_POINTS}" collection...`);
+    const routeSchemeResult = await routeSchemeCollection.updateOne({ id: oldId }, { $set: { id: newId } });
+    console.log(`   Matches: ${routeSchemeResult.matchedCount}, Modified: ${routeSchemeResult.modifiedCount}`);
+
     console.log("✅ MongoDB updates completed successfully.\n");
   } catch (err) {
     console.error("❌ MongoDB operation failed:", err);
@@ -168,7 +174,7 @@ const MONGODB_URI = process.env.DB_URI;
       }
     }
 
-    // 3.2 Rename the directory
+    // 3.3 Rename the directory
     try {
       console.log(`📁 Renaming directory to "${newLocalPath}"...`);
       await rename(oldLocalPath, newLocalPath);
