@@ -24,10 +24,14 @@ const nextConfig = {
         destination: "/activity/hiking",
         permanent: true,
       },
-
       {
         source: "/activity/alpine-climbing",
         destination: "/activity/mountaineering",
+        permanent: true,
+      },
+      {
+        source: "/posts/storzic-zrelo",
+        destination: "/posts/storzic-zrelo-skarjev",
         permanent: true,
       },
     ];
