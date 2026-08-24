@@ -144,6 +144,12 @@ export const Regions: Array<Category & { originalName: string }> = [
     url: "velebit",
     originalName: "Velebit",
   },
+  {
+    code: "021",
+    name: "Pelješac",
+    url: "peljesac",
+    originalName: "Pelješac",
+  },
 ];
 
 export const Countries: Category[] = [
