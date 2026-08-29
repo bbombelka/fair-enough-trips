@@ -118,7 +118,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   const postTitle = post.title;
   const statsSummary = post.stats ? `${post.stats.distance}km / ${post.stats.up}m / ${formatIsoDuration(post.stats.duration)}` : "";
-  const pageLink = `https://${Config.DOMAIN}/posts/${post.id}`;
+  const pageLink = `https://${Config.DOMAIN}/posts/${post.parentId ? `${post.parentId}/${post.id}` : post.id}`;
 
   return {
     title: postTitle,
