@@ -39,7 +39,18 @@ async function getPostData(idArray: string[]) {
     notFound();
   }
 
-  const post: FullPost | {} = dbPost ? removeSelectedProps(dbPost, ["_id"]) : {};
+  const dbPostParentId = dbPost.parentId;
+  if (dbPostParentId) {
+    if (idArray.length !== 2 || idArray[0] !== dbPostParentId) {
+      notFound();
+    }
+  } else {
+    if (idArray.length !== 1) {
+      notFound();
+    }
+  }
+
+  const post: FullPost | {} = removeSelectedProps(dbPost, ["_id"]);
   const hasRouteScheme = await routeSchemeExists(dbQueryId);
   const parsedPost = JSON.parse(JSON.stringify(post));
 
