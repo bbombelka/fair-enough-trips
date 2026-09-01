@@ -13,7 +13,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const activeRegionCodes = new Set(posts.map((post) => post.category.region).flat());
 
   const postRoutes = posts.map((post) => ({
-    url: `${domain}/posts/${post.id}`,
+    url: post.parentId
+      ? `${domain}/posts/${post.parentId}/${post.id}`
+      : `${domain}/posts/${post.id}`,
     lastModified: new Date(),
   }));
 
