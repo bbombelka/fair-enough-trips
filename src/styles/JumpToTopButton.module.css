@@ -5,8 +5,8 @@
     padding: 10px 16px;
     border: none;
     border-radius: 25%;
-    background-color: var(--color-dark-grey);
-    color: white;
+    background-color: var(--color-jump-bg);
+    color: var(--color-jump-text);
     font-size: 20px;
     cursor: pointer;
     opacity: 0;

@@ -8,6 +8,7 @@ export const Logo = (props: SVGProps<SVGSVGElement>) => {
       overflow="visible"
       data-bbox="88.80330795848562 173.29676852397824 334.3934024072883 135.04275515156405"
       viewBox="-114.83 85.77 744.83 262.73"
+      fill="currentColor"
       {...props}
     >
       <path
@@ -58,7 +59,7 @@ export const LogoCursor = (props: SVGProps<SVGSVGElement>) => {
     >
       <path
         d="M1.868 11.338l9.415 1.275 1.274 9.415a1.107 1.107 0 002.121.277l8.295-19.934A1.107 1.107 0 0021.526.922L1.591 9.218a1.107 1.107 0 00.277 2.12zm18.028-7.337l-5.691 13.676-.839-6.196a1.106 1.106 0 00-.95-.949l-6.197-.84 13.677-5.691z"
-        fill="#000"
+        fill={props.fill || "currentColor"}
         transform="matrix(11.56054 0 0 10.11547 107.238 116.016)"
         data-uid="o_enknk42g2_6"
       />
@@ -81,7 +82,7 @@ export const Error = (props: SVGProps<SVGSVGElement>) => {
     >
       <g
         transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-        fill="#000000"
+        fill={props.fill || "currentColor"}
         stroke="none"
       >
         <path

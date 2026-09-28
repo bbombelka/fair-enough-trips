@@ -2,6 +2,10 @@
   display: none;
 }
 
+[data-theme="dark"] .icon {
+  filter: invert(1);
+}
+
 @media only screen and (width <= 720px) and (orientation: portrait) {
   .landscape-only-container {
     display: flex;

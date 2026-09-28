@@ -7,6 +7,27 @@
     margin: 0 4px;
 }
 
+[data-theme="dark"] .route-scheme-container svg image {
+    filter: invert(1);
+}
+
+[data-theme="dark"] .route-scheme-container svg line {
+    stroke: var(--color-foreground);
+}
+
+[data-theme="dark"] .route-scheme-container svg text {
+    fill: var(--color-foreground);
+}
+
+[data-theme="dark"] .route-scheme-container svg rect {
+    fill: var(--color-surface);
+}
+
+[data-theme="dark"] .route-scheme-container svg circle {
+    stroke: var(--color-foreground);
+    fill: var(--color-surface);
+}
+
 @media (max-width: 720px) {
     .graph-container {
         overflow-x: scroll;
@@ -15,6 +36,4 @@
     .graph-svg {
         margin-bottom: 4px;
     }
-  }
-
-
+}

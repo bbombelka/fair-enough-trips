@@ -8,3 +8,4 @@ export { Contents } from "./contents/Contents";
 export { GearList } from "./gear-list/GearList";
 export { GearCard } from "./gear-card/GearCard";
 export { Breadcrumbs } from "./breadcrumbs/Breadcrumbs";
+export { ThemeToggle } from "./theme-toggle/ThemeToggle";

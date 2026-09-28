@@ -39,4 +39,12 @@ describe('Navbar Component', () => {
     // Using string matching to be robust against class names
     expect(aboutLink.parentElement?.className).toMatch(/navbar-link-active/);
   });
+
+  it('renders theme toggle buttons', () => {
+    (navigation.usePathname as jest.Mock).mockReturnValue('/');
+    render(<Navbar />);
+
+    const themeToggleButtons = screen.getAllByTestId('theme-toggle-btn');
+    expect(themeToggleButtons.length).toBeGreaterThanOrEqual(1);
+  });
 });

@@ -45,4 +45,11 @@ describe('MobileMenu Component', () => {
     expect(document.body.style.height).toBe('');
     expect(document.body.style.overflowY).toBe('');
   });
+
+  it('renders theme toggle in menu bar when open', () => {
+    const { container } = render(<MobileMenu />);
+    fireEvent.click(container.querySelector('.hamburger-icon')!);
+
+    expect(screen.getByTestId('theme-toggle-btn')).toBeInTheDocument();
+  });
 });

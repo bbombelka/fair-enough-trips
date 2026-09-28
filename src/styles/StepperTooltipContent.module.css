@@ -19,10 +19,20 @@
 
 .content-list-image {
     margin-left: 4px;
+    cursor: pointer;
+    filter: var(--tooltip-icon-filter, none);
+    transition: filter 0.2s ease;
+    vertical-align: middle;
 }
 
 .container {
     width: 200px;
+}
+
+.container hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    margin: 8px 0;
 }
 
 .title {

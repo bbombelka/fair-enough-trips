@@ -4,7 +4,8 @@
 }
 
 .group-button {
-    background-color: white;
+    background-color: var(--color-surface);
+    color: var(--color-foreground);
     font-size: 12px;
     padding: 4px;
     border: 1px solid var(--font-grey);

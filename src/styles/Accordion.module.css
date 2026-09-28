@@ -23,22 +23,23 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   border-bottom: 2px solid var(--color-grey);
+  color: var(--color-foreground);
 }
 
 .accordion-header:hover {
-  background-color: #f1f1f1;
+  background-color: var(--color-surface-hover);
 }
 
 .accordion-icon {
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
 .accordion-content {
   text-indent: 16px;
-  background-color: #fff;
-  border-top: 1px solid #e0e0e0;
-  color: #555;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border-subtle);
+  color: var(--color-accordion-text);
   line-height: 1.5;
 }
 

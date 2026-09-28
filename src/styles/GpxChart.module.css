@@ -9,3 +9,12 @@
 .container-mobile {
   padding-top: 32px;
 }
+
+[data-theme="dark"] .container svg text {
+  fill: var(--color-foreground);
+}
+
+[data-theme="dark"] .container svg .domain,
+[data-theme="dark"] .container svg .tick line {
+  stroke: var(--color-border);
+}

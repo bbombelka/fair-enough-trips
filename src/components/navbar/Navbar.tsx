@@ -8,6 +8,7 @@ import NextLink from "next/link";
 import styles from "styles/Navbar.module.css";
 import { usePathname } from "next/navigation";
 import { Tab } from "components/tab/Tab";
+import { ThemeToggle } from "components/theme-toggle/ThemeToggle";
 import clsx from "clsx";
 
 export const Navbar = () => {
@@ -36,9 +37,11 @@ export const Navbar = () => {
             <Link className={linkClassname} key={i} href={href} name={name} />
           );
         })}
+        <ThemeToggle className={styles["theme-toggle"]} />
       </div>
       <div className={styles["container-mobile"]}>
         <MobileMenu />
+        <ThemeToggle className={styles["theme-toggle-mobile"]} />
       </div>
     </nav>
   );

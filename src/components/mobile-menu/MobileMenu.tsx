@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { MobileMenuItem } from "./components/MobileMenuItem";
+import { ThemeToggle } from "components/theme-toggle/ThemeToggle";
 
 export const MobileMenu = () => {
   const [isOpen, setOpen] = useState(false);
@@ -26,6 +27,7 @@ export const MobileMenu = () => {
               href="/search"
               name={<FontAwesomeIcon className={styles["search-icon"]} icon={faSearch} fontSize={24} onClick={() => setOpen(false)} />}
             ></Link>
+            <ThemeToggle className={styles["theme-toggle-menu"]} />
             <FontAwesomeIcon className={styles["close-icon"]} icon={faXmark} fontSize={28} onClick={() => setOpen(false)} />
           </div>
           <ul className={styles["menu-list"]}>

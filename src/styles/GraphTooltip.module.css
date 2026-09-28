@@ -1,11 +1,17 @@
 .tooltip {
   position: absolute;
   transform: translate(-50%, -100%);
-  background-color: white;
+  background-color: var(--color-tooltip-bg);
+  color: var(--color-tooltip-text);
   padding: 5px;
-  border: 1px solid gray;
+  border: 1px solid var(--color-tooltip-border);
   border-radius: 4px;
   font-size: 12px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 2;
+}
+
+.tooltip img {
+  filter: var(--tooltip-icon-filter, none);
+  transition: filter 0.2s ease;
 }
