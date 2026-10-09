@@ -34,7 +34,6 @@ function extractCoordinates(directoryPath: string, outputPath: string) {
         if (gps.GPSLatitude && gps.GPSLongitude) {
           const lat = Number(gps.GPSLatitude.toFixed(7));
           const lon = Number(gps.GPSLongitude.toFixed(7));
-
           coordinates.push({
             name: file.split(".").at(0),
             type: file.split(".").at(1),
@@ -42,6 +41,8 @@ function extractCoordinates(directoryPath: string, outputPath: string) {
             lon,
             index: 0,
           });
+        } else {
+          console.warn(`No GPS coordinates found in ${file}`);
         }
       } catch (err) {
         console.warn(`Failed to process ${file}:`, err.message);

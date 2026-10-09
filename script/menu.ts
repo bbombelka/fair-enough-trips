@@ -9,19 +9,20 @@ const tasks = [
   { name: "Create LQIP", script: "script/create-lqip/index.ts", type: "ts" },
   { name: "Set POI Index", script: "script/set-poi-index/index.ts", type: "ts" },
   { name: "Prepare Route Scheme", script: "script/prepare-route-scheme/index.ts", type: "ts" },
+  { name: "Upload Route Scheme", script: "script/prepare-route-scheme/upload-route-scheme.ts", type: "ts" },
   { name: "Upload Post to DB", script: "script/upload-post/index.ts", type: "ts" },
   { name: "Change Post ID", script: "script/change-post-id/index.ts", type: "ts" },
   { name: "Publish Post", script: "script/publish/index.ts", type: "ts" },
   { name: "Cleanup Directory", script: "script/cleanup/index.ts", type: "ts" },
   { name: "Cleanup S3 Post Directory", script: "script/cleanup-s3-post/index.ts", type: "ts" },
-  { name: "Create POI (Interactive)", script: "script/create-poi/create-poi.sh", type: "sh" },
-  { name: "Create POI from Image EXIF", script: "script/create-poi-from-image/index.ts", type: "ts" },
+  { name: "Create POI (Interactive)", script: "script/create-poi/index.ts", type: "ts" },
+  { name: "Create POI from Image EXIF", script: "script/create-poi-from-image/create-poi-from-image.sh", type: "sh" },
 ];
 
 function main() {
   console.log("\n🚀 Fair Enough Trips - Master CLI\n");
-  
-  const options = tasks.map(t => t.name);
+
+  const options = tasks.map((t) => t.name);
   const index = readlineSync.keyInSelect(options, "What would you like to do?");
 
   if (index === -1) {

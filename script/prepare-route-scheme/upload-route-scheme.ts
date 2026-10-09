@@ -3,20 +3,16 @@ import path from "path";
 import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
 import Config from "../../src/Config";
+import { getOrSelectId, POSTS_ROOT } from "../utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 const MONGODB_URI = process.env.DB_URI;
 
-const args = process.argv.slice(2);
-const id = args[0];
-
-if (!id) {
-  console.error("❌ Error: No POI ID provided.");
-  process.exit(1);
-}
-
 (async () => {
-  const filePath = path.resolve(__dirname, `../../public/content/posts/${id}/route-scheme-points.json`);
+  const args = process.argv.slice(2);
+  const id = await getOrSelectId(args[0]);
+
+  const filePath = path.join(POSTS_ROOT, id, "route-scheme-points.json");
 
   try {
     // 1. Read and parse JSON
@@ -46,7 +42,7 @@ if (!id) {
 
     await mongoClient.close();
   } catch (err) {
-    console.error("❌ Failed to upload post.json to MongoDB:", err);
+    console.error("❌ Failed to upload route-scheme-points.json to MongoDB:", err);
     process.exit(1);
   }
 })();

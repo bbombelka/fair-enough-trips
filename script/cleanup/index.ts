@@ -7,13 +7,14 @@ import { getOrSelectId, POSTS_ROOT } from "../utils";
   const id = await getOrSelectId(args[0]);
 
   const dirPath = path.join(POSTS_ROOT, id);
-  const keepFiles = new Set(["main.webp", "mobile-main.webp", "track.zip", "poi.json", "thumb_main.webp", "topo.webp"]);
+  const keepFiles = new Set(["main.webp", "mobile-main.webp", "track.zip", "poi.json", "thumb_main.webp"]);
+  const isException = (file: string) => keepFiles.has(file) || file.startsWith("topo.");
 
   try {
     const files = await readdir(dirPath);
 
     const deletions = files.map(async (file) => {
-      if (!keepFiles.has(file)) {
+      if (!isException(file)) {
         const fullPath = path.join(dirPath, file);
         await unlink(fullPath);
         console.log(`🗑️ Deleted: ${file}`);
