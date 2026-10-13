@@ -7,7 +7,7 @@ import { getOrSelectId, POSTS_ROOT } from "../utils";
   const args = process.argv.slice(2);
   const id = await getOrSelectId(args[0]);
 
-  const directoryPath = path.resolve(__dirname);
+  const directoryPath = path.join(POSTS_ROOT, id);
   const outputPath = path.join(POSTS_ROOT, id, "poi.json");
 
   extractCoordinates(directoryPath, outputPath);
@@ -19,6 +19,7 @@ function extractCoordinates(directoryPath: string, outputPath: string) {
       console.error("Error reading directory:", err.message);
       return;
     }
+    console.log(files);
 
     const imageFiles = files.filter((f) => /\.(jpe?g|tiff?)$/i.test(f));
     const coordinates: Record<string, unknown>[] = [];
