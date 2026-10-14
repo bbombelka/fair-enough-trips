@@ -161,7 +161,7 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
   const data = await getPostData(id);
 
   return (
-    <>
+    <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data.richData) }} />
       <Navbar />
       {Boolean(data.parentPostData?.id) ? (
@@ -183,6 +183,6 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
         />
       )}
       <Footer isSticky />
-    </>
+    </div>
   );
 }
